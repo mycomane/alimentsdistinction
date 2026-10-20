@@ -26,7 +26,7 @@ jobs:
           echo "Temporary site HTTP check: $url"
           tmp="$(mktemp -d)"
           trap 'rm -rf "$tmp"' EXIT
-          status="$(curl -sSL --max-time 25 --max-redirs 3 -o "$tmp/page.html" -w '%{http_code}' "$url" || true)"
+          status="$(curl -sS --max-time 25 --max-redirs 0 -o "$tmp/page.html" -w '%{http_code}' "$url" || true)"
           echo "HTTP status: $status"
           if [ "$status" != '200' ]; then
             echo "::warning::Homepage did not return HTTP 200. This may be a temporary site access/coming-soon restriction."
@@ -41,4 +41,31 @@ jobs:
           if grep -qiE '(maintenance mode|coming soon|launch my site)' "$tmp/page.html"; then
             echo "::notice::Potential coming-soon or maintenance content detected."
           fi
+          python3 - "$tmp/page.html" <<'PYCODE'
+          from pathlib import Path
+          import re, sys, json
+          from html.parser import HTMLParser
+          class VisibleText(HTMLParser):
+              def __init__(self): super().__init__(); self.hidden=0; self.text=[]
+              def handle_starttag(self, tag, attrs):
+                  if tag in ('script','style'): self.hidden += 1
+              def handle_endtag(self, tag):
+                  if tag in ('script','style') and self.hidden: self.hidden -= 1
+              def handle_data(self, data):
+                  if not self.hidden: self.text.append(data)
+          html=Path(sys.argv[1]).read_text(errors='replace')
+          parser=VisibleText(); parser.feed(html)
+          text=' '.join(' '.join(parser.text).split()).lower()
+          markers={
+              'theme_assets': 'wp-content/themes/aliments-distinction/' in html,
+              'design_hero_markup': bool(re.search(r'class=["\'][^"\']*\bhero\b',html)),
+              'design_hero_text': 'que vous' in text and 'méritez' in text,
+              'coming_soon_in_text': 'coming soon' in text,
+              'maintenance_in_text': 'maintenance mode' in text,
+              'no_redirects_followed': True,
+          }
+          print('Public response classification (booleans only): '+json.dumps(markers))
+          if markers['design_hero_markup'] and markers['design_hero_text']:
+              print('::warning::Design homepage is visible anonymously; verify visibility protection before any further hosted changes. No visibility setting was changed by this probe.')
+          PYCODE
           echo "No user data, cookies, private credentials, or page content emitted."
