@@ -1,0 +1,49 @@
+name: Isolated WordPress and responsive QA (no GoDaddy access)
+on:
+  push:
+    branches: [feat/wordpress-woocommerce-theme]
+    paths:
+      - '.github/workflows/qa-wordpress-isolated.yml'
+      - 'scripts/qa/**'
+      - 'tests/woocommerce-integration.php'
+      - 'wordpress/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  isolated-qa:
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install official Ubuntu PHP test dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq php-cli php-sqlite3 php-xml php-mbstring php-curl php-gd
+      - name: Validate unchanged official design and theme syntax
+        run: python3 scripts/check-theme.py
+      - name: Prepare fresh WordPress and synthetic data on runner only
+        run: |
+          python3 scripts/qa/prepare.py
+          php scripts/qa/seed.php
+          php scripts/qa/fixtures.php
+      - name: Test native WooCommerce behavior in disposable database
+        env:
+          AD_ALLOW_TEST_FIXTURES: '1'
+          AD_TEST_HOST: '127.0.0.1:8787'
+        run: |
+          export AD_TEST_WP_ROOT="$RUNNER_TEMP/ad-isolated-qa/wordpress"
+          php tests/woocommerce-integration.php
+      - name: Install pinned Playwright for isolated browser tests
+        run: |
+          npm install --prefix "$RUNNER_TEMP/ad-qa-tools" playwright@1.56.1 --no-audit --no-fund
+          "$RUNNER_TEMP/ad-qa-tools/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Test responsive layout and synthetic cart HTTP session
+        run: |
+          php -S 127.0.0.1:8787 -t "$RUNNER_TEMP/ad-isolated-qa/wordpress" "$RUNNER_TEMP/ad-isolated-qa/router.php" > "$RUNNER_TEMP/ad-qa-php.log" 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          node scripts/qa/browser.cjs
