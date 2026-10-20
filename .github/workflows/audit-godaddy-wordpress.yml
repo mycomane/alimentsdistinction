@@ -17,7 +17,7 @@ jobs:
     name: Read-only temporary WordPress audit
     runs-on: ubuntu-latest
     environment: godaddy-temp
-    timeout-minutes: 6
+    timeout-minutes: 8
     env:
       SSH_HOST: 1302636.us22.ssh.myftpupload.com
       SSH_USERNAME: ${{ secrets.GODADDY_SSH_USERNAME }}
@@ -62,8 +62,8 @@ jobs:
           echo "== Temporary WordPress SSH audit =="
           php -r 'echo "PHP CLI version: ", PHP_VERSION, PHP_EOL;' 2>/dev/null || echo "PHP CLI unavailable"
           if ! command -v wp >/dev/null 2>&1; then
-            echo "WP-CLI unavailable; stopping read-only audit without changes."
-            exit 0
+            echo "::error::WP-CLI unavailable; audit incomplete."
+            exit 1
           fi
           root=""
           for candidate in "$PWD" "$HOME" "$HOME/html" "$HOME/public_html" "$PWD/html" "$PWD/public_html"; do
@@ -74,8 +74,8 @@ jobs:
             if [ -n "$found" ]; then root="$(dirname "$found")"; fi
           fi
           if [ -z "$root" ]; then
-            echo "WordPress root not located; no changes performed."
-            exit 0
+            echo "::error::WordPress root not located; audit incomplete."
+            exit 1
           fi
           siteurl="$(wp --path="$root" --skip-plugins --skip-themes option get siteurl 2>/dev/null || true)"
           if [ "$siteurl" != 'https://1302636.us22.myftpupload.com' ]; then
@@ -89,8 +89,26 @@ jobs:
           wp --path="$root" theme list --fields=name,status,version --format=table
           echo "== WooCommerce status =="
           wp --path="$root" plugin list --fields=name,status,version --format=table | grep -E '^(name|woocommerce)[[:space:]]' || true
+          echo "== Installed theme file identities (no file contents) =="
+          wp --path="$root" --skip-plugins --skip-themes eval '
+          $base = get_theme_root() . "/aliments-distinction/";
+          foreach (array("style.css", "functions.php", "front-page.php", "assets/css/design.css", "assets/css/commerce.css", "assets/js/theme.js") as $relative) {
+              $file = $base . $relative;
+              if (!is_file($file)) { fwrite(STDERR, "Missing theme file\n"); exit(1); }
+              echo $relative, " SHA256 ", hash_file("sha256", $file), "\n";
+          }
+          '
+          echo "== Page configuration (identifiers only, no customer data) =="
+          wp --path="$root" --skip-plugins --skip-themes eval '
+          foreach (array("show_on_front", "page_on_front", "woocommerce_shop_page_id", "woocommerce_cart_page_id", "woocommerce_checkout_page_id", "woocommerce_myaccount_page_id") as $key) {
+              $value = get_option($key, "not_set");
+              echo $key, "=", is_scalar($value) ? $value : "non_scalar", "\n";
+          }
+          $data = get_file_data(WP_PLUGIN_DIR . "/woocommerce/woocommerce.php", array("Version"=>"Version", "RequiresPHP"=>"Requires PHP", "RequiresWP"=>"Requires at least"));
+          foreach ($data as $key=>$value) { echo "WooCommerce ", $key, "=", $value, "\n"; }
+          '
           echo "== Rollback assessment =="
-          echo "Installed previous theme can potentially be reactivated, but a restore-ready GoDaddy backup cannot be validated over this read-only probe."
+          echo "Previous theme availability is listed above. Existing backup is not recreated or restored by this audit. Restore testing remains separate."
           echo "No backup created, and no theme, plugin, database, DNS, or payment setting modified."
           REMOTE
           unset SSHPASS
