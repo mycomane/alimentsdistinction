@@ -4,7 +4,7 @@
 
 Passation `WORK_HANDOFF_2026-10-20.md` lue intégralement. Thème 0.1.0 déjà activé; ne pas réinstaller. Mode Coming Soon à conserver. WooCommerce 11.2.1 inactif selon le dernier audit. Les opérations sur GoDaddy sont limitées à l’audit en lecture seule, via l’environnement protégé `godaddy-temp`.
 
-Preuves existantes vérifiées via les métadonnées GitHub Actions : installation `39504562223` réussie, y compris contrôle de sauvegarde et vérification du thème; contrôle HTTP public `39505088728` réussi au sens du job, mais Coming Soon empêche de conclure sur le rendu. Nouvel audit après activation : `39506364823`, en attente du reviewer au moment de cette rédaction.
+Preuves existantes vérifiées via les métadonnées GitHub Actions : installation `39504562223` réussie, y compris contrôle de sauvegarde et vérification du thème; contrôle HTTP public `39505088728` réussi au sens du job, mais Coming Soon empêche de conclure sur le rendu. Nouvel audit après activation : `39506364823`, approuvé puis terminé avec succès le 20 octobre 2026 à 19 h 18 (Toronto).
 
 Le code du thème et `index.html` sont inchangés depuis `cf17c10`. Les nouvelles modifications de cette phase concernent exclusivement l’audit, les tests et cette documentation. Aucune activation de WooCommerce sur GoDaddy.
 
@@ -95,10 +95,24 @@ Exécution : https://github.com/mycomane/alimentsdistinction/actions/runs/395071
 
 HTTP 200, 14 365 octets. Analyse sans émission du contenu : chemins du thème présents; classe du héro absente; texte du héro absent; texte Coming Soon présent. Cela confirme une réponse publique de type Coming Soon, même si ses ressources référencent le thème. Aucune redirection suivie, aucune option modifiée. L’état interne exact de la configuration GoDaddy reste à vérifier par l’accès protégé.
 
-### Audit distant en attente
+### Audit distant approuvé et réussi
 
-https://github.com/mycomane/alimentsdistinction/actions/runs/39506364823 attend la validation de `godaddy-temp` par son reviewer. Aucun état courant du thème actif, de WooCommerce ou des empreintes installées n’est encore conclu de cette nouvelle exécution. Ne pas remplacer cette approbation par un contournement, ni considérer les données de la passation comme un nouvel audit.
+https://github.com/mycomane/alimentsdistinction/actions/runs/39506364823 — succès, 20 octobre 2026 à 19 h 18 (Toronto).
+
+- Identité `siteurl` : URL temporaire autorisée confirmée.
+- WordPress 7.1.3; PHP CLI 8.2.34.
+- `aliments-distinction` 0.1.0 actif; `twentytwentyfive` 1.5 disponible et inactif.
+- WooCommerce 11.2.1 installé et inactif. Exigences déclarées de cette extension : PHP 7.4 minimum, WordPress 7.0 minimum; les versions WordPress et PHP CLI constatées satisfont ces minima. Cela ne valide pas le PHP web ni toutes les extensions requises.
+- Les six empreintes SHA256 de `style.css`, `functions.php`, `front-page.php`, `assets/css/design.css`, `assets/css/commerce.css` et `assets/js/theme.js` correspondent exactement aux fichiers de la version GitHub contrôlée.
+- `show_on_front=posts`, `page_on_front=0`; l’accueil est fourni par `front-page.php`.
+- Les options des quatre pages WooCommerce (catalogue, panier, commande et compte) sont absentes : aucune page WooCommerce n’est assignée. L’audit ne permet pas d’affirmer que des pages non assignées n’existent pas déjà.
+- Aucun fichier, thème, extension, réglage commercial ou visibilité modifié par cet audit.
+- Aucun nouveau test de restauration complète : la sauvegarde existante et ses limites restent celles de la passation. La disponibilité du thème précédent est confirmée.
 
 ### Prochaine décision
 
-Approuver l’audit en lecture seule dans GitHub. Après ses résultats, statuer séparément sur l’activation WooCommerce et la création éventuelle de pages/produits fictifs sur le temporaire. Aucune activation demandée ou exécutée automatiquement par les workflows de cette phase. Faire valider les adaptations de contraste et les contenus avant tout nouveau déploiement du thème.
+Autorisation distincte nécessaire pour activer WooCommerce 11.2.1 sur le seul temporaire et assigner les pages techniques; réutiliser les pages existantes si adaptées, sinon créer seulement les pages manquantes expressément autorisées. Cette approbation ne comprend ni produits, clients, commandes, paiements, taxes, devises, livraison ou assistant commercial. Conserver Coming Soon.
+
+Avant exécution : confirmer le PHP web et les prérequis applicables, vérifier la protection Coming Soon et prévoir une sauvegarde fraîche avec procédure de retour arrière comprise. Si ces conditions ne sont pas confirmables, arrêter avant mutation. La désactivation de WooCommerce seule ne restaure pas sa base.
+
+Les adaptations de contraste et de contenu demeurent des corrections à faire valider avant tout nouveau déploiement du thème.
