@@ -68,3 +68,37 @@ L’autorisation d’activation doit préciser si elle comprend les pages WooCom
 Retour arrière : la réactivation de Twenty Twenty-Five ne restaure pas les changements de base de WooCommerce. Une restauration de base correspondante ne doit être envisagée qu’après accord, vérification de la sauvegarde et absence de changements concurrents à préserver. La restauration complète antérieure n’a pas encore été testée.
 
 Référence activation : https://woocommerce.com/document/installing-uninstalling-woocommerce/
+
+
+## Résultats exécutés pendant cette phase
+
+### Recette isolée réussie
+
+Exécution : https://github.com/mycomane/alimentsdistinction/actions/runs/39506940563 — succès.
+
+- Versions : WordPress 7.1.3, WooCommerce 11.2.1, PHP 8.3.6 dans un runner jetable, pas le PHP GoDaddy.
+- 11 assertions PHP WooCommerce réussies et 31 assertions navigateur réussies; aucun `pageerror` signalé par ces scénarios.
+- Accueil testé aux largeurs 320, 390, 768, 1024 et 1440 px : largeur du document égale à celle du viewport, aucune image locale cassée détectée.
+- Menu testé à 320, 390 et 768 px : ouverture et fermeture clavier Échap.
+- Référence HTML et accueil WordPress : titre attendu présent; CSS et images d’origine identiques via contrôle statique.
+- Produit simple : formulaire natif; ajout de 2 unités puis navigation vers le panier; quantité conservée et sous-total 450; passage à 3 unités et sous-total 675 confirmé après requête HTTP.
+- Rupture : message présent et absence de bouton d’ajout sur le produit indisponible.
+- Variation : choix « 250 g » résolu en identifiant de variation réel.
+- Commande : formulaire présent; aucune méthode de paiement active; aucune soumission de commande.
+- Aucun produit de test ni client créé sur GoDaddy. Aucune capture/HTML authentifié publié.
+
+Ce succès est une recette automatisée ciblée, pas une comparaison pixel par pixel, un audit complet d’accessibilité ou une recette GoDaddy authentifiée. Le catalogue, les états vides, la pagination, toutes les variations et les blocs Panier/Commande demandent des scénarios complémentaires. Le scénario exécuté utilise les formulaires classiques. L’ajout effectif d’une variation a été vérifié côté PHP; côté navigateur, seule sa sélection a été vérifiée.
+
+### Visibilité du temporaire contrôlée sans authentification
+
+Exécution : https://github.com/mycomane/alimentsdistinction/actions/runs/39507124507 — succès.
+
+HTTP 200, 14 365 octets. Analyse sans émission du contenu : chemins du thème présents; classe du héro absente; texte du héro absent; texte Coming Soon présent. Cela confirme une réponse publique de type Coming Soon, même si ses ressources référencent le thème. Aucune redirection suivie, aucune option modifiée. L’état interne exact de la configuration GoDaddy reste à vérifier par l’accès protégé.
+
+### Audit distant en attente
+
+https://github.com/mycomane/alimentsdistinction/actions/runs/39506364823 attend la validation de `godaddy-temp` par son reviewer. Aucun état courant du thème actif, de WooCommerce ou des empreintes installées n’est encore conclu de cette nouvelle exécution. Ne pas remplacer cette approbation par un contournement, ni considérer les données de la passation comme un nouvel audit.
+
+### Prochaine décision
+
+Approuver l’audit en lecture seule dans GitHub. Après ses résultats, statuer séparément sur l’activation WooCommerce et la création éventuelle de pages/produits fictifs sur le temporaire. Aucune activation demandée ou exécutée automatiquement par les workflows de cette phase. Faire valider les adaptations de contraste et les contenus avant tout nouveau déploiement du thème.
