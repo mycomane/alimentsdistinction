@@ -1,0 +1,168 @@
+name: Install Aliments Distinction 0.1.0 on temporary WordPress ONLY
+
+on:
+  push:
+    branches:
+      - feat/wordpress-woocommerce-theme
+    paths:
+      - '.github/workflows/install-godaddy-temp-theme.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gd-temp-theme-install
+  cancel-in-progress: false
+
+jobs:
+  install:
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    name: Approval-gated temporary theme install with rollback
+    runs-on: ubuntu-latest
+    environment: godaddy-temp
+    timeout-minutes: 15
+    env:
+      SSH_HOST: 1302636.us22.ssh.myftpupload.com
+      SSH_USERNAME: ${{ secrets.GODADDY_SSH_USERNAME }}
+      SSH_PASSWORD: ${{ secrets.GODADDY_SSH_PASSWORD }}
+      PINNED_ED25519_SHA256: SHA256:oxYa4nr7BL5hXCIG5j/OOk54R6yNokpACBoa3tn+Kp4
+    steps:
+      - name: Check out authorized branch without persisting credentials
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate and package theme 0.1.0
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "feat/wordpress-woocommerce-theme"
+          python3 scripts/check-theme.py
+          python3 scripts/package-theme.py
+          test -s dist/aliments-distinction-0.1.0.zip
+          python3 - <<'PY'
+          import zipfile
+          p="dist/aliments-distinction-0.1.0.zip"
+          with zipfile.ZipFile(p) as z:
+              names=z.namelist()
+              assert names and all(x.startswith("aliments-distinction/") for x in names)
+              assert "aliments-distinction/style.css" in names
+              assert "aliments-distinction/functions.php" in names
+              assert "aliments-distinction/front-page.php" in names
+          print("Theme-only archive verified")
+          PY
+      - name: Validate SSH host fingerprint without sending credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.ssh"
+          chmod 700 "$HOME/.ssh"
+          timeout 18 ssh-keyscan -T 10 -t ed25519 -p 22 "$SSH_HOST" > "$HOME/.ssh/known_hosts" 2>/dev/null
+          test -s "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+          seen="$(ssh-keygen -lf "$HOME/.ssh/known_hosts" -E sha256 | awk '{print $2}')"
+          test "$seen" = "$PINNED_ED25519_SHA256"
+      - name: Install SSH password helper
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq sshpass
+      - name: Verify authorized site and existing private restore package (read-only)
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$SSH_USERNAME" && test -n "$SSH_PASSWORD"
+          export SSHPASS="$SSH_PASSWORD"
+          sshpass -e ssh -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts" \
+            -o PreferredAuthentications=password -o PubkeyAuthentication=no \
+            -o NumberOfPasswordPrompts=1 -o ConnectTimeout=12 \
+            -p 22 "$SSH_USERNAME@$SSH_HOST" 'sh -s' <<'REMOTE'
+          set -eu
+          root=""
+          for c in "$PWD" "$HOME" "$HOME/html" "$HOME/public_html" "$PWD/html" "$PWD/public_html"; do
+            if [ -f "$c/wp-load.php" ]; then root="$c"; break; fi
+          done
+          if [ -z "$root" ]; then
+            f="$(find "$HOME" -maxdepth 4 -type f -name wp-load.php -print -quit 2>/dev/null || true)"
+            [ -z "$f" ] || root="$(dirname "$f")"
+          fi
+          [ -n "$root" ] || { echo "WordPress root not found"; exit 1; }
+          root="$(cd "$root" && pwd -P)"
+          url="$(wp --path="$root" --skip-plugins --skip-themes option get siteurl 2>/dev/null || true)"
+          [ "$url" = "https://1302636.us22.myftpupload.com" ] || { echo "Site identity mismatch"; exit 1; }
+          current="$(wp --path="$root" theme list --status=active --field=name)"
+          [ "$current" = twentytwentyfive ] || { echo "Unexpected active theme; stop"; exit 1; }
+          [ ! -e "$root/wp-content/themes/aliments-distinction" ] || { echo "New theme already installed; stop rather than overwrite"; exit 1; }
+          backup="$HOME/.ad-private-backups/ad-temp-20261020-215554"
+          [ -d "$backup" ] || { echo "Approved backup missing"; exit 1; }
+          [ -s "$backup/site-files.tar.gz" ] && [ -s "$backup/database.sql.gz" ] || { echo "Backup incomplete"; exit 1; }
+          (cd "$backup" && sha256sum -c SHA256SUMS >/dev/null)
+          gzip -t "$backup/database.sql.gz"
+          tar -tzf "$backup/site-files.tar.gz" >/dev/null
+          echo "PASS: exact temporary site, previous theme, and backup integrity confirmed"
+          REMOTE
+      - name: Upload only the installable theme ZIP to private home folder
+        shell: bash
+        run: |
+          set -euo pipefail
+          export SSHPASS="$SSH_PASSWORD"
+          sshpass -e scp \
+            -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$HOME/.ssh/known_hosts" \
+            -o PreferredAuthentications=password -o PubkeyAuthentication=no \
+            -o NumberOfPasswordPrompts=1 -o ConnectTimeout=12 \
+            -P 22 dist/aliments-distinction-0.1.0.zip \
+            "$SSH_USERNAME@$SSH_HOST:.ad-theme-candidate-$GITHUB_RUN_ID.zip"
+      - name: Install, activate, verify, automatically revert previous theme on failure
+        shell: bash
+        run: |
+          set -euo pipefail
+          export SSHPASS="$SSH_PASSWORD"
+          sshpass -e ssh -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts" \
+            -o PreferredAuthentications=password -o PubkeyAuthentication=no \
+            -o NumberOfPasswordPrompts=1 -o ConnectTimeout=12 \
+            -p 22 "$SSH_USERNAME@$SSH_HOST" "sh -s -- '$GITHUB_RUN_ID'" <<'REMOTE'
+          set -eu
+          run_id="$1"
+          candidate="$HOME/.ad-theme-candidate-$run_id.zip"
+          root=""
+          for c in "$PWD" "$HOME" "$HOME/html" "$HOME/public_html" "$PWD/html" "$PWD/public_html"; do
+            if [ -f "$c/wp-load.php" ]; then root="$c"; break; fi
+          done
+          if [ -z "$root" ]; then
+            f="$(find "$HOME" -maxdepth 4 -type f -name wp-load.php -print -quit 2>/dev/null || true)"
+            [ -z "$f" ] || root="$(dirname "$f")"
+          fi
+          [ -n "$root" ] || exit 1
+          root="$(cd "$root" && pwd -P)"
+          url="$(wp --path="$root" --skip-plugins --skip-themes option get siteurl 2>/dev/null || true)"
+          [ "$url" = "https://1302636.us22.myftpupload.com" ] || { echo "Site identity mismatch. Refusing changes."; exit 1; }
+          old_theme="$(wp --path="$root" theme list --status=active --field=name)"
+          [ "$old_theme" = twentytwentyfive ] || { echo "Old theme changed; refusing changes."; exit 1; }
+          [ -s "$candidate" ] || { echo "Theme ZIP missing"; exit 1; }
+          [ ! -e "$root/wp-content/themes/aliments-distinction" ] || { echo "Refusing overwrite"; exit 1; }
+          backup="$HOME/.ad-private-backups/ad-temp-20261020-215554"
+          (cd "$backup" && sha256sum -c SHA256SUMS >/dev/null) || { echo "Backup changed"; exit 1; }
+          rollback() {
+            code="$?"
+            trap - EXIT
+            if [ "$code" -ne 0 ]; then
+              echo "FAILED: restoring previous active theme"
+              wp --path="$root" theme activate "$old_theme" >/dev/null 2>&1 || echo "WARNING: manual theme rollback required"
+            fi
+            rm -f -- "$candidate"
+            exit "$code"
+          }
+          trap rollback EXIT
+          wp --path="$root" theme install "$candidate"
+          [ -f "$root/wp-content/themes/aliments-distinction/functions.php" ] || exit 1
+          [ -f "$root/wp-content/themes/aliments-distinction/front-page.php" ] || exit 1
+          wp --path="$root" theme activate aliments-distinction
+          current="$(wp --path="$root" theme list --status=active --field=name)"
+          [ "$current" = aliments-distinction ] || { echo "Activation not confirmed"; exit 1; }
+          wp --path="$root" eval 'if (get_stylesheet() !== "aliments-distinction" || !function_exists("ad_asset")) { exit(1); } echo "New theme bootstraps successfully.\n";'
+          finalurl="$(wp --path="$root" --skip-plugins --skip-themes option get siteurl)"
+          [ "$finalurl" = "https://1302636.us22.myftpupload.com" ] || exit 1
+          echo "SUCCESS: Aliments Distinction theme 0.1.0 active on temporary WordPress only."
+          echo "WooCommerce was not activated or configured; no payments, DNS, domain, Zoho, or live site changes."
+          REMOTE
