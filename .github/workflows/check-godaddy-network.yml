@@ -1,0 +1,34 @@
+name: Verify temporary GoDaddy SSH connectivity
+
+on:
+  push:
+    branches:
+      - feat/wordpress-woocommerce-theme
+    paths:
+      - '.github/workflows/check-godaddy-network.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    name: DNS and TCP only - no login or deployment
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: DNS lookup for temporary GoDaddy SSH endpoint
+        shell: bash
+        run: |
+          set -euo pipefail
+          host="1302636.us22.ssh.myftpupload.com"
+          echo "Resolving $host"
+          getent ahostsv4 "$host" | head -n 3
+      - name: Test TCP port 22 without authenticating
+        shell: bash
+        run: |
+          set -euo pipefail
+          host="1302636.us22.ssh.myftpupload.com"
+          echo "Checking TCP reachability on port 22 only..."
+          timeout 10 bash -c 'echo > /dev/tcp/"$1"/22' bash "$host"
+          echo "TCP port 22 reachable. No authentication attempted."
