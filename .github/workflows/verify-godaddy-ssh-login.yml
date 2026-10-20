@@ -1,4 +1,4 @@
-name: Identify GoDaddy temporary SSH host (no credentials)
+name: Verify temporary GoDaddy SSH login (read-only)
 
 on:
   push:
@@ -12,23 +12,60 @@ permissions:
   contents: read
 
 jobs:
-  fingerprint:
-    name: Discover SSH host fingerprint without using secrets
+  verify:
+    name: Approved SSH authentication only - no deployment
     if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    environment: godaddy-temp
+    timeout-minutes: 5
+    env:
+      SSH_HOST: 1302636.us22.ssh.myftpupload.com
+      SSH_USERNAME: ${{ secrets.GODADDY_SSH_USERNAME }}
+      SSH_PASSWORD: ${{ secrets.GODADDY_SSH_PASSWORD }}
+      # Pinned from initial read-only GitHub Actions fingerprint discovery.
+      # For maximum assurance, independently confirm it with the hosting provider.
+      PINNED_ED25519_SHA256: 'SHA256:oxYa4nr7BL5hXCIG5j/OOk54R6yNokpACBoa3tn+Kp4'
     steps:
-      - name: Discover offered SSH host fingerprints without authenticating
+      - name: Ensure credentials are configured (no values printed)
         shell: bash
         run: |
           set -euo pipefail
-          host='1302636.us22.ssh.myftpupload.com'
-          echo "Checking SSH host identity for $host"
-          getent ahostsv4 "$host" | head -n 1
-          file="$(mktemp)"
-          trap 'rm -f "$file"' EXIT
-          timeout 20 ssh-keyscan -T 10 -p 22 "$host" > "$file" 2>/dev/null
-          test -s "$file"
-          echo "Unverified SSH host-key fingerprints (compare through a trusted source before authenticating):"
-          ssh-keygen -lf "$file" -E sha256
-          echo "Probe complete. No credentials were accessed; no remote commands or deployment performed."
+          if [ -z "$SSH_USERNAME" ] || [ -z "$SSH_PASSWORD" ]; then
+            echo "::error::Missing godaddy-temp environment secrets: GODADDY_SSH_USERNAME or GODADDY_SSH_PASSWORD"
+            exit 1
+          fi
+      - name: Validate pinned ED25519 SSH host identity before password authentication
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.ssh"
+          chmod 700 "$HOME/.ssh"
+          timeout 18 ssh-keyscan -T 10 -t ed25519 -p 22 "$SSH_HOST" > "$HOME/.ssh/known_hosts" 2>/dev/null
+          test -s "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+          observed="$(ssh-keygen -lf "$HOME/.ssh/known_hosts" -E sha256 | awk '{print $2}')"
+          if [ "$observed" != "$PINNED_ED25519_SHA256" ]; then
+            echo "::error::Host identity mismatch; refusing to send credentials."
+            exit 1
+          fi
+          echo "Pinned server identity matches initial observation."
+      - name: Install SSH password client
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq sshpass
+      - name: Authenticate and execute no-op only
+        shell: bash
+        run: |
+          set -euo pipefail
+          export SSHPASS="$SSH_PASSWORD"
+          sshpass -e ssh \
+            -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts" \
+            -o PreferredAuthentications=password \
+            -o PubkeyAuthentication=no \
+            -o NumberOfPasswordPrompts=1 \
+            -o ConnectTimeout=12 \
+            -p 22 "$SSH_USERNAME@$SSH_HOST" 'true'
+          unset SSHPASS
+          echo "SSH authentication succeeded. No deployment or site changes performed."
