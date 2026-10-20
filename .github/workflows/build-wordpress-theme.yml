@@ -1,0 +1,63 @@
+name: Build Aliments Distinction theme (no deployment)
+
+on:
+  push:
+    branches:
+      - feat/wordpress-woocommerce-theme
+    paths:
+      - '.github/workflows/build-wordpress-theme.yml'
+      - 'wordpress/**'
+      - 'scripts/check-theme.py'
+      - 'scripts/package-theme.py'
+      - 'index.html'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-package:
+    name: Validate and package theme only
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out authorized development branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify branch and tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "feat/wordpress-woocommerce-theme"
+          php --version
+          node --version
+          python3 --version
+      - name: Validate PHP JS assets and design fidelity
+        run: python3 scripts/check-theme.py
+      - name: Package installable WordPress theme ZIP
+        run: python3 scripts/package-theme.py
+      - name: Check archive content before upload
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          archive = Path("dist/aliments-distinction-0.1.0.zip")
+          assert archive.is_file() and archive.stat().st_size > 0
+          with ZipFile(archive) as z:
+              names = z.namelist()
+              assert names and all(p.startswith("aliments-distinction/") for p in names)
+              assert "aliments-distinction/style.css" in names
+              assert "aliments-distinction/functions.php" in names
+              assert "aliments-distinction/front-page.php" in names
+          print(f"Theme archive is valid: {archive.stat().st_size} bytes")
+          PY
+      - name: Publish artifact for review (no GoDaddy access)
+        uses: actions/upload-artifact@v4
+        with:
+          name: aliments-distinction-theme-0.1.0
+          path: dist/aliments-distinction-0.1.0.zip
+          if-no-files-found: error
+          retention-days: 14
