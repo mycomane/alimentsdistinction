@@ -52,7 +52,8 @@ const pauseUntilReady = () => new Promise((resolve, reject) => {
   assert(await page.locator('button.single_add_to_cart_button').count()===0,'Out-of-stock cannot be added');
   await page.goto(`${base}/?p=${ids.variable}&post_type=product`,{waitUntil:'networkidle'});
   await page.locator('select[name="attribute_portion"]').selectOption({label:'250 g'});
-  assert(await page.locator('input.variation_id').inputValue()!=='0','Variation selection resolves product id');
+  await page.waitForFunction(()=>Number(document.querySelector('input.variation_id')?.value)>0);
+  assert(Number(await page.locator('input.variation_id').inputValue())>0,'Variation selection resolves product id');
   await page.goto(`${base}/?page_id=${ids.checkout}`,{waitUntil:'networkidle'});
   assert(await page.locator('form.checkout').count()===1,'Checkout form rendered');
   assert(await page.locator('input[name="payment_method"]').count()===0,'No payment method enabled');
