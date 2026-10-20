@@ -1,0 +1,158 @@
+name: Backup temporary WordPress (private on-server, no deployment)
+
+on:
+  push:
+    branches:
+      - feat/wordpress-woocommerce-theme
+    paths:
+      - '.github/workflows/backup-godaddy-temp.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    name: Create and validate private restore package for temporary WordPress
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    runs-on: ubuntu-latest
+    environment: godaddy-temp
+    timeout-minutes: 15
+    env:
+      SSH_HOST: 1302636.us22.ssh.myftpupload.com
+      SSH_USERNAME: ${{ secrets.GODADDY_SSH_USERNAME }}
+      SSH_PASSWORD: ${{ secrets.GODADDY_SSH_PASSWORD }}
+      PINNED_ED25519_SHA256: SHA256:oxYa4nr7BL5hXCIG5j/OOk54R6yNokpACBoa3tn+Kp4
+    steps:
+      - name: Require configured credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$SSH_USERNAME" && test -n "$SSH_PASSWORD"
+      - name: Check SSH host identity against previously observed key
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.ssh"
+          chmod 700 "$HOME/.ssh"
+          timeout 18 ssh-keyscan -T 10 -t ed25519 -p 22 "$SSH_HOST" > "$HOME/.ssh/known_hosts" 2>/dev/null
+          test -s "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+          actual="$(ssh-keygen -lf "$HOME/.ssh/known_hosts" -E sha256 | awk '{print $2}')"
+          [ "$actual" = "$PINNED_ED25519_SHA256" ] || { echo "::error::SSH host identity mismatch"; exit 1; }
+      - name: Install SSH password client
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq sshpass
+      - name: Create and verify private backup on GoDaddy hosting only
+        shell: bash
+        run: |
+          set -euo pipefail
+          export SSHPASS="$SSH_PASSWORD"
+          sshpass -e ssh \
+            -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts" \
+            -o PreferredAuthentications=password \
+            -o PubkeyAuthentication=no \
+            -o NumberOfPasswordPrompts=1 \
+            -o ConnectTimeout=12 \
+            -p 22 "$SSH_USERNAME@$SSH_HOST" 'sh -s' <<'REMOTE'
+          set -eu
+          umask 077
+          echo "Checking authorized temporary WordPress installation."
+          command -v wp >/dev/null 2>&1 || { echo "WP-CLI unavailable; stopping."; exit 1; }
+          command -v tar >/dev/null 2>&1 || { echo "tar unavailable; stopping."; exit 1; }
+          command -v gzip >/dev/null 2>&1 || { echo "gzip unavailable; stopping."; exit 1; }
+          command -v sha256sum >/dev/null 2>&1 || { echo "sha256sum unavailable; stopping."; exit 1; }
+          root=""
+          for candidate in "$PWD" "$HOME" "$HOME/html" "$HOME/public_html" "$PWD/html" "$PWD/public_html"; do
+            if [ -f "$candidate/wp-load.php" ]; then root="$candidate"; break; fi
+          done
+          if [ -z "$root" ]; then
+            found="$(find "$HOME" -maxdepth 4 -type f -name wp-load.php -print -quit 2>/dev/null || true)"
+            [ -z "$found" ] || root="$(dirname "$found")"
+          fi
+          [ -n "$root" ] || { echo "WordPress root not found. No backup attempted."; exit 1; }
+          root="$(cd "$root" && pwd -P)"
+          url="$(wp --path="$root" --skip-plugins --skip-themes option get siteurl 2>/dev/null || true)"
+          [ "$url" = "https://1302636.us22.myftpupload.com" ] || { echo "Unexpected site URL. Stopping without changes."; exit 1; }
+          [ -d "$root/wp-content" ] && [ -f "$root/wp-load.php" ] || { echo "Incomplete WordPress root. Stopping."; exit 1; }
+          home="$(cd "$HOME" && pwd -P)"
+          case "$home/" in "$root/"*) echo "Backup home lies in the public document root. Stopping."; exit 1;; esac
+          backup_dir="$home/.ad-private-backups"
+          case "$backup_dir/" in "$root/"*) echo "Backup destination is inside public document root. Stopping."; exit 1;; esac
+          # Prevent accidentally backing up symlinks that point outside the WordPress root.
+          if ! find "$root" -type l -print | while IFS= read -r link; do
+            target="$(readlink -f "$link" 2>/dev/null || true)"
+            case "$target" in "$root/"*) :;; *) echo "External or broken symlink detected; cannot claim a standalone restore package."; exit 1;; esac
+          done; then
+            echo "WordPress includes files outside the backup root; stopping."
+            exit 1
+          fi
+          if [ ! -f "$root/wp-config.php" ] && [ ! -f "$root/../wp-config.php" ]; then
+            echo "wp-config.php not found in standard paths; stopping."
+            exit 1
+          fi
+          size_kb="$(du -sk "$root" | awk '{print $1}')"
+          free_kb="$(df -Pk "$home" | awk 'NR==2 {print $4}')"
+          case "$free_kb" in ""|*[!0-9]*) echo "Cannot validate available storage"; exit 1;; esac
+          need_kb=$((size_kb * 2 + 102400))
+          [ "$free_kb" -gt "$need_kb" ] || { echo "Insufficient free disk space for backup and validation"; exit 1; }
+          mkdir -p "$backup_dir"
+          chmod 700 "$backup_dir"
+          stage="$(mktemp -d "$backup_dir/.incomplete-XXXXXXXX")"
+          cleanup() { if [ -n "$stage" ] && [ -d "$stage" ]; then rm -rf -- "$stage"; fi; }
+          trap cleanup EXIT HUP INT TERM
+          echo "Exporting temporary WordPress database privately."
+          if ! wp --path="$root" --skip-plugins --skip-themes db export "$stage/database.sql" >/dev/null 2>&1; then
+            echo "Database export failed; discarding incomplete backup."
+            exit 1
+          fi
+          [ -s "$stage/database.sql" ] || { echo "Database export was empty."; exit 1; }
+          grep -q 'CREATE TABLE' "$stage/database.sql" || { echo "Database dump has no CREATE TABLE statements."; exit 1; }
+          gzip -n "$stage/database.sql"
+          echo "Archiving site files to a non-public directory."
+          tar -C "$root" -czf "$stage/site-files.tar.gz" .
+          tar -tzf "$stage/site-files.tar.gz" >/dev/null
+          tar -tzf "$stage/site-files.tar.gz" | grep -q '^./wp-load.php$'
+          tar -tzf "$stage/site-files.tar.gz" | grep -q '^./wp-content/'
+          gzip -t "$stage/database.sql.gz"
+          if [ ! -f "$root/wp-config.php" ]; then
+            cp "$root/../wp-config.php" "$stage/parent-wp-config.php"
+            chmod 600 "$stage/parent-wp-config.php"
+          fi
+          cat > "$stage/RESTORE-READ-ME.txt" <<'INSTRUCTIONS'
+          Backup for https://1302636.us22.myftpupload.com ONLY.
+          Contents: site-files.tar.gz (WordPress document root),
+                    database.sql.gz (database SQL export),
+                    optional parent-wp-config.php,
+                    SHA256SUMS (integrity checks).
+          This is a private on-server rollback package, not an offsite disaster-recovery backup.
+          Before restoring: identify the same temporary site's document root and database;
+          obtain explicit approval for destructive file/database restoration; suspend writers;
+          take another backup if possible; verify SHA256SUMS. Restore files to the exact
+          original document root, restore the optional parent wp-config.php to the
+          original parent directory, then import SQL via WP-CLI with carefully
+          verified --path. Recheck site URL and WooCommerce settings.
+          No restoration was executed in preparing this package.
+          INSTRUCTIONS
+          (
+            cd "$stage"
+            sha256sum site-files.tar.gz database.sql.gz > SHA256SUMS
+            if [ -f parent-wp-config.php ]; then sha256sum parent-wp-config.php >> SHA256SUMS; fi
+            sha256sum -c SHA256SUMS >/dev/null
+          )
+          chmod 600 "$stage"/*
+          stamp="$(date -u '+%Y%m%d-%H%M%S')"
+          dest="$backup_dir/ad-temp-$stamp"
+          [ ! -e "$dest" ] || { echo "Backup destination collision; stopping."; exit 1; }
+          mv "$stage" "$dest"
+          stage=""
+          chmod 700 "$dest"
+          echo "SUCCESS: encrypted-at-rest status not verified; private backup directory created outside WordPress document root."
+          echo "Backup folder: $dest"
+          echo "Files archive, SQL database dump, README and SHA256 checks are present and verified."
+          echo "No restore was attempted. No site settings, active theme, plugins, DNS, or payment configuration were changed."
+          REMOTE
+          unset SSHPASS
