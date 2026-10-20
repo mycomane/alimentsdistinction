@@ -1,58 +1,34 @@
-name: Verify temporary GoDaddy SSH login (read-only)
+name: Identify GoDaddy temporary SSH host (no credentials)
 
 on:
+  push:
+    branches:
+      - feat/wordpress-woocommerce-theme
+    paths:
+      - '.github/workflows/verify-godaddy-ssh-login.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  verify:
-    name: Authenticate only - no files or deployment
+  fingerprint:
+    name: Discover SSH host fingerprint without using secrets
     if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
     runs-on: ubuntu-latest
-    environment: godaddy-temp
-    timeout-minutes: 5
-    env:
-      SSH_HOST: 1302636.us22.ssh.myftpupload.com
-      SSH_USERNAME: ${{ secrets.GODADDY_SSH_USERNAME }}
-      SSH_PASSWORD: ${{ secrets.GODADDY_SSH_PASSWORD }}
+    timeout-minutes: 3
     steps:
-      - name: Confirm credentials are configured
+      - name: Discover offered SSH host fingerprints without authenticating
         shell: bash
         run: |
           set -euo pipefail
-          if [ -z "$SSH_USERNAME" ] || [ -z "$SSH_PASSWORD" ]; then
-            echo "::error::Missing godaddy-temp environment secrets: GODADDY_SSH_USERNAME / GODADDY_SSH_PASSWORD"
-            exit 1
-          fi
-      - name: Check SSH host key and network (TOFU; confirm fingerprint separately)
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p "$HOME/.ssh"
-          chmod 700 "$HOME/.ssh"
-          timeout 15 ssh-keyscan -T 10 -p 22 "$SSH_HOST" > "$HOME/.ssh/known_hosts" 2>/dev/null
-          test -s "$HOME/.ssh/known_hosts"
-          chmod 600 "$HOME/.ssh/known_hosts"
-          ssh-keygen -lf "$HOME/.ssh/known_hosts"
-      - name: Install SSH password helper
-        shell: bash
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq sshpass
-      - name: Verify SSH authentication without changes
-        shell: bash
-        run: |
-          set -euo pipefail
-          export SSHPASS="$SSH_PASSWORD"
-          sshpass -e ssh \
-            -o StrictHostKeyChecking=yes \
-            -o UserKnownHostsFile="$HOME/.ssh/known_hosts" \
-            -o PreferredAuthentications=password \
-            -o PubkeyAuthentication=no \
-            -o NumberOfPasswordPrompts=1 \
-            -o ConnectTimeout=12 \
-            -p 22 "$SSH_USERNAME@$SSH_HOST" 'true'
-          unset SSHPASS
-          echo "SSH authentication successful. No remote changes or deployments were made."
+          host='1302636.us22.ssh.myftpupload.com'
+          echo "Checking SSH host identity for $host"
+          getent ahostsv4 "$host" | head -n 1
+          file="$(mktemp)"
+          trap 'rm -f "$file"' EXIT
+          timeout 20 ssh-keyscan -T 10 -p 22 "$host" > "$file" 2>/dev/null
+          test -s "$file"
+          echo "Unverified SSH host-key fingerprints (compare through a trusted source before authenticating):"
+          ssh-keygen -lf "$file" -E sha256
+          echo "Probe complete. No credentials were accessed; no remote commands or deployment performed."
