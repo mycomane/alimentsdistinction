@@ -1,0 +1,96 @@
+name: Audit temporary WordPress over SSH (read-only)
+
+on:
+  push:
+    branches:
+      - feat/wordpress-woocommerce-theme
+    paths:
+      - '.github/workflows/audit-godaddy-wordpress.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    name: Read-only temporary WordPress audit
+    runs-on: ubuntu-latest
+    environment: godaddy-temp
+    timeout-minutes: 6
+    env:
+      SSH_HOST: 1302636.us22.ssh.myftpupload.com
+      SSH_USERNAME: ${{ secrets.GODADDY_SSH_USERNAME }}
+      SSH_PASSWORD: ${{ secrets.GODADDY_SSH_PASSWORD }}
+      PINNED_FINGERPRINT: 'SHA256:oxYa4nr7BL5hXCIG5j/OOk54R6yNokpACBoa3tn+Kp4'
+    steps:
+      - name: Check environment secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$SSH_USERNAME" && test -n "$SSH_PASSWORD"
+      - name: Verify pinned SSH server identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.ssh"
+          chmod 700 "$HOME/.ssh"
+          timeout 18 ssh-keyscan -T 10 -t ed25519 -p 22 "$SSH_HOST" > "$HOME/.ssh/known_hosts" 2>/dev/null
+          test -s "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+          observed="$(ssh-keygen -lf "$HOME/.ssh/known_hosts" -E sha256 | awk '{print $2}')"
+          [ "$observed" = "$PINNED_FINGERPRINT" ] || { echo "::error::Unexpected SSH host key"; exit 1; }
+      - name: Install SSH client for existing SFTP credentials
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq sshpass
+      - name: Read WordPress identity and configuration, without modifying it
+        shell: bash
+        run: |
+          set -euo pipefail
+          export SSHPASS="$SSH_PASSWORD"
+          sshpass -e ssh \
+            -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts" \
+            -o PreferredAuthentications=password \
+            -o PubkeyAuthentication=no \
+            -o NumberOfPasswordPrompts=1 \
+            -o ConnectTimeout=12 \
+            -p 22 "$SSH_USERNAME@$SSH_HOST" 'sh -s' <<'REMOTE'
+          set -eu
+          echo "== Temporary WordPress SSH audit =="
+          php -r 'echo "PHP CLI version: ", PHP_VERSION, PHP_EOL;' 2>/dev/null || echo "PHP CLI unavailable"
+          if ! command -v wp >/dev/null 2>&1; then
+            echo "WP-CLI unavailable; stopping read-only audit without changes."
+            exit 0
+          fi
+          root=""
+          for candidate in "$PWD" "$HOME" "$HOME/html" "$HOME/public_html" "$PWD/html" "$PWD/public_html"; do
+            if [ -f "$candidate/wp-load.php" ]; then root="$candidate"; break; fi
+          done
+          if [ -z "$root" ]; then
+            found="$(find "$HOME" -maxdepth 4 -type f -name wp-load.php -print -quit 2>/dev/null || true)"
+            if [ -n "$found" ]; then root="$(dirname "$found")"; fi
+          fi
+          if [ -z "$root" ]; then
+            echo "WordPress root not located; no changes performed."
+            exit 0
+          fi
+          siteurl="$(wp --path="$root" --skip-plugins --skip-themes option get siteurl 2>/dev/null || true)"
+          if [ "$siteurl" != 'https://1302636.us22.myftpupload.com' ]; then
+            echo "::error::Site URL is not the authorized temporary site. No further inspection."
+            exit 1
+          fi
+          echo "Authorized temporary site URL confirmed."
+          echo "== WordPress version =="
+          wp --path="$root" core version
+          echo "== Active and installed themes =="
+          wp --path="$root" theme list --fields=name,status,version --format=table
+          echo "== WooCommerce status =="
+          wp --path="$root" plugin list --fields=name,status,version --format=table | grep -E '^(name|woocommerce)[[:space:]]' || true
+          echo "== Rollback assessment =="
+          echo "Installed previous theme can potentially be reactivated, but a restore-ready GoDaddy backup cannot be validated over this read-only probe."
+          echo "No backup created, and no theme, plugin, database, DNS, or payment setting modified."
+          REMOTE
+          unset SSHPASS
