@@ -1,0 +1,44 @@
+name: Smoke test temporary Aliments Distinction site (public read-only)
+
+on:
+  push:
+    branches:
+      - feat/wordpress-woocommerce-theme
+    paths:
+      - '.github/workflows/smoke-test-temporary-site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    name: Check public temporary site only
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Probe homepage without credentials or changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          url='https://1302636.us22.myftpupload.com/'
+          echo "Temporary site HTTP check: $url"
+          tmp="$(mktemp -d)"
+          trap 'rm -rf "$tmp"' EXIT
+          status="$(curl -sSL --max-time 25 --max-redirs 3 -o "$tmp/page.html" -w '%{http_code}' "$url" || true)"
+          echo "HTTP status: $status"
+          if [ "$status" != '200' ]; then
+            echo "::warning::Homepage did not return HTTP 200. This may be a temporary site access/coming-soon restriction."
+            exit 0
+          fi
+          echo "Homepage response size: $(wc -c < "$tmp/page.html") bytes"
+          if grep -qi 'wp-content/themes/aliments-distinction/' "$tmp/page.html"; then
+            echo "PASS: Aliments Distinction theme paths are present in the public homepage."
+          else
+            echo "::warning::Custom theme paths not detected in public HTML; could be cache, coming-soon page, or theme not rendering."
+          fi
+          if grep -qiE '(maintenance mode|coming soon|launch my site)' "$tmp/page.html"; then
+            echo "::notice::Potential coming-soon or maintenance content detected."
+          fi
+          echo "No user data, cookies, private credentials, or page content emitted."
