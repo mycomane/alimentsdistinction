@@ -1,0 +1,70 @@
+name: Approved WooCommerce activation on temporary WordPress only
+on:
+  push:
+    branches: [feat/wordpress-woocommerce-theme]
+    paths:
+      - '.github/workflows/enable-woocommerce-temp.yml'
+permissions:
+  contents: read
+concurrency:
+  group: gd-temp-site-mutation
+  cancel-in-progress: false
+jobs:
+  activate:
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    name: Verify web PHP and backup then activate WooCommerce and four pages
+    runs-on: ubuntu-latest
+    environment: godaddy-temp
+    timeout-minutes: 20
+    env:
+      SSH_HOST: 1302636.us22.ssh.myftpupload.com
+      SSH_USERNAME: ${{ secrets.GODADDY_SSH_USERNAME }}
+      SSH_PASSWORD: ${{ secrets.GODADDY_SSH_PASSWORD }}
+      PINNED_FINGERPRINT: 'SHA256:oxYa4nr7BL5hXCIG5j/OOk54R6yNokpACBoa3tn+Kp4'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate exact scoped operations before any connection
+        run: |
+          test "$GITHUB_REF_NAME" = feat/wordpress-woocommerce-theme
+          bash -n scripts/ops/enable-woocommerce-temp.sh
+          php -l scripts/ops/woocommerce-stage.php
+          tar -czf "$RUNNER_TEMP/ad-wc-ops.tar.gz" scripts/ops/enable-woocommerce-temp.sh scripts/ops/woocommerce-stage.php
+      - name: Verify pinned SSH identity
+        run: |
+          set -euo pipefail
+          test -n "$SSH_USERNAME" && test -n "$SSH_PASSWORD"
+          mkdir -p "$HOME/.ssh"
+          chmod 700 "$HOME/.ssh"
+          timeout 18 ssh-keyscan -T 10 -t ed25519 -p 22 "$SSH_HOST" > "$HOME/.ssh/known_hosts" 2>/dev/null
+          test -s "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+          observed="$(ssh-keygen -lf "$HOME/.ssh/known_hosts" -E sha256 | awk '{print $2}')"
+          test "$observed" = "$PINNED_FINGERPRINT"
+      - name: Install existing-credential SSH helper
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq sshpass
+      - name: Transfer operation scripts privately and execute guarded scenario
+        run: |
+          set -euo pipefail
+          export SSHPASS="$SSH_PASSWORD"
+          opts=(-o StrictHostKeyChecking=yes -o UserKnownHostsFile="$HOME/.ssh/known_hosts" -o PreferredAuthentications=password -o PubkeyAuthentication=no -o NumberOfPasswordPrompts=1 -o ConnectTimeout=12)
+          digest="$(sha256sum "$RUNNER_TEMP/ad-wc-ops.tar.gz" | awk '{print $1}')"
+          sshpass -e scp "${opts[@]}" -P 22 "$RUNNER_TEMP/ad-wc-ops.tar.gz" "$SSH_USERNAME@$SSH_HOST:.ad-wc-ops-$GITHUB_RUN_ID.tar.gz"
+          sshpass -e ssh "${opts[@]}" -p 22 "$SSH_USERNAME@$SSH_HOST" "bash -s -- '$GITHUB_RUN_ID' '$digest'" <<'REMOTE'
+          set -euo pipefail
+          umask 077
+          run_id="$1"; digest="$2"
+          case "$run_id" in ''|*[!0-9]*) exit 1;; esac
+          package="$HOME/.ad-wc-ops-$run_id.tar.gz"
+          [ "$(sha256sum "$package" | awk '{print $1}')" = "$digest" ] || exit 1
+          destination="$HOME/.ad-wc-ops-$run_id"
+          [ ! -e "$destination" ] || exit 1
+          mkdir -m 700 "$destination"
+          tar -xzf "$package" -C "$destination"
+          php -r 'unlink($argv[1]);' "$package"
+          bash "$destination/scripts/ops/enable-woocommerce-temp.sh" "$run_id"
+          REMOTE
+          unset SSHPASS
