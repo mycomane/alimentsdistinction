@@ -4,7 +4,7 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 ## Phase et derniers commits
 
-**P0 clôturé. P1 prêt pour revue visuelle : deux variantes illustrées et testées en environnement isolé, 254 contrôles ciblés réussis. Choix esthétique A/B en attente de Julien. Aucun déploiement P1, aucun accès GoDaddy, thème 0.1.1 et source officielle intacts.**
+**P0 clôturé. P1 : Julien conserve « Actuel », palette choisie par Jean-François et Meggy. Intégration limitée au bouton d’ajout au panier et au sélecteur de variation de A. Site en français. Tests de cette intégration en attente; aucun accès ou déploiement GoDaddy.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
 - Dernier commit P1 testé : [`61d940e2e0847b6f3358f4c98aa16c572f593148`](https://github.com/mycomane/alimentsdistinction/commit/61d940e2e0847b6f3358f4c98aa16c572f593148); captures seules : [`80bd8201a9a61b3c7e9225f31dca81c3296dc9b7`](https://github.com/mycomane/alimentsdistinction/commit/80bd8201a9a61b3c7e9225f31dca81c3296dc9b7). Code GoDaddy toujours `be5703eeaa434ada55cb33a961a0b08e11f6a862`, thème 0.1.1.
@@ -12,7 +12,15 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
 
-## P1 — prêt pour revue visuelle, aucun déploiement
+## Décision P1 — intégration ciblée, tests à confirmer
+
+- Base de cette phase : `6fe6febb220889059db21af463ff0968401e2aa1`. Palette globale, accueil, navigation et infolettre conservés.
+- CSS limité au bouton d’achat de la fiche produit (actif, survol, désactivé) et à la bordure du sélecteur de variations. Aucun filtre de traduction global ni changement des règles WooCommerce.
+- Les anciens exemples étaient exécutés avec une fixture anglaise; nouvelle recette dédiée `fr_FR` avec paquets officiels WordPress/WooCommerce pour vérifier « Ajouter au panier » et « Choisir une option » aux cinq largeurs.
+- Aucun réglage de langue GoDaddy effectué; langue et traductions de l’environnement hébergé restent à vérifier dans une future opération autorisée.
+- QA existante réutilisée; résultat de la nouvelle exécution à consigner après son achèvement. Les 254 contrôles antérieurs concernent les propositions A/B, pas cette intégration.
+
+## P1 — historique des variantes, non retenues globalement
 
 [Issue #2](https://github.com/mycomane/alimentsdistinction/issues/2) exécutée en propositions isolées. P0 est clôturé par la Coordination; aucun nouveau compte ou accès GoDaddy.
 
@@ -25,7 +33,7 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 - États WooCommerce : non sélectionné/actif/survol/focus, variation indisponible, stock et erreur de champ requis; aucun checkout soumis, commande ou paiement. Logs PHP présents, zéro fatal/avertissement/dépréciation compté.
 - **[Run de captures 39690653253](https://github.com/mycomane/alimentsdistinction/actions/runs/39690653253), job 119535722196 : succès**, vues compactes régénérées avec pointeur neutre pour montrer les styles de repos; aucune modification CSS ni relance des 300 assertions. Planches examinées.
 - Budget : deux passages ciblés (le premier a identifié des textes trop clairs sur les textures réelles), une capture seule; fixtures/comparateur P0/scanner PHP réutilisés. Aucun changement de workflow protégé, de `index.html` ou du thème `wordpress/`.
-- **Décision Julien : choisir A ou B et valider le traitement des encres/focus.** L'accord graphique permettra de préparer l'intégration dans le thème; aucun déploiement implicite. Tout futur déploiement nécessitera autorisation distincte, sauvegarde et approbation GitHub.
+- **Décision Julien reçue : « Actuel », seuls les deux contrôles d’achat de A sont retenus.** L'accord graphique permettra de préparer l'intégration dans le thème; aucun déploiement implicite. Tout futur déploiement nécessitera autorisation distincte, sauvegarde et approbation GitHub.
 
 ## Recette hébergée post-déploiement — réussie
 
@@ -142,8 +150,8 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 | --- | --- | --- |
 | P0 technique terminé | Déploiement 0.1.1 réussi, sauvegarde et CSS vérifiés | Aucune nouvelle approbation de déploiement requise pour cette opération déjà terminée |
 | P0 validé | Recette hébergée et nettoyage réussis | Coordination peut valider la clôture de l’issue #1 |
-| Choix esthétique P1 | Deux variantes testées; palette hébergée toujours inchangée | Julien choisit A ou B avant intégration |
-| Choix esthétique P1 | A : surfaces locales; B : barre crème opaque | B recommandée, les deux options sont testées |
+| Choix esthétique P1 | Deux variantes testées; palette hébergée toujours inchangée | Actuel conservé; seulement deux contrôles A |
+| Choix esthétique P1 | A : surfaces locales; B : barre crème opaque | Variantes complètes archivées, non retenues |
 | Bloquant commercial | Téléphone/coordonnées, pages de livraison/retours/confidentialité, garanties et affirmations commerciales | Contenus et validation du propriétaire/Julien nécessaires |
 | Majeur contenu | Recettes et service d’infolettre incomplets | Rédaction et service approuvés; aucune fausse inscription |
 | Mineur cohérence | Bouton WooCommerce de variation désactivée violet natif | Harmoniser lors du lot de palette |
@@ -152,8 +160,8 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 ## Prochaines étapes recommandées
 
-1. Julien et Coordination examinent la planche P1 et choisissent A/B ou un ajustement ciblé. P0 est clôturé.
-2. Après accord graphique : intégrer uniquement la variante choisie dans le thème de développement et exécuter les contrôles appropriés. Aucun déploiement par cette décision seule.
+1. Terminer et consigner les tests de l’intégration ciblée et des libellés français. P0 est clôturé.
+2. Présenter les contrôles français et leurs résultats. Aucun déploiement par cette décision seule.
 3. Tout futur déploiement GoDaddy sera préparé avec autorisation distincte, sauvegarde/rollback et nouvelle revue `godaddy-temp`.
 4. Valider contenus commerciaux, coordonnées, contrats/garanties, recettes et service d'infolettre. La recette transactionnelle et les réglages métier restent distincts.
 5. Conserver Coming Soon et restrictions site commercial/master/DNS/paiements/Zoho. Avant production, sauvegarde hors site/restauration intégrale, sécurité SSH et performance restent à traiter.

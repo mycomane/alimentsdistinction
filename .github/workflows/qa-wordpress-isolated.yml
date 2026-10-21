@@ -58,6 +58,11 @@ jobs:
           else
             test_status=1
           fi
+          if python3 scripts/qa/french-packages.py && php scripts/qa/french-locale.php; then
+            node scripts/qa/french-controls.cjs || test_status=1
+          else
+            test_status=1
+          fi
           php scripts/qa/no-orders.php || test_status=1
           python3 scripts/qa/php-log-check.py || test_status=1
           exit "$test_status"

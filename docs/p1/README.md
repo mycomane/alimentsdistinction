@@ -1,5 +1,7 @@
 # P1 — deux propositions isolées, à approuver
 
+> **Décision de Julien : conserver « Actuel », palette choisie par Jean-François et Meggy.** Seuls le bouton d’ajout au panier et le sélecteur de variation reprennent A. Les variantes complètes ci-dessous sont archivées pour référence, sans intégration. Site en français; vérification dédiée avec les traductions officielles WordPress/WooCommerce. Aucun déploiement autorisé par ce choix.
+
 Mission : [issue #2](https://github.com/mycomane/alimentsdistinction/issues/2). Référence installée : thème 0.1.1, déployé par `39685183348`, recette hébergée P0 `39686849316`. P0 est clôturé par la Coordination. Cette phase ne se connecte pas à GoDaddy.
 
 Les fichiers `common.css`, `variant-a.css` et `variant-b.css` ne sont pas chargés par WordPress. Le runner injecte uniquement ces propositions dans un WordPress jetable, sous `html[data-p1-variant]`. Aucun changement à `index.html`, au CSS de référence ou au thème installable.

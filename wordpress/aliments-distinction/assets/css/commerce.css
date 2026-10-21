@@ -32,3 +32,16 @@
 .woocommerce-product-search { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 32px; }
 .woocommerce-product-search input[type=search] { min-width: 220px; flex: 1; }
 .woocommerce-product-search button { background: var(--blush); color: white; border: 0; padding: 14px 28px; font: inherit; cursor: pointer; }
+
+/* P1 approved scope: product purchase controls only; keep the owners' palette elsewhere. */
+.woocommerce div.product form.cart button.single_add_to_cart_button {
+  background: #94544b; color: #fff; border-color: #94544b;
+}
+.woocommerce div.product form.cart button.single_add_to_cart_button:hover {
+  background: #713e37; color: #fff;
+}
+.woocommerce div.product form.cart button.single_add_to_cart_button:is(:disabled, .disabled, [aria-disabled="true"]),
+.woocommerce div.product form.cart button.single_add_to_cart_button:is(:disabled, .disabled, [aria-disabled="true"]):hover {
+  background: #e4d9ce; color: #4a4744; border-color: #6e6964; opacity: 1;
+}
+.woocommerce div.product form.variations_form table.variations select { border-color: #6e6964; }

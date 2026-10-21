@@ -1,5 +1,7 @@
 # P1 — prêt pour revue visuelle, aucun déploiement
 
+> **Décision de Julien : conserver « Actuel », palette choisie par Jean-François et Meggy.** Seuls le bouton d’ajout au panier et le sélecteur de variation reprennent A. Les variantes complètes ci-dessous sont archivées pour référence, sans intégration. Site en français; vérification dédiée avec les traductions officielles WordPress/WooCommerce. Aucun déploiement autorisé par ce choix.
+
 Mission [#2](https://github.com/mycomane/alimentsdistinction/issues/2). P0 est clos; le thème installé reste 0.1.1. Cette phase prépare uniquement des fichiers de prévisualisation séparés. Aucun accès GoDaddy, compte, session privée, palette hébergée ou workflow protégé modifié.
 
 ## Planche de choix
