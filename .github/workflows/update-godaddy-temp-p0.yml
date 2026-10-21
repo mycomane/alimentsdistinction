@@ -1,4 +1,5 @@
 name: P0 0.1.1 update — temporary site, mandatory reviewer
+# Revision 2: validated public-text guard and precise backup-space arithmetic.
 on:
   push:
     branches: [feat/wordpress-woocommerce-theme]

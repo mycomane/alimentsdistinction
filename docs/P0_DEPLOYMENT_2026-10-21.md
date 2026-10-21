@@ -59,7 +59,7 @@ Un arrêt brutal du runner/serveur peut empêcher le trap de s'exécuter. La cop
 - `scripts/check-theme.py` : CSS de maquette et sept images inchangés, structure, syntaxe PHP/JS réussis.
 - `scripts/package-theme.py` + `prepare-p0-release.py` : ZIP intègre, inventaire exact, comparaison des 23 fichiers et différences autorisées uniquement.
 - Syntaxe PHP/Bash/YAML : réussie localement.
-- `tests/p0-files.php` : **14 assertions** sur fichiers réels temporaires, dont refus de dérive, de contenu inattendu, de symlinks/hardlinks, conservation des permissions et remplacement/retour arrière atomiques. Aucun GoDaddy ni base WordPress utilisés.
+- `tests/p0-files.php` : **17 assertions** sur fichiers réels temporaires, dont refus de dérive, de contenu inattendu, de symlinks/hardlinks, conservation des permissions et remplacement/retour arrière atomiques. Aucun GoDaddy ni base WordPress utilisés.
 - ShellCheck et recette responsive 320/390/768/1024/1440 : doivent être confirmés par le nouveau run GitHub avant la porte d'approbation. Les 300 assertions du run antérieur `39610664542` ne sont pas présentées comme résultat de ce nouveau candidat.
 
 ## Limite de validation hébergée à lever
@@ -69,3 +69,7 @@ L'ancien Abonné de recette a été supprimé. Cette mise à jour **ne crée auc
 Une **autorisation spécifique** est donc nécessaire pour un nouvel Abonné temporaire, limité à 30 minutes, frontend en lecture seule, sessions révoquées et compte supprimé après recette, selon la méthode précédente. Sans cet accord, le rapport distinguera « fichiers déployés et contrôles techniques réussis » et « géométrie hébergée authentifiée non confirmée ». Pas de capture HTML/cookie authentifié publiée.
 
 Le statut opérationnel, les commits et liens d'exécution sont tenus à jour dans [PROJECT_STATUS.md](PROJECT_STATUS.md). La palette P1 et les configurations commerciales restent hors autorisation.
+
+## Premier contrôle GitHub de préparation
+
+Le run `39615415227` a refusé de poursuivre dans ShellCheck : calcul de taille à arrondir plus prudemment et trois fragments PHP inline signalés pour leurs variables littérales. Aucun job distant exécuté. Les fragments PHP sont désormais dans le helper testé, et trois assertions supplémentaires vérifient que « Coming Soon » présent uniquement dans un script/style ne suffit pas. Nouvelle exécution requise avant approbation.

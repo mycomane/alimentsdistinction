@@ -8,6 +8,9 @@ $a = hash('sha256', 'before'); $b = hash('sha256', 'after'); $count = 0;
 function ok($value) { global $count; if (!$value) { throw new RuntimeException('Assertion failed'); } ++$count; }
 function refused($call) { try { $call(); } catch (RuntimeException $e) { ok(true); return; } throw new RuntimeException('Unsafe operation was accepted'); }
 try {
+    p0_coming_soon('<h1>Coming Soon</h1>'); ok(true);
+    refused(fn() => p0_coming_soon('<script>var s="coming soon";</script><h1>Open shop</h1>'));
+    refused(fn() => p0_coming_soon('<style>.coming soon {}</style><h1>Open shop</h1>'));
     file_put_contents($live, 'before'); chmod($live, 0644);
     file_put_contents($new, 'after'); file_put_contents($old, 'before');
     p0_check($base . '/theme', ['style.css' => $a]); ok(true);

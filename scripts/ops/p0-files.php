@@ -19,6 +19,11 @@ function p0_check(string $dir, array $expected): void {
     ksort($expected);
     if (p0_inventory($dir) !== $expected) { throw new RuntimeException('Theme inventory/checksum mismatch; no overwrite permitted'); }
 }
+function p0_coming_soon(string $html): void {
+    $html = preg_replace('~<(script|style)\b[^>]*>.*?</\1>~is', '', $html);
+    $text = strtolower(html_entity_decode(strip_tags($html)));
+    if (!str_contains($text, 'coming soon')) { throw new RuntimeException('Anonymous Coming Soon not confirmed'); }
+}
 function p0_replace(string $source, string $target, string $from, string $to): void {
     clearstatcache();
     if (!is_file($source) || !is_file($target) || is_link($source) || is_link($target)) { throw new RuntimeException('Unsafe atomic replacement path'); }
@@ -32,7 +37,12 @@ function p0_replace(string $source, string $target, string $from, string $to): v
 if (realpath($_SERVER['SCRIPT_FILENAME']) === __FILE__) {
     try {
         $mode = $argv[1] ?? '';
-        if ($mode === 'check') {
+        if ($mode === 'coming-soon') {
+            p0_coming_soon(file_get_contents($argv[2]));
+        } elseif ($mode === 'digest') {
+            $manifest = json_decode(file_get_contents($argv[2]), true, 512, JSON_THROW_ON_ERROR);
+            echo $manifest[$argv[3]]['style.css']; exit;
+        } elseif ($mode === 'check') {
             $manifest = json_decode(file_get_contents($argv[3]), true, 512, JSON_THROW_ON_ERROR);
             p0_check($argv[2], $manifest[$argv[4]]);
         } elseif ($mode === 'replace') {

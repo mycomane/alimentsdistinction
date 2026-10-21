@@ -18,7 +18,7 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 - Candidat **0.1.1** préparé : uniquement le correctif P0 et l'en-tête de version dans `style.css`; les 22 autres fichiers du thème sont identiques à 0.1.0.
 - Workflow distinct de mise à jour préparé, garde d'approbation humaine du run, empreintes complètes, sauvegarde fraîche obligatoire, répétition privée du retour arrière et remplacement atomique du seul CSS.
-- Validation locale : lint PHP/JS/Bash/YAML, ZIP et périmètre exact réussis; **14 assertions de protection/remplacement/rollback filesystem réussies**.
+- Validation locale : lint PHP/JS/Bash/YAML, ZIP et périmètre exact réussis; **17 assertions de protection/remplacement/rollback filesystem réussies**.
 - Nouveau QA isolé et ShellCheck GitHub : en attente de lancement/résultat. Aucun accès GoDaddy exécuté pendant la préparation.
 - [Procédure détaillée, empreintes, retour arrière et limites](P0_DEPLOYMENT_2026-10-21.md).
 - **À approuver séparément :** nouvel Abonné temporaire de recette (30 minutes, frontend lecture seule, révocation/suppression après contrôle), car la session précédente n'existe plus. Le déploiement n'en crée aucun. Sans accord, aucune affirmation de géométrie hébergée après mise à jour.

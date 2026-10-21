@@ -37,7 +37,7 @@ theme_kb="$(du -sk "$theme" | awk '{print $1}')"
 db_bytes="$(wp --path="$root" --skip-plugins --skip-themes db size --size_format=b --format=csv | tail -n 1 | awk -F, '{print $NF}')"
 case "$db_bytes" in ''|*[!0-9]*) echo 'Database size not measurable'; exit 1;; esac
 free_kb="$(df -Pk "$home_dir" | awk 'NR==2{print $4}')"
-test "$free_kb" -gt "$((theme_kb*4+db_bytes/1024*3+102400))" || { echo 'Insufficient private backup space'; exit 1; }
+test "$free_kb" -gt "$((theme_kb*4+(db_bytes*3+1023)/1024+102400))" || { echo 'Insufficient private backup space'; exit 1; }
 mkdir -p "$home_dir/.ad-private-backups"
 chmod 700 "$home_dir/.ad-private-backups"
 mkdir -m 700 "$backup"
@@ -48,7 +48,7 @@ check_public() {
     if [ "$id" != home ]; then query="?page_id=$id&ad_p0=$run_id-$phase"; fi
     code="$(curl --silent --show-error --max-time 35 --max-redirs 0 --proto '=https' -H 'Cache-Control: no-cache' -w '%{http_code}' "$expected/$query" -o "$backup/public-check.html")" || return 1
     test "$code" = 200 || return 1
-    php -r '$s=file_get_contents($argv[1]);$s=preg_replace("~<(script|style)\b[^>]*>.*?</\1>~is","",$s);$s=strtolower(html_entity_decode(strip_tags($s)));if(strpos($s,"coming soon")===false)exit(1);' "$backup/public-check.html" || return 1
+    php "$ops/p0-files.php" coming-soon "$backup/public-check.html" || return 1
   done
   echo 'PASS: anonymous home and four technical pages HTTP 200 / Coming Soon.'
 }
@@ -59,8 +59,8 @@ check_css() {
   test "$(sha256sum "$backup/served-style.css" | awk '{print $1}')" = "$hash" || return 1
   echo "PASS: HTTP serves exact CSS bytes for version $version."
 }
-old_sha="$(php -r '$m=json_decode(file_get_contents($argv[1]),true);echo $m["old"]["style.css"];' "$ops/p0-manifest.json")"
-new_sha="$(php -r '$m=json_decode(file_get_contents($argv[1]),true);echo $m["new"]["style.css"];' "$ops/p0-manifest.json")"
+old_sha="$(php "$ops/p0-files.php" digest "$ops/p0-manifest.json" old)"
+new_sha="$(php "$ops/p0-files.php" digest "$ops/p0-manifest.json" new)"
 check_public before
 check_css 0.1.0 "$old_sha"
 wp --path="$root" eval-file "$ops/p0-state.php" capture "$backup/protected-state.json" 0.1.0
