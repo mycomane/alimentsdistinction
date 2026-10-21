@@ -33,3 +33,9 @@ Workflow `.github/workflows/review-godaddy-private.yml`, branche `feat/wordpress
 ## État
 
 Préparation et tests isolés terminés. Exécution distante et nettoyage sur GoDaddy **à confirmer par les résultats GitHub Actions**, pas encore déclarés réussis.
+
+## Premier essai distant : arrêt avant toute mutation
+
+Exécution `39528838153`, job `118989765201` : échec à l’étape de vérification anonyme de Coming Soon, après environ 45 secondes. Le contrôle n’a enregistré aucune assertion. Le transfert des scripts, le provisionnement et les contrôles privés ont tous été ignorés; **aucun compte n’a été créé par cette exécution** et aucun nettoyage de compte n’était donc nécessaire. La vérification de la clé SSH a réussi. L’exécution isolée parallèle `39528838044` a réussi.
+
+Le délai observé correspond au timeout de navigation de 45 secondes. Le premier code masquait l’exception, donc il ne permet pas d’affirmer si la cause précise était l’attente `networkidle` ou un problème de connexion. La reprise attend désormais `domcontentloaded` pour les contrôles anonymes, tout en conservant les contrôles HTTP 200, origine exacte et texte Coming Soon. Elle n’attend plus que toutes les connexions annexes deviennent inactives pour ces contrôles. Les attentes des pages privées ne changent pas. Des catégories d’erreur fixes et une étape connue sont journalisées sans exception brute, URL privée ou cookie. Ce changement concerne uniquement le test; son effet doit être vérifié par une nouvelle exécution protégée.

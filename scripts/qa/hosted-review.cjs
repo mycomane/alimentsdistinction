@@ -3,7 +3,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const {chromium}=require(path.join(process.env.RUNNER_TEMP,'ad-review-tools/node_modules/playwright'));
 const base='https://1302636.us22.myftpupload.com';
-const report={scope:'godaddy-temporary-only',checks:[],layout:[],pages:[],failures:[],pageErrorCount:0};
+const report={scope:'godaddy-temporary-only',stage:'browser_launch',checks:[],layout:[],pages:[],failures:[],pageErrorCount:0};
 const check=(passed,label)=>{report.checks.push({label,passed:!!passed});if(!passed)report.failures.push(label);};
 const comingSoon=async page=>/coming\s+soon/i.test(await page.locator('body').innerText());
 const geometry=async page=>page.evaluate(()=>{
@@ -19,7 +19,9 @@ const geometry=async page=>page.evaluate(()=>{
   try{
     const publicContext=await browser.newContext({ignoreHTTPSErrors:false});
     const anon=await publicContext.newPage();
-    const pre=await anon.goto(base+'/?ad_review='+process.env.GITHUB_RUN_ID+'-public',{waitUntil:'networkidle',timeout:45000});
+    report.stage='anonymous_navigation';
+    const pre=await anon.goto(base+'/?ad_review='+process.env.GITHUB_RUN_ID+'-public',{waitUntil:'domcontentloaded',timeout:45000});
+    report.stage='anonymous_coming_soon_check';
     check(pre.status()===200 && new URL(anon.url()).origin===base && await comingSoon(anon),'Anonymous homepage remains Coming Soon');
     if(report.failures.length)throw new Error('precondition');
     if(process.argv.includes('--public-only'))return;
@@ -39,6 +41,7 @@ const geometry=async page=>page.evaluate(()=>{
     const page=await context.newPage();
     page.on('pageerror',()=>{report.pageErrorCount++;});
     page.on('dialog',async dialog=>{report.failures.push('Unexpected browser dialog');await dialog.dismiss();});
+    report.stage='subscriber_navigation';
     await page.goto(base+'/?ad_review='+process.env.GITHUB_RUN_ID+'-private',{waitUntil:'networkidle',timeout:45000});
     if(await comingSoon(page)){
       report.outcome='subscriber_blocked_by_coming_soon';
@@ -50,6 +53,7 @@ const geometry=async page=>page.evaluate(()=>{
     const refContext=await browser.newContext();
     const reference=await refContext.newPage();
     for(const width of [320,390,768,1024,1440]){
+      report.stage='responsive_layout';
       await page.setViewportSize({width,height:1000});
       await page.goto(base+'/?ad_review='+process.env.GITHUB_RUN_ID+'-'+width,{waitUntil:'networkidle',timeout:45000});
       await page.evaluate(()=>document.fonts.ready);
@@ -68,6 +72,7 @@ const geometry=async page=>page.evaluate(()=>{
       }
     }
     for(const [key,url] of Object.entries(auth.pages)){
+      report.stage='technical_pages';
       await page.setViewportSize({width:390,height:1000});
       const response=await page.goto(url,{waitUntil:'networkidle',timeout:45000});
       const stillPrivate=new URL(page.url()).origin===base&&!await comingSoon(page);
@@ -76,7 +81,8 @@ const geometry=async page=>page.evaluate(()=>{
       check(response.status()===200&&stillPrivate,'Private technical page reachable: '+key);
       check(!overflow,'No hosted technical page overflow: '+key);
     }
-    const post=await anon.goto(base+'/?ad_review='+process.env.GITHUB_RUN_ID+'-public-after',{waitUntil:'networkidle',timeout:45000});
+    report.stage='anonymous_final_check';
+    const post=await anon.goto(base+'/?ad_review='+process.env.GITHUB_RUN_ID+'-public-after',{waitUntil:'domcontentloaded',timeout:45000});
     check(post.status()===200&&await comingSoon(anon),'Anonymous Coming Soon preserved after private checks');
     check(report.pageErrorCount===0,'No JavaScript pageerror during hosted checks');
     report.outcome=report.failures.length?'failed':'automated_frontend_checks_passed';
@@ -86,4 +92,13 @@ const geometry=async page=>page.evaluate(()=>{
     if(process.env.GITHUB_STEP_SUMMARY)fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,'## Hosted subscriber review (no authenticated images exported)\n```json\n'+JSON.stringify(report,null,2)+'\n```\n');
   }
   if(report.failures.length)process.exitCode=1;
-})().catch(()=>{console.error('ERROR: hosted review incomplete; sensitive diagnostics suppressed. Cleanup must run.');process.exitCode=1;});
+})().catch(error=>{
+  // Fixed categories only: never emit a URL, cookie, raw exception or response body.
+  let category=error?.name==='TimeoutError'?'timeout':'unexpected_error';
+  for(const code of ['ERR_NAME_NOT_RESOLVED','ERR_CONNECTION_TIMED_OUT','ERR_CONNECTION_REFUSED','ERR_TUNNEL_CONNECTION_FAILED','ERR_CERT_AUTHORITY_INVALID','ERR_ABORTED']){
+    if(String(error?.message).includes(code)){category=code;break;}
+  }
+  console.error('ERROR: hosted review incomplete; stage='+report.stage+'; category='+category+'. Cleanup must run if provisioned.');
+  if(process.env.GITHUB_STEP_SUMMARY)fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,'\nIncomplete review: stage='+report.stage+', category='+category+'.\n');
+  process.exitCode=1;
+});
