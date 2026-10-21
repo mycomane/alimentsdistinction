@@ -1,8 +1,8 @@
 # P1 — périmètre proposé pour une livraison temporaire
 
-**21 octobre 2026 — autorisation distincte de Julien reçue dans Work.** La préparation du nouveau mécanisme et le déploiement temporaire limité ci-dessous sont autorisés, sous réserve d’une nouvelle approbation GitHub pour le run exact. Version 0.1.2 préparée et tests locaux réussis; déploiement pas encore effectué.
+**21 octobre 2026 — autorisation distincte de Julien reçue dans Work.** Aperçu validé; préparation et déploiement temporaire des deux contrôles autorisés avec protections. Release 0.1.2 construite et testée, pas encore installée.
 
-Historique du périmètre présenté à Julien : Julien a validé l’aperçu et demandé de continuer. Cela confirme l’aspect des contrôles; une autorisation distincte de déploiement et la revue GitHub du run exact restent nécessaires conformément à l’issue #2. Aucun workflow protégé n’est modifié ou lancé dans cette phase.
+**[Run 39696116068](https://github.com/mycomane/alimentsdistinction/actions/runs/39696116068) — nouvelle approbation GitHub `godaddy-temp` en attente.** Commit exact `ad3006ca7c618b9d71617232bec67fe7c9cd322a`, préparation/QA/barrière réussies, job de déploiement 119554780896 `waiting`. Aucun accès GoDaddy avant cette revue humaine.
 
 ## Résultat à livrer
 
@@ -17,7 +17,7 @@ Pour une livraison ultérieure, incrémenter le thème de **0.1.1 à 0.1.2** afi
 | `assets/css/commerce.css` | Bloc CSS ciblé déjà testé et validé visuellement |
 | `style.css` | Ligne `Version: 0.1.1` → `Version: 0.1.2`, aucun autre changement |
 
-Le numéro 0.1.2 est un **projet de livraison**, pas une version actuellement installée ou déjà empaquetée. Ne pas transmettre l’archive de préparation 0.1.1 comme une nouvelle release.
+La version 0.1.2 est **construite et vérifiée**, pas encore installée. ZIP SHA256 `45aae70781a815e4248ea04561f5e14a28917fc0ebc0851aebd883db533f106f`. L’archive/manifeste du run exact sont disponibles dans `p1-012-review-package`.
 
 ## Protections à conserver avant toute opération distante
 
@@ -38,7 +38,7 @@ Les produits, catégories et formats monétaires des fixtures ne constituent pas
 
 Aucun nouveau compte de recette ou produit sur GoDaddy, aucune commande/paiement, aucun changement commercial ou connexion externe. Pas de désactivation Coming Soon. Aucune opération sur `master`, le domaine commercial, DNS ou Zoho. Pas de certification de transaction complète ou de localisation globale sur la seule base des captures isolées.
 
-**Décision attendue après rapport : autoriser ou non la préparation puis le déploiement du lot 0.1.2 limité ci-dessus, avec nouvelle approbation GitHub obligatoire.** Aucune opération distante n’est actuellement en attente de revue GitHub.
+**Autorisation de Julien reçue. Décision technique restante : approuver ce nouveau run dans GitHub, environnement godaddy-temp.** Aucun accès distant ou déploiement n’a encore eu lieu.
 
 ## Préparation réalisée après autorisation
 
