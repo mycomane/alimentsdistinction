@@ -27,10 +27,18 @@ Focus : anneau bicolore blanc/charbon (contraste interne élevé), vérification
 
 Limites : échantillonnage conservateur sur rectangles et non certification WCAG; lecteurs d'écran, cibles tactiles, contenu et performance restent distincts. Les images de test sont isolées et ne contiennent aucune session ou donnée GoDaddy. Les exemples WooCommerce sont des produits fictifs. L'infolettre reste indisponible et aucune connexion n'est simulée.
 
-Références : [contraste texte](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html), [contraste non textuel](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html), [focus visible](https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html). Rapport et planche de choix à compléter après exécution réelle.
+Références : [contraste texte](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html), [contraste non textuel](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html), [focus visible](https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html). Résultats et mesures dans [REPORT.md](REPORT.md). Ouvrir [choice.html](choice.html), prévisualisation autonome avec vues ordinateur/téléphone/infolettre/WooCommerce, ou les JPEG dans `evidence/`.
 
 ## Premier passage contextualisé
 
 Run `39689556380` : les 15 géométries (actuel/A/B × cinq largeurs) sont restées à **0,00 px**, et les états/focus ont passé. Les seuils ont correctement bloqué les propositions sur certains textes posés sur des textures/feuilles : rose encre `#94544B` mesuré jusqu'à 2,96:1 dans ce contexte, malgré 5,41:1 sur crème uni. Un rose plus profond `#6B3832` est donc proposé **localement** pour ces libellés/citations et liens transparents, en conservant le rose encre ailleurs et le rose décoratif.
 
 Le test est aussi précisé pour ignorer les textes réellement masqués par clipping de lecteur d'écran (ils restent accessibles), attendre la fin de transition de la navigation avant l'échantillonnage et couvrir les icônes de navigation au seuil non textuel de 3:1. Ces précisions évitent d'analyser des rectangles qui ne correspondent pas à un élément visible/stabilisé. Le second passage doit confirmer les contrastes corrigés; pas de réussite anticipée.
+
+## Résultat final
+
+**Prêt pour revue visuelle, aucun déploiement.** [Run ciblé 39690003471](https://github.com/mycomane/alimentsdistinction/actions/runs/39690003471), job 119533553118 : **254 contrôles réussis**, zéro écart P0 aux cinq largeurs, aucune mesure audité sous le seuil pour A/B. [Planches 39690653253](https://github.com/mycomane/alimentsdistinction/actions/runs/39690653253), job 119535722196 : succès, captures compactes en état de repos (pointeur neutre), CSS inchangés. Cette capture séparée ne relance pas les 300 assertions.
+
+[Planche de choix](choice.html) · [Rapport détaillé](REPORT.md) · [Preuve JSON](evidence/report.json).
+
+La comparaison de styles utilise le thème 0.1.1 correspondant aux 23 empreintes validées par la recette P0 hébergée : `style.css` SHA256 `5a4c3a5a8ae6fccd66437151555b66d05c1f5c18dc56cfff3de3f66a92bde780`. Aucune nouvelle session GoDaddy n’est ouverte pour P1.

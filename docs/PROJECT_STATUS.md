@@ -4,24 +4,28 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 ## Phase et derniers commits
 
-**P0 validé et clôturé par Coordination. P1 (issue #2) en cours : deux variantes graphiques isolées préparées, tests ciblés à lancer. Aucun accès ou changement GoDaddy, aucun fichier du thème modifié. Statut final visé : prêt pour revue visuelle, pas déployé.**
+**P0 clôturé. P1 prêt pour revue visuelle : deux variantes illustrées et testées en environnement isolé, 254 contrôles ciblés réussis. Choix esthétique A/B en attente de Julien. Aucun déploiement P1, aucun accès GoDaddy, thème 0.1.1 et source officielle intacts.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
-- Dernier commit de recette validé : [`6b3031a74792827836d3bab57d181896b7d15d40`](https://github.com/mycomane/alimentsdistinction/commit/6b3031a74792827836d3bab57d181896b7d15d40). Code déployé : `be5703eeaa434ada55cb33a961a0b08e11f6a862`; thème 0.1.1 inchangé.
+- Dernier commit P1 testé : [`61d940e2e0847b6f3358f4c98aa16c572f593148`](https://github.com/mycomane/alimentsdistinction/commit/61d940e2e0847b6f3358f4c98aa16c572f593148); captures seules : [`80bd8201a9a61b3c7e9225f31dca81c3296dc9b7`](https://github.com/mycomane/alimentsdistinction/commit/80bd8201a9a61b3c7e9225f31dca81c3296dc9b7). Code GoDaddy toujours `be5703eeaa434ada55cb33a961a0b08e11f6a862`, thème 0.1.1.
 - Commit du correctif CSS : [`9618095516d982e10eebfe5c7aa0cdcc4bf85be3`](https://github.com/mycomane/alimentsdistinction/commit/9618095516d982e10eebfe5c7aa0cdcc4bf85be3).
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
 
-## P1 — propositions graphiques isolées en cours
+## P1 — prêt pour revue visuelle, aucun déploiement
 
-[Directive issue #2](https://github.com/mycomane/alimentsdistinction/issues/2) lue, rapports Phase 3/feuille de route et proposition de contraste réutilisés. Base : `5b7368a011fde34e0cbc5a96dd48408816c3c044`; derniers runs P0 et QA réussis vérifiés.
+[Issue #2](https://github.com/mycomane/alimentsdistinction/issues/2) exécutée en propositions isolées. P0 est clôturé par la Coordination; aucun nouveau compte ou accès GoDaddy.
 
-- Variante A : positions du menu conservées, surfaces locales crème derrière liens/icônes sur la photo; rose encre pour textes et boutons, gris plus lisible.
-- Variante B : navigation crème opaque complète, boutons charbon, gris renforcé. Rose décoratif et images conservés dans les deux variantes.
-- Propositions uniquement dans `docs/p1/`; injectées par le runner isolé, jamais chargées par le thème. Source de design et thème 0.1.1 inchangés.
-- Tests ciblés préparés : cinq largeurs, zéro régression P0, contraste sur les pixels des fonds réels, menu/clavier, focus/survol et états WooCommerce; pas de relance des 300 assertions. Workflow isolé sans secrets ni environnement GoDaddy; aucun workflow protégé modifié.
-- Résultats, captures, mesures et choix esthétique : en attente du premier run. Aucun succès de variante anticipé.
-- [Méthode et compromis](p1/README.md). Julien choisira la variante avant toute intégration importante; tout déploiement futur demandera une autorisation distincte et une nouvelle revue GitHub.
+- **A — évolution discrète :** menu aux mêmes positions, petites surfaces crème opaques derrière liens/icônes, boutons rose encre et gris secondaire assombri.
+- **B — lecture renforcée, recommandée :** barre crème opaque continue, boutons et liens charbon, gris secondaire plus profond.
+- Commun : rose décoratif/photos/mise en page conservés, rose encre `#94544B` sur surfaces unies, **`#6B3832` localement sur les textures/feuilles réelles**, infolettre claire, focus bicolore et états WooCommerce lisibles.
+- **[Planche autonome A/B](p1/choice.html)** avec vues ordinateur/téléphone/infolettre/WooCommerce; [rapport des compromis et limites](p1/REPORT.md), [captures JPEG](p1/evidence/choice-desktop.jpg) et [preuves JSON](p1/evidence/report.json).
+- **[Run ciblé 39690003471](https://github.com/mycomane/alimentsdistinction/actions/runs/39690003471), job 119533553118 : succès, 254 contrôles ciblés**, zéro erreur. Géométrie actuel/A/B aux cinq largeurs : **écart maximal 0,00 px**; clavier/menu/images sans régression P0.
+- Contraste sur pixels de fonds réellement rendus à 390/1440 : 194/199 éléments visibles par accueil; **aucune mesure auditée sous son seuil pour A/B** (4,5:1 texte normal, 3:1 grand texte/icônes). Navigation minimum desktop actuel 1,00:1 → **5,42:1** pour les deux variantes. Textes secondaires minimum **4,67:1 A / 5,61:1 B**. Échantillonnage, pas certification WCAG globale.
+- États WooCommerce : non sélectionné/actif/survol/focus, variation indisponible, stock et erreur de champ requis; aucun checkout soumis, commande ou paiement. Logs PHP présents, zéro fatal/avertissement/dépréciation compté.
+- **[Run de captures 39690653253](https://github.com/mycomane/alimentsdistinction/actions/runs/39690653253), job 119535722196 : succès**, vues compactes régénérées avec pointeur neutre pour montrer les styles de repos; aucune modification CSS ni relance des 300 assertions. Planches examinées.
+- Budget : deux passages ciblés (le premier a identifié des textes trop clairs sur les textures réelles), une capture seule; fixtures/comparateur P0/scanner PHP réutilisés. Aucun changement de workflow protégé, de `index.html` ou du thème `wordpress/`.
+- **Décision Julien : choisir A ou B et valider le traitement des encres/focus.** L'accord graphique permettra de préparer l'intégration dans le thème; aucun déploiement implicite. Tout futur déploiement nécessitera autorisation distincte, sauvegarde et approbation GitHub.
 
 ## Recette hébergée post-déploiement — réussie
 
@@ -138,8 +142,8 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 | --- | --- | --- |
 | P0 technique terminé | Déploiement 0.1.1 réussi, sauvegarde et CSS vérifiés | Aucune nouvelle approbation de déploiement requise pour cette opération déjà terminée |
 | P0 validé | Recette hébergée et nettoyage réussis | Coordination peut valider la clôture de l’issue #1 |
-| Majeur accessibilité | Textes rose/gris, boutons et infolettre insuffisamment contrastés | Valider les propositions graphiques avant leur intégration |
-| Majeur accessibilité | Navigation transparente sur photo | Valider une solution par contexte, par exemple une barre à fond crème opaque |
+| Choix esthétique P1 | Deux variantes testées; palette hébergée toujours inchangée | Julien choisit A ou B avant intégration |
+| Choix esthétique P1 | A : surfaces locales; B : barre crème opaque | B recommandée, les deux options sont testées |
 | Bloquant commercial | Téléphone/coordonnées, pages de livraison/retours/confidentialité, garanties et affirmations commerciales | Contenus et validation du propriétaire/Julien nécessaires |
 | Majeur contenu | Recettes et service d’infolettre incomplets | Rédaction et service approuvés; aucune fausse inscription |
 | Mineur cohérence | Bouton WooCommerce de variation désactivée violet natif | Harmoniser lors du lot de palette |
@@ -148,10 +152,10 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 ## Prochaines étapes recommandées
 
-1. Coordination/Julien valident le bilan final P0 et la clôture de l'issue #1. Aucun compte ou déploiement supplémentaire nécessaire pour ce lot.
-2. Examiner la proposition P1 de contrastes/navigation déjà documentée et approuver l'aspect avant intégration importante de design. Aucun changement de palette n'est encore appliqué.
-3. Faire valider les coordonnées, textes contractuels/garanties, recettes et service d'infolettre. Les blocages commerciaux subsistent.
-4. Préparer une recette commerciale distincte seulement si autorisée : localisation française, panier hébergé non vide et règles métier. Les transactions et créations de données GoDaddy ne sont pas couvertes ici.
-5. Conserver Coming Soon, approbations GitHub, sauvegardes et restrictions site commercial/master/DNS/paiements/Zoho. Avant production : sauvegarde hors site/restauration intégrale, sécurité SSH et performance restent à traiter.
+1. Julien et Coordination examinent la planche P1 et choisissent A/B ou un ajustement ciblé. P0 est clôturé.
+2. Après accord graphique : intégrer uniquement la variante choisie dans le thème de développement et exécuter les contrôles appropriés. Aucun déploiement par cette décision seule.
+3. Tout futur déploiement GoDaddy sera préparé avec autorisation distincte, sauvegarde/rollback et nouvelle revue `godaddy-temp`.
+4. Valider contenus commerciaux, coordonnées, contrats/garanties, recettes et service d'infolettre. La recette transactionnelle et les réglages métier restent distincts.
+5. Conserver Coming Soon et restrictions site commercial/master/DNS/paiements/Zoho. Avant production, sauvegarde hors site/restauration intégrale, sécurité SSH et performance restent à traiter.
 
 Ce fichier est le point de synchronisation avec ChatGPT Coordination; aucun message de cette conversation Work n’y est supposé reçu automatiquement.

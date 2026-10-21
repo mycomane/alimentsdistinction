@@ -1,0 +1,2007 @@
+{
+  "run": 39690003471,
+  "job": 119533553118,
+  "commit": "61d940e2e0847b6f3358f4c98aa16c572f593148",
+  "scope": "isolated-proposals-only",
+  "checks": [
+    {
+      "label": "P0 zero geometry delta base 320",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero 320px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__left 320px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__right 320px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__title 320px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__ctas 320px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__trust 320px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted trust nowrap 320px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted trust three columns 320px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted trust no overlap 320px",
+      "passed": true
+    },
+    {
+      "label": "No overflow base 320",
+      "passed": true
+    },
+    {
+      "label": "Local images loaded base 320",
+      "passed": true
+    },
+    {
+      "label": "Keyboard skip link base 320",
+      "passed": true
+    },
+    {
+      "label": "Menu opens base 320",
+      "passed": true
+    },
+    {
+      "label": "Menu closes base 320",
+      "passed": true
+    },
+    {
+      "label": "P0 zero geometry delta a 320",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero 320px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__left 320px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__right 320px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__title 320px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__ctas 320px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__trust 320px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted trust nowrap 320px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted trust three columns 320px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted trust no overlap 320px",
+      "passed": true
+    },
+    {
+      "label": "No overflow a 320",
+      "passed": true
+    },
+    {
+      "label": "Local images loaded a 320",
+      "passed": true
+    },
+    {
+      "label": "Keyboard skip link a 320",
+      "passed": true
+    },
+    {
+      "label": "Menu opens a 320",
+      "passed": true
+    },
+    {
+      "label": "Menu closes a 320",
+      "passed": true
+    },
+    {
+      "label": "P0 zero geometry delta b 320",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero 320px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__left 320px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__right 320px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__title 320px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__ctas 320px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__trust 320px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted trust nowrap 320px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted trust three columns 320px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted trust no overlap 320px",
+      "passed": true
+    },
+    {
+      "label": "No overflow b 320",
+      "passed": true
+    },
+    {
+      "label": "Local images loaded b 320",
+      "passed": true
+    },
+    {
+      "label": "Keyboard skip link b 320",
+      "passed": true
+    },
+    {
+      "label": "Menu opens b 320",
+      "passed": true
+    },
+    {
+      "label": "Menu closes b 320",
+      "passed": true
+    },
+    {
+      "label": "P0 zero geometry delta base 390",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero 390px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__left 390px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__right 390px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__title 390px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__ctas 390px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__trust 390px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted trust nowrap 390px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted trust three columns 390px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted trust no overlap 390px",
+      "passed": true
+    },
+    {
+      "label": "No overflow base 390",
+      "passed": true
+    },
+    {
+      "label": "Local images loaded base 390",
+      "passed": true
+    },
+    {
+      "label": "Keyboard skip link base 390",
+      "passed": true
+    },
+    {
+      "label": "Menu opens base 390",
+      "passed": true
+    },
+    {
+      "label": "Menu closes base 390",
+      "passed": true
+    },
+    {
+      "label": "P0 zero geometry delta a 390",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero 390px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__left 390px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__right 390px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__title 390px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__ctas 390px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__trust 390px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted trust nowrap 390px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted trust three columns 390px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted trust no overlap 390px",
+      "passed": true
+    },
+    {
+      "label": "No overflow a 390",
+      "passed": true
+    },
+    {
+      "label": "Local images loaded a 390",
+      "passed": true
+    },
+    {
+      "label": "Keyboard skip link a 390",
+      "passed": true
+    },
+    {
+      "label": "Menu opens a 390",
+      "passed": true
+    },
+    {
+      "label": "Menu closes a 390",
+      "passed": true
+    },
+    {
+      "label": "Measured text contrast a home 390",
+      "passed": true
+    },
+    {
+      "label": "Hero hover AA a 390",
+      "passed": true
+    },
+    {
+      "label": "Hero focus visible a 390",
+      "passed": true
+    },
+    {
+      "label": "Bicolor nav focus a 390",
+      "passed": true
+    },
+    {
+      "label": "P0 zero geometry delta b 390",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero 390px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__left 390px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__right 390px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__title 390px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__ctas 390px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__trust 390px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted trust nowrap 390px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted trust three columns 390px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted trust no overlap 390px",
+      "passed": true
+    },
+    {
+      "label": "No overflow b 390",
+      "passed": true
+    },
+    {
+      "label": "Local images loaded b 390",
+      "passed": true
+    },
+    {
+      "label": "Keyboard skip link b 390",
+      "passed": true
+    },
+    {
+      "label": "Menu opens b 390",
+      "passed": true
+    },
+    {
+      "label": "Menu closes b 390",
+      "passed": true
+    },
+    {
+      "label": "Measured text contrast b home 390",
+      "passed": true
+    },
+    {
+      "label": "Hero hover AA b 390",
+      "passed": true
+    },
+    {
+      "label": "Hero focus visible b 390",
+      "passed": true
+    },
+    {
+      "label": "Bicolor nav focus b 390",
+      "passed": true
+    },
+    {
+      "label": "P0 zero geometry delta base 768",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero 768px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__left 768px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__right 768px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__title 768px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__ctas 768px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__trust 768px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted trust nowrap 768px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted trust three columns 768px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted trust no overlap 768px",
+      "passed": true
+    },
+    {
+      "label": "No overflow base 768",
+      "passed": true
+    },
+    {
+      "label": "Local images loaded base 768",
+      "passed": true
+    },
+    {
+      "label": "Keyboard skip link base 768",
+      "passed": true
+    },
+    {
+      "label": "Menu opens base 768",
+      "passed": true
+    },
+    {
+      "label": "Menu closes base 768",
+      "passed": true
+    },
+    {
+      "label": "P0 zero geometry delta a 768",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero 768px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__left 768px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__right 768px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__title 768px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__ctas 768px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__trust 768px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted trust nowrap 768px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted trust three columns 768px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted trust no overlap 768px",
+      "passed": true
+    },
+    {
+      "label": "No overflow a 768",
+      "passed": true
+    },
+    {
+      "label": "Local images loaded a 768",
+      "passed": true
+    },
+    {
+      "label": "Keyboard skip link a 768",
+      "passed": true
+    },
+    {
+      "label": "Menu opens a 768",
+      "passed": true
+    },
+    {
+      "label": "Menu closes a 768",
+      "passed": true
+    },
+    {
+      "label": "P0 zero geometry delta b 768",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero 768px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__left 768px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__right 768px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__title 768px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__ctas 768px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__trust 768px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted trust nowrap 768px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted trust three columns 768px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted trust no overlap 768px",
+      "passed": true
+    },
+    {
+      "label": "No overflow b 768",
+      "passed": true
+    },
+    {
+      "label": "Local images loaded b 768",
+      "passed": true
+    },
+    {
+      "label": "Keyboard skip link b 768",
+      "passed": true
+    },
+    {
+      "label": "Menu opens b 768",
+      "passed": true
+    },
+    {
+      "label": "Menu closes b 768",
+      "passed": true
+    },
+    {
+      "label": "P0 zero geometry delta base 1024",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero 1024px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__left 1024px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__right 1024px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__title 1024px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__ctas 1024px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__trust 1024px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted trust nowrap 1024px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted trust three columns 1024px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted trust no overlap 1024px",
+      "passed": true
+    },
+    {
+      "label": "No overflow base 1024",
+      "passed": true
+    },
+    {
+      "label": "Local images loaded base 1024",
+      "passed": true
+    },
+    {
+      "label": "Keyboard skip link base 1024",
+      "passed": true
+    },
+    {
+      "label": "P0 zero geometry delta a 1024",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero 1024px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__left 1024px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__right 1024px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__title 1024px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__ctas 1024px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__trust 1024px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted trust nowrap 1024px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted trust three columns 1024px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted trust no overlap 1024px",
+      "passed": true
+    },
+    {
+      "label": "No overflow a 1024",
+      "passed": true
+    },
+    {
+      "label": "Local images loaded a 1024",
+      "passed": true
+    },
+    {
+      "label": "Keyboard skip link a 1024",
+      "passed": true
+    },
+    {
+      "label": "P0 zero geometry delta b 1024",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero 1024px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__left 1024px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__right 1024px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__title 1024px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__ctas 1024px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__trust 1024px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted trust nowrap 1024px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted trust three columns 1024px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted trust no overlap 1024px",
+      "passed": true
+    },
+    {
+      "label": "No overflow b 1024",
+      "passed": true
+    },
+    {
+      "label": "Local images loaded b 1024",
+      "passed": true
+    },
+    {
+      "label": "Keyboard skip link b 1024",
+      "passed": true
+    },
+    {
+      "label": "P0 zero geometry delta base 1440",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero 1440px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__left 1440px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__right 1440px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__title 1440px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__ctas 1440px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted reference geometry .hero__trust 1440px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted trust nowrap 1440px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted trust three columns 1440px",
+      "passed": true
+    },
+    {
+      "label": "base Hosted trust no overlap 1440px",
+      "passed": true
+    },
+    {
+      "label": "No overflow base 1440",
+      "passed": true
+    },
+    {
+      "label": "Local images loaded base 1440",
+      "passed": true
+    },
+    {
+      "label": "Keyboard skip link base 1440",
+      "passed": true
+    },
+    {
+      "label": "P0 zero geometry delta a 1440",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero 1440px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__left 1440px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__right 1440px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__title 1440px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__ctas 1440px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted reference geometry .hero__trust 1440px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted trust nowrap 1440px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted trust three columns 1440px",
+      "passed": true
+    },
+    {
+      "label": "a Hosted trust no overlap 1440px",
+      "passed": true
+    },
+    {
+      "label": "No overflow a 1440",
+      "passed": true
+    },
+    {
+      "label": "Local images loaded a 1440",
+      "passed": true
+    },
+    {
+      "label": "Keyboard skip link a 1440",
+      "passed": true
+    },
+    {
+      "label": "Measured text contrast a home 1440",
+      "passed": true
+    },
+    {
+      "label": "Hero hover AA a 1440",
+      "passed": true
+    },
+    {
+      "label": "Hero focus visible a 1440",
+      "passed": true
+    },
+    {
+      "label": "Bicolor nav focus a 1440",
+      "passed": true
+    },
+    {
+      "label": "P0 zero geometry delta b 1440",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero 1440px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__left 1440px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__right 1440px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__title 1440px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__ctas 1440px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted reference geometry .hero__trust 1440px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted trust nowrap 1440px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted trust three columns 1440px",
+      "passed": true
+    },
+    {
+      "label": "b Hosted trust no overlap 1440px",
+      "passed": true
+    },
+    {
+      "label": "No overflow b 1440",
+      "passed": true
+    },
+    {
+      "label": "Local images loaded b 1440",
+      "passed": true
+    },
+    {
+      "label": "Keyboard skip link b 1440",
+      "passed": true
+    },
+    {
+      "label": "Measured text contrast b home 1440",
+      "passed": true
+    },
+    {
+      "label": "Hero hover AA b 1440",
+      "passed": true
+    },
+    {
+      "label": "Hero focus visible b 1440",
+      "passed": true
+    },
+    {
+      "label": "Bicolor nav focus b 1440",
+      "passed": true
+    },
+    {
+      "label": "Unavailable variation remains blocked base",
+      "passed": true
+    },
+    {
+      "label": "Isolated checkout present base",
+      "passed": true
+    },
+    {
+      "label": "Required-field error preserved base",
+      "passed": true
+    },
+    {
+      "label": "Variable unselected stays disabled a",
+      "passed": true
+    },
+    {
+      "label": "Disabled legible a",
+      "passed": true
+    },
+    {
+      "label": "Woo normal button AA a",
+      "passed": true
+    },
+    {
+      "label": "Woo hover button AA a",
+      "passed": true
+    },
+    {
+      "label": "Woo visible focus a",
+      "passed": true
+    },
+    {
+      "label": "Unavailable variation remains blocked a",
+      "passed": true
+    },
+    {
+      "label": "Measured text contrast a out_of_stock 390",
+      "passed": true
+    },
+    {
+      "label": "Isolated checkout present a",
+      "passed": true
+    },
+    {
+      "label": "Required-field error preserved a",
+      "passed": true
+    },
+    {
+      "label": "Invalid field boundary AA a",
+      "passed": true
+    },
+    {
+      "label": "Measured text contrast a checkout 390",
+      "passed": true
+    },
+    {
+      "label": "Variable unselected stays disabled b",
+      "passed": true
+    },
+    {
+      "label": "Disabled legible b",
+      "passed": true
+    },
+    {
+      "label": "Woo normal button AA b",
+      "passed": true
+    },
+    {
+      "label": "Woo hover button AA b",
+      "passed": true
+    },
+    {
+      "label": "Woo visible focus b",
+      "passed": true
+    },
+    {
+      "label": "Unavailable variation remains blocked b",
+      "passed": true
+    },
+    {
+      "label": "Measured text contrast b out_of_stock 390",
+      "passed": true
+    },
+    {
+      "label": "Isolated checkout present b",
+      "passed": true
+    },
+    {
+      "label": "Required-field error preserved b",
+      "passed": true
+    },
+    {
+      "label": "Invalid field boundary AA b",
+      "passed": true
+    },
+    {
+      "label": "Measured text contrast b checkout 390",
+      "passed": true
+    }
+  ],
+  "failures": [],
+  "geometry": [
+    {
+      "variant": "base",
+      "width": 320,
+      "maxDelta": 0
+    },
+    {
+      "variant": "a",
+      "width": 320,
+      "maxDelta": 0
+    },
+    {
+      "variant": "b",
+      "width": 320,
+      "maxDelta": 0
+    },
+    {
+      "variant": "base",
+      "width": 390,
+      "maxDelta": 0
+    },
+    {
+      "variant": "a",
+      "width": 390,
+      "maxDelta": 0
+    },
+    {
+      "variant": "b",
+      "width": 390,
+      "maxDelta": 0
+    },
+    {
+      "variant": "base",
+      "width": 768,
+      "maxDelta": 0
+    },
+    {
+      "variant": "a",
+      "width": 768,
+      "maxDelta": 0
+    },
+    {
+      "variant": "b",
+      "width": 768,
+      "maxDelta": 0
+    },
+    {
+      "variant": "base",
+      "width": 1024,
+      "maxDelta": 0
+    },
+    {
+      "variant": "a",
+      "width": 1024,
+      "maxDelta": 0
+    },
+    {
+      "variant": "b",
+      "width": 1024,
+      "maxDelta": 0
+    },
+    {
+      "variant": "base",
+      "width": 1440,
+      "maxDelta": 0
+    },
+    {
+      "variant": "a",
+      "width": 1440,
+      "maxDelta": 0
+    },
+    {
+      "variant": "b",
+      "width": 1440,
+      "maxDelta": 0
+    }
+  ],
+  "contrasts": [
+    {
+      "variant": "base",
+      "width": 390,
+      "kind": "home",
+      "nodes": 194,
+      "failed": 110,
+      "groups": {
+        "navigation": {
+          "count": 6,
+          "minimum": 2.597
+        },
+        "cta": {
+          "count": 2,
+          "minimum": 8.6559
+        },
+        "newsletter": {
+          "count": 8,
+          "minimum": 1.5508
+        },
+        "secondary": {
+          "count": 14,
+          "minimum": 1.9246
+        },
+        "buttons": {
+          "count": 8,
+          "minimum": 1.9156
+        }
+      },
+      "failures": [
+        {
+          "selector": "span.t-label",
+          "sample": "Produits Locaux · Québec",
+          "color": "rgb(196, 133, 122)",
+          "threshold": 4.5,
+          "minimum": 2.8141,
+          "sampledPixels": 264,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "em.",
+          "sample": "méritez",
+          "color": "rgb(196, 133, 122)",
+          "threshold": 3,
+          "minimum": 2.8141,
+          "sampledPixels": 1071,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "a.btn.btn-blush",
+          "sample": "Découvrir nos produits",
+          "color": "rgb(255, 255, 255)",
+          "threshold": 4.5,
+          "minimum": 3.0072,
+          "sampledPixels": 315,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "span.trust-item__value",
+          "sample": "50",
+          "color": "rgb(196, 133, 122)",
+          "threshold": 3,
+          "minimum": 2.8141,
+          "sampledPixels": 88,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "span.trust-item__label",
+          "sample": "Jours de vieillissement",
+          "color": "rgb(140, 136, 132)",
+          "threshold": 4.5,
+          "minimum": 3.2917,
+          "sampledPixels": 180,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "span.trust-item__value",
+          "sample": "102+",
+          "color": "rgb(196, 133, 122)",
+          "threshold": 3,
+          "minimum": 2.8141,
+          "sampledPixels": 187,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "span.trust-item__label",
+          "sample": "Produits disponibles",
+          "color": "rgb(140, 136, 132)",
+          "threshold": 4.5,
+          "minimum": 3.2917,
+          "sampledPixels": 165,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "span.trust-item__value",
+          "sample": "100%",
+          "color": "rgb(196, 133, 122)",
+          "threshold": 3,
+          "minimum": 2.8141,
+          "sampledPixels": 209,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "span.trust-item__label",
+          "sample": "Produits locaux",
+          "color": "rgb(140, 136, 132)",
+          "threshold": 4.5,
+          "minimum": 3.2917,
+          "sampledPixels": 115,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "div.hero__badge-sub",
+          "sample": "Grade le plus élevé au Canada",
+          "color": "rgb(140, 136, 132)",
+          "threshold": 4.5,
+          "minimum": 3.5176,
+          "sampledPixels": 215,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "span.t-label",
+          "sample": "Nos collections",
+          "color": "rgb(196, 133, 122)",
+          "threshold": 4.5,
+          "minimum": 2.0549,
+          "sampledPixels": 176,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "em.",
+          "sample": "d'exception",
+          "color": "rgb(196, 133, 122)",
+          "threshold": 3,
+          "minimum": 2.0019,
+          "sampledPixels": 728,
+          "pass": false,
+          "exempt": false
+        }
+      ],
+      "note": "Baseline examples limited to 12; full list in source workflow logs/artifact. Total failed count is unchanged."
+    },
+    {
+      "variant": "a",
+      "width": 390,
+      "kind": "home",
+      "nodes": 194,
+      "failed": 0,
+      "groups": {
+        "navigation": {
+          "count": 6,
+          "minimum": 5.4152
+        },
+        "cta": {
+          "count": 2,
+          "minimum": 8.6559
+        },
+        "newsletter": {
+          "count": 8,
+          "minimum": 5.2022
+        },
+        "secondary": {
+          "count": 14,
+          "minimum": 4.672
+        },
+        "buttons": {
+          "count": 8,
+          "minimum": 5.4152
+        }
+      },
+      "failures": []
+    },
+    {
+      "variant": "b",
+      "width": 390,
+      "kind": "home",
+      "nodes": 194,
+      "failed": 0,
+      "groups": {
+        "navigation": {
+          "count": 6,
+          "minimum": 13.3903
+        },
+        "cta": {
+          "count": 2,
+          "minimum": 8.6559
+        },
+        "newsletter": {
+          "count": 8,
+          "minimum": 5.2022
+        },
+        "secondary": {
+          "count": 14,
+          "minimum": 5.6069
+        },
+        "buttons": {
+          "count": 8,
+          "minimum": 5.4152
+        }
+      },
+      "failures": []
+    },
+    {
+      "variant": "base",
+      "width": 1440,
+      "kind": "home",
+      "nodes": 199,
+      "failed": 115,
+      "groups": {
+        "navigation": {
+          "count": 12,
+          "minimum": 1.0044
+        },
+        "cta": {
+          "count": 2,
+          "minimum": 8.6559
+        },
+        "newsletter": {
+          "count": 8,
+          "minimum": 1.5508
+        },
+        "secondary": {
+          "count": 14,
+          "minimum": 1.9246
+        },
+        "buttons": {
+          "count": 7,
+          "minimum": 1.8217
+        }
+      },
+      "failures": [
+        {
+          "selector": "span.nav-logo__sub",
+          "sample": "Produits Locaux · Livraison à domicile",
+          "color": "rgb(196, 133, 122)",
+          "threshold": 4.5,
+          "minimum": 2.8141,
+          "sampledPixels": 324,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "a.nav-link",
+          "sample": "Nos produits",
+          "color": "rgb(196, 133, 122)",
+          "threshold": 4.5,
+          "minimum": 2.8141,
+          "sampledPixels": 155,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "a.nav-link",
+          "sample": "Notre histoire",
+          "color": "rgb(196, 133, 122)",
+          "threshold": 4.5,
+          "minimum": 2.8141,
+          "sampledPixels": 170,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "a.nav-link",
+          "sample": "Livraison",
+          "color": "rgb(196, 133, 122)",
+          "threshold": 4.5,
+          "minimum": 4.2017,
+          "sampledPixels": 110,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "a.nav-link",
+          "sample": "Contact",
+          "color": "rgb(196, 133, 122)",
+          "threshold": 4.5,
+          "minimum": 3.7138,
+          "sampledPixels": 95,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "span.ad-cart-count",
+          "sample": "0",
+          "color": "rgb(44, 42, 39)",
+          "threshold": 4.5,
+          "minimum": 2.3313,
+          "sampledPixels": 12,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "span.t-label",
+          "sample": "Produits Locaux · Québec",
+          "color": "rgb(196, 133, 122)",
+          "threshold": 4.5,
+          "minimum": 2.8141,
+          "sampledPixels": 264,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "em.",
+          "sample": "méritez",
+          "color": "rgb(196, 133, 122)",
+          "threshold": 3,
+          "minimum": 2.8141,
+          "sampledPixels": 4018,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "a.btn.btn-blush",
+          "sample": "Découvrir nos produits",
+          "color": "rgb(255, 255, 255)",
+          "threshold": 4.5,
+          "minimum": 3.0072,
+          "sampledPixels": 315,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "span.trust-item__value",
+          "sample": "50",
+          "color": "rgb(196, 133, 122)",
+          "threshold": 3,
+          "minimum": 2.8141,
+          "sampledPixels": 88,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "span.trust-item__label",
+          "sample": "Jours de vieillissement",
+          "color": "rgb(140, 136, 132)",
+          "threshold": 4.5,
+          "minimum": 3.2917,
+          "sampledPixels": 190,
+          "pass": false,
+          "exempt": false
+        },
+        {
+          "selector": "span.trust-item__value",
+          "sample": "102+",
+          "color": "rgb(196, 133, 122)",
+          "threshold": 3,
+          "minimum": 2.8141,
+          "sampledPixels": 187,
+          "pass": false,
+          "exempt": false
+        }
+      ],
+      "note": "Baseline examples limited to 12; full list in source workflow logs/artifact. Total failed count is unchanged."
+    },
+    {
+      "variant": "a",
+      "width": 1440,
+      "kind": "home",
+      "nodes": 199,
+      "failed": 0,
+      "groups": {
+        "navigation": {
+          "count": 12,
+          "minimum": 5.4152
+        },
+        "cta": {
+          "count": 2,
+          "minimum": 8.6559
+        },
+        "newsletter": {
+          "count": 8,
+          "minimum": 5.3798
+        },
+        "secondary": {
+          "count": 14,
+          "minimum": 4.672
+        },
+        "buttons": {
+          "count": 7,
+          "minimum": 5.687
+        }
+      },
+      "failures": []
+    },
+    {
+      "variant": "b",
+      "width": 1440,
+      "kind": "home",
+      "nodes": 199,
+      "failed": 0,
+      "groups": {
+        "navigation": {
+          "count": 12,
+          "minimum": 5.4152
+        },
+        "cta": {
+          "count": 2,
+          "minimum": 8.6559
+        },
+        "newsletter": {
+          "count": 8,
+          "minimum": 5.3798
+        },
+        "secondary": {
+          "count": 14,
+          "minimum": 5.6069
+        },
+        "buttons": {
+          "count": 7,
+          "minimum": 5.687
+        }
+      },
+      "failures": []
+    },
+    {
+      "variant": "a",
+      "width": 390,
+      "kind": "out_of_stock",
+      "nodes": 71,
+      "failed": 0,
+      "groups": {
+        "navigation": {
+          "count": 6,
+          "minimum": 5.4152
+        },
+        "cta": {
+          "count": 0,
+          "minimum": null
+        },
+        "newsletter": {
+          "count": 4,
+          "minimum": 7.017
+        },
+        "secondary": {
+          "count": 3,
+          "minimum": 4.672
+        },
+        "buttons": {
+          "count": 3,
+          "minimum": 5.4152
+        }
+      },
+      "failures": []
+    },
+    {
+      "variant": "a",
+      "width": 390,
+      "kind": "checkout",
+      "nodes": 77,
+      "failed": 0,
+      "groups": {
+        "navigation": {
+          "count": 6,
+          "minimum": 5.4152
+        },
+        "cta": {
+          "count": 0,
+          "minimum": null
+        },
+        "newsletter": {
+          "count": 4,
+          "minimum": 7.017
+        },
+        "secondary": {
+          "count": 3,
+          "minimum": 4.672
+        },
+        "buttons": {
+          "count": 3,
+          "minimum": 5.4152
+        }
+      },
+      "failures": []
+    },
+    {
+      "variant": "b",
+      "width": 390,
+      "kind": "out_of_stock",
+      "nodes": 71,
+      "failed": 0,
+      "groups": {
+        "navigation": {
+          "count": 6,
+          "minimum": 5.4152
+        },
+        "cta": {
+          "count": 0,
+          "minimum": null
+        },
+        "newsletter": {
+          "count": 4,
+          "minimum": 7.017
+        },
+        "secondary": {
+          "count": 3,
+          "minimum": 5.6069
+        },
+        "buttons": {
+          "count": 3,
+          "minimum": 5.4152
+        }
+      },
+      "failures": []
+    },
+    {
+      "variant": "b",
+      "width": 390,
+      "kind": "checkout",
+      "nodes": 77,
+      "failed": 0,
+      "groups": {
+        "navigation": {
+          "count": 6,
+          "minimum": 13.3903
+        },
+        "cta": {
+          "count": 0,
+          "minimum": null
+        },
+        "newsletter": {
+          "count": 4,
+          "minimum": 7.017
+        },
+        "secondary": {
+          "count": 3,
+          "minimum": 5.6069
+        },
+        "buttons": {
+          "count": 3,
+          "minimum": 5.4152
+        }
+      },
+      "failures": []
+    }
+  ],
+  "states": [
+    {
+      "variant": "base",
+      "width": 390,
+      "state": "navigation_scrolled",
+      "background": "rgba(250, 247, 242, 0.97)"
+    },
+    {
+      "variant": "a",
+      "width": 390,
+      "hover": {
+        "state": "hover",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(113, 62, 55)",
+        "border": "rgb(113, 62, 55)",
+        "outline": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "outlineStyle": "none",
+        "boxShadow": "none",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      "focus": {
+        "state": "focus",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(113, 62, 55)",
+        "border": "rgb(113, 62, 55)",
+        "outline": "rgb(44, 42, 39)",
+        "outlineWidth": "3px",
+        "outlineStyle": "solid",
+        "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 5px",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      }
+    },
+    {
+      "variant": "a",
+      "width": 390,
+      "state": "navigation_scrolled",
+      "background": "rgba(250, 247, 242, 0.97)"
+    },
+    {
+      "variant": "b",
+      "width": 390,
+      "hover": {
+        "state": "hover",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(113, 62, 55)",
+        "border": "rgb(113, 62, 55)",
+        "outline": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "outlineStyle": "none",
+        "boxShadow": "none",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      "focus": {
+        "state": "focus",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(113, 62, 55)",
+        "border": "rgb(113, 62, 55)",
+        "outline": "rgb(44, 42, 39)",
+        "outlineWidth": "3px",
+        "outlineStyle": "solid",
+        "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 5px",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      }
+    },
+    {
+      "variant": "b",
+      "width": 390,
+      "state": "navigation_scrolled",
+      "background": "rgb(250, 247, 242)"
+    },
+    {
+      "variant": "base",
+      "width": 1440,
+      "state": "navigation_scrolled",
+      "background": "rgba(250, 247, 242, 0.97)"
+    },
+    {
+      "variant": "a",
+      "width": 1440,
+      "hover": {
+        "state": "hover",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(113, 62, 55)",
+        "border": "rgb(113, 62, 55)",
+        "outline": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "outlineStyle": "none",
+        "boxShadow": "none",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      "focus": {
+        "state": "focus",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(113, 62, 55)",
+        "border": "rgb(113, 62, 55)",
+        "outline": "rgb(44, 42, 39)",
+        "outlineWidth": "3px",
+        "outlineStyle": "solid",
+        "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 5px",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      }
+    },
+    {
+      "variant": "a",
+      "width": 1440,
+      "state": "navigation_scrolled",
+      "background": "rgba(250, 247, 242, 0.97)"
+    },
+    {
+      "variant": "b",
+      "width": 1440,
+      "hover": {
+        "state": "hover",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(113, 62, 55)",
+        "border": "rgb(113, 62, 55)",
+        "outline": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "outlineStyle": "none",
+        "boxShadow": "none",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      "focus": {
+        "state": "focus",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(113, 62, 55)",
+        "border": "rgb(113, 62, 55)",
+        "outline": "rgb(44, 42, 39)",
+        "outlineWidth": "3px",
+        "outlineStyle": "solid",
+        "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 5px",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      }
+    },
+    {
+      "variant": "b",
+      "width": 1440,
+      "state": "navigation_scrolled",
+      "background": "rgb(250, 247, 242)"
+    },
+    {
+      "variant": "base",
+      "state": "unselected",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(127, 84, 179)",
+      "border": "rgb(255, 255, 255)",
+      "outline": "rgb(255, 255, 255)",
+      "outlineWidth": "0px",
+      "outlineStyle": "none",
+      "boxShadow": "none",
+      "opacity": "0.5",
+      "disabled": true,
+      "ariaDisabled": null
+    },
+    {
+      "variant": "base",
+      "normal": {
+        "state": "enabled",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(196, 133, 122)",
+        "border": "rgb(255, 255, 255)",
+        "outline": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "outlineStyle": "none",
+        "boxShadow": "none",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      "hover": {
+        "state": "hover",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(168, 103, 94)",
+        "border": "rgb(255, 255, 255)",
+        "outline": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "outlineStyle": "none",
+        "boxShadow": "none",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      "focus": {
+        "state": "focus",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(168, 103, 94)",
+        "border": "rgb(255, 255, 255)",
+        "outline": "rgb(44, 42, 39)",
+        "outlineWidth": "3px",
+        "outlineStyle": "solid",
+        "boxShadow": "none",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      }
+    },
+    {
+      "variant": "a",
+      "state": "unselected",
+      "color": "rgb(74, 71, 68)",
+      "background": "rgb(228, 217, 206)",
+      "border": "rgb(110, 105, 100)",
+      "outline": "rgb(74, 71, 68)",
+      "outlineWidth": "0px",
+      "outlineStyle": "none",
+      "boxShadow": "none",
+      "opacity": "1",
+      "disabled": true,
+      "ariaDisabled": null
+    },
+    {
+      "variant": "a",
+      "normal": {
+        "state": "enabled",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(148, 84, 75)",
+        "border": "rgb(148, 84, 75)",
+        "outline": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "outlineStyle": "none",
+        "boxShadow": "none",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      "hover": {
+        "state": "hover",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(113, 62, 55)",
+        "border": "rgb(148, 84, 75)",
+        "outline": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "outlineStyle": "none",
+        "boxShadow": "none",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      "focus": {
+        "state": "focus",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(113, 62, 55)",
+        "border": "rgb(148, 84, 75)",
+        "outline": "rgb(44, 42, 39)",
+        "outlineWidth": "3px",
+        "outlineStyle": "solid",
+        "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 5px",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      }
+    },
+    {
+      "variant": "a",
+      "state": "invalid",
+      "color": "rgb(44, 42, 39)",
+      "background": "rgb(255, 255, 255)",
+      "border": "rgb(139, 53, 48)",
+      "outline": "rgb(44, 42, 39)",
+      "outlineWidth": "0px",
+      "outlineStyle": "none",
+      "boxShadow": "none",
+      "opacity": "1",
+      "disabled": false,
+      "ariaDisabled": null
+    },
+    {
+      "variant": "b",
+      "state": "unselected",
+      "color": "rgb(74, 71, 68)",
+      "background": "rgb(228, 217, 206)",
+      "border": "rgb(110, 105, 100)",
+      "outline": "rgb(74, 71, 68)",
+      "outlineWidth": "0px",
+      "outlineStyle": "none",
+      "boxShadow": "none",
+      "opacity": "1",
+      "disabled": true,
+      "ariaDisabled": null
+    },
+    {
+      "variant": "b",
+      "normal": {
+        "state": "enabled",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(44, 42, 39)",
+        "border": "rgb(44, 42, 39)",
+        "outline": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "outlineStyle": "none",
+        "boxShadow": "none",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      "hover": {
+        "state": "hover",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(113, 62, 55)",
+        "border": "rgb(44, 42, 39)",
+        "outline": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "outlineStyle": "none",
+        "boxShadow": "none",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      "focus": {
+        "state": "focus",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(113, 62, 55)",
+        "border": "rgb(44, 42, 39)",
+        "outline": "rgb(44, 42, 39)",
+        "outlineWidth": "3px",
+        "outlineStyle": "solid",
+        "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 5px",
+        "opacity": "1",
+        "disabled": false,
+        "ariaDisabled": null
+      }
+    },
+    {
+      "variant": "b",
+      "state": "invalid",
+      "color": "rgb(44, 42, 39)",
+      "background": "rgb(255, 255, 255)",
+      "border": "rgb(139, 53, 48)",
+      "outline": "rgb(44, 42, 39)",
+      "outlineWidth": "0px",
+      "outlineStyle": "none",
+      "boxShadow": "none",
+      "opacity": "1",
+      "disabled": false,
+      "ariaDisabled": null
+    }
+  ],
+  "limits": [
+    "Pixel background sampling at 3px steps, text hidden to avoid antialias artifacts. Conservative minimum across text rectangles, not a full WCAG certification.",
+    "Disabled controls and decorative symbol-only text are classified separately.",
+    "No commercial settings or hosted session. No checkout submission."
+  ]
+}
