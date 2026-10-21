@@ -1,0 +1,191 @@
+{
+  "scope": "isolated French site only",
+  "checks": [
+    {
+      "label": "320 French document language",
+      "passed": true
+    },
+    {
+      "label": "320 French native variation prompt",
+      "passed": true
+    },
+    {
+      "label": "320 French native add-to-cart label",
+      "passed": true
+    },
+    {
+      "label": "320 neutral disabled button",
+      "passed": true
+    },
+    {
+      "label": "320 A variation border",
+      "passed": true
+    },
+    {
+      "label": "320 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "label": "320 A enabled button",
+      "passed": true
+    },
+    {
+      "label": "320 A hover",
+      "passed": true
+    },
+    {
+      "label": "320 button keyboard focus",
+      "passed": true
+    },
+    {
+      "label": "390 French document language",
+      "passed": true
+    },
+    {
+      "label": "390 French native variation prompt",
+      "passed": true
+    },
+    {
+      "label": "390 French native add-to-cart label",
+      "passed": true
+    },
+    {
+      "label": "390 neutral disabled button",
+      "passed": true
+    },
+    {
+      "label": "390 A variation border",
+      "passed": true
+    },
+    {
+      "label": "390 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "label": "390 A enabled button",
+      "passed": true
+    },
+    {
+      "label": "390 A hover",
+      "passed": true
+    },
+    {
+      "label": "390 button keyboard focus",
+      "passed": true
+    },
+    {
+      "label": "768 French document language",
+      "passed": true
+    },
+    {
+      "label": "768 French native variation prompt",
+      "passed": true
+    },
+    {
+      "label": "768 French native add-to-cart label",
+      "passed": true
+    },
+    {
+      "label": "768 neutral disabled button",
+      "passed": true
+    },
+    {
+      "label": "768 A variation border",
+      "passed": true
+    },
+    {
+      "label": "768 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "label": "768 A enabled button",
+      "passed": true
+    },
+    {
+      "label": "768 A hover",
+      "passed": true
+    },
+    {
+      "label": "768 button keyboard focus",
+      "passed": true
+    },
+    {
+      "label": "1024 French document language",
+      "passed": true
+    },
+    {
+      "label": "1024 French native variation prompt",
+      "passed": true
+    },
+    {
+      "label": "1024 French native add-to-cart label",
+      "passed": true
+    },
+    {
+      "label": "1024 neutral disabled button",
+      "passed": true
+    },
+    {
+      "label": "1024 A variation border",
+      "passed": true
+    },
+    {
+      "label": "1024 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "label": "1024 A enabled button",
+      "passed": true
+    },
+    {
+      "label": "1024 A hover",
+      "passed": true
+    },
+    {
+      "label": "1024 button keyboard focus",
+      "passed": true
+    },
+    {
+      "label": "1440 French document language",
+      "passed": true
+    },
+    {
+      "label": "1440 French native variation prompt",
+      "passed": true
+    },
+    {
+      "label": "1440 French native add-to-cart label",
+      "passed": true
+    },
+    {
+      "label": "1440 neutral disabled button",
+      "passed": true
+    },
+    {
+      "label": "1440 A variation border",
+      "passed": true
+    },
+    {
+      "label": "1440 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "label": "1440 A enabled button",
+      "passed": true
+    },
+    {
+      "label": "1440 A hover",
+      "passed": true
+    },
+    {
+      "label": "1440 button keyboard focus",
+      "passed": true
+    }
+  ],
+  "failures": [],
+  "screenshots": [
+    "french-controls-390.jpg",
+    "french-controls-1440.jpg"
+  ],
+  "ordersSubmitted": 0
+}

@@ -4,7 +4,7 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 ## Phase et derniers commits
 
-**P0 clôturé. P1 : Julien conserve « Actuel », palette choisie par Jean-François et Meggy. Intégration limitée au bouton d’ajout au panier et au sélecteur de variation de A. Site en français. Tests de cette intégration en attente; aucun accès ou déploiement GoDaddy.**
+**P0 clôturé. P1 : Julien conserve « Actuel », palette choisie par Jean-François et Meggy. Intégration limitée au bouton d’ajout au panier et au sélecteur de variation de A. Site en français. Recette isolée et 45 contrôles français réussis; aucun accès ou déploiement GoDaddy.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
 - Dernier commit P1 testé : [`61d940e2e0847b6f3358f4c98aa16c572f593148`](https://github.com/mycomane/alimentsdistinction/commit/61d940e2e0847b6f3358f4c98aa16c572f593148); captures seules : [`80bd8201a9a61b3c7e9225f31dca81c3296dc9b7`](https://github.com/mycomane/alimentsdistinction/commit/80bd8201a9a61b3c7e9225f31dca81c3296dc9b7). Code GoDaddy toujours `be5703eeaa434ada55cb33a961a0b08e11f6a862`, thème 0.1.1.
@@ -12,20 +12,25 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
 
-## Décision P1 — intégration ciblée, tests à confirmer
+## Décision P1 — intégration ciblée testée, non déployée
 
 - Base de cette phase : `6fe6febb220889059db21af463ff0968401e2aa1`. Palette globale, accueil, navigation et infolettre conservés.
 - CSS limité au bouton d’achat de la fiche produit (actif, survol, désactivé) et à la bordure du sélecteur de variations. Aucun filtre de traduction global ni changement des règles WooCommerce.
 - Les anciens exemples étaient exécutés avec une fixture anglaise; nouvelle recette dédiée `fr_FR` avec paquets officiels WordPress/WooCommerce pour vérifier « Ajouter au panier » et « Choisir une option » aux cinq largeurs.
 - Aucun réglage de langue GoDaddy effectué; langue et traductions de l’environnement hébergé restent à vérifier dans une future opération autorisée.
-- QA existante réutilisée; résultat de la nouvelle exécution à consigner après son achèvement. Les 254 contrôles antérieurs concernent les propositions A/B, pas cette intégration.
+- Code testé : [`206972b1ab2228b17b6131c66a9475e7f085f3da`](https://github.com/mycomane/alimentsdistinction/commit/206972b1ab2228b17b6131c66a9475e7f085f3da).
+- [Recette isolée 39692488831](https://github.com/mycomane/alimentsdistinction/actions/runs/39692488831), job `119541795281` : **succès**, recette existante réutilisée et **45 contrôles français supplémentaires réussis** sur 320/390/768/1024/1440. Libellés natifs, bouton désactivé/actif/survol/focus, bordure du sélecteur, absence de débordement. Aucune erreur JavaScript ni erreur PHP fatale/avertissement/dépréciation comptée; zéro commande créée et aucune passerelle active.
+- [Construction 39692489014](https://github.com/mycomane/alimentsdistinction/actions/runs/39692489014) : **succès**. Source officielle, sept images, syntaxe PHP/JS et structure vérifiées. Aucun workflow protégé modifié.
+- [Preuve des 45 contrôles](p1/evidence/french-controls.json), [capture téléphone](p1/evidence/french-controls-390.jpg), [capture ordinateur](p1/evidence/french-controls-1440.jpg). Captures synthétiques examinées; libellés français validés, pas certification de toute la localisation hébergée.
+- Le contenu dynamique des fixtures reste synthétique (dont catégorie initiale « Uncategorized » et format monétaire de test). Il ne constitue pas un contenu commercial à publier. Le futur site doit être en français, contenus et traductions compris.
+- Les 254 contrôles antérieurs concernent les propositions A/B, pas cette intégration. Version d’en-tête encore 0.1.1 dans cette préparation : incrément et invalidation des caches à prévoir dans un futur lot de déploiement autorisé.
 
 ## P1 — historique des variantes, non retenues globalement
 
 [Issue #2](https://github.com/mycomane/alimentsdistinction/issues/2) exécutée en propositions isolées. P0 est clôturé par la Coordination; aucun nouveau compte ou accès GoDaddy.
 
 - **A — évolution discrète :** menu aux mêmes positions, petites surfaces crème opaques derrière liens/icônes, boutons rose encre et gris secondaire assombri.
-- **B — lecture renforcée, recommandée :** barre crème opaque continue, boutons et liens charbon, gris secondaire plus profond.
+- **B — lecture renforcée (historique, non retenue) :** barre crème opaque continue, boutons et liens charbon, gris secondaire plus profond.
 - Commun : rose décoratif/photos/mise en page conservés, rose encre `#94544B` sur surfaces unies, **`#6B3832` localement sur les textures/feuilles réelles**, infolettre claire, focus bicolore et états WooCommerce lisibles.
 - **[Planche autonome A/B](p1/choice.html)** avec vues ordinateur/téléphone/infolettre/WooCommerce; [rapport des compromis et limites](p1/REPORT.md), [captures JPEG](p1/evidence/choice-desktop.jpg) et [preuves JSON](p1/evidence/report.json).
 - **[Run ciblé 39690003471](https://github.com/mycomane/alimentsdistinction/actions/runs/39690003471), job 119533553118 : succès, 254 contrôles ciblés**, zéro erreur. Géométrie actuel/A/B aux cinq largeurs : **écart maximal 0,00 px**; clavier/menu/images sans régression P0.
@@ -154,13 +159,13 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 | Choix esthétique P1 | A : surfaces locales; B : barre crème opaque | Variantes complètes archivées, non retenues |
 | Bloquant commercial | Téléphone/coordonnées, pages de livraison/retours/confidentialité, garanties et affirmations commerciales | Contenus et validation du propriétaire/Julien nécessaires |
 | Majeur contenu | Recettes et service d’infolettre incomplets | Rédaction et service approuvés; aucune fausse inscription |
-| Mineur cohérence | Bouton WooCommerce de variation désactivée violet natif | Harmoniser lors du lot de palette |
+| Préparé en développement | Bouton de variation désactivée harmonisé et deux libellés français testés | Déploiement distinct à autoriser; GoDaddy inchangé |
 | À confirmer avant ouverture | Localisation française et commerce hébergé avec panier non vide | Checkout vide vers panier maintenant confirmé; autres scénarios restent distincts |
 | Avant production | Hors site/restauration intégrale, confirmation SSH indépendante, performance/CWV et règles commerciales | Préparer la validation, sans connexion ou configuration non autorisée |
 
 ## Prochaines étapes recommandées
 
-1. Terminer et consigner les tests de l’intégration ciblée et des libellés français. P0 est clôturé.
+1. Faire examiner l’intégration ciblée testée et les libellés français; P0 est clôturé.
 2. Présenter les contrôles français et leurs résultats. Aucun déploiement par cette décision seule.
 3. Tout futur déploiement GoDaddy sera préparé avec autorisation distincte, sauvegarde/rollback et nouvelle revue `godaddy-temp`.
 4. Valider contenus commerciaux, coordonnées, contrats/garanties, recettes et service d'infolettre. La recette transactionnelle et les réglages métier restent distincts.

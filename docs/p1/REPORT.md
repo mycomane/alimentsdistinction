@@ -4,7 +4,17 @@
 
 Mission [#2](https://github.com/mycomane/alimentsdistinction/issues/2). P0 est clos; le thème installé reste 0.1.1. Cette phase prépare uniquement des fichiers de prévisualisation séparés. Aucun accès GoDaddy, compte, session privée, palette hébergée ou workflow protégé modifié.
 
-## Planche de choix
+## Intégration retenue et résultat
+
+Code `206972b1ab2228b17b6131c66a9475e7f085f3da` : seulement `commerce.css` pour le bouton d’ajout au panier des fiches produits et la bordure du sélecteur. Actif `#94544B`, survol `#713E37`, désactivé `#E4D9CE` / texte `#4A4744`, bordure `#6E6964`. Palette globale, menu, accueil et infolettre conservés. Aucun remplacement global de traduction : WooCommerce utilise ses paquets français officiels.
+
+[Run 39692488831](https://github.com/mycomane/alimentsdistinction/actions/runs/39692488831), job 119541795281 : succès. Recette existante + **45 nouveaux contrôles français réussis**, aux cinq largeurs, libellés natifs « Ajouter au panier » et « Choisir une option », états désactivé/actif/survol/focus et absence de débordement. Zéro commande créée; aucun paiement; logs PHP sans fatal/avertissement/dépréciation et aucune erreur JS détectée. [Build 39692489014](https://github.com/mycomane/alimentsdistinction/actions/runs/39692489014) réussi.
+
+[Preuve JSON](evidence/french-controls.json) · [Téléphone](evidence/french-controls-390.jpg) · [Ordinateur](evidence/french-controls-1440.jpg). Les captures montrent un produit synthétique sélectionné avec focus clavier. Les contenus et formats hérités des fixtures (catégorie « Uncategorized », monnaie) ne représentent pas les contenus français à publier. Cette vérification ne certifie pas la localisation complète de GoDaddy, auquel aucun accès n’a été effectué.
+
+Aucun déploiement. Une future livraison devra obtenir l’autorisation distincte de Julien, une nouvelle approbation GitHub et les protections de retour arrière; prévoir également l’incrément de version/cache du thème.
+
+## Planche de choix historique
 
 Ouvrir **[choice.html](choice.html)** : fichier autonome léger avec boutons pour comparer ordinateur, téléphone, infolettre et états WooCommerce. Les exemples de boutons montrent leurs états de repos/survol/focus; ils n'envoient pas de décision. [JPEG ordinateur](evidence/choice-desktop.jpg), [téléphone](evidence/choice-mobile.jpg), [infolettre](evidence/choice-newsletter.jpg), [WooCommerce](evidence/choice-woo-states.jpg).
 
