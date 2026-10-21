@@ -1,0 +1,590 @@
+{
+  "date": "2026-10-21",
+  "completedAtToronto": "2026-10-21T18:34:55-04:00",
+  "run": 39686849316,
+  "job": 119523045267,
+  "commit": "6b3031a74792827836d3bab57d181896b7d15d40",
+  "scope": "authorized temporary WordPress frontend, disposable subscriber only",
+  "conclusion": "success",
+  "approvalVerified": true,
+  "assertions": 88,
+  "checks": [
+    {
+      "label": "Anonymous homepage remains Coming Soon",
+      "passed": true
+    },
+    {
+      "label": "Authenticated homepage contains design hero",
+      "passed": true
+    },
+    {
+      "label": "Hosted HTML requests theme CSS version 0.1.1",
+      "passed": true
+    },
+    {
+      "label": "Hosted browser session receives exact corrected CSS",
+      "passed": true
+    },
+    {
+      "label": "Private theme visible 320px",
+      "passed": true
+    },
+    {
+      "label": "No hosted horizontal overflow 320px",
+      "passed": true
+    },
+    {
+      "label": "Hosted local images loaded 320px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero 320px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__left 320px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__right 320px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__title 320px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__ctas 320px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__trust 320px",
+      "passed": true
+    },
+    {
+      "label": "Hosted trust nowrap 320px",
+      "passed": true
+    },
+    {
+      "label": "Hosted trust three columns 320px",
+      "passed": true
+    },
+    {
+      "label": "Hosted trust no overlap 320px",
+      "passed": true
+    },
+    {
+      "label": "Hosted homepage anchor targets exist 320px",
+      "passed": true
+    },
+    {
+      "label": "Hosted mobile menu opens 320px",
+      "passed": true
+    },
+    {
+      "label": "Hosted mobile menu closes 320px",
+      "passed": true
+    },
+    {
+      "label": "Hosted mobile menu restores focus 320px",
+      "passed": true
+    },
+    {
+      "label": "Private theme visible 390px",
+      "passed": true
+    },
+    {
+      "label": "No hosted horizontal overflow 390px",
+      "passed": true
+    },
+    {
+      "label": "Hosted local images loaded 390px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero 390px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__left 390px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__right 390px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__title 390px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__ctas 390px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__trust 390px",
+      "passed": true
+    },
+    {
+      "label": "Hosted trust nowrap 390px",
+      "passed": true
+    },
+    {
+      "label": "Hosted trust three columns 390px",
+      "passed": true
+    },
+    {
+      "label": "Hosted trust no overlap 390px",
+      "passed": true
+    },
+    {
+      "label": "Hosted homepage anchor targets exist 390px",
+      "passed": true
+    },
+    {
+      "label": "Hosted mobile menu opens 390px",
+      "passed": true
+    },
+    {
+      "label": "Hosted mobile menu closes 390px",
+      "passed": true
+    },
+    {
+      "label": "Hosted mobile menu restores focus 390px",
+      "passed": true
+    },
+    {
+      "label": "Private theme visible 768px",
+      "passed": true
+    },
+    {
+      "label": "No hosted horizontal overflow 768px",
+      "passed": true
+    },
+    {
+      "label": "Hosted local images loaded 768px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero 768px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__left 768px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__right 768px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__title 768px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__ctas 768px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__trust 768px",
+      "passed": true
+    },
+    {
+      "label": "Hosted trust nowrap 768px",
+      "passed": true
+    },
+    {
+      "label": "Hosted trust three columns 768px",
+      "passed": true
+    },
+    {
+      "label": "Hosted trust no overlap 768px",
+      "passed": true
+    },
+    {
+      "label": "Hosted homepage anchor targets exist 768px",
+      "passed": true
+    },
+    {
+      "label": "Hosted mobile menu opens 768px",
+      "passed": true
+    },
+    {
+      "label": "Hosted mobile menu closes 768px",
+      "passed": true
+    },
+    {
+      "label": "Hosted mobile menu restores focus 768px",
+      "passed": true
+    },
+    {
+      "label": "Private theme visible 1024px",
+      "passed": true
+    },
+    {
+      "label": "No hosted horizontal overflow 1024px",
+      "passed": true
+    },
+    {
+      "label": "Hosted local images loaded 1024px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero 1024px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__left 1024px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__right 1024px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__title 1024px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__ctas 1024px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__trust 1024px",
+      "passed": true
+    },
+    {
+      "label": "Hosted trust nowrap 1024px",
+      "passed": true
+    },
+    {
+      "label": "Hosted trust three columns 1024px",
+      "passed": true
+    },
+    {
+      "label": "Hosted trust no overlap 1024px",
+      "passed": true
+    },
+    {
+      "label": "Hosted homepage anchor targets exist 1024px",
+      "passed": true
+    },
+    {
+      "label": "Private theme visible 1440px",
+      "passed": true
+    },
+    {
+      "label": "No hosted horizontal overflow 1440px",
+      "passed": true
+    },
+    {
+      "label": "Hosted local images loaded 1440px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero 1440px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__left 1440px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__right 1440px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__title 1440px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__ctas 1440px",
+      "passed": true
+    },
+    {
+      "label": "Hosted reference geometry .hero__trust 1440px",
+      "passed": true
+    },
+    {
+      "label": "Hosted trust nowrap 1440px",
+      "passed": true
+    },
+    {
+      "label": "Hosted trust three columns 1440px",
+      "passed": true
+    },
+    {
+      "label": "Hosted trust no overlap 1440px",
+      "passed": true
+    },
+    {
+      "label": "Hosted homepage anchor targets exist 1440px",
+      "passed": true
+    },
+    {
+      "label": "Private technical page reachable: shop",
+      "passed": true
+    },
+    {
+      "label": "No hosted technical page overflow: shop",
+      "passed": true
+    },
+    {
+      "label": "Private technical page reachable: cart",
+      "passed": true
+    },
+    {
+      "label": "No hosted technical page overflow: cart",
+      "passed": true
+    },
+    {
+      "label": "Private technical page reachable: checkout",
+      "passed": true
+    },
+    {
+      "label": "No hosted technical page overflow: checkout",
+      "passed": true
+    },
+    {
+      "label": "Private technical page reachable: myaccount",
+      "passed": true
+    },
+    {
+      "label": "No hosted technical page overflow: myaccount",
+      "passed": true
+    },
+    {
+      "label": "Anonymous Coming Soon preserved after private checks",
+      "passed": true
+    },
+    {
+      "label": "No JavaScript pageerror during hosted checks",
+      "passed": true
+    }
+  ],
+  "geometry": [
+    {
+      "width": 320,
+      "heroHeightDelta": 0,
+      "maxComparedGeometryDelta": 0,
+      "viewport": 320,
+      "scrollWidth": 320,
+      "brokenLocal": 0,
+      "brokenExternal": 0,
+      "trustFlexWrap": "nowrap",
+      "trustItems": [
+        {
+          "x": 24,
+          "y": 838.75,
+          "width": 86.27,
+          "height": 62.31,
+          "clipped": false
+        },
+        {
+          "x": 134.27,
+          "y": 838.75,
+          "width": 79.45,
+          "height": 62.31,
+          "clipped": false
+        },
+        {
+          "x": 237.72,
+          "y": 838.75,
+          "width": 58.28,
+          "height": 62.31,
+          "clipped": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "heroHeightDelta": 0,
+      "maxComparedGeometryDelta": 0,
+      "viewport": 390,
+      "scrollWidth": 390,
+      "brokenLocal": 0,
+      "brokenExternal": 0,
+      "trustFlexWrap": "nowrap",
+      "trustItems": [
+        {
+          "x": 24,
+          "y": 812.02,
+          "width": 113.22,
+          "height": 62.31,
+          "clipped": false
+        },
+        {
+          "x": 161.22,
+          "y": 812.02,
+          "width": 104.3,
+          "height": 62.31,
+          "clipped": false
+        },
+        {
+          "x": 289.52,
+          "y": 812.02,
+          "width": 76.48,
+          "height": 62.31,
+          "clipped": false
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "heroHeightDelta": 0,
+      "maxComparedGeometryDelta": 0,
+      "viewport": 768,
+      "scrollWidth": 768,
+      "brokenLocal": 0,
+      "brokenExternal": 0,
+      "trustFlexWrap": "nowrap",
+      "trustItems": [
+        {
+          "x": 24,
+          "y": 673.13,
+          "width": 113.83,
+          "height": 45.45,
+          "clipped": false
+        },
+        {
+          "x": 161.83,
+          "y": 673.13,
+          "width": 104.84,
+          "height": 45.45,
+          "clipped": false
+        },
+        {
+          "x": 290.67,
+          "y": 673.13,
+          "width": 76.89,
+          "height": 45.45,
+          "clipped": false
+        }
+      ]
+    },
+    {
+      "width": 1024,
+      "heroHeightDelta": 0,
+      "maxComparedGeometryDelta": 0,
+      "viewport": 1024,
+      "scrollWidth": 1024,
+      "brokenLocal": 0,
+      "brokenExternal": 0,
+      "trustFlexWrap": "nowrap",
+      "trustItems": [
+        {
+          "x": 48,
+          "y": 729.06,
+          "width": 113.83,
+          "height": 45.45,
+          "clipped": false
+        },
+        {
+          "x": 193.83,
+          "y": 729.06,
+          "width": 104.84,
+          "height": 45.45,
+          "clipped": false
+        },
+        {
+          "x": 330.67,
+          "y": 729.06,
+          "width": 76.89,
+          "height": 45.45,
+          "clipped": false
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "heroHeightDelta": 0,
+      "maxComparedGeometryDelta": 0,
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "brokenLocal": 0,
+      "brokenExternal": 0,
+      "trustFlexWrap": "nowrap",
+      "trustItems": [
+        {
+          "x": 80,
+          "y": 870.25,
+          "width": 113.83,
+          "height": 45.45,
+          "clipped": false
+        },
+        {
+          "x": 225.83,
+          "y": 870.25,
+          "width": 104.84,
+          "height": 45.45,
+          "clipped": false
+        },
+        {
+          "x": 362.67,
+          "y": 870.25,
+          "width": 76.89,
+          "height": 45.45,
+          "clipped": false
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "key": "shop",
+      "status": 200,
+      "sameOrigin": true,
+      "finalPageKey": "shop",
+      "themeVisible": true,
+      "overflow": false,
+      "checkoutFormCount": 0
+    },
+    {
+      "key": "cart",
+      "status": 200,
+      "sameOrigin": true,
+      "finalPageKey": "cart",
+      "themeVisible": true,
+      "overflow": false,
+      "checkoutFormCount": 0
+    },
+    {
+      "key": "checkout",
+      "status": 200,
+      "sameOrigin": true,
+      "finalPageKey": "cart",
+      "themeVisible": true,
+      "overflow": false,
+      "checkoutFormCount": 0
+    },
+    {
+      "key": "myaccount",
+      "status": 200,
+      "sameOrigin": true,
+      "finalPageKey": "myaccount",
+      "themeVisible": true,
+      "overflow": false,
+      "checkoutFormCount": 0
+    }
+  ],
+  "css": {
+    "version": "0.1.1",
+    "sha256": "5a4c3a5a8ae6fccd66437151555b66d05c1f5c18dc56cfff3de3f66a92bde780",
+    "status": 200
+  },
+  "pageErrorCount": 0,
+  "failures": [],
+  "cleanup": {
+    "accountDeleted": true,
+    "sessionsRevoked": true,
+    "protectedSettingsAndProductOrderCountsUnchanged": true,
+    "runnerSensitiveFilesDiscarded": true
+  },
+  "anonymousComingSoonBeforeAfter": true,
+  "limitations": [
+    "No authenticated screenshots or HTML exported or manually reviewed",
+    "No hosted products, cart actions, order or payment created",
+    "Empty checkout redirects to cart; nonempty checkout not exercised on GoDaddy",
+    "Automated targeted geometry, not a full accessibility or pixel certification"
+  ]
+}

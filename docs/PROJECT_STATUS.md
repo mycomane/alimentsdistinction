@@ -4,27 +4,28 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 ## Phase et derniers commits
 
-**P0 : déploiement technique 0.1.1 réussi sur le WordPress temporaire le 21 octobre 2026 à 18 h 21 HAE. Sauvegarde/rollback préparé, CSS servi et état protégé vérifiés. Recette visuelle hébergée authentifiée autorisée et préparation testée; run 39686849316 en attente de la revue GitHub avant création de l’Abonné.**
+**P0 terminé : thème 0.1.1 déployé et recette hébergée automatisée réussie. 88 contrôles frontend, écart réel 0,00 px aux cinq largeurs; compte temporaire supprimé et sessions révoquées. Coming Soon préservé. Bilan transmis à Coordination pour validation de clôture P0 et décision P1.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
-- Dernier commit de recette préparé : [`6b3031a74792827836d3bab57d181896b7d15d40`](https://github.com/mycomane/alimentsdistinction/commit/6b3031a74792827836d3bab57d181896b7d15d40). Code déployé : `be5703eeaa434ada55cb33a961a0b08e11f6a862`; thème 0.1.1 inchangé.
+- Dernier commit de recette validé : [`6b3031a74792827836d3bab57d181896b7d15d40`](https://github.com/mycomane/alimentsdistinction/commit/6b3031a74792827836d3bab57d181896b7d15d40). Code déployé : `be5703eeaa434ada55cb33a961a0b08e11f6a862`; thème 0.1.1 inchangé.
 - Commit du correctif CSS : [`9618095516d982e10eebfe5c7aa0cdcc4bf85be3`](https://github.com/mycomane/alimentsdistinction/commit/9618095516d982e10eebfe5c7aa0cdcc4bf85be3).
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
 
-## Phase en préparation — recette privée post-déploiement autorisée
+## Recette hébergée post-déploiement — réussie
 
-La création d'un nouvel Abonné temporaire 30 minutes et sa suppression/révocation sont désormais autorisées explicitement par Julien. Aucune extension du périmètre commercial.
+**[Run 39686849316 — succès](https://github.com/mycomane/alimentsdistinction/actions/runs/39686849316)**, job `119523045267`, code `6b3031a74792827836d3bab57d181896b7d15d40`. Préparation `119522989146` réussie, nouvelle approbation `mycomane` du run exact vérifiée. Fin : **21 octobre, 18 h 34 HAE**.
 
-- Workflow `review-godaddy-private.yml` actualisé : nouveau reviewer obligatoire du run exact, préconditions version 0.1.1/WooCommerce et 23 empreintes, rapport géométrique ciblé et contrôle du CSS réellement demandé/reçu.
-- Tests locaux réussis : six scénarios détectant notamment +53 px et un cycle complet de session Abonné isolé (création, cookie valide, expiration, révocation/suppression, ancien cookie refusé, baseline stable).
-- Rapport distant prévu : 320/390/768/1024/1440, menu/clavier/images/ancres/pages techniques; aucun POST/panier/commande. Aucune capture ou HTML authentifié publié.
-- **[Run recette privée 39686849316 — PRÊT POUR APPROBATION](https://github.com/mycomane/alimentsdistinction/actions/runs/39686849316)**, commit `6b3031a74792827836d3bab57d181896b7d15d40`.
-- Préparation `119522989146` : **succès**, syntaxe PHP/Bash/JS, ShellCheck et six scénarios géométriques détectant la régression.
-- Job `review` **119523045267 : waiting**, reviewer `mycomane`, environnement `godaddy-temp` confirmé. Aucun compte distant créé par cette préparation.
-- Revue requise : **Review deployments → godaddy-temp → Approve and deploy**. Le libellé GitHub est générique : ce workflow effectue la recette avec compte temporaire et nettoyage, **aucun redéploiement du thème**.
-- QA isolé automatique [39686849309](https://github.com/mycomane/alimentsdistinction/actions/runs/39686849309), job **119522988346 : succès**, **300 assertions** (11 PHP + 41 navigateur + 61 P0 + 55 sections + 132 WooCommerce), zéro fatal/avertissement/dépréciation PHP compté. Les résultats de la recette hébergée restent en attente de la revue et de son exécution.
-- [Autorisation et procédure détaillées](PRIVATE_REVIEW_APPROVED.md#nouvelle-autorisation--recette-p0-après-déploiement-011).
+- **88 contrôles frontend réussis**, zéro échec, zéro erreur JavaScript `pageerror`.
+- Rendu réel à **320/390/768/1024/1440** : écart maximal **0,00 px** sur positions/dimensions des six zones du héro comparées à `index.html`, dont réassurance; aucune découpe/chevauchement, débordement ou image locale cassée détectée.
+- HTML authentifié demandant CSS 0.1.1 et SHA256 du fichier reçu conformes au déploiement; menu Enter/Échap/focus, ancres et quatre pages techniques contrôlés.
+- Checkout **vide renvoie au panier**, sans formulaire de commande. Aucun produit ajouté, paiement ou commande; le commerce hébergé complet n'est pas déclaré validé.
+- **Coming Soon anonyme avant/après**, compte Abonné de ce run **supprimé et sessions révoquées**, fichiers sensibles du runner supprimés, réglages et compteurs produits/commandes protégés inchangés.
+- Aucune capture/HTML/cookie authentifié publié; preuve limitée aux compteurs/géométries. Cette recette automatisée n'est pas une comparaison manuelle exhaustive de toutes les sections.
+- QA isolé parallèle **[39686849309](https://github.com/mycomane/alimentsdistinction/actions/runs/39686849309)**, job `119522988346` : **300 assertions réussies**, zéro fatal/avertissement/dépréciation PHP compté.
+- [Rapport final de recette P0](P0_POSTDEPLOY_REVIEW_2026-10-21.md) et [preuve structurée hébergée](evidence/p0-hosted-review-result.json).
+
+Les critères techniques P0 de l'issue #1 sont remplis. Aucun nouveau compte ou autre déploiement nécessaire pour P0. La Coordination conserve la décision de clôture de l'issue et les priorités P1; aucune permission de palette/configuration commerciale n'est déduite de cette recette.
 
 ## État courant — déploiement technique réussi
 
@@ -46,8 +47,8 @@ Site : **https://1302636.us22.myftpupload.com/** uniquement. [Run 39685183348](h
 Aucun rollback réel requis après la bascule. La répétition a porté sur les copies privées; aucune restauration SQL exécutée. La sauvegarde reste sur le même hébergement, sans restauration intégrale/offsite certifiée. PHP web n'a pas été resondé; la valeur 8.2.35 ci-dessus est celle du CLI.
 
 - **Tests isolés du même commit :** préparation 119517310652 et QA 119517311211 réussis : 46 assertions mesure/espace, 17 gardes fichiers/visibilité, six scénarios MySQL et **300 assertions WordPress**, géométrie à 0,00 px aux cinq largeurs.
-- **Limite hébergée :** aucun rendu authentifié après déploiement n'a été mesuré. Le succès HTTP/CSS et Coming Soon ne prouvent pas la géométrie du héro derrière la protection. Aucun compte créé.
-- **Autorisation reçue :** Julien a répondu « oui » au nouvel Abonné temporaire 30 minutes, frontend lecture seule, session révoquée et compte supprimé après recette. Le workflow est préparé pour une nouvelle revue GitHub; aucun compte GoDaddy créé à ce stade.
+- **Validation hébergée complétée :** run 39686849316, 88 contrôles et géométrie réelle sans écart aux cinq largeurs, nettoyage confirmé; voir rapport final ci-dessus.
+- **Autorisation exécutée et terminée :** un Abonné temporaire créé pour cette recette, session révoquée et compte supprimé. Aucun compte de recette actif à réutiliser.
 - Preuves : [déploiement technique](evidence/p0-deployment-result.json), [QA du candidat](evidence/p0-newlines-qa.json), [diagnostic structurel hébergé](evidence/p0-hosted-db-shape.json), [procédure/rollback](P0_DEPLOYMENT_2026-10-21.md).
 - ZIP 0.1.1 : SHA256 `8162bc571bb5dea232badd562b5c9085c30187b1b4ff80f567f1f5e9fdb8497e`; CSS installé : `5a4c3a5a8ae6fccd66437151555b66d05c1f5c18dc56cfff3de3f66a92bde780`.
 
@@ -125,21 +126,21 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 | Priorité | Élément restant | Décision / action |
 | --- | --- | --- |
 | P0 technique terminé | Déploiement 0.1.1 réussi, sauvegarde et CSS vérifiés | Aucune nouvelle approbation de déploiement requise pour cette opération déjà terminée |
-| Passage GitHub | Nouvelle recette hébergée et Abonné autorisés | Revoir le nouveau run `godaddy-temp` avant provisionnement |
+| P0 validé | Recette hébergée et nettoyage réussis | Coordination peut valider la clôture de l’issue #1 |
 | Majeur accessibilité | Textes rose/gris, boutons et infolettre insuffisamment contrastés | Valider les propositions graphiques avant leur intégration |
 | Majeur accessibilité | Navigation transparente sur photo | Valider une solution par contexte, par exemple une barre à fond crème opaque |
 | Bloquant commercial | Téléphone/coordonnées, pages de livraison/retours/confidentialité, garanties et affirmations commerciales | Contenus et validation du propriétaire/Julien nécessaires |
 | Majeur contenu | Recettes et service d’infolettre incomplets | Rédaction et service approuvés; aucune fausse inscription |
 | Mineur cohérence | Bouton WooCommerce de variation désactivée violet natif | Harmoniser lors du lot de palette |
-| À confirmer avant ouverture | Localisation française WooCommerce et URL finale hébergée de checkout vide | Nouvelle recette hébergée autorisée; ne pas conclure depuis le runner anglais |
+| À confirmer avant ouverture | Localisation française et commerce hébergé avec panier non vide | Checkout vide vers panier maintenant confirmé; autres scénarios restent distincts |
 | Avant production | Hors site/restauration intégrale, confirmation SSH indépendante, performance/CWV et règles commerciales | Préparer la validation, sans connexion ou configuration non autorisée |
 
 ## Prochaines étapes recommandées
 
-1. Julien approuve le run de recette privée 39686849316 dans `godaddy-temp`; autorisation de l’Abonné déjà reçue, aucun redéploiement de thème.
-2. Après cette autorisation et la revue GitHub correspondante, mesurer le rendu hébergé à 320/390/768/1024/1440, menus/images/liens; révoquer la session et supprimer le seul compte de recette. Ne pas déclarer cette étape réussie à l’avance.
-3. Après validation graphique : intégrer les ajustements ciblés de contraste, états désactivés/survol/focus et navigation, puis refaire les vérifications isolées appropriées.
-4. Compléter les contenus commerciaux approuvés et les tests non couverts. Le formulaire de commande n’a jamais été soumis; les blocs Panier/Commande, lecteurs d’écran, pixels des sections secondaires et performance ne sont pas certifiés.
-5. Aucun nouveau compte, produit, commande ou réglage GoDaddy sans motif et autorisation correspondant à la prochaine recette. Conserver Coming Soon.
+1. Coordination/Julien valident le bilan final P0 et la clôture de l'issue #1. Aucun compte ou déploiement supplémentaire nécessaire pour ce lot.
+2. Examiner la proposition P1 de contrastes/navigation déjà documentée et approuver l'aspect avant intégration importante de design. Aucun changement de palette n'est encore appliqué.
+3. Faire valider les coordonnées, textes contractuels/garanties, recettes et service d'infolettre. Les blocages commerciaux subsistent.
+4. Préparer une recette commerciale distincte seulement si autorisée : localisation française, panier hébergé non vide et règles métier. Les transactions et créations de données GoDaddy ne sont pas couvertes ici.
+5. Conserver Coming Soon, approbations GitHub, sauvegardes et restrictions site commercial/master/DNS/paiements/Zoho. Avant production : sauvegarde hors site/restauration intégrale, sécurité SSH et performance restent à traiter.
 
 Ce fichier est le point de synchronisation avec ChatGPT Coordination; aucun message de cette conversation Work n’y est supposé reçu automatiquement.

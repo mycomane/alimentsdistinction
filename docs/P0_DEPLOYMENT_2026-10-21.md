@@ -1,6 +1,6 @@
 # P0 — mise à jour contrôlée 0.1.0 → 0.1.1
 
-**État courant : déploiement technique réussi**, [run 39685183348](https://github.com/mycomane/alimentsdistinction/actions/runs/39685183348), job 119518254594. Le thème 0.1.1 est actif; sauvegarde fraîche, répétition privée du rollback, CSS HTTP et état protégé vérifiés. La recette visuelle hébergée authentifiée reste en attente d'autorisation. Les mentions « en attente » suivantes sont l'historique de préparation.
+**État courant : déploiement et recette ciblée réussis**, runs 39685183348 puis 39686849316. Thème 0.1.1 actif, sauvegarde/rollback préparés et CSS servi confirmés, puis 88 contrôles frontend hébergés et zéro écart aux cinq largeurs. Abonné supprimé et sessions révoquées; Coming Soon préservé. [Rapport final](P0_POSTDEPLOY_REVIEW_2026-10-21.md). Les mentions « en attente » suivantes sont l'historique des étapes précédentes.
 
 Autorisation : [issue #1](https://github.com/mycomane/alimentsdistinction/issues/1), confirmée par Julien dans Work le 21 octobre 2026. **Le passage GitHub `godaddy-temp` reste obligatoire.** Cette fiche décrit la préparation; aucun succès distant n'est anticipé.
 

@@ -1,5 +1,7 @@
 # Recette privée — accès Abonné temporaire approuvé
 
+**État courant :** recette P0 0.1.1 du run 39686849316 réussie, 88 contrôles, compte supprimé et sessions révoquées. Voir [le rapport final](P0_POSTDEPLOY_REVIEW_2026-10-21.md). Les résultats 33 contrôles/53 px ci-dessous concernent la version antérieure 0.1.0.
+
 L’utilisateur a approuvé la proposition d’un compte de recette temporaire **Abonné**, avec session de 30 minutes et suppression après contrôle, sur le seul `https://1302636.us22.myftpupload.com`. Si Coming Soon empêche ce rôle de voir le thème, arrêter sans élever ses droits. Aucun nouveau droit administrateur, paiement, produit, commande, configuration commerciale, domaine ou accès au site commercial n’est inclus.
 
 ## Scénario préparé
@@ -100,3 +102,13 @@ La nouvelle approbation GitHub sera l'étape bloquante avant tout provisionnemen
 - Job distant `119523045267` : **waiting**, reviewer `mycomane` pour `godaddy-temp`. Aucun compte distant encore créé.
 - L'autorisation de Julien pour ce nouvel Abonné est enregistrée; la **nouvelle revue GitHub reste obligatoire**, puis recette et nettoyage `always()`. Aucun redéploiement.
 - QA isolé automatique **39686849309 / 119522988346 : succès**, 300 assertions et zéro fatal/avertissement/dépréciation PHP compté. Le résultat de la recette GoDaddy elle-même reste en attente d’approbation/exécution.
+
+## Résultat final de la nouvelle recette P0 — succès et nettoyage
+
+[Run 39686849316](https://github.com/mycomane/alimentsdistinction/actions/runs/39686849316), job `119523045267`, commit `6b3031a74792827836d3bab57d181896b7d15d40`, terminé le 21 octobre à 18 h 34 HAE : **succès après approbation**.
+
+**88 contrôles frontend réussis** et zéro `pageerror`. Géométrie réelle des six zones du héro identique aux mesures de référence aux cinq largeurs (écart maximal 0,00 px). CSS demandé/reçu 0.1.1 et SHA exact; réassurance, images locales, débordements, ancres, menu/clavier/focus et pages techniques réussis. Checkout avec panier vide aboutit au panier; aucune commande ni action panier.
+
+Coming Soon anonyme avant/après confirmé. Nettoyage réussi : **Abonné supprimé, sessions révoquées**, réglages et compteurs produits/commandes inchangés, fichiers sensibles du runner supprimés. Aucun compte actif conservé; pas de capture/HTML/cookie authentifié publié. Aucun redéploiement pendant cette recette.
+
+[Rapport final](P0_POSTDEPLOY_REVIEW_2026-10-21.md) et [preuve structurée](evidence/p0-hosted-review-result.json). La recette est automatisée et ciblée; pas d'inspection manuelle pixel par pixel ni parcours transactionnel hébergé complet. Les demandes d'approbation « en attente » ci-dessus sont historiques et satisfaites pour ce run.
