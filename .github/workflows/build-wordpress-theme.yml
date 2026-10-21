@@ -44,7 +44,9 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           from zipfile import ZipFile
-          archive = Path("dist/aliments-distinction-0.1.0.zip")
+          archives = list(Path('dist').glob('aliments-distinction-*.zip'))
+          assert len(archives) == 1
+          archive = archives[0]
           assert archive.is_file() and archive.stat().st_size > 0
           with ZipFile(archive) as z:
               names = z.namelist()
@@ -57,7 +59,7 @@ jobs:
       - name: Publish artifact for review (no GoDaddy access)
         uses: actions/upload-artifact@v4
         with:
-          name: aliments-distinction-theme-0.1.0
-          path: dist/aliments-distinction-0.1.0.zip
+          name: aliments-distinction-theme
+          path: dist/aliments-distinction-*.zip
           if-no-files-found: error
           retention-days: 14

@@ -4,13 +4,24 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 ## Phase et derniers commits
 
-**P0 corrigé et validé dans la branche, non déployé. P1/P2 : recette isolée ciblée terminée, résultats et limites documentés. Attente des validations de Julien pour la suite graphique et tout déploiement.**
+**Déploiement P0 autorisé par Julien via issue #1, préparation de 0.1.1 en cours; non déployé. Approbation GitHub `godaddy-temp` obligatoire après tests du nouveau candidat. P1/palette toujours en attente de validation distincte.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
 - Dernier commit d’implémentation/tests vérifié : [`aab5e712eb72acc9622b92a8bfb05c9c97bbb587`](https://github.com/mycomane/alimentsdistinction/commit/aab5e712eb72acc9622b92a8bfb05c9c97bbb587).
 - Commit du correctif CSS : [`9618095516d982e10eebfe5c7aa0cdcc4bf85be3`](https://github.com/mycomane/alimentsdistinction/commit/9618095516d982e10eebfe5c7aa0cdcc4bf85be3).
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
+
+## Mission active — issue #1 : déploiement P0 uniquement
+
+[Directive et autorisation](https://github.com/mycomane/alimentsdistinction/issues/1) lues intégralement. Base de départ vérifiée : `33687091f44243cab40c2bd43c34fbe072b03e74`; dernier QA antérieur `39610664542` réussi.
+
+- Candidat **0.1.1** préparé : uniquement le correctif P0 et l'en-tête de version dans `style.css`; les 22 autres fichiers du thème sont identiques à 0.1.0.
+- Workflow distinct de mise à jour préparé, garde d'approbation humaine du run, empreintes complètes, sauvegarde fraîche obligatoire, répétition privée du retour arrière et remplacement atomique du seul CSS.
+- Validation locale : lint PHP/JS/Bash/YAML, ZIP et périmètre exact réussis; **14 assertions de protection/remplacement/rollback filesystem réussies**.
+- Nouveau QA isolé et ShellCheck GitHub : en attente de lancement/résultat. Aucun accès GoDaddy exécuté pendant la préparation.
+- [Procédure détaillée, empreintes, retour arrière et limites](P0_DEPLOYMENT_2026-10-21.md).
+- **À approuver séparément :** nouvel Abonné temporaire de recette (30 minutes, frontend lecture seule, révocation/suppression après contrôle), car la session précédente n'existe plus. Le déploiement n'en crée aucun. Sans accord, aucune affirmation de géométrie hébergée après mise à jour.
 
 ## Travaux terminés
 
@@ -63,7 +74,8 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 | Priorité | Élément restant | Décision / action |
 | --- | --- | --- |
-| Validation Julien | Correctif P0 validé, présent uniquement dans GitHub | Autorisation distincte avant mise à jour GoDaddy |
+| Passage GitHub obligatoire | Déploiement P0 autorisé, candidat 0.1.1 préparé | Tests du candidat puis reviewer `godaddy-temp` |
+| Validation Julien | Nouvelle recette géométrique hébergée après mise à jour | Autoriser un Abonné temporaire de 30 minutes avec suppression |
 | Majeur accessibilité | Textes rose/gris, boutons et infolettre insuffisamment contrastés | Valider les propositions graphiques avant leur intégration |
 | Majeur accessibilité | Navigation transparente sur photo | Valider une solution par contexte, par exemple une barre à fond crème opaque |
 | Bloquant commercial | Téléphone/coordonnées, pages de livraison/retours/confidentialité, garanties et affirmations commerciales | Contenus et validation du propriétaire/Julien nécessaires |
@@ -74,8 +86,8 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 ## Prochaines étapes recommandées
 
-1. Coordination et Julien examinent le correctif P0, ses mesures et les captures.
-2. Après autorisation de déploiement : Work prépare la version/cache et le scénario de mise à jour, vérifie une sauvegarde fraîche et un retour arrière, puis respecte l’approbation obligatoire de `godaddy-temp`. Ne pas relancer le premier installateur qui refuse l’écrasement.
+1. Terminer les tests du candidat 0.1.1, puis présenter le run de mise à jour à l’approbation GitHub obligatoire.
+2. Après approbation GitHub : contrôles distants, sauvegarde fraîche et répétition de retour arrière, mise à jour atomique du CSS, vérifications techniques et Coming Soon. Recette authentifiée après autorisation distincte du compte temporaire. Ne pas relancer le premier installateur.
 3. Après validation graphique : intégrer les ajustements ciblés de contraste, états désactivés/survol/focus et navigation, puis refaire les vérifications isolées appropriées.
 4. Compléter les contenus commerciaux approuvés et les tests non couverts. Le formulaire de commande n’a jamais été soumis; les blocs Panier/Commande, lecteurs d’écran, pixels des sections secondaires et performance ne sont pas certifiés.
 5. Aucun nouveau compte, produit, commande ou réglage GoDaddy sans motif et autorisation correspondant à la prochaine recette. Conserver Coming Soon.

@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Build an installable theme ZIP without repository, test data or credentials."""
 from pathlib import Path
-import argparse, zipfile
+import argparse, zipfile, re
 root = Path(__file__).resolve().parents[1]
-parser = argparse.ArgumentParser()
-parser.add_argument('--output', type=Path, default=root / 'dist/aliments-distinction-0.1.0.zip')
-args = parser.parse_args()
 theme = root / 'wordpress/aliments-distinction'
+version = re.search(r'^Version: ([0-9]+\.[0-9]+\.[0-9]+)$', (theme / 'style.css').read_text(), re.M)[1]
+parser = argparse.ArgumentParser()
+parser.add_argument('--output', type=Path, default=root / f'dist/aliments-distinction-{version}.zip')
+args = parser.parse_args()
 args.output.parent.mkdir(parents=True, exist_ok=True)
 with zipfile.ZipFile(args.output, 'w', zipfile.ZIP_DEFLATED) as archive:
     for path in sorted(theme.rglob('*')):
