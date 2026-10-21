@@ -1,6 +1,8 @@
 /* Actual authorized temporary site, disposable subscriber, read-only frontend checks. No screenshots/HTML/logged-in text exported. */
 const fs=require('node:fs');
 const path=require('node:path');
+const crypto=require('node:crypto');
+const {compare}=require('./hosted-p0-geometry.cjs');
 const {chromium}=require(path.join(process.env.RUNNER_TEMP,'ad-review-tools/node_modules/playwright'));
 const base='https://1302636.us22.myftpupload.com';
 const report={scope:'godaddy-temporary-only',stage:'browser_launch',checks:[],layout:[],pages:[],failures:[],pageErrorCount:0};
@@ -8,10 +10,15 @@ const check=(passed,label)=>{report.checks.push({label,passed:!!passed});if(!pas
 const comingSoon=async page=>/coming\s+soon/i.test(await page.locator('body').innerText());
 const geometry=async page=>page.evaluate(()=>{
   const result={};
-  for(const selector of ['.hero','.hero__left','.hero__right','.hero__title','.hero__ctas']){
+  for(const selector of ['.hero','.hero__left','.hero__right','.hero__title','.hero__ctas','.hero__trust']){
     const el=document.querySelector(selector);if(!el){result[selector]=null;continue;}
     const r=el.getBoundingClientRect(),s=getComputedStyle(el);
-    result[selector]={x:Math.round(r.x),y:Math.round(r.y),width:Math.round(r.width),height:Math.round(r.height),fontSize:s.fontSize,fontFamily:s.fontFamily,color:s.color};
+    const box=r=>({x:+r.x.toFixed(2),y:+r.y.toFixed(2),width:+r.width.toFixed(2),height:+r.height.toFixed(2)});
+    result[selector]={...box(r),fontSize:s.fontSize,fontFamily:s.fontFamily,color:s.color};
+    if(selector==='.hero__trust'){
+      result[selector].flexWrap=s.flexWrap;
+      result[selector].items=[...el.children].map(x=>({...box(x.getBoundingClientRect()),clipped:x.scrollWidth>x.clientWidth+1||x.scrollHeight>x.clientHeight+1}));
+    }
   }return result;
 });
 (async()=>{
@@ -45,11 +52,21 @@ const geometry=async page=>page.evaluate(()=>{
     await page.goto(base+'/?ad_review='+process.env.GITHUB_RUN_ID+'-private',{waitUntil:'networkidle',timeout:45000});
     if(await comingSoon(page)){
       report.outcome='subscriber_blocked_by_coming_soon';
+      check(false,'Subscriber could not access theme; no role escalation');process.exitCode=1;
       console.log('RESULT: subscriber blocked by Coming Soon; no role escalation or visibility change.');
       return;
     }
     check(await page.locator('.hero__title').count()===1,'Authenticated homepage contains design hero');
     if(report.failures.length)throw new Error('unexpected private response');
+    report.stage='deployed_css';
+    const cssURL=await page.locator('link#ad-theme-css').getAttribute('href');
+    const parsedCSS=new URL(cssURL);
+    check(parsedCSS.origin===base&&parsedCSS.pathname==='/wp-content/themes/aliments-distinction/style.css'&&parsedCSS.searchParams.get('ver')==='0.1.1','Hosted HTML requests theme CSS version 0.1.1');
+    if(report.failures.length)throw new Error('unexpected stylesheet');
+    const css=await context.request.get(cssURL,{maxRedirects:0});
+    const digest=crypto.createHash('sha256').update(await css.body()).digest('hex');
+    check(css.status()===200&&digest==='5a4c3a5a8ae6fccd66437151555b66d05c1f5c18dc56cfff3de3f66a92bde780','Hosted browser session receives exact corrected CSS');
+    report.css={version:'0.1.1',sha256:digest,status:css.status()};
     const refContext=await browser.newContext();
     const reference=await refContext.newPage();
     for(const width of [320,390,768,1024,1440]){
@@ -64,11 +81,20 @@ const geometry=async page=>page.evaluate(()=>{
       await reference.setViewportSize({width,height:1000});
       await reference.goto('http://127.0.0.1:8788/index.html',{waitUntil:'networkidle'});
       await reference.evaluate(()=>document.fonts.ready);
-      report.layout.push({width,...metrics,hosted:await geometry(page),reference:await geometry(reference)});
+      const hosted=await geometry(page),ref=await geometry(reference);
+      for(const c of compare(hosted,ref,width))check(c.passed,c.label);
+      const delta=+(hosted['.hero'].height-ref['.hero'].height).toFixed(2);
+      report.layout.push({width,...metrics,hosted,reference:ref,heroHeightDelta:delta});
+      const anchors=await page.evaluate(()=>[...document.querySelectorAll('a[href]')].filter(a=>{
+        const u=new URL(a.href,location.href);if(u.origin!==location.origin||u.pathname!==location.pathname||!u.hash||u.hash==='#')return false;
+        try{return !document.getElementById(decodeURIComponent(u.hash.slice(1)));}catch{return true;}
+      }).length);
+      check(anchors===0,'Hosted homepage anchor targets exist '+width+'px');
       if(width<=820){
-        const toggle=page.getByRole('button',{name:'Menu',exact:true});await toggle.click();
+        const toggle=page.getByRole('button',{name:'Menu',exact:true});await toggle.focus();await toggle.press('Enter');
         check(await toggle.getAttribute('aria-expanded')==='true','Hosted mobile menu opens '+width+'px');
         await toggle.press('Escape');check(await toggle.getAttribute('aria-expanded')==='false','Hosted mobile menu closes '+width+'px');
+        check(await toggle.evaluate(el=>document.activeElement===el),'Hosted mobile menu restores focus '+width+'px');
       }
     }
     for(const [key,url] of Object.entries(auth.pages)){
@@ -77,7 +103,9 @@ const geometry=async page=>page.evaluate(()=>{
       const response=await page.goto(url,{waitUntil:'networkidle',timeout:45000});
       const stillPrivate=new URL(page.url()).origin===base&&!await comingSoon(page);
       const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1);
-      report.pages.push({key,status:response.status(),sameOrigin:new URL(page.url()).origin===base,themeVisible:stillPrivate,overflow,checkoutFormCount:await page.locator('form.checkout').count()});
+      const finalURL=new URL(page.url());
+      const finalPageKey=Object.entries(auth.pages).find(([,u])=>{const known=new URL(u);return known.pathname===finalURL.pathname&&known.searchParams.get('page_id')===finalURL.searchParams.get('page_id');})?.[0]||'other_same_origin_path';
+      report.pages.push({key,status:response.status(),sameOrigin:finalURL.origin===base,finalPageKey,themeVisible:stillPrivate,overflow,checkoutFormCount:await page.locator('form.checkout').count()});
       check(response.status()===200&&stillPrivate,'Private technical page reachable: '+key);
       check(!overflow,'No hosted technical page overflow: '+key);
     }
@@ -88,7 +116,7 @@ const geometry=async page=>page.evaluate(()=>{
     report.outcome=report.failures.length?'failed':'automated_frontend_checks_passed';
   }finally{
     await browser.close();
-    console.log(JSON.stringify(report,null,2));
+    console.log('AD_HOSTED_P0_REPORT '+JSON.stringify(report));
     if(process.env.GITHUB_STEP_SUMMARY)fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,'## Hosted subscriber review (no authenticated images exported)\n```json\n'+JSON.stringify(report,null,2)+'\n```\n');
   }
   if(report.failures.length)process.exitCode=1;

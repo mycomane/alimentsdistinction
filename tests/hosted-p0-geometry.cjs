@@ -1,0 +1,14 @@
+const assert=require('node:assert/strict');
+const {compare}=require('../scripts/qa/hosted-p0-geometry.cjs');
+const ref={};
+for(const s of ['.hero','.hero__left','.hero__right','.hero__title','.hero__ctas','.hero__trust'])ref[s]={x:0,y:0,width:390,height:100};
+ref['.hero__trust']={x:0,y:0,width:390,height:100,flexWrap:'nowrap',items:[0,1,2].map(i=>({x:i*100,y:0,width:90,height:30,clipped:false}))};
+assert(compare(ref,ref,390).every(x=>x.passed));
+const clone=()=>JSON.parse(JSON.stringify(ref));
+const old=clone();old['.hero'].height+=53;old['.hero__right'].y+=53;old['.hero__trust'].height+=53;old['.hero__trust'].flexWrap='wrap';old['.hero__trust'].items[2].y+=53;
+assert(compare(old,ref,390).filter(x=>!x.passed).length>=5);
+const clipped=clone();clipped['.hero__trust'].items[1].clipped=true;assert(compare(clipped,ref,320).some(x=>!x.passed));
+const overlap=clone();overlap['.hero__trust'].items[1].x=50;assert(compare(overlap,ref,320).some(x=>!x.passed));
+const missing=clone();delete missing['.hero__title'];assert(compare(missing,ref,390).some(x=>!x.passed));
+const subpixel=clone();subpixel['.hero'].height+=0.5;assert(compare(subpixel,ref,390).every(x=>x.passed));
+console.log('PASS: 6 hosted geometry scenarios, including 53px regression, clipping, overlap, missing element and subpixel tolerance.');

@@ -4,13 +4,23 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 ## Phase et derniers commits
 
-**P0 : déploiement technique 0.1.1 réussi sur le WordPress temporaire le 21 octobre 2026 à 18 h 21 HAE. Sauvegarde/rollback préparé, CSS servi et état protégé vérifiés. Recette visuelle hébergée authentifiée en attente d'autorisation spécifique; ne pas déclarer P0 entièrement recetté sur GoDaddy.**
+**P0 : déploiement technique 0.1.1 réussi sur le WordPress temporaire le 21 octobre 2026 à 18 h 21 HAE. Sauvegarde/rollback préparé, CSS servi et état protégé vérifiés. Recette visuelle hébergée authentifiée autorisée par Julien, préparation en cours; nouvelle revue GitHub obligatoire avant création de l’Abonné.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
 - Dernier commit d’implémentation/tests vérifié : [`be5703eeaa434ada55cb33a961a0b08e11f6a862`](https://github.com/mycomane/alimentsdistinction/commit/be5703eeaa434ada55cb33a961a0b08e11f6a862), correction bornée des fins de ligne. Aucun changement au paquet du thème 0.1.1.
 - Commit du correctif CSS : [`9618095516d982e10eebfe5c7aa0cdcc4bf85be3`](https://github.com/mycomane/alimentsdistinction/commit/9618095516d982e10eebfe5c7aa0cdcc4bf85be3).
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
+
+## Phase en préparation — recette privée post-déploiement autorisée
+
+La création d'un nouvel Abonné temporaire 30 minutes et sa suppression/révocation sont désormais autorisées explicitement par Julien. Aucune extension du périmètre commercial.
+
+- Workflow `review-godaddy-private.yml` actualisé : nouveau reviewer obligatoire du run exact, préconditions version 0.1.1/WooCommerce et 23 empreintes, rapport géométrique ciblé et contrôle du CSS réellement demandé/reçu.
+- Tests locaux réussis : six scénarios détectant notamment +53 px et un cycle complet de session Abonné isolé (création, cookie valide, expiration, révocation/suppression, ancien cookie refusé, baseline stable).
+- Rapport distant prévu : 320/390/768/1024/1440, menu/clavier/images/ancres/pages techniques; aucun POST/panier/commande. Aucune capture ou HTML authentifié publié.
+- **Nouvelle exécution GitHub à confirmer**, puis approbation `godaddy-temp` avant toute création. Pas de compte GoDaddy créé durant la préparation.
+- [Autorisation et procédure détaillées](PRIVATE_REVIEW_APPROVED.md#nouvelle-autorisation--recette-p0-après-déploiement-011).
 
 ## État courant — déploiement technique réussi
 
@@ -33,7 +43,7 @@ Aucun rollback réel requis après la bascule. La répétition a porté sur les 
 
 - **Tests isolés du même commit :** préparation 119517310652 et QA 119517311211 réussis : 46 assertions mesure/espace, 17 gardes fichiers/visibilité, six scénarios MySQL et **300 assertions WordPress**, géométrie à 0,00 px aux cinq largeurs.
 - **Limite hébergée :** aucun rendu authentifié après déploiement n'a été mesuré. Le succès HTTP/CSS et Coming Soon ne prouvent pas la géométrie du héro derrière la protection. Aucun compte créé.
-- **Décision nécessaire :** autoriser un nouvel Abonné temporaire 30 minutes, frontend lecture seule, session révoquée et compte supprimé après recette. L'accord précédent concernait un compte déjà supprimé; aucune réutilisation implicite.
+- **Autorisation reçue :** Julien a répondu « oui » au nouvel Abonné temporaire 30 minutes, frontend lecture seule, session révoquée et compte supprimé après recette. Le workflow est préparé pour une nouvelle revue GitHub; aucun compte GoDaddy créé à ce stade.
 - Preuves : [déploiement technique](evidence/p0-deployment-result.json), [QA du candidat](evidence/p0-newlines-qa.json), [diagnostic structurel hébergé](evidence/p0-hosted-db-shape.json), [procédure/rollback](P0_DEPLOYMENT_2026-10-21.md).
 - ZIP 0.1.1 : SHA256 `8162bc571bb5dea232badd562b5c9085c30187b1b4ff80f567f1f5e9fdb8497e`; CSS installé : `5a4c3a5a8ae6fccd66437151555b66d05c1f5c18dc56cfff3de3f66a92bde780`.
 
@@ -111,7 +121,7 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 | Priorité | Élément restant | Décision / action |
 | --- | --- | --- |
 | P0 technique terminé | Déploiement 0.1.1 réussi, sauvegarde et CSS vérifiés | Aucune nouvelle approbation de déploiement requise pour cette opération déjà terminée |
-| Validation Julien | Nouvelle recette géométrique hébergée après mise à jour | Autoriser un Abonné temporaire de 30 minutes avec suppression |
+| Passage GitHub | Nouvelle recette hébergée et Abonné autorisés | Revoir le nouveau run `godaddy-temp` avant provisionnement |
 | Majeur accessibilité | Textes rose/gris, boutons et infolettre insuffisamment contrastés | Valider les propositions graphiques avant leur intégration |
 | Majeur accessibilité | Navigation transparente sur photo | Valider une solution par contexte, par exemple une barre à fond crème opaque |
 | Bloquant commercial | Téléphone/coordonnées, pages de livraison/retours/confidentialité, garanties et affirmations commerciales | Contenus et validation du propriétaire/Julien nécessaires |
@@ -122,7 +132,7 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 ## Prochaines étapes recommandées
 
-1. Julien décide de l’autorisation du nouvel Abonné temporaire de recette; Work prépare ensuite une recette frontend protégée sur la version déployée, sans nouveau déploiement ni produit/commande.
+1. Terminer les tests GitHub de la recette autorisée et présenter le nouveau run à l’approbation `godaddy-temp`; pas de redéploiement du thème.
 2. Après cette autorisation et la revue GitHub correspondante, mesurer le rendu hébergé à 320/390/768/1024/1440, menus/images/liens; révoquer la session et supprimer le seul compte de recette. Ne pas déclarer cette étape réussie à l’avance.
 3. Après validation graphique : intégrer les ajustements ciblés de contraste, états désactivés/survol/focus et navigation, puis refaire les vérifications isolées appropriées.
 4. Compléter les contenus commerciaux approuvés et les tests non couverts. Le formulaire de commande n’a jamais été soumis; les blocs Panier/Commande, lecteurs d’écran, pixels des sections secondaires et performance ne sont pas certifiés.

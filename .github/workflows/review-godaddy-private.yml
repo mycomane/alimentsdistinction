@@ -1,15 +1,33 @@
-name: Approved temporary subscriber frontend review
+name: Approved P0 0.1.1 subscriber review — cleanup required
 on:
   push:
     branches: [feat/wordpress-woocommerce-theme]
     paths: ['.github/workflows/review-godaddy-private.yml']
 permissions:
   contents: read
+  actions: read
 concurrency:
   group: godaddy-temp-site-mutation
   cancel-in-progress: false
 jobs:
+  prepare:
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify scoped account code and geometry regression tests without GoDaddy
+        run: |
+          set -euo pipefail
+          php -l scripts/ops/review-account.php
+          bash -n scripts/ops/review-account.sh
+          shellcheck scripts/ops/review-account.sh
+          node --check scripts/qa/hosted-review.cjs
+          node tests/hosted-p0-geometry.cjs
   review:
+    needs: [prepare]
     if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
     runs-on: ubuntu-latest
     environment: godaddy-temp
@@ -20,8 +38,24 @@ jobs:
       SSH_PASSWORD: ${{ secrets.GODADDY_SSH_PASSWORD }}
       PINNED_FINGERPRINT: 'SHA256:oxYa4nr7BL5hXCIG5j/OOk54R6yNokpACBoa3tn+Kp4'
     steps:
+      - name: Require approval for this exact new subscriber review run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = feat/wordpress-woocommerce-theme
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/approvals" > "$RUNNER_TEMP/ad-review-approvals.json"
+          python3 - <<'PYAPPROVAL'
+          import json, os
+          from pathlib import Path
+          rows = json.loads(Path(os.environ['RUNNER_TEMP'], 'ad-review-approvals.json').read_text())
+          assert any(r.get('state') == 'approved' and r.get('user', {}).get('login') == 'mycomane'
+                     and any(e.get('name') == 'godaddy-temp' for e in r.get('environments', [])) for r in rows)
+          print('PASS: exact-run godaddy-temp human approval verified.')
+          PYAPPROVAL
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           persist-credentials: false
       - name: Validate scoped code before connecting
         run: |
@@ -31,7 +65,11 @@ jobs:
           php -l scripts/ops/review-account.php
           bash -n scripts/ops/review-account.sh
           node --check scripts/qa/hosted-review.cjs
-          tar -czf "$RUNNER_TEMP/ad-review-ops.tar.gz" -C scripts/ops review-account.php review-account.sh
+          python3 scripts/package-theme.py
+          python3 scripts/ops/prepare-p0-release.py
+          mkdir "$RUNNER_TEMP/ad-review-ops"
+          cp scripts/ops/review-account.php scripts/ops/review-account.sh scripts/ops/p0-files.php dist/p0-manifest.json "$RUNNER_TEMP/ad-review-ops/"
+          tar -czf "$RUNNER_TEMP/ad-review-ops.tar.gz" -C "$RUNNER_TEMP/ad-review-ops" .
       - name: Verify pinned SSH identity
         run: |
           set -euo pipefail
@@ -79,6 +117,9 @@ jobs:
           test ! -e "$private"
           mkdir -m 700 "$private"
           tar -xzf "$archive" -C "$private"
+          test "$(wp --path="$root" --skip-plugins --skip-themes option get home)" = 'https://1302636.us22.myftpupload.com'
+          test "$(wp --path="$root" --skip-plugins --skip-themes option get stylesheet)" = aliments-distinction
+          php "$private/p0-files.php" check "$root/wp-content/themes/aliments-distinction" "$private/p0-manifest.json" new
           php -r 'unlink($argv[1]);' "$archive"
           REMOTE
       - name: Provision approved subscriber and private 30-minute session

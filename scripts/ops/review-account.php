@@ -37,6 +37,7 @@ function ad_review_write($file, $state) {
     chmod($file, 0600);
 }
 if ($mode === 'create') {
+    if ((!$local && get_option('home') !== $expected) || wp_get_theme()->get('Version') !== '0.1.1' || !defined('WC_VERSION') || WC_VERSION !== '11.2.1') { throw new RuntimeException('Expected deployed P0 version required before provisioning'); }
     if (file_exists($file)) { throw new RuntimeException('Run already initialized; no blind retry'); }
     $role = get_role('subscriber');
     if (!$role || empty($role->capabilities['read'])) { throw new RuntimeException('Subscriber role unavailable'); }

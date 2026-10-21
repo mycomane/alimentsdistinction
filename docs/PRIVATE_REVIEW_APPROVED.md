@@ -67,3 +67,28 @@ Cette recette est une vérification automatisée du rendu réel et de mesures ci
 ### Prochaine étape utile
 
 Analyser en environnement isolé le bloc de réassurance mobile et préparer, si nécessaire, une correction qui conserve lisibilité et absence de débordement. Compléter la recette des sections et les points de contenu/contraste déjà identifiés. Tout nouveau déploiement du thème reste soumis à l’approbation explicite du responsable et aux protections GitHub. Aucune nouvelle création de compte n’est nécessaire pour analyser le code ou les données déjà relevées.
+
+## Nouvelle autorisation — recette P0 après déploiement 0.1.1
+
+Le 21 octobre 2026, Julien a répondu **« oui »** à la demande explicite d'un nouvel Abonné de test temporaire 30 minutes, consultation uniquement, puis suppression et révocation de session. Cet accord concerne cette recette post-déploiement; aucune permission P1/palette, produit, commande ou configuration commerciale n'en découle.
+
+La version **0.1.1 est déjà déployée** par le run 39685183348; ne pas la redéployer. Le workflow `review-godaddy-private.yml` est actualisé pour une nouvelle exécution soumise à son propre reviewer `godaddy-temp`, avec historique d'approbation du run exact contrôlé. Préparation sans secrets : syntaxe et six scénarios géométriques. Avant création : origine temporaire/home, thème actif, inventaire complet des 23 fichiers 0.1.1, version et WooCommerce 11.2.1.
+
+Le compte a uniquement le rôle Abonné (capacités read/level_0 contrôlées), mot de passe aléatoire jamais communiqué, aucune session d'utilisateur existant. Token natif valable au plus 30 minutes; pas de notification mail/HTTP de provisioning. Le navigateur ne peut consulter que le frontend autorisé via GET/HEAD; formulaires, administration et actions panier bloqués. Aucun rôle élevé si Coming Soon bloque le compte.
+
+### Vérifications nouvelles
+
+- HTML authentifié : requête de `style.css?ver=0.1.1`; réponse CSS sans redirection et SHA256 exact du fichier déployé.
+- Largeurs 320/390/768/1024/1440 : six zones du héro, dont réassurance, comparées à `index.html` avec tolérance de 1 px, indicateurs sur trois colonnes sans découpe/chevauchement, absence de débordement et images locales chargées.
+- Ancres de l'accueil; menu mobile Enter/Échap et restitution du focus; quatre pages techniques sans action commerciale. Destination finale de page classée seulement par clé technique connue, aucun slug ou paramètre privé arbitraire exporté.
+- Coming Soon anonyme avant/après, erreurs JavaScript comptées sans message brut.
+- Rapport limité aux géométries et compteurs : **aucune capture/HTML authentifié/cookie** publié.
+- Nettoyage `always()` : révocation et suppression du seul compte marqué par le run, vérification des réglages et compteurs protégés; suppression des fichiers secrets du runner. Expiration de session 30 minutes en protection résiduelle si panne empêchant le nettoyage; pas de garantie de suppression en cas d'arrêt brutal.
+
+### Tests préparatoires réellement exécutés
+
+- Six scénarios du comparateur : référence correcte, anomalie +53 px détectée, découpe, chevauchement, zone absente et tolérance subpixel : réussis localement.
+- Cycle Abonné testé dans WordPress/WooCommerce **isolé** avec thème 0.1.1 : cookie valide avec rôle seul et durée 30 minutes, révocation/suppression, refus de l'ancien cookie et baseline commercial stable : réussis. Session synthétique locale supprimée; aucune opération GoDaddy dans ce test.
+- Syntaxe PHP/Bash/JS/YAML et présence de la dépendance/du nettoyage obligatoire vérifiées localement. ShellCheck/tests GitHub et exécution hébergée restent à confirmer par le nouveau run.
+
+La nouvelle approbation GitHub sera l'étape bloquante avant tout provisionnement GoDaddy. L'issue #1 et PROJECT_STATUS.md recevront le lien et le résultat; aucun succès hébergé anticipé.
