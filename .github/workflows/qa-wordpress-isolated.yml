@@ -4,6 +4,7 @@ on:
     branches: [feat/wordpress-woocommerce-theme]
     paths:
       - '.github/workflows/qa-wordpress-isolated.yml'
+      - '.github/workflows/update-godaddy-temp-p1.yml'
       - 'scripts/qa/**'
       - 'tests/woocommerce-integration.php'
       - 'wordpress/**'

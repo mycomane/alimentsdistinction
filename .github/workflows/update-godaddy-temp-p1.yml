@@ -1,0 +1,179 @@
+name: P1 0.1.2 controls — temporary site, mandatory reviewer
+# New P1 scope approved by Julien; a NEW exact-run GitHub approval is mandatory.
+on:
+  push:
+    branches: [feat/wordpress-woocommerce-theme]
+    paths: ['.github/workflows/update-godaddy-temp-p1.yml']
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: godaddy-temp-site-mutation
+  cancel-in-progress: false
+jobs:
+  prepare:
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    services:
+      mysql-fixture:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: isolated-p0-fixture
+          MYSQL_ROOT_HOST: '%'
+        ports: ['127.0.0.1:33306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -pisolated-p0-fixture"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify exact P1 scope, package and two-file recovery without GoDaddy
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = feat/wordpress-woocommerce-theme
+          python3 scripts/check-theme.py
+          python3 scripts/package-theme.py
+          python3 scripts/ops/prepare-p1-release.py
+          php -l scripts/ops/p1-state.php
+          php -l scripts/ops/p1-files.php
+          php -l scripts/ops/p0-files.php
+          php -l scripts/ops/p0-db-size.php
+          bash -n scripts/ops/update-p1-temp.sh
+          bash -n scripts/ops/measure-p0-db.sh
+          shellcheck scripts/ops/update-p1-temp.sh scripts/ops/measure-p0-db.sh
+          php tests/p0-files.php
+          php tests/p1-files.php
+          python3 tests/p1-deployment.py
+          php tests/p0-db-size.php
+      - name: Verify SQL measurement on disposable MySQL, including blocked/error cases
+        env:
+          P0_TEST_MYSQL: '1'
+          MYSQL_PWD: isolated-p0-fixture
+        run: |
+          set -euo pipefail
+          if ! command -v mysql >/dev/null; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq default-mysql-client
+          fi
+          python3 tests/p0-db-integration.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p1-012-review-package
+          path: |
+            dist/aliments-distinction-0.1.2.zip
+            dist/p1-manifest.json
+          retention-days: 14
+          if-no-files-found: error
+  isolated-qa:
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Require existing full isolated QA on this exact commit (no duplicate suite)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/ops/wait-p1-qa.py
+  deploy:
+    needs: [prepare, isolated-qa]
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    name: APPROVAL REQUIRED — P1 controls on temporary WordPress only
+    runs-on: ubuntu-latest
+    environment: godaddy-temp
+    timeout-minutes: 18
+    env:
+      SSH_HOST: 1302636.us22.ssh.myftpupload.com
+      SSH_USERNAME: ${{ secrets.GODADDY_SSH_USERNAME }}
+      SSH_PASSWORD: ${{ secrets.GODADDY_SSH_PASSWORD }}
+      PINNED_FINGERPRINT: 'SHA256:oxYa4nr7BL5hXCIG5j/OOk54R6yNokpACBoa3tn+Kp4'
+    steps:
+      - name: Require recorded human approval for this exact run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = feat/wordpress-woocommerce-theme
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/approvals" > "$RUNNER_TEMP/p1-approvals.json"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          rows = json.loads(Path(os.environ['RUNNER_TEMP'], 'p1-approvals.json').read_text())
+          assert any(r.get('state') == 'approved' and r.get('user', {}).get('login') == 'mycomane'
+                     and any(e.get('name') == 'godaddy-temp' for e in r.get('environments', [])) for r in rows), 'Human approval missing; no remote operation allowed'
+          print('PASS: mycomane approval recorded for godaddy-temp on this exact run.')
+          PY
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Recheck approved commit and build exact scoped payload
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          python3 scripts/check-theme.py
+          python3 scripts/package-theme.py
+          python3 scripts/ops/prepare-p1-release.py
+          mkdir "$RUNNER_TEMP/p1-ops"
+          cp scripts/ops/p0-files.php scripts/ops/p1-files.php scripts/ops/p1-state.php scripts/ops/update-p1-temp.sh scripts/ops/p0-db-size.php scripts/ops/p0-db-size.sql scripts/ops/measure-p0-db.sh dist/p1-manifest.json "$RUNNER_TEMP/p1-ops/"
+          mkdir -p "$RUNNER_TEMP/p1-ops/payload/assets/css"
+          cp wordpress/aliments-distinction/style.css "$RUNNER_TEMP/p1-ops/payload/style.css"
+          cp wordpress/aliments-distinction/assets/css/commerce.css "$RUNNER_TEMP/p1-ops/payload/assets/css/commerce.css"
+          tar -czf "$RUNNER_TEMP/p1-ops.tar.gz" -C "$RUNNER_TEMP/p1-ops" .
+      - name: Pin SSH identity before authentication
+        run: |
+          set -euo pipefail
+          test -n "$SSH_USERNAME" && test -n "$SSH_PASSWORD"
+          mkdir -p "$HOME/.ssh"
+          chmod 700 "$HOME/.ssh"
+          timeout 18 ssh-keyscan -T 10 -t ed25519 -p 22 "$SSH_HOST" > "$HOME/.ssh/known_hosts" 2>/dev/null
+          test -s "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+          test "$(ssh-keygen -lf "$HOME/.ssh/known_hosts" -E sha256 | awk '{print $2}')" = "$PINNED_FINGERPRINT"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq sshpass
+      - name: Check temporary identity read-only, then transfer private operation bundle
+        run: |
+          set -euo pipefail
+          export SSHPASS="$SSH_PASSWORD"
+          ssh_opts=(-o StrictHostKeyChecking=yes -o UserKnownHostsFile="$HOME/.ssh/known_hosts" -o PreferredAuthentications=password -o PubkeyAuthentication=no -o NumberOfPasswordPrompts=1 -o ConnectTimeout=12)
+          sshpass -e ssh "${ssh_opts[@]}" "$SSH_USERNAME@$SSH_HOST" 'bash -s' <<'REMOTE'
+          set -euo pipefail
+          root=''
+          for c in "$PWD" "$HOME" "$HOME/html" "$HOME/public_html" "$PWD/html" "$PWD/public_html"; do
+            if [ -f "$c/wp-load.php" ]; then root="$c"; break; fi
+          done
+          if [ -z "$root" ]; then
+            f="$(find "$HOME" -maxdepth 4 -type f -name wp-load.php -print -quit 2>/dev/null || true)"
+            [ -z "$f" ] || root="$(dirname "$f")"
+          fi
+          test -n "$root"
+          root="$(cd "$root" && pwd -P)"
+          private_home="$(cd "$HOME" && pwd -P)"
+          case "$private_home/" in "$root/"*) exit 1;; esac
+          test "$(wp --path="$root" --skip-plugins --skip-themes option get siteurl)" = 'https://1302636.us22.myftpupload.com'
+          test "$(wp --path="$root" --skip-plugins --skip-themes option get home)" = 'https://1302636.us22.myftpupload.com'
+          echo 'PASS: exact temporary site and private home confirmed before upload.'
+          REMOTE
+          sshpass -e scp -q "${ssh_opts[@]}" "$RUNNER_TEMP/p1-ops.tar.gz" "$SSH_USERNAME@$SSH_HOST:.ad-p1-ops-$GITHUB_RUN_ID.tar.gz"
+          digest="$(sha256sum "$RUNNER_TEMP/p1-ops.tar.gz" | awk '{print $1}')"
+          sshpass -e ssh "${ssh_opts[@]}" "$SSH_USERNAME@$SSH_HOST" "bash -s -- '$GITHUB_RUN_ID' '$digest'" <<'REMOTE'
+          set -euo pipefail
+          umask 077
+          case "$1" in ''|*[!0-9]*) exit 1;; esac
+          archive="$HOME/.ad-p1-ops-$1.tar.gz"
+          private="$HOME/.ad-p1-ops-$1"
+          test ! -e "$private"
+          test "$(sha256sum "$archive" | awk '{print $1}')" = "$2"
+          mkdir -m 700 "$private"
+          tar -xzf "$archive" -C "$private"
+          rm -- "$archive"
+          bash "$private/update-p1-temp.sh" "$1"
+          REMOTE
+      - name: Report technical scope and remaining private review
+        run: |
+          echo 'P1 exact pair verified. Coming Soon preserved; no account created, no commercial settings or language values changed. Read-only locale diagnostics are in the job log.' >> "$GITHUB_STEP_SUMMARY"

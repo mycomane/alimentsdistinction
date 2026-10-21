@@ -12,6 +12,16 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
 
+## P1 — déploiement temporaire autorisé, nouvelle revue GitHub à préparer
+
+- **Julien autorise explicitement le déploiement des deux contrôles validés**, avec sauvegarde/retour arrière et nouvelle approbation GitHub obligatoire. Accord reçu dans Work après présentation de `p1/DEPLOYMENT_SCOPE.md`; aucune nouvelle autorisation commerciale, de langue ou de compte de recette.
+- Release **0.1.2 préparée**, pas encore installée : uniquement le bloc approuvé de `assets/css/commerce.css` et la ligne Version dans `style.css`. Les 21 autres fichiers restent identiques à la base GoDaddy P0. Palette « Actuel » conservée.
+- Nouveau workflow distinct `update-godaddy-temp-p1.yml`; ancien workflow P0 inchangé. Même environnement `godaddy-temp`, reviewer humain `mycomane`, contrôle d’approbation du run exact, hôte SSH épinglé, identité temporaire stricte, concurrence conservée. La QA existante du commit exact est attendue par API en lecture seule, sans double exécution de la suite.
+- Contrôles locaux : source/7 images/syntaxe/structure conformes, ZIP intègre avec inventaire strict 23 fichiers, **23 assertions paire/interruption/retour arrière**, **4 scénarios du vrai script shell avec transports WP/HTTP simulés** (succès, HTTP défaillant, invalidation cache défaillante, Coming Soon manquant) et **46 assertions parseur SQL/marge disque** réussies. Ces simulations ne sont pas des tests GoDaddy ni de restauration SQL intégrale.
+- Nouveau mécanisme : sauvegarde fraîche SQL + thème + SHA hors webroot, extraction et répétition privée de la paire, journal des remplacements, vérification des deux CSS par HTTP. En cas d’échec, retour des deux fichiers à 0.1.1, refus d’écraser une modification inconnue, contrôle du manifeste complet/état protégé/Coming Soon. Aucune restauration SQL automatique.
+- Lecture seule de la langue et des traductions prévue dans le job protégé; aucune installation de paquet ou modification de texte/option française. Aucun nouveau compte ou produit sur GoDaddy.
+- ZIP 0.1.2 SHA256 : `45aae70781a815e4248ea04561f5e14a28917fc0ebc0851aebd883db533f106f`. Résultats GitHub et lien de revue à ajouter après l’exécution réelle. **Aucun déploiement déjà déclaré réussi.**
+
 ## Validation de Julien et complément de recette française
 
 - Julien a validé l’aperçu et demandé de continuer. L’issue #2 exige toujours un accord de déploiement distinct; aucun workflow protégé modifié ou déclenché.
@@ -174,7 +184,7 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 ## Prochaines étapes recommandées
 
-1. Accord graphique reçu. Julien décide du déploiement temporaire décrit dans `p1/DEPLOYMENT_SCOPE.md`; ensuite seulement préparer un nouveau run protégé avec revue obligatoire.
+1. Accord graphique et autorisation de déploiement reçus. Soumettre la release 0.1.2 testée à une nouvelle revue GitHub obligatoire; aucune auto-approbation.
 2. Lors d’une prochaine intervention autorisée, relever langue, paquets français et textes enregistrés sur GoDaddy; proposer les corrections de contenu nécessaires sans modifier les réglages commerciaux.
 3. Tout futur déploiement GoDaddy sera préparé avec autorisation distincte, sauvegarde/rollback et nouvelle revue `godaddy-temp`.
 4. Valider contenus commerciaux, coordonnées, contrats/garanties, recettes et service d'infolettre. La recette transactionnelle et les réglages métier restent distincts.

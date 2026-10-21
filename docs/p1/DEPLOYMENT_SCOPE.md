@@ -1,6 +1,8 @@
 # P1 — périmètre proposé pour une livraison temporaire
 
-**21 octobre 2026 — préparation uniquement.** Julien a validé l’aperçu et demandé de continuer. Cela confirme l’aspect des contrôles; une autorisation distincte de déploiement et la revue GitHub du run exact restent nécessaires conformément à l’issue #2. Aucun workflow protégé n’est modifié ou lancé dans cette phase.
+**21 octobre 2026 — autorisation distincte de Julien reçue dans Work.** La préparation du nouveau mécanisme et le déploiement temporaire limité ci-dessous sont autorisés, sous réserve d’une nouvelle approbation GitHub pour le run exact. Version 0.1.2 préparée et tests locaux réussis; déploiement pas encore effectué.
+
+Historique du périmètre présenté à Julien : Julien a validé l’aperçu et demandé de continuer. Cela confirme l’aspect des contrôles; une autorisation distincte de déploiement et la revue GitHub du run exact restent nécessaires conformément à l’issue #2. Aucun workflow protégé n’est modifié ou lancé dans cette phase.
 
 ## Résultat à livrer
 
@@ -37,3 +39,13 @@ Les produits, catégories et formats monétaires des fixtures ne constituent pas
 Aucun nouveau compte de recette ou produit sur GoDaddy, aucune commande/paiement, aucun changement commercial ou connexion externe. Pas de désactivation Coming Soon. Aucune opération sur `master`, le domaine commercial, DNS ou Zoho. Pas de certification de transaction complète ou de localisation globale sur la seule base des captures isolées.
 
 **Décision attendue après rapport : autoriser ou non la préparation puis le déploiement du lot 0.1.2 limité ci-dessus, avec nouvelle approbation GitHub obligatoire.** Aucune opération distante n’est actuellement en attente de revue GitHub.
+
+## Préparation réalisée après autorisation
+
+- `prepare-p1-release.py` verrouille les 23 fichiers et refuse tout changement hors des deux chemins approuvés; comparaison du bloc WooCommerce au commit graphique validé. ZIP exact vérifié.
+- `p1-files.php` réutilise les gardes fichiers P0 sans les modifier; ajoute journal et retour arrière acceptant uniquement une combinaison connue ancien/nouveau des deux fichiers. 23 assertions avec interruption après le premier et le second remplacement.
+- `update-p1-temp.sh` conserve les contrôles SQL stricts et marges disque, ajoute la vérification HTTP des deux CSS et le retour arrière de la paire. Quatre scénarios shell simulés réussis (succès et échecs HTTP/cache/Coming Soon); aucun de ces tests n’a accédé à GoDaddy.
+- Nouveau workflow `update-godaddy-temp-p1.yml`, revue `godaddy-temp` humaine obligatoire; ancien workflow P0 intact. Ajout d’un déclencheur de QA isolée sur le nouveau workflow, sans retirer de contrôle. Le job protégé attend la réussite de cette QA sur le commit exact.
+- Le diagnostic de langue est en lecture seule et n’écrit ni locale, ni traduction, ni texte enregistré. Aucun accès de recette ou donnée commerciale créé.
+
+La prochaine barrière est la revue GitHub du nouveau run, pas une nouvelle demande d’autorisation de principe. Les références au projet de livraison ci-dessus décrivent le périmètre soumis initialement; le résultat effectif sera consigné dans PROJECT_STATUS.md.
