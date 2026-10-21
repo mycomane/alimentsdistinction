@@ -1,5 +1,7 @@
 # P0 — mise à jour contrôlée 0.1.0 → 0.1.1
 
+**État supersédant les mentions « en attente » ci-dessous :** le run 39615680576 a été approuvé puis a échoué sur la mesure DB avant sauvegarde/bascule. Ne pas le relancer. Voir [le diagnostic et la reprise protégée](P0_DB_MEASUREMENT_2026-10-21.md) et PROJECT_STATUS.md pour le nouveau run.
+
 Autorisation : [issue #1](https://github.com/mycomane/alimentsdistinction/issues/1), confirmée par Julien dans Work le 21 octobre 2026. **Le passage GitHub `godaddy-temp` reste obligatoire.** Cette fiche décrit la préparation; aucun succès distant n'est anticipé.
 
 ## Paquet et périmètre exact

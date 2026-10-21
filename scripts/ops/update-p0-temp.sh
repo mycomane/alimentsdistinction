@@ -34,10 +34,9 @@ test -w "$theme" && test -w "$theme/style.css"
 test "$(stat -c %d "$home_dir")" = "$(stat -c %d "$theme")"
 test "$(stat -c %u "$theme/style.css")" = "$(id -u)"
 theme_kb="$(du -sk "$theme" | awk '{print $1}')"
-db_bytes="$(wp --path="$root" --skip-plugins --skip-themes db size --size_format=b --format=csv | tail -n 1 | awk -F, '{print $NF}')"
-case "$db_bytes" in ''|*[!0-9]*) echo 'Database size not measurable'; exit 1;; esac
+db_bytes="$(bash "$ops/measure-p0-db.sh" "$root")"
 free_kb="$(df -Pk "$home_dir" | awk 'NR==2{print $4}')"
-test "$free_kb" -gt "$((theme_kb*4+(db_bytes*3+1023)/1024+102400))" || { echo 'Insufficient private backup space'; exit 1; }
+php "$ops/p0-db-size.php" space "$theme_kb" "$db_bytes" "$free_kb"
 mkdir -p "$home_dir/.ad-private-backups"
 chmod 700 "$home_dir/.ad-private-backups"
 mkdir -m 700 "$backup"

@@ -4,7 +4,7 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 ## Phase et derniers commits
 
-**Déploiement P0 autorisé par Julien via issue #1, 0.1.1 testée et PRÊTE POUR APPROBATION; non déployée. Le job distant attend la revue GitHub `godaddy-temp`. P1/palette toujours en attente de validation distincte.**
+**P0 : échec du premier déploiement approuvé avant sauvegarde/remplacement. Correction de la mesure DB préparée; nouvelle exécution et nouvelle approbation GitHub obligatoires. Aucun nouveau déploiement effectué.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
 - Dernier commit d’implémentation/tests vérifié : [`813b8a1dee186c1a3f5942976394cc44dd61f325`](https://github.com/mycomane/alimentsdistinction/commit/813b8a1dee186c1a3f5942976394cc44dd61f325). Préparation initiale : `037cfa0c46e09775394a7dbf0cd0596effc80664`.
@@ -12,22 +12,20 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
 
-## Mission active — issue #1 : déploiement P0 uniquement
+## Mission active — reprise après incident de mesure DB
 
-[Directive et autorisation](https://github.com/mycomane/alimentsdistinction/issues/1) lues intégralement. Base de départ vérifiée : `33687091f44243cab40c2bd43c34fbe072b03e74`; dernier QA antérieur `39610664542` réussi.
+[Directive Coordination](https://github.com/mycomane/alimentsdistinction/issues/1#issuecomment-6321369680) lue et journaux du job `119277446903` vérifiés. Le run `39615680576` a échoué après approbation à `Database size not measurable`, avant création de la sauvegarde P0 et remplacement CSS. Bundle privé/lock possibles; pas de contrôle distant post-échec dans cette reprise.
 
-- Candidat **0.1.1** préparé : uniquement le correctif P0 et l'en-tête de version dans `style.css`; les 22 autres fichiers du thème sont identiques à 0.1.0.
-- Workflow distinct de mise à jour préparé, garde d'approbation humaine du run, empreintes complètes, sauvegarde fraîche obligatoire, répétition privée du retour arrière et remplacement atomique du seul CSS.
-- Validation locale : lint PHP/JS/Bash/YAML, ZIP et périmètre exact réussis; **17 assertions de protection/remplacement/rollback filesystem réussies**.
-- **Run actif : [39615680576 — PRÊT POUR APPROBATION](https://github.com/mycomane/alimentsdistinction/actions/runs/39615680576)**, commit `813b8a1dee186c1a3f5942976394cc44dd61f325`.
-- Job `prepare` **119276267562 : succès** — ShellCheck, syntaxe, paquet exact et 17 assertions de gardes/retour arrière.
-- Job `isolated-qa / isolated-qa` **119276268010 : succès** — 300 assertions ciblées (11 PHP + 41 navigateur + 61 P0 + 55 sections + 132 WooCommerce), aucune commande créée. PHP : zéro fatal/avertissement/dépréciation compté. P0 : 0,00 px à 320/390/768/1024/1440.
-- Job distant **119277446903 : `waiting`**, environnement `godaddy-temp`, reviewer `mycomane` confirmé par `pending_deployments`. Aucun accès SSH, sauvegarde fraîche ou remplacement GoDaddy exécuté par ce run à ce stade.
-- À faire par Julien dans ce run : **Review deployments → godaddy-temp → Approve and deploy**. Cette étape est imposée par l'issue #1 et les protections GitHub; Work ne s'auto-approuve pas.
-- Le build séparé [39615415127](https://github.com/mycomane/alimentsdistinction/actions/runs/39615415127) et le QA [39615415244](https://github.com/mycomane/alimentsdistinction/actions/runs/39615415244) du premier commit ont également réussi. Son workflow de mise à jour `39615415227` a échoué au lint préparatoire; cause corrigée dans le run actif. Aucun déploiement de ce premier run.
-- Sauvegarde fraîche, vérification des 23 empreintes installées et répétition du retour arrière : **préconditions à exécuter après approbation, avant toute bascule**, pas encore déclarées faites sur GoDaddy.
-- [Procédure détaillée, empreintes, retour arrière et limites](P0_DEPLOYMENT_2026-10-21.md).
-- **À approuver séparément :** nouvel Abonné temporaire de recette (30 minutes, frontend lecture seule, révocation/suppression après contrôle), car la session précédente n'existe plus. Le déploiement n'en crée aucun. Sans accord, aucune affirmation de géométrie hébergée après mise à jour.
+- Base de travail : `4b0c1d0c54578213dc9fa031692024be4ed44b51`. Ancien run non relancé.
+- Incompatibilité CSV/unité `B` établie dans le code officiel WP-CLI; cause probable de la sortie non numérique. Version/sortie exacte GoDaddy encore inconnues.
+- Remplacement par SELECT agrégé en octets sur la DB courante, parseur strict, stderr/statut contrôlés et journalisation expurgée. Aucune estimation arbitraire, aucun contournement en cas de mesure impossible.
+- Marge inchangée : 4 thèmes + 3 bases + 100 Mio; valeurs et arithmétique bornées. Toutes les protections de mise à jour et rollback conservées.
+- Tests locaux : **39 assertions mesure/espace + 17 gardes filesystem/Coming Soon réussies**; syntaxe vérifiée.
+- Test MySQL 8.0 isolé et recette WordPress complète : préparés, nouveau résultat GitHub attendu.
+- Aucun changement du thème/couleurs/contenus; ZIP 0.1.1 identique. Aucun nouvel accès GoDaddy réalisé pendant cette correction.
+- [Diagnostic, stratégie et limites](P0_DB_MEASUREMENT_2026-10-21.md). [Procédure de déploiement/rollback](P0_DEPLOYMENT_2026-10-21.md).
+- **Nouvelle approbation reviewer requise avant toute opération distante.** L'ancien accord n'est pas réutilisé. La Coordination réexaminera le nouveau workflow.
+- Abonné temporaire de recette toujours **non autorisé**; aucun compte créé.
 
 ## Historique — travaux P0/P1/P2 déjà terminés
 
@@ -80,7 +78,7 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 | Priorité | Élément restant | Décision / action |
 | --- | --- | --- |
-| Passage GitHub obligatoire | Candidat 0.1.1 testé, job distant en attente | Approuver `godaddy-temp` dans le run 39615680576 |
+| Passage GitHub obligatoire | Correction mesure DB en préparation après échec | Attendre les nouveaux tests puis revoir le nouveau run; ancien run non relancé |
 | Validation Julien | Nouvelle recette géométrique hébergée après mise à jour | Autoriser un Abonné temporaire de 30 minutes avec suppression |
 | Majeur accessibilité | Textes rose/gris, boutons et infolettre insuffisamment contrastés | Valider les propositions graphiques avant leur intégration |
 | Majeur accessibilité | Navigation transparente sur photo | Valider une solution par contexte, par exemple une barre à fond crème opaque |
@@ -92,7 +90,7 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 ## Prochaines étapes recommandées
 
-1. Julien approuve `godaddy-temp` dans le run 39615680576; tests du candidat déjà réussis. Work ne contourne pas cette revue.
+1. Confirmer les tests de mesure DB/SQL et la recette isolée du nouveau run, puis soumettre ce run à la Coordination et à une nouvelle approbation `godaddy-temp`.
 2. Après approbation GitHub : contrôles distants, sauvegarde fraîche et répétition de retour arrière, mise à jour atomique du CSS, vérifications techniques et Coming Soon. Recette authentifiée après autorisation distincte du compte temporaire. Ne pas relancer le premier installateur.
 3. Après validation graphique : intégrer les ajustements ciblés de contraste, états désactivés/survol/focus et navigation, puis refaire les vérifications isolées appropriées.
 4. Compléter les contenus commerciaux approuvés et les tests non couverts. Le formulaire de commande n’a jamais été soumis; les blocs Panier/Commande, lecteurs d’écran, pixels des sections secondaires et performance ne sont pas certifiés.
