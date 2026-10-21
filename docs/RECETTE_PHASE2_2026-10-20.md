@@ -116,3 +116,33 @@ Autorisation distincte nécessaire pour activer WooCommerce 11.2.1 sur le seul t
 Avant exécution : confirmer le PHP web et les prérequis applicables, vérifier la protection Coming Soon et prévoir une sauvegarde fraîche avec procédure de retour arrière comprise. Si ces conditions ne sont pas confirmables, arrêter avant mutation. La désactivation de WooCommerce seule ne restaure pas sa base.
 
 Les adaptations de contraste et de contenu demeurent des corrections à faire valider avant tout nouveau déploiement du thème.
+
+## Suite de recette — 21 octobre 2026
+
+### État actualisé et accès privé
+
+WooCommerce 11.2.1 a été activé avec les quatre pages techniques, après autorisation et sauvegarde fraîche, par l’exécution `39515208953`. Voir `WOOCOMMERCE_ACTIVATION_APPROVED.md`. Les mentions d’inactivité et de demande d’activation dans les sections précédentes constituent l’historique du 20 octobre, pas l’état actuel.
+
+L’inventaire du navigateur Work, contrôlé le 21 octobre, ne contient aucun onglet ni session connectée. Les secrets SSH restent confinés à l’environnement GitHub protégé et ne sont pas des identifiants WordPress. Aucun nouveau compte, cookie d’authentification, lien de prévisualisation public ou exclusion Coming Soon n’a été créé. Les problèmes antérieurs d’accès GoDaddy ne sont pas contournés par un nouveau navigateur.
+
+### Proposition d’accès à faire approuver avant création
+
+Pour tester le rendu HTTP réel, une option est un compte de recette WordPress temporaire **Abonné**, sur le seul temporaire : aucun rôle administrateur ou gestionnaire de boutique, aucun droit ajouté au rôle, aucun changement de visibilité. Les identifiants aléatoires seraient utilisés uniquement dans le job GitHub protégé, jamais imprimés, committés ou communiqués dans la conversation. Une session serait limitée à 30 minutes. Les sessions seraient révoquées et le compte supprimé en fin de contrôle; une interruption brutale pourrait laisser le compte à nettoyer, même après expiration de la session. Un inventaire préalable et une vérification finale de nettoyage seraient nécessaires.
+
+Cette option **n’est pas créée ni autorisée par cette documentation**. Il reste à confirmer qu’un Abonné peut voir le thème derrière le Coming Soon de cette installation. Si ce rôle est insuffisant, arrêter sans l’élever et sans modifier Coming Soon. La création d’un accès plus puissant nécessiterait une autre décision explicite.
+
+Les contrôles pourraient relever des résultats synthétiques. Les captures/HTML authentifiés ne seraient pas publiés dans le dépôt ou ses artefacts publics. Un transfert privé des images devrait être défini et approuvé avant de déclarer une recette visuelle complète. Aucun produit ou commande de test sur GoDaddy n’est inclus.
+
+### Compléments de tests isolés
+
+Les nouveaux scénarios couvrent l’ajout d’une variation au panier depuis le navigateur, sa coexistence avec le produit simple, le maintien de la portion, la largeur du panier à 390/1440 px, l’affichage du catalogue, la conservation de la demande de tri par prix, la recherche sans résultat, une catégorie vide, la suppression de toutes les lignes et l’absence de formulaire de commande avec un panier vide.
+
+Les premières exécutions `39521479294` et `39521635102` ont échoué sur les deux assertions de variation. Le formulaire contenait les bons identifiants et la bonne portion. Le code WooCommerce `add-to-cart-variation.js` renseigne l’identifiant avant de déclencher `show_variation` après 300 ms et de retirer la classe de blocage du bouton. Le test a été corrigé pour attendre explicitement cet état, et pour signaler les boîtes de dialogue inattendues. Aucun fichier du thème ni WooCommerce n’a été corrigé pour ce problème de synchronisation du test.
+
+### Résultat final des compléments
+
+Exécution [39521852170](https://github.com/mycomane/alimentsdistinction/actions/runs/39521852170), job `118967302187`, commit `6eac9f964f76a78436e14c9481210dd43c88291a` : **succès**. Syntaxe et intégrité du design d’origine validées; **11 assertions PHP et 41 assertions navigateur réussies**, aucune erreur JavaScript ni boîte de dialogue inattendue relevée par le scénario.
+
+L’ajout réel de la variation dans la session navigateur et le maintien de la portion sont désormais validés dans l’environnement isolé. Le contrôle de tri vérifie la conservation du paramètre et de la sélection, pas encore l’ordre numérique de toutes les fiches. Les cinq largeurs d’accueil restent sans débordement horizontal ni image locale cassée; ce n’est pas une comparaison pixel par pixel. Aucune nouvelle inspection visuelle authentifiée sur GoDaddy n’a été réalisée; aucun paiement ni commande n’a été soumis.
+
+Cette reprise ne déploie aucun fichier sur GoDaddy et n’y crée aucun compte ni donnée de test. Les seuls changements GitHub concernent les tests et ce compte rendu, sur la branche autorisée.
