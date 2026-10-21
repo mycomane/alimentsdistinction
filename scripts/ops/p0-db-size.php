@@ -14,9 +14,10 @@ function p0_safe_integer(string $value, bool $positive = true): int {
 function p0_db_bytes(string $stdout, string $stderr, int $status): int {
     if ($status !== 0) { throw new RuntimeException('query_failed'); }
     if ($stderr !== '') { throw new RuntimeException('query_stderr'); }
-    // MySQL --batch --raw --skip-column-names: exactly one TSV row, LF/CRLF optional.
+    // Exactly one TSV data row. Hosted WP-CLI 2.12.0 adds a second final LF;
+    // allow 0-2 complete LF/CRLF endings, never arbitrary trim or extra data rows.
     // Do not strip units, locale separators, headers, warnings, or extra rows.
-    if (!preg_match('/\A([0-9]+)\t([0-9]+)\t([0-9]+)(?:\r?\n)?\z/D', $stdout, $m)) {
+    if (!preg_match('/\A([0-9]+)\t([0-9]+)\t([0-9]+)(?:\r?\n){0,2}\z/D', $stdout, $m)) {
         throw new RuntimeException('unexpected_output_shape');
     }
     p0_safe_integer($m[1]); // At least one visible base table is required.
@@ -50,7 +51,7 @@ if (realpath($_SERVER['SCRIPT_FILENAME']) === __FILE__) {
         fwrite(STDERR, 'DB_MEASUREMENT_REFUSED ' . json_encode([
             'reason' => $e->getMessage(), 'command_exit' => $status,
             'stdout_chars' => strlen($out), 'stderr_chars' => strlen($err),
-            'shape' => preg_match('/\A[0-9]+\t[0-9]+\t[0-9]+(?:\r?\n)?\z/D', $out) ? 'numeric_tsv' : 'non_numeric_or_empty',
+            'shape' => preg_match('/\A[0-9]+\t[0-9]+\t[0-9]+(?:\r?\n){0,2}\z/D', $out) ? 'numeric_tsv' : 'non_numeric_or_empty',
         ]) . "\n");
         exit(1);
     }

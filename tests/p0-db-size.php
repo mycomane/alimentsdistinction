@@ -3,7 +3,7 @@ require __DIR__ . '/../scripts/ops/p0-db-size.php';
 $count = 0;
 function checked($ok) { global $count; if (!$ok) { throw new RuntimeException('Assertion failed'); } ++$count; }
 function rejected($fn) { try { $fn(); } catch (RuntimeException $e) { checked(true); return; } throw new RuntimeException('Unsafe measure accepted'); }
-foreach (["23\t5865472\t0", "23\t5865472\t0\n", "23\t5865472\t0\r\n"] as $row) {
+foreach (["23\t5865472\t0", "23\t5865472\t0\n", "23\t5865472\t0\r\n", "23\t5865472\t0\n\n", "23\t5865472\t0\r\n\r\n"] as $row) {
     checked(p0_db_bytes($row, '', 0) === 5865472);
 }
 foreach ([
@@ -15,6 +15,8 @@ foreach ([
     "23\t9007199254740992\t0\n", "23\t18446744073709551615\t0\n",
     "23\t5865472\t0\n23\t5865472\t0\n", "Warning: synthetic\n23\t5865472\t0\n",
     "23\t5865472\t0\nSuccess: done\n", "23\t5865472\t0\0", " 23\t5865472\t0\n",
+    "23\t5865472\t0\n\n\n", "23\t5865472\t0\r\n\r\n\r\n",
+    "\n23\t5865472\t0\n", "23\t5865472\t0\t\n", "23\t5865472\t0 \n",
 ] as $row) { rejected(fn() => p0_db_bytes($row, '', 0)); }
 rejected(fn() => p0_db_bytes("23\t5865472\t0\n", 'Warning: synthetic', 0));
 rejected(fn() => p0_db_bytes("23\t5865472\t0\n", '', 1));

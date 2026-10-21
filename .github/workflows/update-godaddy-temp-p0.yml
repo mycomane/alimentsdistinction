@@ -1,5 +1,5 @@
 name: P0 0.1.1 update — temporary site, mandatory reviewer
-# Revision 3: strict SQL byte measurement; a NEW review is required for this run.
+# Revision 4: accept the two final LF observed in hosted diagnostics; NEW review required.
 on:
   push:
     branches: [feat/wordpress-woocommerce-theme]

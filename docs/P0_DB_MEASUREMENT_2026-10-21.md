@@ -54,3 +54,13 @@ Le SHA testé, les résultats GitHub et le nouveau run en attente sont reportés
 - L'archive du thème reste identique : SHA256 `8162bc571bb5dea232badd562b5c9085c30187b1b4ff80f567f1f5e9fdb8497e`.
 
 La recette GoDaddy authentifiée et un nouvel Abonné restent non autorisés; aucune création de compte. La mesure réelle, les privilèges MySQL et la sauvegarde fraîche GoDaddy seront vérifiés dans l'exécution protégée après nouvelle approbation, sans présumer de leur réussite.
+
+## Diagnostic hébergé réussi et correction de la seconde cause
+
+[Run 39639769111](https://github.com/mycomane/alimentsdistinction/actions/runs/39639769111), job `119360202463`, succès après approbation distincte. WP-CLI **2.12.0** confirmé. L'agrégat et la sonde `SELECT` de constantes ont la même structure : 14 octets, 10 chiffres, 2 tabulations, **2 LF finaux**, aucun autre caractère et stderr vide. Le parseur exigeait au plus une fin de ligne : c'est la cause démontrée de `unexpected_output_shape`.
+
+La correction autorise seulement **0 à 2 séquences LF/CRLF finales** après une unique ligne TSV numérique. Aucun nettoyage généralisé, tolérance d'erreur ou changement des contrôles de valeurs/marge. La sortie avec trois fins de ligne, une ligne de données supplémentaire, un avertissement, espace ou tabulation parasite reste refusée.
+
+Tests locaux : **46 assertions mesure/espace** et 17 gardes fichiers/visibilité réussies. Deux cas d'intégration supplémentaires appliquent à la sortie du vrai MySQL jetable le second LF observé et son équivalent CRLF, puis exercent le wrapper/parseur/nettoyage de production. Ces cas simulent le transport WP-CLI, sans prétendre exécuter sa distribution GoDaddy dans le runner.
+
+Le diagnostic a aussi confirmé les 23 fichiers originaux, l'identité temporaire et Coming Soon sur les cinq URLs; il n'a réalisé aucun déploiement, cache purge, compte ou mutation DB. Les [preuves de structure](evidence/p0-hosted-db-shape.json) ne contiennent aucune valeur de base. Une nouvelle approbation sera nécessaire sur le prochain run de déploiement, après tests.

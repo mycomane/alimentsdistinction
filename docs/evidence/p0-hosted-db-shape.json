@@ -1,0 +1,210 @@
+{
+  "run": 39639769111,
+  "job": 119360202463,
+  "scope": "approved read-only hosted diagnostic",
+  "originalThemeManifest": "23 files matched 0.1.0",
+  "comingSoon": "home and four technical pages confirmed",
+  "reports": [
+    {
+      "label": "cli_version",
+      "command_exit": 0,
+      "stdout": {
+        "bytes": 14,
+        "digits": 4,
+        "letters": 5,
+        "tabs": 0,
+        "cr": 0,
+        "lf": 1,
+        "spaces": 1,
+        "commas": 0,
+        "pipes": 0,
+        "dots": 2,
+        "other_bytes": 1,
+        "leading_whitespace": 0,
+        "trailing_whitespace": 1,
+        "cells": [
+          {
+            "bytes": 13,
+            "type": "other"
+          }
+        ]
+      },
+      "stderr": {
+        "bytes": 0,
+        "digits": 0,
+        "letters": 0,
+        "tabs": 0,
+        "cr": 0,
+        "lf": 0,
+        "spaces": 0,
+        "commas": 0,
+        "pipes": 0,
+        "dots": 0,
+        "other_bytes": 0,
+        "leading_whitespace": 0,
+        "trailing_whitespace": 0,
+        "cells": [
+          {
+            "bytes": 0,
+            "type": "empty"
+          }
+        ]
+      },
+      "version": "2.12.0"
+    },
+    {
+      "label": "aggregate",
+      "command_exit": 0,
+      "stdout": {
+        "bytes": 14,
+        "digits": 10,
+        "letters": 0,
+        "tabs": 2,
+        "cr": 0,
+        "lf": 2,
+        "spaces": 0,
+        "commas": 0,
+        "pipes": 0,
+        "dots": 0,
+        "other_bytes": 0,
+        "leading_whitespace": 0,
+        "trailing_whitespace": 2,
+        "cells": [
+          {
+            "bytes": 2,
+            "type": "digits"
+          },
+          {
+            "bytes": 7,
+            "type": "digits"
+          },
+          {
+            "bytes": 1,
+            "type": "digits"
+          }
+        ]
+      },
+      "stderr": {
+        "bytes": 0,
+        "digits": 0,
+        "letters": 0,
+        "tabs": 0,
+        "cr": 0,
+        "lf": 0,
+        "spaces": 0,
+        "commas": 0,
+        "pipes": 0,
+        "dots": 0,
+        "other_bytes": 0,
+        "leading_whitespace": 0,
+        "trailing_whitespace": 0,
+        "cells": [
+          {
+            "bytes": 0,
+            "type": "empty"
+          }
+        ]
+      }
+    },
+    {
+      "label": "constant_probe",
+      "command_exit": 0,
+      "stdout": {
+        "bytes": 14,
+        "digits": 10,
+        "letters": 0,
+        "tabs": 2,
+        "cr": 0,
+        "lf": 2,
+        "spaces": 0,
+        "commas": 0,
+        "pipes": 0,
+        "dots": 0,
+        "other_bytes": 0,
+        "leading_whitespace": 0,
+        "trailing_whitespace": 2,
+        "cells": [
+          {
+            "bytes": 2,
+            "type": "digits"
+          },
+          {
+            "bytes": 7,
+            "type": "digits"
+          },
+          {
+            "bytes": 1,
+            "type": "digits"
+          }
+        ]
+      },
+      "stderr": {
+        "bytes": 0,
+        "digits": 0,
+        "letters": 0,
+        "tabs": 0,
+        "cr": 0,
+        "lf": 0,
+        "spaces": 0,
+        "commas": 0,
+        "pipes": 0,
+        "dots": 0,
+        "other_bytes": 0,
+        "leading_whitespace": 0,
+        "trailing_whitespace": 0,
+        "cells": [
+          {
+            "bytes": 0,
+            "type": "empty"
+          }
+        ]
+      }
+    },
+    {
+      "label": "native_bytes",
+      "command_exit": 0,
+      "stdout": {
+        "bytes": 8,
+        "digits": 7,
+        "letters": 0,
+        "tabs": 0,
+        "cr": 0,
+        "lf": 1,
+        "spaces": 0,
+        "commas": 0,
+        "pipes": 0,
+        "dots": 0,
+        "other_bytes": 0,
+        "leading_whitespace": 0,
+        "trailing_whitespace": 1,
+        "cells": [
+          {
+            "bytes": 7,
+            "type": "digits"
+          }
+        ]
+      },
+      "stderr": {
+        "bytes": 0,
+        "digits": 0,
+        "letters": 0,
+        "tabs": 0,
+        "cr": 0,
+        "lf": 0,
+        "spaces": 0,
+        "commas": 0,
+        "pipes": 0,
+        "dots": 0,
+        "other_bytes": 0,
+        "leading_whitespace": 0,
+        "trailing_whitespace": 0,
+        "cells": [
+          {
+            "bytes": 0,
+            "type": "empty"
+          }
+        ]
+      }
+    }
+  ]
+}

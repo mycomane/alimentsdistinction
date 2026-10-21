@@ -35,10 +35,15 @@ if mode=='unavailable':
 if mode=='warning':
     print('synthetic warning',file=sys.stderr)
 database='ad_p0_empty' if mode=='empty' else 'ad_p0_measure'
-sys.exit(subprocess.run(['mysql','--protocol=TCP','--host=127.0.0.1','--port=33306','--user=root','--connect-timeout=3','--batch','--raw','--skip-column-names',database,'--execute',a[5]]).returncode)
+result=subprocess.run(['mysql','--protocol=TCP','--host=127.0.0.1','--port=33306','--user=root','--connect-timeout=3','--batch','--raw','--skip-column-names',database,'--execute',a[5]],capture_output=True)
+output=result.stdout
+if mode=='hosted_double_lf': output+=b'\\n'
+if mode=='double_crlf': output=output.replace(b'\\n',b'\\r\\n')+b'\\r\\n'
+sys.stdout.buffer.write(output);sys.stderr.buffer.write(result.stderr)
+sys.exit(result.returncode)
 ''')
     shim.chmod(0o700)
-    for mode, success in [('ok', True), ('empty', False), ('warning', False), ('unavailable', False)]:
+    for mode, success in [('ok', True), ('hosted_double_lf', True), ('double_crlf', True), ('empty', False), ('warning', False), ('unavailable', False)]:
         env = dict(os.environ, PATH=str(directory) + os.pathsep + os.environ['PATH'], P0_FIXTURE_MODE=mode)
         r = subprocess.run(['bash', str(directory / 'measure-p0-db.sh'), '/isolated-fixture'], env=env, capture_output=True, text=True)
         assert (r.returncode == 0) == success, f'Unexpected measure outcome: {mode}'
@@ -50,4 +55,4 @@ sys.exit(subprocess.run(['mysql','--protocol=TCP','--host=127.0.0.1','--port=333
             json.loads(r.stderr.split('DB_MEASUREMENT_REFUSED ', 1)[1])
         assert not list(directory.glob('.db-measure.*')), 'Private measurement scratch was not cleaned'
         print(f'PASS: isolated MySQL measurement {mode}; output isolation and cleanup verified.')
-print('PASS: actual SQL aggregate + four deployed capture/parser scenarios; no GoDaddy access.')
+print('PASS: actual SQL aggregate + six deployed capture/parser scenarios; no GoDaddy access.')

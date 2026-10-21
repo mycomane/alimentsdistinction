@@ -4,7 +4,7 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 ## Phase et derniers commits
 
-**P0 : le run 39638388563 a été approuvé puis a échoué avant sauvegarde/remplacement. Diagnostic structurel en lecture seule préparé, avec nouvelle approbation obligatoire. Aucun succès de déploiement revendiqué.**
+**P0 : diagnostic hébergé réussi; cause établie (deux LF finaux). Correction ciblée du parseur préparée et tests locaux réussis. Nouveau run de déploiement à tester puis à approuver séparément. Aucun déploiement effectué par le diagnostic.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
 - Dernier commit préparatoire vérifié : [`344a97dbad1738398be3fcf0b8a24a5c018c410f`](https://github.com/mycomane/alimentsdistinction/commit/344a97dbad1738398be3fcf0b8a24a5c018c410f), diagnostic structurel seulement. Correction de mesure précédente : `ee9cd17655d5454483be339fdb5a7d4828305d58`; candidat du thème inchangé.
@@ -12,17 +12,18 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
 
-## Incident courant — format SQL inattendu
+## État courant — diagnostic réussi, cause établie
 
-[Run 39638388563](https://github.com/mycomane/alimentsdistinction/actions/runs/39638388563), job distant `119356247301` : approbation vérifiée, identité temporaire et empreintes anciennes contrôlées, puis refus `unexpected_output_shape` : **commande exit 0, stdout 14 octets, stderr 0**. Le parseur n'a pas reçu une ligne TSV numérique canonique. La forme précise reste inconnue; aucun assouplissement spéculatif du parseur.
+[Diagnostic 39639769111](https://github.com/mycomane/alimentsdistinction/actions/runs/39639769111), job `119360202463` : **succès après approbation**. Identité exacte, thème actif attendu, les **23 fichiers originaux 0.1.0** et Coming Soon sur accueil + quatre pages ont été contrôlés après les échecs précédents.
 
-Le chemin échoue avant le `mkdir` de sauvegarde P0 et le remplacement du CSS. Un nouveau bundle privé/verrou peuvent exister. Pas encore de vérification distante post-échec du site entier; le nouveau diagnostic contrôlera les 23 empreintes anciennes et Coming Soon avant les sondes.
-
-- Diagnostic distinct `.github/workflows/diagnose-godaddy-p0-db.yml` : **aucun point d'entrée de déploiement**, aucun compte, purge ou export SQL.
-- Sondes en lecture seule : version WP-CLI si format reconnu, SELECT agrégé existant, SELECT de constantes publiques pour comparer le transport, taille native sans CSV.
-- Publication limitée aux longueurs, nombres de caractères/délimiteurs et types de cellules. Aucun contenu brut, nom de base/table, identifiant ou erreur SQL. Les fichiers de capture restent privés et sont supprimés sur sorties gérées.
-- **13 assertions de structure/absence de divulgation réussies localement et sur GitHub**, Bash/PHP/YAML et ShellCheck validés. Job `prepare` 119359938790 : succès.
-- **[Nouveau run diagnostic 39639769111](https://github.com/mycomane/alimentsdistinction/actions/runs/39639769111)** : préparation réussie; job distant `119360202463` en **waiting**, reviewer `mycomane` / `godaddy-temp` confirmé. Aucune opération distante par ce diagnostic à ce stade. Nouvelle approbation : Review deployments → godaddy-temp → Approve and deploy; malgré le libellé générique GitHub, ce workflow ne déploie aucun thème. Ne pas relancer un déploiement pour deviner le format.
+- WP-CLI hébergé : **2.12.0**.
+- L'agrégat SQL et la sonde de constantes renvoient chacun 14 octets : **10 chiffres, 2 tabulations et 2 LF finaux**, aucune lettre, espace, autre caractère ou stderr. Trois cellules numériques de longueurs 2/7/1.
+- La taille native sans CSV renvoie 7 chiffres et un LF; aucun stderr. Aucune valeur de base, nom ou sortie brute publié.
+- **Cause du second échec prouvée :** le parseur n'autorisait qu'une fin de ligne après la ligne TSV valide; la chaîne WP-CLI hébergée en ajoute deux.
+- Correction bornée : autoriser zéro, une ou deux fins de ligne LF/CRLF complètes après une seule ligne numérique. Aucun `trim()` général, aucun avertissement ignoré, aucune donnée supplémentaire acceptée. Trois fins de ligne, lignes numériques supplémentaires, espaces/tabulations ajoutés et autres formats restent rejetés.
+- **46 assertions locales** parseur/espace réussies (39 précédentes + 7 nouveaux cas), ainsi que les 17 gardes fichiers/visibilité. Deux scénarios MySQL supplémentaires reproduisent la double fin de ligne dans le wrapper de production; résultat CI attendu.
+- [Preuve structurelle hébergée](evidence/p0-hosted-db-shape.json). Aucune nouvelle sauvegarde, purge, mutation DB, création de compte ou mise à jour de thème par le diagnostic.
+- Nouvelle exécution du workflow de déploiement à confirmer après CI; **nouvelle revue `godaddy-temp` obligatoire**. L'accord du diagnostic ne vaut pas accord de déploiement.
 
 ## Historique — première correction de mesure DB
 
@@ -95,7 +96,7 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 | Priorité | Élément restant | Décision / action |
 | --- | --- | --- |
-| Passage GitHub obligatoire | Run 39638388563 échoué; diagnostic lecture seule préparé | Nouvelle revue du diagnostic; aucune relance de déploiement |
+| Passage GitHub obligatoire | Diagnostic réussi; correction des deux LF préparée | Nouveaux tests puis nouvelle approbation du run de déploiement |
 | Validation Julien | Nouvelle recette géométrique hébergée après mise à jour | Autoriser un Abonné temporaire de 30 minutes avec suppression |
 | Majeur accessibilité | Textes rose/gris, boutons et infolettre insuffisamment contrastés | Valider les propositions graphiques avant leur intégration |
 | Majeur accessibilité | Navigation transparente sur photo | Valider une solution par contexte, par exemple une barre à fond crème opaque |
@@ -107,7 +108,7 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 ## Prochaines étapes recommandées
 
-1. Revoir et approuver le nouveau diagnostic structurel en lecture seule. Déterminer le format exact sans divulguer la sortie brute avant toute autre correction de mesure ou relance de déploiement.
+1. Confirmer les tests du parseur corrigé et les nouvelles simulations de transport, puis faire revoir et approuver le nouveau run de déploiement.
 2. Après diagnostic, préparer et tester la correction nécessaire. Un déploiement ultérieur exige sa propre nouvelle approbation GitHub, puis sauvegarde fraîche/rollback et vérifications. L’approbation du diagnostic ne déclenche aucun déploiement. Recette authentifiée après autorisation distincte du compte temporaire. Ne pas relancer le premier installateur.
 3. Après validation graphique : intégrer les ajustements ciblés de contraste, états désactivés/survol/focus et navigation, puis refaire les vérifications isolées appropriées.
 4. Compléter les contenus commerciaux approuvés et les tests non couverts. Le formulaire de commande n’a jamais été soumis; les blocs Panier/Commande, lecteurs d’écran, pixels des sections secondaires et performance ne sont pas certifiés.
