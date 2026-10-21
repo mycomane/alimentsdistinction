@@ -17,6 +17,7 @@ const pauseUntilReady = () => new Promise((resolve, reject) => {
   const browser = await chromium.launch({headless:true});
   const page = await browser.newPage();
   page.on('pageerror', error => report.failures.push(`JavaScript: ${error.message}`));
+  page.on('dialog', async dialog => { report.failures.push('Unexpected browser dialog: '+dialog.message()); await dialog.dismiss(); });
   for(const width of [320,390,768,1024,1440]) {
     await page.setViewportSize({width,height:1000});
     await page.goto(base,{waitUntil:'networkidle'});
@@ -54,11 +55,11 @@ const pauseUntilReady = () => new Promise((resolve, reject) => {
   await page.locator('select[name="attribute_portion"]').selectOption({label:'250 g'});
   await page.waitForFunction(()=>Number(document.querySelector('input.variation_id')?.value)>0);
   assert(Number(await page.locator('input.variation_id').inputValue())>0,'Variation selection resolves product id');
+  // WooCommerce sets variation_id before its delayed show_variation event enables the button.
+  await page.locator('.woocommerce-variation-add-to-cart-enabled button.single_add_to_cart_button:not(.disabled)').waitFor({state:'visible'});
   await page.locator('input.qty').fill('1');
-  report.variationRequest = await page.locator('form.variations_form').evaluate(form=>Object.fromEntries(['product_id','add-to-cart','variation_id','attribute_portion','quantity'].map(name=>[name,form.querySelector('[name="'+name+'"]')?.value||null])));
   await page.locator('button.single_add_to_cart_button').click();
   await page.waitForLoadState('networkidle');
-  report.variationNotices = await page.locator('.woocommerce-error, .woocommerce-message').allTextContents();
   await page.goto(`${base}/?page_id=${ids.cart}`,{waitUntil:'networkidle'});
   assert(await page.locator('.woocommerce-cart-form tr.cart_item').count()===2,'Simple and selected variation coexist in cart');
   assert((await page.locator('.woocommerce-cart-form').innerText()).includes('250 g'),'Selected variation portion survives HTTP navigation');
