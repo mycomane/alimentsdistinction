@@ -8,7 +8,7 @@ Base vérifiée : `82eccba3bdd3e5fc1b1920d6ce33a882291374f7` sur `feat/wordpress
 
 Dernier commit de correction validé : `9618095516d982e10eebfe5c7aa0cdcc4bf85be3`.
 
-**P0 terminé en développement : correctif CSS réel validé, non déployé.** P1 : 55 assertions sections/liens/clavier réussies, proposition de contraste préparée et non appliquée. P2 : relance requise après correction d’une fixture de variation, en environnement isolé uniquement.
+**P0 terminé en développement : correctif CSS réel validé, non déployé.** P1 : 55 assertions sections/liens/clavier réussies, proposition de contraste préparée et non appliquée. P2 : tris, pagination, filtre et parcours natifs confirmés; validation globale en relance après ajustement de l’attente du prix d’une variation. Les cinq tailles des écrans WooCommerce sont ajoutées à cette relance isolée.
 
 ## Terminé
 
