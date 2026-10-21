@@ -1,0 +1,2 @@
+/* A — same navigation positions; local opaque backplates protect the text on photos. */
+html[data-p1-variant="a"] :is(.nav-link,.nav-actions>a,.nav>a:first-child) { background:#FAF7F2; box-shadow:0 0 0 6px #FAF7F2; border-radius:3px; }

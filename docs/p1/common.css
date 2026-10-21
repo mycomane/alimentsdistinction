@@ -1,0 +1,34 @@
+/* P1 PROPOSAL ONLY — injected into disposable previews, never enqueued by the theme. */
+:root[data-p1-variant] { --p1-ink:#94544B; --p1-muted:#6E6964; --p1-earth:#806342; --p1-sage:#52694F; --p1-button:#94544B; --p1-hover:#713E37; }
+html[data-p1-variant] :is(.t-label,.nav-logo__sub,.nav-link,.nav-icon,.hero__title em,.trust-item__value,.col-card__label,.col-card__link,.promise__card-tag,.featured__card-label,.featured__price,.story__quote,.cta__title em,.footer__brand-sub,.footer__copy span,.round-badge__sub) { color:var(--p1-ink); }
+html[data-p1-variant] :is([style*="color:var(--blush)"],[style*="color: var(--blush)"]) { color:var(--p1-ink)!important; }
+html[data-p1-variant] :is(.trust-item__label,.hero__badge-sub,.col-card__desc,.feat-spec__k,.testimonial__location,.footer__brand-desc,.footer__social-link,.footer__link,.footer__copy) { color:var(--p1-muted); }
+html[data-p1-variant] :is([style*="color:var(--gray)"],[style*="color: var(--gray)"]) { color:var(--p1-muted)!important; }
+html[data-p1-variant] :is(.step__num,.testimonial__star) { color:var(--p1-earth); }
+html[data-p1-variant] :is([style*="color:var(--earth)"],[style*="color: var(--earth)"]) { color:var(--p1-earth)!important; }
+html[data-p1-variant] .quality-pill { color:var(--p1-sage); }
+html[data-p1-variant] .btn-blush { background:var(--p1-button); border-color:var(--p1-button); color:white; }
+html[data-p1-variant] .btn-outline-blush { color:var(--p1-ink); border-color:var(--p1-ink); }
+html[data-p1-variant] :is(.btn-blush,.btn-outline-blush):hover { background:var(--p1-hover); border-color:var(--p1-hover); color:white; }
+html[data-p1-variant] :is(.nav-link,.footer__link,.footer__social-link):hover { color:var(--p1-hover); text-decoration:underline; text-underline-offset:4px; }
+html[data-p1-variant] .newsletter .t-body { color:#E8E2DA; }
+html[data-p1-variant] .newsletter .btn-outline-charcoal { color:#E8E2DA; border-color:#E8E2DA; }
+html[data-p1-variant] .newsletter .btn-outline-charcoal:hover { background:#E8E2DA; color:#2C2A27; }
+html[data-p1-variant] .ad-menu-toggle { background:#FAF7F2; color:var(--p1-ink); border-color:var(--p1-muted); }
+html[data-p1-variant] :is(a,button,input,select,textarea):focus-visible { outline:3px solid #2C2A27!important; outline-offset:5px!important; box-shadow:0 0 0 5px #FFFFFF!important; }
+html[data-p1-variant] .woocommerce :is(a.button,button.button,input.button,.woocommerce-product-search button) { background:var(--p1-button)!important; color:white!important; border-color:var(--p1-button)!important; }
+html[data-p1-variant] .woocommerce :is(a.button,button.button,input.button,.woocommerce-product-search button):hover { background:var(--p1-hover)!important; color:white!important; }
+html[data-p1-variant] .woocommerce :is(.price,.woocommerce-loop-product__title + .price) { color:var(--p1-ink)!important; }
+html[data-p1-variant] .woocommerce :is(input:not([type=checkbox]):not([type=radio]),textarea,select) { border-color:var(--p1-muted); }
+html[data-p1-variant] .woocommerce .stock { color:var(--p1-sage); }
+html[data-p1-variant] .woocommerce .out-of-stock { color:#8B3530; }
+html[data-p1-variant] :is(.woocommerce-error,.woocommerce-info,.woocommerce-message) { color:#2C2A27; }
+html[data-p1-variant] .woocommerce-error { border-color:#8B3530; }
+html[data-p1-variant] .woocommerce-error::before { color:#8B3530; }
+html[data-p1-variant] :is(.woocommerce-info,.woocommerce-message)::before { color:var(--p1-ink); }
+html[data-p1-variant] .woocommerce .woocommerce-invalid :is(input,select,textarea) { border:2px solid #8B3530; }
+html[data-p1-variant] .woocommerce :is(button:disabled,.button.disabled,.button[aria-disabled=true]) { background:#E4D9CE!important; color:#4A4744!important; border-color:#6E6964!important; opacity:1!important; cursor:not-allowed; }
+html[data-p1-variant] .woocommerce a:not(.button) { color:var(--p1-ink); }
+html[data-p1-variant] .woocommerce span.onsale { background:var(--p1-sage); color:white; }
+html[data-p1-variant] .woocommerce nav.woocommerce-pagination ul li :is(span.current,a:hover,a:focus) { background:#F4EDE3; color:#2C2A27; }
+html[data-p1-variant] .woocommerce .required { color:#8B3530!important; }

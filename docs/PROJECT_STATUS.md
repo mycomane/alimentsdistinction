@@ -4,13 +4,24 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 ## Phase et derniers commits
 
-**P0 terminé : thème 0.1.1 déployé et recette hébergée automatisée réussie. 88 contrôles frontend, écart réel 0,00 px aux cinq largeurs; compte temporaire supprimé et sessions révoquées. Coming Soon préservé. Bilan transmis à Coordination pour validation de clôture P0 et décision P1.**
+**P0 validé et clôturé par Coordination. P1 (issue #2) en cours : deux variantes graphiques isolées préparées, tests ciblés à lancer. Aucun accès ou changement GoDaddy, aucun fichier du thème modifié. Statut final visé : prêt pour revue visuelle, pas déployé.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
 - Dernier commit de recette validé : [`6b3031a74792827836d3bab57d181896b7d15d40`](https://github.com/mycomane/alimentsdistinction/commit/6b3031a74792827836d3bab57d181896b7d15d40). Code déployé : `be5703eeaa434ada55cb33a961a0b08e11f6a862`; thème 0.1.1 inchangé.
 - Commit du correctif CSS : [`9618095516d982e10eebfe5c7aa0cdcc4bf85be3`](https://github.com/mycomane/alimentsdistinction/commit/9618095516d982e10eebfe5c7aa0cdcc4bf85be3).
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
+
+## P1 — propositions graphiques isolées en cours
+
+[Directive issue #2](https://github.com/mycomane/alimentsdistinction/issues/2) lue, rapports Phase 3/feuille de route et proposition de contraste réutilisés. Base : `5b7368a011fde34e0cbc5a96dd48408816c3c044`; derniers runs P0 et QA réussis vérifiés.
+
+- Variante A : positions du menu conservées, surfaces locales crème derrière liens/icônes sur la photo; rose encre pour textes et boutons, gris plus lisible.
+- Variante B : navigation crème opaque complète, boutons charbon, gris renforcé. Rose décoratif et images conservés dans les deux variantes.
+- Propositions uniquement dans `docs/p1/`; injectées par le runner isolé, jamais chargées par le thème. Source de design et thème 0.1.1 inchangés.
+- Tests ciblés préparés : cinq largeurs, zéro régression P0, contraste sur les pixels des fonds réels, menu/clavier, focus/survol et états WooCommerce; pas de relance des 300 assertions. Workflow isolé sans secrets ni environnement GoDaddy; aucun workflow protégé modifié.
+- Résultats, captures, mesures et choix esthétique : en attente du premier run. Aucun succès de variante anticipé.
+- [Méthode et compromis](p1/README.md). Julien choisira la variante avant toute intégration importante; tout déploiement futur demandera une autorisation distincte et une nouvelle revue GitHub.
 
 ## Recette hébergée post-déploiement — réussie
 

@@ -1,0 +1,53 @@
+name: P1 two visual proposals — isolated only, no GoDaddy
+on:
+  push:
+    branches: [feat/wordpress-woocommerce-theme]
+    paths: ['.github/workflows/qa-p1-visual.yml', 'scripts/p1/**', 'docs/p1/*.css']
+permissions:
+  contents: read
+jobs:
+  proposals:
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate no theme or official-reference changes
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = feat/wordpress-woocommerce-theme
+          node --check scripts/p1/review.cjs
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq php-cli php-sqlite3 php-xml php-mbstring php-curl php-gd
+          python3 scripts/check-theme.py
+      - name: Reuse existing disposable WordPress and synthetic fixtures
+        run: |
+          python3 scripts/qa/prepare.py
+          php scripts/qa/seed.php
+          php scripts/qa/fixtures.php
+          php scripts/qa/extended-fixtures.php
+      - name: Install pinned browser and PNG sampler
+        run: |
+          npm install --prefix "$RUNNER_TEMP/ad-qa-tools" playwright@1.56.1 pngjs@7.0.0 --no-audit --no-fund
+          "$RUNNER_TEMP/ad-qa-tools/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Targeted geometry, contextual contrast and commerce-state checks
+        run: |
+          set -euo pipefail
+          php -S 127.0.0.1:8787 -t "$RUNNER_TEMP/ad-isolated-qa/wordpress" "$RUNNER_TEMP/ad-isolated-qa/router.php" > "$RUNNER_TEMP/ad-qa-php.log" 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          status=0
+          node scripts/p1/review.cjs || status=1
+          php scripts/qa/no-orders.php || status=1
+          python3 scripts/qa/php-log-check.py || status=1
+          exit "$status"
+      - name: Publish isolated proposal evidence only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p1-proposals-isolated
+          path: ${{ runner.temp }}/ad-isolated-qa/evidence/
+          retention-days: 14
+          if-no-files-found: ignore

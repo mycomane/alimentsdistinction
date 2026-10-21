@@ -1,0 +1,5 @@
+/* B — opaque full navigation and charcoal CTAs; no layout/font-size changes. */
+:root[data-p1-variant="b"] { --p1-muted:#625D57; --p1-button:#2C2A27; }
+html[data-p1-variant="b"] :is(.nav,.nav.scrolled) { background:#FAF7F2; box-shadow:0 1px 0 #6E6964; backdrop-filter:none; }
+html[data-p1-variant="b"] .nav :is(.nav-link,.nav-icon) { color:#2C2A27; }
+html[data-p1-variant="b"] .nav .nav-link:hover { color:#713E37; }
