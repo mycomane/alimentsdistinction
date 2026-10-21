@@ -54,9 +54,37 @@ const pauseUntilReady = () => new Promise((resolve, reject) => {
   await page.locator('select[name="attribute_portion"]').selectOption({label:'250 g'});
   await page.waitForFunction(()=>Number(document.querySelector('input.variation_id')?.value)>0);
   assert(Number(await page.locator('input.variation_id').inputValue())>0,'Variation selection resolves product id');
+  await page.locator('input.qty').fill('1');
+  await page.locator('button.single_add_to_cart_button').click();
+  await page.goto(`${base}/?page_id=${ids.cart}`,{waitUntil:'networkidle'});
+  assert(await page.locator('.woocommerce-cart-form tr.cart_item').count()===2,'Simple and selected variation coexist in cart');
+  assert((await page.locator('.woocommerce-cart-form').innerText()).includes('250 g'),'Selected variation portion survives HTTP navigation');
+  for(const width of [390,1440]){
+    await page.setViewportSize({width,height:1000});
+    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),`Cart has no page overflow ${width}px`);
+  }
   await page.goto(`${base}/?page_id=${ids.checkout}`,{waitUntil:'networkidle'});
   assert(await page.locator('form.checkout').count()===1,'Checkout form rendered');
   assert(await page.locator('input[name="payment_method"]').count()===0,'No payment method enabled');
+  await page.goto(`${base}/?post_type=product`,{waitUntil:'networkidle'});
+  assert(await page.locator('ul.products li.product').count()>=3,'Catalogue lists synthetic products');
+  const sort=page.locator('select.orderby');
+  await sort.selectOption('price');
+  await page.waitForURL(/orderby=price/);
+  assert(await page.locator('select.orderby').inputValue()==='price','Catalogue price sorting request retained');
+  await page.goto(`${base}/?s=AD_QA_NO_SUCH_PRODUCT_20261021&post_type=product`,{waitUntil:'networkidle'});
+  assert(await page.locator('ul.products li.product').count()===0,'Unknown product search returns no products');
+  await page.goto(`${base}/?product_cat=desserts`,{waitUntil:'networkidle'});
+  assert(await page.locator('ul.products li.product').count()===0,'Empty synthetic category has no false products');
+  await page.goto(`${base}/?page_id=${ids.cart}`,{waitUntil:'networkidle'});
+  while(await page.locator('.woocommerce-cart-form a.remove').count()){
+    const rows=await page.locator('tr.cart_item').count();
+    await page.locator('.woocommerce-cart-form a.remove').first().click();
+    await page.waitForFunction(n=>document.querySelectorAll('tr.cart_item').length<n,rows);
+  }
+  assert(await page.locator('.cart-empty').count()===1,'Removing all synthetic lines renders empty cart');
+  await page.goto(`${base}/?page_id=${ids.checkout}`,{waitUntil:'networkidle'});
+  assert(await page.locator('form.checkout').count()===0,'Empty cart cannot display an order submission form');
   report.warnings.push('No order placed. Tax/shipping/payment rules not tested. Hosted Coming Soon and GoDaddy cache not covered. Screenshots and HTML are not published.');
   await browser.close();
   console.log(JSON.stringify(report,null,2));
