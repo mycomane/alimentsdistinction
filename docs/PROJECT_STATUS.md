@@ -4,13 +4,22 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 ## Phase et derniers commits
 
-**P0 clôturé. P1 : Julien conserve « Actuel », palette choisie par Jean-François et Meggy. Intégration limitée au bouton d’ajout au panier et au sélecteur de variation de A. Site en français. Recette isolée et 45 contrôles français réussis; aucun accès ou déploiement GoDaddy.**
+**P0 clôturé. P1 : Julien conserve « Actuel », palette choisie par Jean-François et Meggy. Intégration limitée au bouton d’ajout au panier et au sélecteur de variation de A. Site en français. Aperçu validé par Julien. Recette isolée et 45 contrôles français réussis, puis complément fonctionnel de 23 contrôles réussi; contenus français à compléter dans les fixtures. Aucun accès ou déploiement GoDaddy.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
 - Dernier commit P1 testé : [`61d940e2e0847b6f3358f4c98aa16c572f593148`](https://github.com/mycomane/alimentsdistinction/commit/61d940e2e0847b6f3358f4c98aa16c572f593148); captures seules : [`80bd8201a9a61b3c7e9225f31dca81c3296dc9b7`](https://github.com/mycomane/alimentsdistinction/commit/80bd8201a9a61b3c7e9225f31dca81c3296dc9b7). Code GoDaddy toujours `be5703eeaa434ada55cb33a961a0b08e11f6a862`, thème 0.1.1.
 - Commit du correctif CSS : [`9618095516d982e10eebfe5c7aa0cdcc4bf85be3`](https://github.com/mycomane/alimentsdistinction/commit/9618095516d982e10eebfe5c7aa0cdcc4bf85be3).
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
+
+## Validation de Julien et complément de recette française
+
+- Julien a validé l’aperçu et demandé de continuer. L’issue #2 exige toujours un accord de déploiement distinct; aucun workflow protégé modifié ou déclenché.
+- Code de recette complémentaire : [`0563c3a5a793e169959b6835b6316c0c3275ca25`](https://github.com/mycomane/alimentsdistinction/commit/0563c3a5a793e169959b6835b6316c0c3275ca25). [Run 39694834148](https://github.com/mycomane/alimentsdistinction/actions/runs/39694834148), job `119549577969` : **23 contrôles réussis**, zéro échec, zéro erreur JS/PHP comptée. Catalogue/tri, stock, variations, panier vide, ajout synthétique, quantité 2 → 1, champs de facturation et écran de commande. Aucun checkout soumis, paiement ou commande créée.
+- Le premier [run 39694636299](https://github.com/mycomane/alimentsdistinction/actions/runs/39694636299) a échoué sur deux attentes de test : libellé natif « actuellement vide » et sous-total mobile dans un pseudo-élément `data-title`. Tests corrigés selon le rendu réel, aucun correctif de thème nécessaire.
+- **Localisation complète non certifiée :** confidentialité de commande et catégorie de la fixture anglaise restent en anglais après changement de langue. Valeur persistée de confidentialité confirmée dans la base locale en lecture seule; pas de réécriture automatique. État GoDaddy inconnu dans cette phase. Les textes commerciaux et légaux français restent à valider.
+- [Rapport français et preuves](p1/FRENCH_REVIEW.md). [Périmètre proposé 0.1.2](p1/DEPLOYMENT_SCOPE.md) : bloc `commerce.css` validé et seule ligne de version dans `style.css` pour les caches. Release non encore créée; mécanisme P0 non réutilisable pour ce nouveau périmètre. Autorisation distincte requise avant nouvelle livraison et approbation GitHub du nouveau run.
+- Budget : recette existante réutilisée; deux passages ciblés seulement, aucun nouveau changement de thème ou relancement des 300 assertions. Coming Soon, protections GitHub, master et site commercial intacts.
 
 ## Décision P1 — intégration ciblée testée, non déployée
 
@@ -165,8 +174,8 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 ## Prochaines étapes recommandées
 
-1. Faire examiner l’intégration ciblée testée et les libellés français; P0 est clôturé.
-2. Présenter les contrôles français et leurs résultats. Aucun déploiement par cette décision seule.
+1. Accord graphique reçu. Julien décide du déploiement temporaire décrit dans `p1/DEPLOYMENT_SCOPE.md`; ensuite seulement préparer un nouveau run protégé avec revue obligatoire.
+2. Lors d’une prochaine intervention autorisée, relever langue, paquets français et textes enregistrés sur GoDaddy; proposer les corrections de contenu nécessaires sans modifier les réglages commerciaux.
 3. Tout futur déploiement GoDaddy sera préparé avec autorisation distincte, sauvegarde/rollback et nouvelle revue `godaddy-temp`.
 4. Valider contenus commerciaux, coordonnées, contrats/garanties, recettes et service d'infolettre. La recette transactionnelle et les réglages métier restent distincts.
 5. Conserver Coming Soon et restrictions site commercial/master/DNS/paiements/Zoho. Avant production, sauvegarde hors site/restauration intégrale, sécurité SSH et performance restent à traiter.

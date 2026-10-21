@@ -1,0 +1,121 @@
+{
+  "scope": "isolated French storefront only",
+  "checks": [
+    {
+      "label": "Empty cart notice is French",
+      "passed": true
+    },
+    {
+      "label": "Empty cart return link is French",
+      "passed": true
+    },
+    {
+      "label": "Catalog default sorting is French",
+      "passed": true
+    },
+    {
+      "label": "Price sorting options are French",
+      "passed": true
+    },
+    {
+      "label": "Stockout message is French",
+      "passed": true
+    },
+    {
+      "label": "Stockout product cannot be bought",
+      "passed": true
+    },
+    {
+      "label": "Native variation placeholder is French",
+      "passed": true
+    },
+    {
+      "label": "Product add-to-cart label is French",
+      "passed": true
+    },
+    {
+      "label": "Variation reset link is French",
+      "passed": true
+    },
+    {
+      "label": "Selected synthetic variation reaches the cart",
+      "passed": true
+    },
+    {
+      "label": "Synthetic quantity two is retained",
+      "passed": true
+    },
+    {
+      "label": "Cart update label is French",
+      "passed": true
+    },
+    {
+      "label": "Proceed-to-checkout label is French",
+      "passed": true
+    },
+    {
+      "label": "Mobile cart subtotal data-title is French",
+      "passed": true
+    },
+    {
+      "label": "French cart updates the synthetic quantity",
+      "passed": true
+    },
+    {
+      "label": "French checkout form renders with synthetic cart",
+      "passed": true
+    },
+    {
+      "label": "Billing first-name label is French",
+      "passed": true
+    },
+    {
+      "label": "Billing surname label is French",
+      "passed": true
+    },
+    {
+      "label": "Checkout submission label is French (never clicked)",
+      "passed": true
+    },
+    {
+      "label": "No available real payment method",
+      "passed": true
+    },
+    {
+      "label": "Native checkout security nonce remains present",
+      "passed": true
+    },
+    {
+      "label": "390 French checkout has no overflow",
+      "passed": true
+    },
+    {
+      "label": "1440 French checkout has no overflow",
+      "passed": true
+    }
+  ],
+  "failures": [],
+  "findings": [
+    {
+      "severity": "content",
+      "scope": "isolated fixture only; hosted status unknown",
+      "code": "persisted-privacy-english",
+      "detail": "Stored checkout privacy text remains English after locale change. Review stored content separately; no automatic hosted rewrite."
+    },
+    {
+      "severity": "fixture",
+      "code": "stored-category-english",
+      "detail": "Category created in the original English fixture remains English; not a theme translation string."
+    }
+  ],
+  "labels": {
+    "emptyCart": "Panier Votre panier est actuellement vide. Retour à la boutique",
+    "sorting": "Tri par défaut Tri par popularité Tri par notes moyennes Tri du plus récent au plus ancien Tri par tarif croissant Tri par tarif décroissant",
+    "stockout": "QA — Rupture $30.00 En rupture de stock Catégorie : Uncategorized",
+    "cart": "Panier × QA — Variations - 250 g $20.00 quantité de QA — Variations - 250 g $40.00 Code promo : Appliquer le code promo Mettre à jour le panier Total panier $40.00 $40.00 Valider la commande",
+    "subtotal": "Sous-total",
+    "checkout": "Commande Avez-vous un code promo ? Cliquez ici pour saisir votre code Détails de facturation Prénom * Nom * Nom de l’entreprise (facultatif) Pays/région * Sélectionner un pays/région… Afghanistan Afrique du Sud Åland Albanie Algérie Allemagne Andorre Angola Anguilla Antarctique Antigua-et-Barbuda Arabie saoudite Argentine Arménie Aruba Australie Autriche Azerbaïdjan Bahamas Bahrain Bangladesh Barbade Belau Belgique Belize Bénin Bermudes Bhoutan Biélorussie Bolivie Bonaire, Saint-Eustache et Saba Bosnie-Herzégovine Botswana Brésil Brunei Bulgarie Burkina Faso Burundi Cambodge Cameroun Canada Cap-Vert Chili Chine Chypre Colombie Comores Congo (Brazzaville) Congo (Kinshasa) Corée du Nord Corée du Sud Costa Rica Côte d’Ivoire Croatie Cuba Curaçao Danemark Djibouti Dominique Égypte Émirats arabes unis Équateur Érythrée Espagne Estonie Eswatini États-Unis (USA) Éthiopie Fidji Finlande France Gabon Gambie Géorgie Géorgie du Sud / îles Sandwich Ghana Gibraltar Grèce Grenade Groenland Guadeloupe Guam Guatemala Guernesey Guinée Guinée équatoriale Guinée-Bissau Guyana Guyane Haïti Honduras Hong Kong Hongrie Île Bouvet Île Christmas Île de Man Île Maurice Île Norfolk Îles Caïmans Îles Cocos Îles Cook Îles Falkland Îles Féroé Îles Heard-et-MacDonald Îles Mariannes du Nord Îles Marshall Îles Mineures éloignées des États-Unis Îles Salomon Îles Turques-et-Caïques Inde Indonésie Iran Iraq Irlande Islande Israël Italie Jamaïque Japon Jersey Jordanie Kazakhstan Kenya Kirghizistan Kiribati Kosovo Koweït La Réunion Laos Lesotho Lettonie Liban Liberia Libye Liechtenstein Lituanie Luxembourg Macao Macédoine du Nord Madagascar Malaisie Malawi Maldives Mali Malte Maroc Martinique Mauritanie Mayotte Mexique Micronésie Moldavie Monaco Mongolie Monténégro Montserrat Mozambique Myanmar Namibie Nauru Népal Nicaragua Niger Nigéria Niue Norvège Nouvelle-Calédonie Nouvelle-Zélande Oman Ouganda Ouzbékistan Pakistan Panama Papouasie-Nouvelle-Guinée Paraguay Pays-Bas Pérou Philippines Pitcairn Pologne Polynésie française Porto Rico Portugal Qatar République centrafricaine République dominicaine République tchèque Roumanie Royaume-Uni (UK) Russie Rwanda Sahara occidental Saint Barthélemy Saint-Kitts-et-Nevis Saint-Marin Saint-Martin (Antilles françaises) Saint-Martin (partie néerlandaise) Saint-Pierre-et-Miquelon Saint-Vincent-et-les-Grenadines Sainte-Hélène Sainte-Lucie Salvador Samoa Samoa américaines Sao Tomé-et-Principe Sénégal Serbie Seychelles Sierra Leone Singapour Slovaquie Slovénie Somalie Soudan Soudan du Sud Sri Lanka Suède Suisse Suriname Svalbard et Jan Mayen Syrie Tadjikistan Taïwan Tanzanie Tchad Terres australes et antarctiques françaises Territoire britannique de l’océan Indien Territoire Palestinien Thaïlande Timor oriental Togo Tokelau Tonga Trinité-et-Tobago Tunisie Turkménistan Turquie Tuvalu Ukraine Uruguay Vanuatu Vatican Venezuela Vietnam Virgin Islands (British) Virgin Islands (US) Wallis-et-Futuna Yémen Zambie Zimbabwe États-Unis (USA) Numéro et nom de rue * Appartement, suite, unité, etc. (facultatif) Ville * État * Sélectionner une option… Alabama Alaska Arizona Arkansas California Colorado Connecticut Delaware District de Columbia Florida Géorgie Hawaii Idaho Illinois Indiana Iowa Kansas Kentucky Louisiana Maine Maryland Massachusetts Michigan Minnesota Mississippi Missouri Montana Nebraska Nevada New Hampshire New Jersey New Mexico New York Caroline du Nord Dakota du Nord Ohio Oklahoma Oregon Pennsylvania Rhode Island South Carolina South Dakota Tennessee Texas Utah Vermont Virginia Washington West Virginia Wisconsin Wyoming Forces armées américaines (AA) Forces armées américaines (AE) Forces armées américaines (AP) California Code postal * Téléphone * Adresse e-mail * Informations complémentaires Notes de commande (facultatif) Votre commande Produit Sous-total QA — Variations - 250 g × 1 $20.00 Sous-total $20.00 Total $20.00 Désolé, il semble qu’il n’y ait aucun moyen de paiement disponible. Veuillez nous contacter si vous avez besoin d’aide ou si vous désirez mettre en place une alternative. Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our politique de confidentialité. Commander",
+    "privacy": "Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our politique de confidentialité."
+  },
+  "ordersSubmitted": 0
+}

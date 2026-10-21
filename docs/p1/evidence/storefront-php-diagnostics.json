@@ -1,0 +1,20 @@
+{
+  "scope": "isolated-only",
+  "logs": [
+    {
+      "name": "php_server",
+      "present": true,
+      "fatal": 0,
+      "warnings": 0,
+      "deprecated": 0
+    },
+    {
+      "name": "wordpress_debug",
+      "present": true,
+      "fatal": 0,
+      "warnings": 0,
+      "deprecated": 0
+    }
+  ],
+  "fatal_count": 0
+}
