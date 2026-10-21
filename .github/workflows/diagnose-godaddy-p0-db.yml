@@ -1,0 +1,121 @@
+name: P0 database output diagnostic — read-only, new reviewer required
+on:
+  push:
+    branches: [feat/wordpress-woocommerce-theme]
+    paths: ['.github/workflows/diagnose-godaddy-p0-db.yml']
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: godaddy-temp-site-mutation
+  cancel-in-progress: false
+jobs:
+  prepare:
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check diagnostic syntax and redaction before any GoDaddy access
+        run: |
+          set -euo pipefail
+          php -l scripts/ops/p0-output-shape.php
+          bash -n scripts/ops/diagnose-p0-db.sh
+          shellcheck scripts/ops/diagnose-p0-db.sh
+          php tests/p0-output-shape.php
+  diagnose:
+    needs: [prepare]
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    name: APPROVAL REQUIRED — read-only P0 database output diagnostic
+    runs-on: ubuntu-latest
+    environment: godaddy-temp
+    timeout-minutes: 10
+    env:
+      SSH_HOST: 1302636.us22.ssh.myftpupload.com
+      SSH_USERNAME: ${{ secrets.GODADDY_SSH_USERNAME }}
+      SSH_PASSWORD: ${{ secrets.GODADDY_SSH_PASSWORD }}
+      PINNED_FINGERPRINT: 'SHA256:oxYa4nr7BL5hXCIG5j/OOk54R6yNokpACBoa3tn+Kp4'
+    steps:
+      - name: Require recorded human approval for this exact run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = feat/wordpress-woocommerce-theme
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/approvals" > "$RUNNER_TEMP/p0-approvals.json"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          rows = json.loads(Path(os.environ['RUNNER_TEMP'], 'p0-approvals.json').read_text())
+          assert any(r.get('state') == 'approved' and r.get('user', {}).get('login') == 'mycomane'
+                     and any(e.get('name') == 'godaddy-temp' for e in r.get('environments', [])) for r in rows), 'Human approval missing; no remote operation allowed'
+          print('PASS: mycomane approval recorded for godaddy-temp on this exact run.')
+          PY
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Recheck approved commit and build diagnostic-only payload
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          python3 scripts/check-theme.py
+          python3 scripts/package-theme.py
+          python3 scripts/ops/prepare-p0-release.py
+          mkdir "$RUNNER_TEMP/p0-ops"
+          cp scripts/ops/p0-files.php scripts/ops/p0-output-shape.php scripts/ops/p0-db-size.sql scripts/ops/diagnose-p0-db.sh dist/p0-manifest.json "$RUNNER_TEMP/p0-ops/"
+          tar -czf "$RUNNER_TEMP/p0-ops.tar.gz" -C "$RUNNER_TEMP/p0-ops" .
+      - name: Pin SSH identity before authentication
+        run: |
+          set -euo pipefail
+          test -n "$SSH_USERNAME" && test -n "$SSH_PASSWORD"
+          mkdir -p "$HOME/.ssh"
+          chmod 700 "$HOME/.ssh"
+          timeout 18 ssh-keyscan -T 10 -t ed25519 -p 22 "$SSH_HOST" > "$HOME/.ssh/known_hosts" 2>/dev/null
+          test -s "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+          test "$(ssh-keygen -lf "$HOME/.ssh/known_hosts" -E sha256 | awk '{print $2}')" = "$PINNED_FINGERPRINT"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq sshpass
+      - name: Check temporary identity read-only, then transfer private operation bundle
+        run: |
+          set -euo pipefail
+          export SSHPASS="$SSH_PASSWORD"
+          ssh_opts=(-o StrictHostKeyChecking=yes -o UserKnownHostsFile="$HOME/.ssh/known_hosts" -o PreferredAuthentications=password -o PubkeyAuthentication=no -o NumberOfPasswordPrompts=1 -o ConnectTimeout=12)
+          sshpass -e ssh "${ssh_opts[@]}" "$SSH_USERNAME@$SSH_HOST" 'bash -s' <<'REMOTE'
+          set -euo pipefail
+          root=''
+          for c in "$PWD" "$HOME" "$HOME/html" "$HOME/public_html" "$PWD/html" "$PWD/public_html"; do
+            if [ -f "$c/wp-load.php" ]; then root="$c"; break; fi
+          done
+          if [ -z "$root" ]; then
+            f="$(find "$HOME" -maxdepth 4 -type f -name wp-load.php -print -quit 2>/dev/null || true)"
+            [ -z "$f" ] || root="$(dirname "$f")"
+          fi
+          test -n "$root"
+          root="$(cd "$root" && pwd -P)"
+          private_home="$(cd "$HOME" && pwd -P)"
+          case "$private_home/" in "$root/"*) exit 1;; esac
+          test "$(wp --path="$root" --skip-plugins --skip-themes option get siteurl)" = 'https://1302636.us22.myftpupload.com'
+          test "$(wp --path="$root" --skip-plugins --skip-themes option get home)" = 'https://1302636.us22.myftpupload.com'
+          echo 'PASS: exact temporary site and private home confirmed before upload.'
+          REMOTE
+          sshpass -e scp -q "${ssh_opts[@]}" "$RUNNER_TEMP/p0-ops.tar.gz" "$SSH_USERNAME@$SSH_HOST:.ad-p0-diagnostic-ops-$GITHUB_RUN_ID.tar.gz"
+          digest="$(sha256sum "$RUNNER_TEMP/p0-ops.tar.gz" | awk '{print $1}')"
+          sshpass -e ssh "${ssh_opts[@]}" "$SSH_USERNAME@$SSH_HOST" "bash -s -- '$GITHUB_RUN_ID' '$digest'" <<'REMOTE'
+          set -euo pipefail
+          umask 077
+          case "$1" in ''|*[!0-9]*) exit 1;; esac
+          archive="$HOME/.ad-p0-diagnostic-ops-$1.tar.gz"
+          private="$HOME/.ad-p0-diagnostic-ops-$1"
+          test ! -e "$private"
+          test "$(sha256sum "$archive" | awk '{print $1}')" = "$2"
+          mkdir -m 700 "$private"
+          tar -xzf "$archive" -C "$private"
+          rm -- "$archive"
+          bash "$private/diagnose-p0-db.sh"
+          REMOTE
+      - name: Report diagnostic scope
+        run: echo 'Read-only structural diagnostic completed; no theme deployment or account creation.' >> "$GITHUB_STEP_SUMMARY"

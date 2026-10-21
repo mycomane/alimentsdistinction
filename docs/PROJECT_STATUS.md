@@ -4,7 +4,7 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 ## Phase et derniers commits
 
-**P0 : échec du premier déploiement approuvé avant sauvegarde/remplacement. Correction de la mesure DB testée; nouvelle exécution 39638388563 PRÊTE POUR REVUE ET APPROBATION GitHub. Aucun nouveau déploiement effectué.**
+**P0 : le run 39638388563 a été approuvé puis a échoué avant sauvegarde/remplacement. Diagnostic structurel en lecture seule préparé, avec nouvelle approbation obligatoire. Aucun succès de déploiement revendiqué.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
 - Dernier commit d’implémentation/tests vérifié : [`ee9cd17655d5454483be339fdb5a7d4828305d58`](https://github.com/mycomane/alimentsdistinction/commit/ee9cd17655d5454483be339fdb5a7d4828305d58). Correction de mesure DB seulement; candidat du thème 0.1.1 inchangé.
@@ -12,7 +12,19 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
 
-## Mission active — reprise après incident de mesure DB
+## Incident courant — format SQL inattendu
+
+[Run 39638388563](https://github.com/mycomane/alimentsdistinction/actions/runs/39638388563), job distant `119356247301` : approbation vérifiée, identité temporaire et empreintes anciennes contrôlées, puis refus `unexpected_output_shape` : **commande exit 0, stdout 14 octets, stderr 0**. Le parseur n'a pas reçu une ligne TSV numérique canonique. La forme précise reste inconnue; aucun assouplissement spéculatif du parseur.
+
+Le chemin échoue avant le `mkdir` de sauvegarde P0 et le remplacement du CSS. Un nouveau bundle privé/verrou peuvent exister. Pas encore de vérification distante post-échec du site entier; le nouveau diagnostic contrôlera les 23 empreintes anciennes et Coming Soon avant les sondes.
+
+- Diagnostic distinct `.github/workflows/diagnose-godaddy-p0-db.yml` : **aucun point d'entrée de déploiement**, aucun compte, purge ou export SQL.
+- Sondes en lecture seule : version WP-CLI si format reconnu, SELECT agrégé existant, SELECT de constantes publiques pour comparer le transport, taille native sans CSV.
+- Publication limitée aux longueurs, nombres de caractères/délimiteurs et types de cellules. Aucun contenu brut, nom de base/table, identifiant ou erreur SQL. Les fichiers de capture restent privés et sont supprimés sur sorties gérées.
+- **13 assertions locales** de structure/absence de divulgation réussies, Bash/PHP/YAML vérifiés; ShellCheck GitHub à confirmer.
+- Nouveau run diagnostic à confirmer puis soumettre à la revue `godaddy-temp`. Ne pas relancer un déploiement pour deviner le format.
+
+## Historique — première correction de mesure DB
 
 [Directive Coordination](https://github.com/mycomane/alimentsdistinction/issues/1#issuecomment-6321369680) lue et journaux du job `119277446903` vérifiés. Le run `39615680576` a échoué après approbation à `Database size not measurable`, avant création de la sauvegarde P0 et remplacement CSS. Bundle privé/lock possibles; pas de contrôle distant post-échec dans cette reprise.
 
@@ -83,7 +95,7 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 | Priorité | Élément restant | Décision / action |
 | --- | --- | --- |
-| Passage GitHub obligatoire | Correction mesure DB testée, run 39638388563 en attente | Revue Coordination puis nouvelle approbation `godaddy-temp`; ancien run non relancé |
+| Passage GitHub obligatoire | Run 39638388563 échoué; diagnostic lecture seule préparé | Nouvelle revue du diagnostic; aucune relance de déploiement |
 | Validation Julien | Nouvelle recette géométrique hébergée après mise à jour | Autoriser un Abonné temporaire de 30 minutes avec suppression |
 | Majeur accessibilité | Textes rose/gris, boutons et infolettre insuffisamment contrastés | Valider les propositions graphiques avant leur intégration |
 | Majeur accessibilité | Navigation transparente sur photo | Valider une solution par contexte, par exemple une barre à fond crème opaque |
@@ -95,7 +107,7 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 ## Prochaines étapes recommandées
 
-1. La Coordination réexamine le run 39638388563 et ses tests réussis; Julien approuve ensuite ce nouveau run dans `godaddy-temp`. Work ne s’auto-approuve pas.
+1. Revoir et approuver le nouveau diagnostic structurel en lecture seule. Déterminer le format exact sans divulguer la sortie brute avant toute autre correction de mesure ou relance de déploiement.
 2. Après approbation GitHub : contrôles distants, sauvegarde fraîche et répétition de retour arrière, mise à jour atomique du CSS, vérifications techniques et Coming Soon. Recette authentifiée après autorisation distincte du compte temporaire. Ne pas relancer le premier installateur.
 3. Après validation graphique : intégrer les ajustements ciblés de contraste, états désactivés/survol/focus et navigation, puis refaire les vérifications isolées appropriées.
 4. Compléter les contenus commerciaux approuvés et les tests non couverts. Le formulaire de commande n’a jamais été soumis; les blocs Panier/Commande, lecteurs d’écran, pixels des sections secondaires et performance ne sont pas certifiés.

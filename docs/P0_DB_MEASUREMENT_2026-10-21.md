@@ -1,5 +1,7 @@
 # P0 — incident de mesure DB et nouvelle exécution protégée
 
+**Mise à jour :** le run 39638388563 décrit comme en attente dans le bilan historique a depuis été approuvé puis a échoué sur `unexpected_output_shape`. Voir le dernier incident dans PROJECT_STATUS.md. Aucune nouvelle sauvegarde/bascule par ce run selon le chemin exécuté.
+
 Directive : [dernier commentaire de l'issue #1](https://github.com/mycomane/alimentsdistinction/issues/1#issuecomment-6321369680), lu intégralement. Le run `39615680576` n'est **pas relancé**. Toute nouvelle opération GoDaddy nécessite une nouvelle approbation `godaddy-temp` du nouveau run.
 
 ## Échec réellement observé
