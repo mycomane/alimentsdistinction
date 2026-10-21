@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-21",
+  "completedAtUTC": "2026-10-21T22:21:23Z",
+  "completedAtToronto": "2026-10-21T18:21:23-04:00",
+  "run": 39685183348,
+  "job": 119518254594,
+  "commit": "be5703eeaa434ada55cb33a961a0b08e11f6a862",
+  "conclusion": "success",
+  "humanApproval": "mycomane approved godaddy-temp for exact run; verified",
+  "site": "https://1302636.us22.myftpupload.com",
+  "versions": {
+    "wordpress": "7.1.3",
+    "phpCLI": "8.2.35",
+    "phpWeb": "not reprobed in this run",
+    "woocommerce": "11.2.1",
+    "theme": "0.1.1"
+  },
+  "backup": {
+    "privatePath": "~/.ad-private-backups/p0-011-39685183348/",
+    "fullPreviousTheme": true,
+    "sqlGzip": true,
+    "sha256Verified": true,
+    "archiveExtractionManifestVerified": true,
+    "privateAtomicRollbackRehearsal": true,
+    "offsite": false,
+    "fullSqlRestoreTested": false
+  },
+  "changes": {
+    "onlyThemeFile": "style.css",
+    "other22FilesUnchanged": true,
+    "themeSwitch": false,
+    "databaseRestore": false,
+    "globalCachePurge": false,
+    "themeHeaderCacheKeyInvalidated": true
+  },
+  "verification": {
+    "newManifestMatched": true,
+    "cssHttpSha256": "5a4c3a5a8ae6fccd66437151555b66d05c1f5c18dc56cfff3de3f66a92bde780",
+    "cssQueryVersion": "0.1.1",
+    "anonymousComingSoonBeforeAfter": [
+      "home",
+      "shop",
+      "cart",
+      "checkout",
+      "myaccount"
+    ],
+    "protectedStateUnchanged": true,
+    "rollbackAfterDeploymentNeeded": false
+  },
+  "limitations": [
+    "Authenticated hosted responsive geometry not tested after deployment",
+    "No review identity created or authorized",
+    "On-host backup only; no full SQL recovery test"
+  ]
+}

@@ -74,3 +74,7 @@ Commit testé : [`be5703eeaa434ada55cb33a961a0b08e11f6a862`](https://github.com/
 - Déploiement `119518254594` : **waiting**, reviewer `mycomane` / `godaddy-temp` confirmé. Nouvelle approbation obligatoire, aucune opération distante de ce run à ce stade.
 
 Archive 0.1.1 identique et toutes les protections conservées. La mesure des valeurs, l'espace libre et la sauvegarde fraîche GoDaddy restent des conditions bloquantes du job après nouvelle approbation; la preuve du diagnostic concernait la structure de sortie, pas une autorisation de déploiement. Aucun compte de recette créé.
+
+## Résolution opérationnelle confirmée
+
+Le run `39685183348`, job `119518254594`, a ensuite été approuvé et a **réussi** : mesure DB acceptée, marge d'espace satisfaite, sauvegarde fraîche et répétition du rollback validées, puis thème 0.1.1 déployé et CSS servi vérifié. Cette preuve confirme la correction sur le chemin GoDaddy réel, sans publier la taille ou le contenu DB. Voir PROJECT_STATUS.md pour les versions et limites de recette. Aucune nouvelle identité de test créée.

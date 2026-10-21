@@ -4,7 +4,7 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 ## Phase et derniers commits
 
-**P0 : diagnostic hébergé réussi; cause établie (deux LF finaux). Correction ciblée du parseur testée dans GitHub. Nouveau run 39685183348 PRÊT POUR APPROBATION, sans nouvelle opération distante. Aucun déploiement effectué par le diagnostic.**
+**P0 : déploiement technique 0.1.1 réussi sur le WordPress temporaire le 21 octobre 2026 à 18 h 21 HAE. Sauvegarde/rollback préparé, CSS servi et état protégé vérifiés. Recette visuelle hébergée authentifiée en attente d'autorisation spécifique; ne pas déclarer P0 entièrement recetté sur GoDaddy.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
 - Dernier commit d’implémentation/tests vérifié : [`be5703eeaa434ada55cb33a961a0b08e11f6a862`](https://github.com/mycomane/alimentsdistinction/commit/be5703eeaa434ada55cb33a961a0b08e11f6a862), correction bornée des fins de ligne. Aucun changement au paquet du thème 0.1.1.
@@ -12,24 +12,32 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
 
-## État courant — diagnostic réussi, cause établie
+## État courant — déploiement technique réussi
 
-[Diagnostic 39639769111](https://github.com/mycomane/alimentsdistinction/actions/runs/39639769111), job `119360202463` : **succès après approbation**. Identité exacte, thème actif attendu, les **23 fichiers originaux 0.1.0** et Coming Soon sur accueil + quatre pages ont été contrôlés après les échecs précédents.
+Site : **https://1302636.us22.myftpupload.com/** uniquement. [Run 39685183348](https://github.com/mycomane/alimentsdistinction/actions/runs/39685183348), job distant **119518254594 : succès** après nouvelle approbation `mycomane` vérifiée pour ce run exact. Code exécuté : `be5703eeaa434ada55cb33a961a0b08e11f6a862`. Fin des contrôles : 21 octobre, 18 h 21 HAE.
 
-- WP-CLI hébergé : **2.12.0**.
-- L'agrégat SQL et la sonde de constantes renvoient chacun 14 octets : **10 chiffres, 2 tabulations et 2 LF finaux**, aucune lettre, espace, autre caractère ou stderr. Trois cellules numériques de longueurs 2/7/1.
-- La taille native sans CSV renvoie 7 chiffres et un LF; aucun stderr. Aucune valeur de base, nom ou sortie brute publié.
-- **Cause du second échec prouvée :** le parseur n'autorisait qu'une fin de ligne après la ligne TSV valide; la chaîne WP-CLI hébergée en ajoute deux.
-- Correction bornée : autoriser zéro, une ou deux fins de ligne LF/CRLF complètes après une seule ligne numérique. Aucun `trim()` général, aucun avertissement ignoré, aucune donnée supplémentaire acceptée. Trois fins de ligne, lignes numériques supplémentaires, espaces/tabulations ajoutés et autres formats restent rejetés.
-- **46 assertions parseur/espace réussies localement et sur GitHub** (39 précédentes + 7 nouveaux cas), ainsi que les 17 gardes fichiers/visibilité. Les **six scénarios MySQL** passent, dont double LF hébergé et double CRLF; wrapper de capture/parseur/nettoyage de production exercé avec transport WP-CLI simulé.
-- [Preuve structurelle hébergée](evidence/p0-hosted-db-shape.json). Aucune nouvelle sauvegarde, purge, mutation DB, création de compte ou mise à jour de thème par le diagnostic.
-- **[Nouveau run 39685183348 — PRÊT POUR APPROBATION](https://github.com/mycomane/alimentsdistinction/actions/runs/39685183348)**, commit `be5703eeaa434ada55cb33a961a0b08e11f6a862`.
-- Job `prepare` **119517310652 : succès** : ShellCheck, paquet exact, 46 + 17 assertions et six scénarios MySQL.
-- Job `isolated-qa` **119517311211 : succès** : **300 assertions** (11 PHP + 41 navigateur + 61 P0 + 55 sections + 132 WooCommerce), écart 0,00 px aux cinq largeurs; zéro commande et zéro fatal/avertissement/dépréciation PHP compté.
-- Job distant **119518254594 : waiting**, environnement `godaddy-temp`, reviewer `mycomane` confirmé. **Aucune opération GoDaddy de ce nouveau run.**
-- [Preuve structurée du candidat](evidence/p0-newlines-qa.json). ZIP 0.1.1 inchangé : SHA256 `8162bc571bb5dea232badd562b5c9085c30187b1b4ff80f567f1f5e9fdb8497e`.
-- Après revue Coordination, Julien approuve ce **nouveau run** via Review deployments → godaddy-temp → Approve and deploy. Les préconditions, la sauvegarde fraîche et la répétition du rollback devront encore réussir avant la bascule. Aucun succès distant n'est anticipé.
-- L'accord du diagnostic ne vaut pas accord de déploiement; aucun Abonné autorisé ou créé.
+| Contrôle distant | Résultat réellement vérifié |
+| --- | --- |
+| Identité, thème et version initiale | `siteurl`/`home` exacts, `aliments-distinction` 0.1.0 actif, 23 empreintes anciennes conformes |
+| Mesure DB et espace | Mesure valide; marge 4 thèmes + 3 bases + 100 Mio satisfaite |
+| Sauvegarde fraîche | `~/.ad-private-backups/p0-011-39685183348/` : thème complet 0.1.0, archive, SQL gzip et SHA256 vérifiés |
+| Retour arrière | Extraction privée du thème complet conforme; échange CSS aller/retour réellement répété dans le dossier privé avant bascule |
+| Mise à jour | Seul `style.css` remplacé atomiquement : suppression de la règle P0 et en-tête 0.1.1; les 22 autres fichiers inchangés |
+| Cache | Seule clé d'en-tête de ce thème invalidée; aucune purge globale ou CDN |
+| État final | WordPress **7.1.3**, PHP **CLI 8.2.35**, WooCommerce **11.2.1 actif**, thème **0.1.1 actif** |
+| CSS servi | HTTP : octets exacts du nouveau `style.css?ver=0.1.1`, SHA256 attendu confirmé |
+| Visibilité | Accueil + quatre pages techniques : HTTP 200 et **Coming Soon** avant/après |
+| Réglages et données protégés | Empreintes commerciales/visibilité/pages, tables taxes/livraisons et compteurs produits/commandes/utilisateurs inchangés |
+
+Aucun rollback réel requis après la bascule. La répétition a porté sur les copies privées; aucune restauration SQL exécutée. La sauvegarde reste sur le même hébergement, sans restauration intégrale/offsite certifiée. PHP web n'a pas été resondé; la valeur 8.2.35 ci-dessus est celle du CLI.
+
+- **Tests isolés du même commit :** préparation 119517310652 et QA 119517311211 réussis : 46 assertions mesure/espace, 17 gardes fichiers/visibilité, six scénarios MySQL et **300 assertions WordPress**, géométrie à 0,00 px aux cinq largeurs.
+- **Limite hébergée :** aucun rendu authentifié après déploiement n'a été mesuré. Le succès HTTP/CSS et Coming Soon ne prouvent pas la géométrie du héro derrière la protection. Aucun compte créé.
+- **Décision nécessaire :** autoriser un nouvel Abonné temporaire 30 minutes, frontend lecture seule, session révoquée et compte supprimé après recette. L'accord précédent concernait un compte déjà supprimé; aucune réutilisation implicite.
+- Preuves : [déploiement technique](evidence/p0-deployment-result.json), [QA du candidat](evidence/p0-newlines-qa.json), [diagnostic structurel hébergé](evidence/p0-hosted-db-shape.json), [procédure/rollback](P0_DEPLOYMENT_2026-10-21.md).
+- ZIP 0.1.1 : SHA256 `8162bc571bb5dea232badd562b5c9085c30187b1b4ff80f567f1f5e9fdb8497e`; CSS installé : `5a4c3a5a8ae6fccd66437151555b66d05c1f5c18dc56cfff3de3f66a92bde780`.
+
+Le diagnostic protégé `39639769111` avait confirmé WP-CLI 2.12.0, l'ancien thème et Coming Soon, puis deux LF finaux après une ligne TSV valide. Le correctif de parsing autorise seulement 0–2 fins LF/CRLF complètes; toutes les autres protections restent actives.
 
 ## Historique — première correction de mesure DB
 
@@ -102,7 +110,7 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 | Priorité | Élément restant | Décision / action |
 | --- | --- | --- |
-| Passage GitHub obligatoire | Correction des deux LF testée, run 39685183348 en attente | Revue Coordination puis nouvelle approbation `godaddy-temp` |
+| P0 technique terminé | Déploiement 0.1.1 réussi, sauvegarde et CSS vérifiés | Aucune nouvelle approbation de déploiement requise pour cette opération déjà terminée |
 | Validation Julien | Nouvelle recette géométrique hébergée après mise à jour | Autoriser un Abonné temporaire de 30 minutes avec suppression |
 | Majeur accessibilité | Textes rose/gris, boutons et infolettre insuffisamment contrastés | Valider les propositions graphiques avant leur intégration |
 | Majeur accessibilité | Navigation transparente sur photo | Valider une solution par contexte, par exemple une barre à fond crème opaque |
@@ -114,8 +122,8 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 ## Prochaines étapes recommandées
 
-1. Faire revoir puis approuver le run 39685183348; les tests du parseur corrigé et de transport sont réussis. Ne pas réutiliser l’approbation du diagnostic.
-2. Après diagnostic, préparer et tester la correction nécessaire. Un déploiement ultérieur exige sa propre nouvelle approbation GitHub, puis sauvegarde fraîche/rollback et vérifications. L’approbation du diagnostic ne déclenche aucun déploiement. Recette authentifiée après autorisation distincte du compte temporaire. Ne pas relancer le premier installateur.
+1. Julien décide de l’autorisation du nouvel Abonné temporaire de recette; Work prépare ensuite une recette frontend protégée sur la version déployée, sans nouveau déploiement ni produit/commande.
+2. Après cette autorisation et la revue GitHub correspondante, mesurer le rendu hébergé à 320/390/768/1024/1440, menus/images/liens; révoquer la session et supprimer le seul compte de recette. Ne pas déclarer cette étape réussie à l’avance.
 3. Après validation graphique : intégrer les ajustements ciblés de contraste, états désactivés/survol/focus et navigation, puis refaire les vérifications isolées appropriées.
 4. Compléter les contenus commerciaux approuvés et les tests non couverts. Le formulaire de commande n’a jamais été soumis; les blocs Panier/Commande, lecteurs d’écran, pixels des sections secondaires et performance ne sont pas certifiés.
 5. Aucun nouveau compte, produit, commande ou réglage GoDaddy sans motif et autorisation correspondant à la prochaine recette. Conserver Coming Soon.

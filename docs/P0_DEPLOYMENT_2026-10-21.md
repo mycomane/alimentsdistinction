@@ -1,6 +1,6 @@
 # P0 — mise à jour contrôlée 0.1.0 → 0.1.1
 
-**État supersédant les mentions « en attente » ci-dessous :** le run 39615680576 a été approuvé puis a échoué sur la mesure DB avant sauvegarde/bascule. Ne pas le relancer. Voir [le diagnostic et la reprise protégée](P0_DB_MEASUREMENT_2026-10-21.md) et PROJECT_STATUS.md pour le nouveau run.
+**État courant : déploiement technique réussi**, [run 39685183348](https://github.com/mycomane/alimentsdistinction/actions/runs/39685183348), job 119518254594. Le thème 0.1.1 est actif; sauvegarde fraîche, répétition privée du rollback, CSS HTTP et état protégé vérifiés. La recette visuelle hébergée authentifiée reste en attente d'autorisation. Les mentions « en attente » suivantes sont l'historique de préparation.
 
 Autorisation : [issue #1](https://github.com/mycomane/alimentsdistinction/issues/1), confirmée par Julien dans Work le 21 octobre 2026. **Le passage GitHub `godaddy-temp` reste obligatoire.** Cette fiche décrit la préparation; aucun succès distant n'est anticipé.
 
@@ -87,3 +87,13 @@ Commit testé : [`813b8a1dee186c1a3f5942976394cc44dd61f325`](https://github.com/
 - La recette visuelle hébergée authentifiée reste soumise à l'accord spécifique pour un nouvel Abonné de test, 30 minutes et suppression après contrôle.
 
 Aucun changement de palette, aucune configuration WooCommerce, DNS, paiement, Zoho ou production. Le rapport actuel est « prêt pour approbation », **pas « déployé »**.
+
+## Déploiement technique exécuté — 21 octobre, 18 h 21 HAE
+
+Après nouvelle approbation `mycomane` du run exact, **39685183348 / 119518254594 : succès**. Identité temporaire et 23 fichiers anciens contrôlés, mesure/espace acceptés sans réduction de marge. Sauvegarde privée fraîche `~/.ad-private-backups/p0-011-39685183348/` : thème entier 0.1.0, tar.gz, SQL gzip et SHA256 vérifiés; extraction du thème et répétition aller/retour CSS dans le dossier privé réussies avant écriture.
+
+Seul `style.css` a été remplacé atomiquement. Thème **0.1.1 actif**, WordPress 7.1.3 / PHP **CLI 8.2.35** / WooCommerce 11.2.1; inventaire nouveau conforme. CSS HTTP exact au SHA `5a4c3a5a8ae6fccd66437151555b66d05c1f5c18dc56cfff3de3f66a92bde780` avec `?ver=0.1.1`. Cache : seule la clé d'en-tête du thème concerné, aucune purge globale. Coming Soon HTTP 200 confirmé avant/après sur accueil + quatre pages; état commercial/pages/compteurs protégé inchangé.
+
+Aucun retour arrière après bascule nécessaire; aucun import SQL exécuté. La répétition de rollback n'est pas une restauration intégrale en situation de panne. Sauvegarde on-host uniquement. Aucun compte, produit ou commande créé par ce run.
+
+**Limite :** pas de mesure du rendu authentifié hébergé après déploiement; les tests de géométrie à zéro sont isolés. Nouvel Abonné temporaire toujours soumis à autorisation spécifique et revue GitHub pour la recette. Ne pas fermer l'issue comme entièrement validée sans cette preuve.
