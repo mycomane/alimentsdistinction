@@ -2,11 +2,11 @@
 
 ## Portée
 
-P0 corrigé dans la branche, non déployé : voir `P0_MOBILE_2026-10-21.md`. Cette phase P1/P2 prépare et exécute des vérifications sur WordPress/WooCommerce jetable, sans accès GoDaddy. Les conclusions hébergées restent celles du run privé `39531003568`; ne pas les étendre à des scénarios non exécutés.
+**Bilan final : 300 assertions ciblées réussies dans le [run 39610664542](https://github.com/mycomane/alimentsdistinction/actions/runs/39610664542), aucun fatal/avertissement/dépréciation PHP compté et zéro commande créée.** P0 corrigé dans la branche, non déployé : voir `P0_MOBILE_2026-10-21.md`. Cette phase P1/P2 a exécuté les vérifications ci-dessous sur WordPress/WooCommerce jetable, sans accès GoDaddy. Les conclusions hébergées restent celles du run privé `39531003568`; ne pas les étendre à des scénarios non exécutés. Les validations de palette et de déploiement restent attendues.
 
-## Scénarios ajoutés (résultats en attente du nouveau run)
+## Scénarios exécutés et portée
 
-| Domaine | Contrôle préparé | Limite |
+| Domaine | Contrôle exécuté | Limite |
 | --- | --- | --- |
 | Accueil | 14 régions, dont le bloc de garantie, titres et limites horizontales à cinq largeurs, captures 390/1440 | Pas de certification visuelle de chaque pixel |
 | Navigation | Liens d’ancres, noms accessibles, destinations internes HTTP, menu bureau/mobile | Réseaux sociaux non visités; aucun contenu tiers validé |
@@ -44,7 +44,7 @@ Le rose encre proposé garde une marge sur les fonds crème, crème 2, rose pâl
 
 Pour la navigation actuellement transparente sur le héro, un simple remplacement de la couleur des liens ne garantit pas le contraste sur la photo. Proposition à valider : fond crème opaque pour la barre de navigation, liens rose encre/charbon et focus visible. Cette modification d’aspect n’est pas appliquée ici; la planche de couleurs teste des fonds unis, pas la photo.
 
-## Anomalies connues avant validation finale du run
+## Anomalies et actions à traiter
 
 - **Majeur pour ouverture commerciale** : contrastes des textes/boutons et contenu sombre de l’infolettre; le futur lien configuré utilise également une classe sombre sur fond sombre.
 - **Bloquant pour exploitation commerciale** : coordonnées et téléphone, modalités livraison/retours/confidentialité, témoignages et affirmations marketing non validés. Les liens de repli sont des destinations techniques, pas des pages de contenu complètes.
@@ -90,3 +90,45 @@ Les captures desktop 1440 et téléphone 390 du run `39608086528` ont été exam
 - Comparaison du héro corrigé : `P0_MOBILE_2026-10-21.md`.
 
 Ces images sont issues du WordPress jetable sans session privée, ni cookie ou donnée de GoDaddy. Les copies complètes des preuves JSON/JPEG sont aussi dans l’artefact `isolated-design-evidence` (rétention 14 jours); les rapports et images référencés ici sont conservés dans la branche.
+
+## Validation finale — 21 octobre 2026
+
+[Run 39610664542](https://github.com/mycomane/alimentsdistinction/actions/runs/39610664542), job `119258365224`, commit testé [`aab5e712eb72acc9622b92a8bfb05c9c97bbb587`](https://github.com/mycomane/alimentsdistinction/commit/aab5e712eb72acc9622b92a8bfb05c9c97bbb587) : **succès confirmé**. Versions réellement affichées : WordPress 7.1.3 / WooCommerce 11.2.1 / PHP 8.3.6, installation jetable 127.0.0.1 uniquement.
+
+| Groupe | Assertions réussies |
+| --- | ---: |
+| Intégration PHP historique | 11 |
+| Navigation/panier HTTP historique | 41 |
+| Géométrie/focus P0 | 61 |
+| Sections/liens/clavier P1 | 55 |
+| WooCommerce étendu et responsive | 132 |
+| **Total de ces groupes** | **300** |
+
+S’y ajoutent les trois refus PHP de quantités 0/-1/6, les 14 propositions de couples de couleurs mesurées, le contrôle final zéro commande et zéro passerelle disponible, et l’analyse des journaux PHP. Les compteurs ne constituent pas une couverture exhaustive du commerce ou une certification d’accessibilité.
+
+- **PHP** : journaux du serveur isolé et de WordPress présents; zéro erreur fatale/de parsing/exception non interceptée détectée, zéro avertissement et zéro dépréciation comptés par le scanner. Aucun journal brut publié.
+- **JavaScript** : aucun `pageerror` dans les scénarios de ce run.
+- **Commande sans soumission** : le champ prénom vide déclenche l’état d’erreur natif et `aria-invalid`; sa correction supprime cet état. Aucun POST de checkout ni commande.
+- **Accueil** : 14 régions, dont le bloc de garantie, mesurées aux cinq tailles. Les 25 combinaisons page/taille WooCommerce passent, avec noms de contrôles et H1 vérifiés.
+- **Focus WooCommerce** : dix sondes à 390/1440 conservent un contour solide de 3 px et un retour clavier au contrôle. Cela ne certifie pas le contraste du focus sur toutes les surfaces.
+- **P0** : écart final de 0,00 px à 320/390/768/1024/1440 par rapport aux principales mesures de référence. Le seul changement au thème depuis la base est la suppression de la ligne CSS de retour à la ligne. CSS original, `index.html` et images intacts.
+
+Preuves structurées pérennes : [qa-summary-2026-10-21.json](evidence/qa-summary-2026-10-21.json). [Planche WooCommerce 390 px](evidence/commerce-390.jpg), issue du run final et examinée manuellement : fiche simple, fiche variable, panier non vide et formulaire de commande sans paiement. Les captures ne contiennent que des produits de test et des formulaires invités; aucun client réel.
+
+La planche montre aussi les états natifs explorés : variation non sélectionnée et champs obligatoires marqués en erreur par la navigation clavier. Ces états n’impliquent aucune commande soumise. Les libellés anglais et le pays par défaut proviennent du runner en_US et ne sont pas présentés comme configuration commerciale approuvée du site GoDaddy.
+
+### Défauts et limites restant à traiter
+
+| Niveau | Élément | Action / décision |
+| --- | --- | --- |
+| Bloquant pour ouverture | Téléphone, coordonnées, modalités livraison/retours/confidentialité et contenu contractuel non validés | Fournir les données et textes approuvés; les liens de repli ne remplacent pas les pages |
+| Bloquant pour ouverture | Témoignages, garantie de remboursement, origine et allégations alimentaires/financement/chiffres marketing | Validation de Julien/du propriétaire avant publication |
+| Majeur | Contrastes des textes/boutons et infolettre sombre | Valider la proposition; appliquer ensuite les styles ciblés avec recette de survol/focus |
+| Majeur | Navigation transparente sur photo | Valider un fond crème opaque ou une autre solution de contraste par contexte |
+| Majeur fonctionnel | Recettes incomplètes et infolettre sans service/formulaire approuvé | Rédaction et choix du service, aucune connexion réalisée |
+| Mineur de cohérence | Bouton de variation désactivée encore violet natif WooCommerce dans la capture isolée | Harmoniser cet état lors du lot de palette; ne modifie pas le blocage fonctionnel |
+| À confirmer | Textes WooCommerce anglais dans le runner en_US | Résultat de la langue de test, **pas preuve d’un défaut GoDaddy**; vérifier fr_CA/fr_FR et traductions avant ouverture |
+| Hors couverture actuelle | URL finale exacte du checkout GoDaddy vide, panier hébergé non vide, erreurs serveur de commande, blocs Panier/Commande | Recette distincte autorisée; aucun nouveau compte ni produit GoDaddy créé ici |
+| Avant production | Sauvegarde hors site, restauration testée, confirmation SSH indépendante, performance/CWV | Préparer les contrôles; aucun résultat de performance ou reprise totale revendiqué |
+
+**Aucune erreur bloquante de mise en page ou de JavaScript observée dans les scénarios exécutés.** Les blocages commerciaux et d’accessibilité ci-dessus empêchent de déclarer le site prêt à l’ouverture. Le déploiement P0 et l’intégration des propositions graphiques restent soumis à validation distincte. Coming Soon, DNS, site commercial, paiements et Zoho n’ont fait l’objet d’aucune opération dans cette phase.

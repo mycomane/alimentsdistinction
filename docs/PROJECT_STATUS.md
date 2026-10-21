@@ -1,45 +1,83 @@
 # Aliments Distinction — suivi Work / Coordination
 
-Mise à jour : 21 octobre 2026 (America/Toronto).
+Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
-## Référence et phase en cours
+## Phase et derniers commits
 
-Base vérifiée : `82eccba3bdd3e5fc1b1920d6ce33a882291374f7` sur `feat/wordpress-woocommerce-theme`. La feuille de route, la passation, les recettes privée et isolée et le bilan d’activation WooCommerce ont été lus intégralement. Dernières exécutions existantes : QA isolé `39531003567` et recette privée `39531003568`, réussies.
+**P0 corrigé et validé dans la branche, non déployé. P1/P2 : recette isolée ciblée terminée, résultats et limites documentés. Attente des validations de Julien pour la suite graphique et tout déploiement.**
 
-Dernier commit de correction validé : `9618095516d982e10eebfe5c7aa0cdcc4bf85be3`.
+- Branche exclusive : `feat/wordpress-woocommerce-theme`.
+- Dernier commit d’implémentation/tests vérifié : [`aab5e712eb72acc9622b92a8bfb05c9c97bbb587`](https://github.com/mycomane/alimentsdistinction/commit/aab5e712eb72acc9622b92a8bfb05c9c97bbb587).
+- Commit du correctif CSS : [`9618095516d982e10eebfe5c7aa0cdcc4bf85be3`](https://github.com/mycomane/alimentsdistinction/commit/9618095516d982e10eebfe5c7aa0cdcc4bf85be3).
+- Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
+- `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
 
-Dernier commit de recette étendue validé : `e13c89076e4fb6cd98dd85742cc25cf173795057`.
+## Travaux terminés
 
-**P0 terminé en développement : correctif CSS réel validé, non déployé.** P1/P2 : 298 assertions ciblées réussies. Derniers contrôles des journaux PHP et de validation d’un champ obligatoire en cours. La proposition de contraste reste séparée du thème.
+- Passation, feuille de route, rapports de recettes et bilan d’activation lus intégralement; derniers commits et runs contrôlés avant intervention.
+- Écart mobile reproduit : le troisième indicateur de réassurance retourne à la ligne et ajoute **52,60 / 52,59 px** à 320/390, précédemment arrondis à 53.
+- **Seul changement au thème : suppression d’une ligne CSS** qui forçait `flex-wrap: wrap` sur `.hero__trust`. `index.html`, le CSS original, les sept images, les textes et la palette sont intacts.
+- Écart corrigé à **0,00 px** aux cinq tailles 320/390/768/1024/1440; contrôles des enfants, CTA, photo, absence de découpe/chevauchement et menu/focus.
+- 14 régions d’accueil contrôlées, liens internes, noms des contrôles, images et navigation clavier de base; captures desktop/téléphone examinées.
+- WooCommerce : ordre numérique ascendant/descendant, pagination sur douze produits synthétiques, filtre de prix, variations disponibles/indisponible, quantités et panier; 25 combinaisons page/taille, formulaire classique de commande et erreurs de champ sans soumission.
+- Proposition de contraste avec couleurs d’encre plus sombres, texte clair pour l’infolettre et pistes de focus/navigation; **non appliquée au thème**.
+- Modification locale préexistante de `volaille.jpg` préservée dans la copie initiale et exclue; travail réalisé dans une copie propre.
 
-## Terminé
+## Tests exécutés et preuves
 
-- État existant conservé : thème 0.1.0 et WooCommerce 11.2.1 déjà actifs, quatre pages techniques, Coming Soon.
-- Copie de travail propre créée au commit de base; modification locale préexistante de `volaille.jpg` préservée et exclue.
-- Scénario de géométrie préparé aux cinq largeurs 320/390/768/1024/1440 : enfants du bloc de réassurance, photo, titre, CTA, débordement et focus du menu.
-- Captures comparatives prévues uniquement depuis le runner isolé, sans accès ni données GoDaddy.
-- Diagnostic `9f567b6cde56ff1c9a86e089cd0fec68e14e7d55`, [run 39605089716](https://github.com/mycomane/alimentsdistinction/actions/runs/39605089716) réussi : le retour à la ligne du troisième indicateur ajoute 52,6 px. Son retrait retrouve exactement les mesures de référence aux cinq largeurs. Rapport : `P0_MOBILE_2026-10-21.md`.
-- Correction CSS : suppression de la seule règle mobile `flex-wrap: wrap` de `.hero__trust`; aucun changement à la maquette originale.
-- Régression du correctif réel réussie : [QA 39605707095](https://github.com/mycomane/alimentsdistinction/actions/runs/39605707095), 61 assertions de géométrie/focus + 41 navigateur + 11 PHP. Écart final de 0,00 px aux cinq largeurs.
-- Build/ZIP candidat [39605707177](https://github.com/mycomane/alimentsdistinction/actions/runs/39605707177) réussi, sans déploiement.
-- P1/P2 : scénarios ajoutés pour les sections, liens, clavier, pagination, ordre numérique, filtre de prix, variations multiples et quantités invalides. Proposition de contraste séparée du thème dans `docs/previews/contrast-options.html`. Rapport de portée : `RECETTE_PHASE3_2026-10-21.md`.
+Dernier run isolé : [**39610664542 — succès**](https://github.com/mycomane/alimentsdistinction/actions/runs/39610664542), job `119258365224`.
 
-## Tests et preuves
+Environnement : WordPress **7.1.3**, WooCommerce **11.2.1**, PHP **8.3.6**, runner jetable 127.0.0.1 uniquement.
 
-- Historique : 11 assertions PHP + 41 navigateur isolées; 33 assertions frontend GoDaddy. Voir les rapports sources pour leurs limites.
-- Diagnostic et régression du correctif réel réussis (113 assertions ciblées par run). [Run étendu réussi 39608791472](https://github.com/mycomane/alimentsdistinction/actions/runs/39608791472) : **298 assertions** dont 55 sections/clavier et 130 WooCommerce étendu, plus 14 couples de couleurs et trois refus de quantités PHP. 25 combinaisons page/taille WooCommerce, zéro commande, aucun paiement disponible. Les deux échecs intermédiaires de fixture/synchronisation et leurs corrections sont documentés dans `RECETTE_PHASE3_2026-10-21.md`. Aucune modification distante.
+| Groupe | Assertions réussies |
+| --- | ---: |
+| Intégration PHP existante | 11 |
+| Navigateur/panier existants | 41 |
+| Géométrie et focus P0 | 61 |
+| Sections, liens et clavier | 55 |
+| WooCommerce étendu/responsive | 132 |
+| **Total de ces groupes** | **300** |
 
-## Anomalies et corrections envisagées
+Contrôles complémentaires : quantités PHP 0/-1/6 refusées; 14 couples de couleurs proposés mesurés; **zéro commande créée**, aucune passerelle disponible. Journaux PHP serveur/WordPress : **0 fatal, 0 avertissement, 0 dépréciation** comptés. Aucun `pageerror` dans les scénarios exécutés.
 
-- P0 : cause confirmée, suppression ciblée validée; pas encore déployée.
-- P1 : contrastes insuffisants; propositions de palette à présenter sans les appliquer au thème.
-- P1 : contenu FAQ/contact/téléphone/livraison/recettes et infolettre à compléter/valider.
-- P2 : ordre numérique des tris, pagination, variations multiples et erreurs de quantités à couvrir isolément.
+Autres preuves :
+- [Diagnostic contrôlé 39605089716](https://github.com/mycomane/alimentsdistinction/actions/runs/39605089716), réussi.
+- [Régression du correctif réel 39605707095](https://github.com/mycomane/alimentsdistinction/actions/runs/39605707095), réussie.
+- [Build/ZIP candidat 39605707177](https://github.com/mycomane/alimentsdistinction/actions/runs/39605707177), réussi, **aucun déploiement**.
+- [Rapport P0 et comparaison avant/après](P0_MOBILE_2026-10-21.md).
+- [Rapport Phase 3, limites et anomalies classées](RECETTE_PHASE3_2026-10-21.md).
+- [Mesures structurées et rapports du run final](evidence/qa-summary-2026-10-21.json).
+- [Contrastes proposés](evidence/contrast-proposal.jpg), [accueil téléphone](evidence/homepage-390.jpg), [accueil ordinateur](evidence/homepage-1440.jpg), [écrans WooCommerce](evidence/commerce-390.jpg).
 
-## Décisions et prochaines étapes
+Les échecs intermédiaires de fixture/synchronisation sont expliqués dans le rapport Phase 3; le dernier run a corrigé ces causes dans les tests, sans changement du moteur WooCommerce.
 
-1. Consigner les derniers contrôles PHP/champ requis; les captures desktop/téléphone et la planche de contraste ont été examinées, avec défauts classés dans le rapport Phase 3.
-2. Faire valider le correctif P0 pour une future mise à jour GoDaddy et la proposition de contraste avant intégration. Les coordonnées, politiques et affirmations commerciales restent à fournir/valider par le responsable.
-3. **Autorisation explicite de Julien requise avant tout déploiement sur GoDaddy.** Aucun changement de palette important, configuration commerciale ou nouveau compte distant inclus.
+## État GoDaddy préservé
 
-Work publie les commits et preuves dans ce dépôt; la conversation de Coordination doit lire ce fichier pour se synchroniser. Le commit qui contient ce document est accessible dans son historique; aucun SHA auto-référentiel n’est inventé.
+Cette phase n’a exécuté **aucune opération GoDaddy**, aucun compte créé, aucune connexion Zoho, aucune configuration commerciale, DNS ou domaine.
+
+Dernier état hébergé vérifié antérieurement : thème **0.1.0** actif, WooCommerce **11.2.1** actif, quatre pages affectées. [Recette privée 39531003568](https://github.com/mycomane/alimentsdistinction/actions/runs/39531003568) : 33 assertions réussies, Coming Soon anonyme avant/après, compte Abonné supprimé et sessions révoquées. Ne pas extrapoler cette preuve aux modifications non déployées.
+
+La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protections `godaddy-temp` restent celles documentées. Aucun installateur, activation ou sauvegarde existante n’a été relancé.
+
+## Anomalies et décisions en attente
+
+| Priorité | Élément restant | Décision / action |
+| --- | --- | --- |
+| Validation Julien | Correctif P0 validé, présent uniquement dans GitHub | Autorisation distincte avant mise à jour GoDaddy |
+| Majeur accessibilité | Textes rose/gris, boutons et infolettre insuffisamment contrastés | Valider les propositions graphiques avant leur intégration |
+| Majeur accessibilité | Navigation transparente sur photo | Valider une solution par contexte, par exemple une barre à fond crème opaque |
+| Bloquant commercial | Téléphone/coordonnées, pages de livraison/retours/confidentialité, garanties et affirmations commerciales | Contenus et validation du propriétaire/Julien nécessaires |
+| Majeur contenu | Recettes et service d’infolettre incomplets | Rédaction et service approuvés; aucune fausse inscription |
+| Mineur cohérence | Bouton WooCommerce de variation désactivée violet natif | Harmoniser lors du lot de palette |
+| À confirmer avant ouverture | Localisation française WooCommerce et URL finale hébergée de checkout vide | Nouvelle recette hébergée autorisée; ne pas conclure depuis le runner anglais |
+| Avant production | Hors site/restauration intégrale, confirmation SSH indépendante, performance/CWV et règles commerciales | Préparer la validation, sans connexion ou configuration non autorisée |
+
+## Prochaines étapes recommandées
+
+1. Coordination et Julien examinent le correctif P0, ses mesures et les captures.
+2. Après autorisation de déploiement : Work prépare la version/cache et le scénario de mise à jour, vérifie une sauvegarde fraîche et un retour arrière, puis respecte l’approbation obligatoire de `godaddy-temp`. Ne pas relancer le premier installateur qui refuse l’écrasement.
+3. Après validation graphique : intégrer les ajustements ciblés de contraste, états désactivés/survol/focus et navigation, puis refaire les vérifications isolées appropriées.
+4. Compléter les contenus commerciaux approuvés et les tests non couverts. Le formulaire de commande n’a jamais été soumis; les blocs Panier/Commande, lecteurs d’écran, pixels des sections secondaires et performance ne sont pas certifiés.
+5. Aucun nouveau compte, produit, commande ou réglage GoDaddy sans motif et autorisation correspondant à la prochaine recette. Conserver Coming Soon.
+
+Ce fichier est le point de synchronisation avec ChatGPT Coordination; aucun message de cette conversation Work n’y est supposé reçu automatiquement.

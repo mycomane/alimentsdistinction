@@ -1,0 +1,3628 @@
+{
+  "date": "2026-10-21",
+  "timezone": "America/Toronto",
+  "repository": "mycomane/alimentsdistinction",
+  "branch": "feat/wordpress-woocommerce-theme",
+  "tested_commit": "aab5e712eb72acc9622b92a8bfb05c9c97bbb587",
+  "workflow_run": 39610664542,
+  "job": 119258365224,
+  "environment": {
+    "wordpress": "7.1.3",
+    "woocommerce": "11.2.1",
+    "php": "8.3.6",
+    "host": "127.0.0.1:8787",
+    "godaddy_access": false
+  },
+  "assertions": {
+    "php_integration": 11,
+    "browser_baseline": 41,
+    "mobile_geometry": 61,
+    "sections_keyboard": 55,
+    "extended_commerce": 132,
+    "total": 300
+  },
+  "additional": {
+    "invalid_quantities_rejected": [
+      0,
+      -1,
+      6
+    ],
+    "flat_color_proposals": 14,
+    "orders_created": 0,
+    "payment_gateways_enabled": 0
+  },
+  "reports": {
+    "geometry": {
+      "scope": "isolated-only",
+      "mode": "actual-theme-regression",
+      "geometry": [
+        {
+          "width": 320,
+          "reference": {
+            "hero": {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 1499.06
+            },
+            "left": {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 949.06
+            },
+            "photo": {
+              "x": 0,
+              "y": 949.06,
+              "width": 320,
+              "height": 550
+            },
+            "title": {
+              "x": 24,
+              "y": 228.3,
+              "width": 272,
+              "height": 155.48
+            },
+            "ctas": {
+              "x": 24,
+              "y": 671.78,
+              "width": 272,
+              "height": 114.97
+            },
+            "trust": {
+              "x": 24,
+              "y": 838.75,
+              "width": 272,
+              "height": 62.31
+            },
+            "wrap": "nowrap",
+            "items": [
+              {
+                "box": {
+                  "x": 24,
+                  "y": 838.75,
+                  "width": 86.27,
+                  "height": 62.31
+                },
+                "label": {
+                  "x": 24,
+                  "y": 867.34,
+                  "width": 86.27,
+                  "height": 33.72
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 134.27,
+                  "y": 838.75,
+                  "width": 79.45,
+                  "height": 62.31
+                },
+                "label": {
+                  "x": 134.27,
+                  "y": 867.34,
+                  "width": 79.45,
+                  "height": 33.72
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 237.72,
+                  "y": 838.75,
+                  "width": 58.28,
+                  "height": 62.31
+                },
+                "label": {
+                  "x": 237.72,
+                  "y": 867.34,
+                  "width": 58.28,
+                  "height": 33.72
+                },
+                "clipped": false
+              }
+            ],
+            "overflow": false
+          },
+          "before": {
+            "hero": {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 1551.66
+            },
+            "left": {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 1001.66
+            },
+            "photo": {
+              "x": 0,
+              "y": 1001.66,
+              "width": 320,
+              "height": 550
+            },
+            "title": {
+              "x": 24,
+              "y": 228.3,
+              "width": 272,
+              "height": 155.48
+            },
+            "ctas": {
+              "x": 24,
+              "y": 671.78,
+              "width": 272,
+              "height": 114.97
+            },
+            "trust": {
+              "x": 24,
+              "y": 838.75,
+              "width": 272,
+              "height": 114.91
+            },
+            "wrap": "wrap",
+            "items": [
+              {
+                "box": {
+                  "x": 24,
+                  "y": 838.75,
+                  "width": 113.83,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 24,
+                  "y": 867.34,
+                  "width": 113.83,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 161.83,
+                  "y": 838.75,
+                  "width": 104.84,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 161.83,
+                  "y": 867.34,
+                  "width": 104.84,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 24,
+                  "y": 908.2,
+                  "width": 76.89,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 24,
+                  "y": 936.8,
+                  "width": 76.89,
+                  "height": 16.86
+                },
+                "clipped": false
+              }
+            ],
+            "overflow": false
+          },
+          "after": {
+            "hero": {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 1499.06
+            },
+            "left": {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 949.06
+            },
+            "photo": {
+              "x": 0,
+              "y": 949.06,
+              "width": 320,
+              "height": 550
+            },
+            "title": {
+              "x": 24,
+              "y": 228.3,
+              "width": 272,
+              "height": 155.48
+            },
+            "ctas": {
+              "x": 24,
+              "y": 671.78,
+              "width": 272,
+              "height": 114.97
+            },
+            "trust": {
+              "x": 24,
+              "y": 838.75,
+              "width": 272,
+              "height": 62.31
+            },
+            "wrap": "nowrap",
+            "items": [
+              {
+                "box": {
+                  "x": 24,
+                  "y": 838.75,
+                  "width": 86.27,
+                  "height": 62.31
+                },
+                "label": {
+                  "x": 24,
+                  "y": 867.34,
+                  "width": 86.27,
+                  "height": 33.72
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 134.27,
+                  "y": 838.75,
+                  "width": 79.45,
+                  "height": 62.31
+                },
+                "label": {
+                  "x": 134.27,
+                  "y": 867.34,
+                  "width": 79.45,
+                  "height": 33.72
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 237.72,
+                  "y": 838.75,
+                  "width": 58.28,
+                  "height": 62.31
+                },
+                "label": {
+                  "x": 237.72,
+                  "y": 867.34,
+                  "width": 58.28,
+                  "height": 33.72
+                },
+                "clipped": false
+              }
+            ],
+            "overflow": false
+          },
+          "deltaBefore": 52.6,
+          "deltaAfter": 0
+        },
+        {
+          "width": 390,
+          "reference": {
+            "hero": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 1472.33
+            },
+            "left": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 922.33
+            },
+            "photo": {
+              "x": 0,
+              "y": 922.33,
+              "width": 390,
+              "height": 550
+            },
+            "title": {
+              "x": 24,
+              "y": 228.3,
+              "width": 342,
+              "height": 155.48
+            },
+            "ctas": {
+              "x": 24,
+              "y": 645.05,
+              "width": 342,
+              "height": 114.97
+            },
+            "trust": {
+              "x": 24,
+              "y": 812.02,
+              "width": 342,
+              "height": 62.31
+            },
+            "wrap": "nowrap",
+            "items": [
+              {
+                "box": {
+                  "x": 24,
+                  "y": 812.02,
+                  "width": 113.22,
+                  "height": 62.31
+                },
+                "label": {
+                  "x": 24,
+                  "y": 840.61,
+                  "width": 113.22,
+                  "height": 33.72
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 161.22,
+                  "y": 812.02,
+                  "width": 104.3,
+                  "height": 62.31
+                },
+                "label": {
+                  "x": 161.22,
+                  "y": 840.61,
+                  "width": 104.3,
+                  "height": 33.72
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 289.52,
+                  "y": 812.02,
+                  "width": 76.48,
+                  "height": 62.31
+                },
+                "label": {
+                  "x": 289.52,
+                  "y": 840.61,
+                  "width": 76.48,
+                  "height": 33.72
+                },
+                "clipped": false
+              }
+            ],
+            "overflow": false
+          },
+          "before": {
+            "hero": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 1524.92
+            },
+            "left": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 974.92
+            },
+            "photo": {
+              "x": 0,
+              "y": 974.92,
+              "width": 390,
+              "height": 550
+            },
+            "title": {
+              "x": 24,
+              "y": 228.3,
+              "width": 342,
+              "height": 155.48
+            },
+            "ctas": {
+              "x": 24,
+              "y": 645.05,
+              "width": 342,
+              "height": 114.97
+            },
+            "trust": {
+              "x": 24,
+              "y": 812.02,
+              "width": 342,
+              "height": 114.91
+            },
+            "wrap": "wrap",
+            "items": [
+              {
+                "box": {
+                  "x": 24,
+                  "y": 812.02,
+                  "width": 113.83,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 24,
+                  "y": 840.61,
+                  "width": 113.83,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 161.83,
+                  "y": 812.02,
+                  "width": 104.84,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 161.83,
+                  "y": 840.61,
+                  "width": 104.84,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 24,
+                  "y": 881.47,
+                  "width": 76.89,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 24,
+                  "y": 910.06,
+                  "width": 76.89,
+                  "height": 16.86
+                },
+                "clipped": false
+              }
+            ],
+            "overflow": false
+          },
+          "after": {
+            "hero": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 1472.33
+            },
+            "left": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 922.33
+            },
+            "photo": {
+              "x": 0,
+              "y": 922.33,
+              "width": 390,
+              "height": 550
+            },
+            "title": {
+              "x": 24,
+              "y": 228.3,
+              "width": 342,
+              "height": 155.48
+            },
+            "ctas": {
+              "x": 24,
+              "y": 645.05,
+              "width": 342,
+              "height": 114.97
+            },
+            "trust": {
+              "x": 24,
+              "y": 812.02,
+              "width": 342,
+              "height": 62.31
+            },
+            "wrap": "nowrap",
+            "items": [
+              {
+                "box": {
+                  "x": 24,
+                  "y": 812.02,
+                  "width": 113.22,
+                  "height": 62.31
+                },
+                "label": {
+                  "x": 24,
+                  "y": 840.61,
+                  "width": 113.22,
+                  "height": 33.72
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 161.22,
+                  "y": 812.02,
+                  "width": 104.3,
+                  "height": 62.31
+                },
+                "label": {
+                  "x": 161.22,
+                  "y": 840.61,
+                  "width": 104.3,
+                  "height": 33.72
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 289.52,
+                  "y": 812.02,
+                  "width": 76.48,
+                  "height": 62.31
+                },
+                "label": {
+                  "x": 289.52,
+                  "y": 840.61,
+                  "width": 76.48,
+                  "height": 33.72
+                },
+                "clipped": false
+              }
+            ],
+            "overflow": false
+          },
+          "deltaBefore": 52.59,
+          "deltaAfter": 0
+        },
+        {
+          "width": 768,
+          "reference": {
+            "hero": {
+              "x": 0,
+              "y": 0,
+              "width": 768,
+              "height": 1316.58
+            },
+            "left": {
+              "x": 0,
+              "y": 0,
+              "width": 768,
+              "height": 766.58
+            },
+            "photo": {
+              "x": 0,
+              "y": 766.58,
+              "width": 768,
+              "height": 550
+            },
+            "title": {
+              "x": 24,
+              "y": 228.3,
+              "width": 720,
+              "height": 107.81
+            },
+            "ctas": {
+              "x": 24,
+              "y": 570.64,
+              "width": 720,
+              "height": 50.48
+            },
+            "trust": {
+              "x": 24,
+              "y": 673.13,
+              "width": 720,
+              "height": 45.45
+            },
+            "wrap": "nowrap",
+            "items": [
+              {
+                "box": {
+                  "x": 24,
+                  "y": 673.13,
+                  "width": 113.83,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 24,
+                  "y": 701.72,
+                  "width": 113.83,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 161.83,
+                  "y": 673.13,
+                  "width": 104.84,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 161.83,
+                  "y": 701.72,
+                  "width": 104.84,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 290.67,
+                  "y": 673.13,
+                  "width": 76.89,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 290.67,
+                  "y": 701.72,
+                  "width": 76.89,
+                  "height": 16.86
+                },
+                "clipped": false
+              }
+            ],
+            "overflow": false
+          },
+          "before": {
+            "hero": {
+              "x": 0,
+              "y": 0,
+              "width": 768,
+              "height": 1316.58
+            },
+            "left": {
+              "x": 0,
+              "y": 0,
+              "width": 768,
+              "height": 766.58
+            },
+            "photo": {
+              "x": 0,
+              "y": 766.58,
+              "width": 768,
+              "height": 550
+            },
+            "title": {
+              "x": 24,
+              "y": 228.3,
+              "width": 720,
+              "height": 107.81
+            },
+            "ctas": {
+              "x": 24,
+              "y": 570.64,
+              "width": 720,
+              "height": 50.48
+            },
+            "trust": {
+              "x": 24,
+              "y": 673.13,
+              "width": 720,
+              "height": 45.45
+            },
+            "wrap": "wrap",
+            "items": [
+              {
+                "box": {
+                  "x": 24,
+                  "y": 673.13,
+                  "width": 113.83,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 24,
+                  "y": 701.72,
+                  "width": 113.83,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 161.83,
+                  "y": 673.13,
+                  "width": 104.84,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 161.83,
+                  "y": 701.72,
+                  "width": 104.84,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 290.67,
+                  "y": 673.13,
+                  "width": 76.89,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 290.67,
+                  "y": 701.72,
+                  "width": 76.89,
+                  "height": 16.86
+                },
+                "clipped": false
+              }
+            ],
+            "overflow": false
+          },
+          "after": {
+            "hero": {
+              "x": 0,
+              "y": 0,
+              "width": 768,
+              "height": 1316.58
+            },
+            "left": {
+              "x": 0,
+              "y": 0,
+              "width": 768,
+              "height": 766.58
+            },
+            "photo": {
+              "x": 0,
+              "y": 766.58,
+              "width": 768,
+              "height": 550
+            },
+            "title": {
+              "x": 24,
+              "y": 228.3,
+              "width": 720,
+              "height": 107.81
+            },
+            "ctas": {
+              "x": 24,
+              "y": 570.64,
+              "width": 720,
+              "height": 50.48
+            },
+            "trust": {
+              "x": 24,
+              "y": 673.13,
+              "width": 720,
+              "height": 45.45
+            },
+            "wrap": "nowrap",
+            "items": [
+              {
+                "box": {
+                  "x": 24,
+                  "y": 673.13,
+                  "width": 113.83,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 24,
+                  "y": 701.72,
+                  "width": 113.83,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 161.83,
+                  "y": 673.13,
+                  "width": 104.84,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 161.83,
+                  "y": 701.72,
+                  "width": 104.84,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 290.67,
+                  "y": 673.13,
+                  "width": 76.89,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 290.67,
+                  "y": 701.72,
+                  "width": 76.89,
+                  "height": 16.86
+                },
+                "clipped": false
+              }
+            ],
+            "overflow": false
+          },
+          "deltaBefore": 0,
+          "deltaAfter": 0
+        },
+        {
+          "width": 1024,
+          "reference": {
+            "hero": {
+              "x": 0,
+              "y": 0,
+              "width": 1024,
+              "height": 1388.52
+            },
+            "left": {
+              "x": 0,
+              "y": 0,
+              "width": 1024,
+              "height": 838.52
+            },
+            "photo": {
+              "x": 0,
+              "y": 838.52,
+              "width": 1024,
+              "height": 550
+            },
+            "title": {
+              "x": 48,
+              "y": 248.3,
+              "width": 928,
+              "height": 143.75
+            },
+            "ctas": {
+              "x": 48,
+              "y": 626.58,
+              "width": 928,
+              "height": 50.48
+            },
+            "trust": {
+              "x": 48,
+              "y": 729.06,
+              "width": 928,
+              "height": 45.45
+            },
+            "wrap": "nowrap",
+            "items": [
+              {
+                "box": {
+                  "x": 48,
+                  "y": 729.06,
+                  "width": 113.83,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 48,
+                  "y": 757.66,
+                  "width": 113.83,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 193.83,
+                  "y": 729.06,
+                  "width": 104.84,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 193.83,
+                  "y": 757.66,
+                  "width": 104.84,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 330.67,
+                  "y": 729.06,
+                  "width": 76.89,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 330.67,
+                  "y": 757.66,
+                  "width": 76.89,
+                  "height": 16.86
+                },
+                "clipped": false
+              }
+            ],
+            "overflow": false
+          },
+          "before": {
+            "hero": {
+              "x": 0,
+              "y": 0,
+              "width": 1024,
+              "height": 1388.52
+            },
+            "left": {
+              "x": 0,
+              "y": 0,
+              "width": 1024,
+              "height": 838.52
+            },
+            "photo": {
+              "x": 0,
+              "y": 838.52,
+              "width": 1024,
+              "height": 550
+            },
+            "title": {
+              "x": 48,
+              "y": 248.3,
+              "width": 928,
+              "height": 143.75
+            },
+            "ctas": {
+              "x": 48,
+              "y": 626.58,
+              "width": 928,
+              "height": 50.48
+            },
+            "trust": {
+              "x": 48,
+              "y": 729.06,
+              "width": 928,
+              "height": 45.45
+            },
+            "wrap": "nowrap",
+            "items": [
+              {
+                "box": {
+                  "x": 48,
+                  "y": 729.06,
+                  "width": 113.83,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 48,
+                  "y": 757.66,
+                  "width": 113.83,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 193.83,
+                  "y": 729.06,
+                  "width": 104.84,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 193.83,
+                  "y": 757.66,
+                  "width": 104.84,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 330.67,
+                  "y": 729.06,
+                  "width": 76.89,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 330.67,
+                  "y": 757.66,
+                  "width": 76.89,
+                  "height": 16.86
+                },
+                "clipped": false
+              }
+            ],
+            "overflow": false
+          },
+          "after": {
+            "hero": {
+              "x": 0,
+              "y": 0,
+              "width": 1024,
+              "height": 1388.52
+            },
+            "left": {
+              "x": 0,
+              "y": 0,
+              "width": 1024,
+              "height": 838.52
+            },
+            "photo": {
+              "x": 0,
+              "y": 838.52,
+              "width": 1024,
+              "height": 550
+            },
+            "title": {
+              "x": 48,
+              "y": 248.3,
+              "width": 928,
+              "height": 143.75
+            },
+            "ctas": {
+              "x": 48,
+              "y": 626.58,
+              "width": 928,
+              "height": 50.48
+            },
+            "trust": {
+              "x": 48,
+              "y": 729.06,
+              "width": 928,
+              "height": 45.45
+            },
+            "wrap": "nowrap",
+            "items": [
+              {
+                "box": {
+                  "x": 48,
+                  "y": 729.06,
+                  "width": 113.83,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 48,
+                  "y": 757.66,
+                  "width": 113.83,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 193.83,
+                  "y": 729.06,
+                  "width": 104.84,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 193.83,
+                  "y": 757.66,
+                  "width": 104.84,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 330.67,
+                  "y": 729.06,
+                  "width": 76.89,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 330.67,
+                  "y": 757.66,
+                  "width": 76.89,
+                  "height": 16.86
+                },
+                "clipped": false
+              }
+            ],
+            "overflow": false
+          },
+          "deltaBefore": 0,
+          "deltaAfter": 0
+        },
+        {
+          "width": 1440,
+          "reference": {
+            "hero": {
+              "x": 0,
+              "y": 0,
+              "width": 1440,
+              "height": 1000
+            },
+            "left": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1000
+            },
+            "photo": {
+              "x": 720,
+              "y": 0,
+              "width": 720,
+              "height": 1000
+            },
+            "title": {
+              "x": 80,
+              "y": 232.58,
+              "width": 576,
+              "height": 300.66
+            },
+            "ctas": {
+              "x": 80,
+              "y": 767.77,
+              "width": 576,
+              "height": 50.48
+            },
+            "trust": {
+              "x": 80,
+              "y": 870.25,
+              "width": 576,
+              "height": 45.45
+            },
+            "wrap": "nowrap",
+            "items": [
+              {
+                "box": {
+                  "x": 80,
+                  "y": 870.25,
+                  "width": 113.83,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 80,
+                  "y": 898.84,
+                  "width": 113.83,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 225.83,
+                  "y": 870.25,
+                  "width": 104.84,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 225.83,
+                  "y": 898.84,
+                  "width": 104.84,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 362.67,
+                  "y": 870.25,
+                  "width": 76.89,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 362.67,
+                  "y": 898.84,
+                  "width": 76.89,
+                  "height": 16.86
+                },
+                "clipped": false
+              }
+            ],
+            "overflow": false
+          },
+          "before": {
+            "hero": {
+              "x": 0,
+              "y": 0,
+              "width": 1440,
+              "height": 1000
+            },
+            "left": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1000
+            },
+            "photo": {
+              "x": 720,
+              "y": 0,
+              "width": 720,
+              "height": 1000
+            },
+            "title": {
+              "x": 80,
+              "y": 232.58,
+              "width": 576,
+              "height": 300.66
+            },
+            "ctas": {
+              "x": 80,
+              "y": 767.77,
+              "width": 576,
+              "height": 50.48
+            },
+            "trust": {
+              "x": 80,
+              "y": 870.25,
+              "width": 576,
+              "height": 45.45
+            },
+            "wrap": "nowrap",
+            "items": [
+              {
+                "box": {
+                  "x": 80,
+                  "y": 870.25,
+                  "width": 113.83,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 80,
+                  "y": 898.84,
+                  "width": 113.83,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 225.83,
+                  "y": 870.25,
+                  "width": 104.84,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 225.83,
+                  "y": 898.84,
+                  "width": 104.84,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 362.67,
+                  "y": 870.25,
+                  "width": 76.89,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 362.67,
+                  "y": 898.84,
+                  "width": 76.89,
+                  "height": 16.86
+                },
+                "clipped": false
+              }
+            ],
+            "overflow": false
+          },
+          "after": {
+            "hero": {
+              "x": 0,
+              "y": 0,
+              "width": 1440,
+              "height": 1000
+            },
+            "left": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1000
+            },
+            "photo": {
+              "x": 720,
+              "y": 0,
+              "width": 720,
+              "height": 1000
+            },
+            "title": {
+              "x": 80,
+              "y": 232.58,
+              "width": 576,
+              "height": 300.66
+            },
+            "ctas": {
+              "x": 80,
+              "y": 767.77,
+              "width": 576,
+              "height": 50.48
+            },
+            "trust": {
+              "x": 80,
+              "y": 870.25,
+              "width": 576,
+              "height": 45.45
+            },
+            "wrap": "nowrap",
+            "items": [
+              {
+                "box": {
+                  "x": 80,
+                  "y": 870.25,
+                  "width": 113.83,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 80,
+                  "y": 898.84,
+                  "width": 113.83,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 225.83,
+                  "y": 870.25,
+                  "width": 104.84,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 225.83,
+                  "y": 898.84,
+                  "width": 104.84,
+                  "height": 16.86
+                },
+                "clipped": false
+              },
+              {
+                "box": {
+                  "x": 362.67,
+                  "y": 870.25,
+                  "width": 76.89,
+                  "height": 45.45
+                },
+                "label": {
+                  "x": 362.67,
+                  "y": 898.84,
+                  "width": 76.89,
+                  "height": 16.86
+                },
+                "clipped": false
+              }
+            ],
+            "overflow": false
+          },
+          "deltaBefore": 0,
+          "deltaAfter": 0
+        }
+      ],
+      "checks": [
+        {
+          "label": "Reproduce installed 53px difference 320",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry hero 320",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry left 320",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry photo 320",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry title 320",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry ctas 320",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry trust 320",
+          "passed": true
+        },
+        {
+          "label": "No horizontal overflow 320",
+          "passed": true
+        },
+        {
+          "label": "No clipped trust item 320",
+          "passed": true
+        },
+        {
+          "label": "Trust items do not overlap 320",
+          "passed": true
+        },
+        {
+          "label": "Trust stays on reference flex line 320",
+          "passed": true
+        },
+        {
+          "label": "Menu opens 320",
+          "passed": true
+        },
+        {
+          "label": "Menu closes 320",
+          "passed": true
+        },
+        {
+          "label": "Menu restores keyboard focus 320",
+          "passed": true
+        },
+        {
+          "label": "Reproduce installed 53px difference 390",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry hero 390",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry left 390",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry photo 390",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry title 390",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry ctas 390",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry trust 390",
+          "passed": true
+        },
+        {
+          "label": "No horizontal overflow 390",
+          "passed": true
+        },
+        {
+          "label": "No clipped trust item 390",
+          "passed": true
+        },
+        {
+          "label": "Trust items do not overlap 390",
+          "passed": true
+        },
+        {
+          "label": "Trust stays on reference flex line 390",
+          "passed": true
+        },
+        {
+          "label": "Menu opens 390",
+          "passed": true
+        },
+        {
+          "label": "Menu closes 390",
+          "passed": true
+        },
+        {
+          "label": "Menu restores keyboard focus 390",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry hero 768",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry left 768",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry photo 768",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry title 768",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry ctas 768",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry trust 768",
+          "passed": true
+        },
+        {
+          "label": "No horizontal overflow 768",
+          "passed": true
+        },
+        {
+          "label": "No clipped trust item 768",
+          "passed": true
+        },
+        {
+          "label": "Trust items do not overlap 768",
+          "passed": true
+        },
+        {
+          "label": "Trust stays on reference flex line 768",
+          "passed": true
+        },
+        {
+          "label": "Menu opens 768",
+          "passed": true
+        },
+        {
+          "label": "Menu closes 768",
+          "passed": true
+        },
+        {
+          "label": "Menu restores keyboard focus 768",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry hero 1024",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry left 1024",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry photo 1024",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry title 1024",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry ctas 1024",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry trust 1024",
+          "passed": true
+        },
+        {
+          "label": "No horizontal overflow 1024",
+          "passed": true
+        },
+        {
+          "label": "No clipped trust item 1024",
+          "passed": true
+        },
+        {
+          "label": "Trust items do not overlap 1024",
+          "passed": true
+        },
+        {
+          "label": "Trust stays on reference flex line 1024",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry hero 1440",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry left 1440",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry photo 1440",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry title 1440",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry ctas 1440",
+          "passed": true
+        },
+        {
+          "label": "Reference geometry trust 1440",
+          "passed": true
+        },
+        {
+          "label": "No horizontal overflow 1440",
+          "passed": true
+        },
+        {
+          "label": "No clipped trust item 1440",
+          "passed": true
+        },
+        {
+          "label": "Trust items do not overlap 1440",
+          "passed": true
+        },
+        {
+          "label": "Trust stays on reference flex line 1440",
+          "passed": true
+        }
+      ],
+      "failures": []
+    },
+    "sections": {
+      "scope": "isolated-only",
+      "checks": [
+        {
+          "label": "All 14 homepage regions rendered 320",
+          "passed": true
+        },
+        {
+          "label": "Homepage region bounds 320",
+          "passed": true
+        },
+        {
+          "label": "Headings stay within viewport 320",
+          "passed": true
+        },
+        {
+          "label": "First keyboard stop is skip link 320",
+          "passed": true
+        },
+        {
+          "label": "Skip link becomes visible 320",
+          "passed": true
+        },
+        {
+          "label": "Skip link reaches main 320",
+          "passed": true
+        },
+        {
+          "label": "Menu keyboard Enter opens 320",
+          "passed": true
+        },
+        {
+          "label": "Anchor click closes menu 320",
+          "passed": true
+        },
+        {
+          "label": "All 14 homepage regions rendered 390",
+          "passed": true
+        },
+        {
+          "label": "Homepage region bounds 390",
+          "passed": true
+        },
+        {
+          "label": "Headings stay within viewport 390",
+          "passed": true
+        },
+        {
+          "label": "First keyboard stop is skip link 390",
+          "passed": true
+        },
+        {
+          "label": "Skip link becomes visible 390",
+          "passed": true
+        },
+        {
+          "label": "Skip link reaches main 390",
+          "passed": true
+        },
+        {
+          "label": "Menu keyboard Enter opens 390",
+          "passed": true
+        },
+        {
+          "label": "Anchor click closes menu 390",
+          "passed": true
+        },
+        {
+          "label": "All 14 homepage regions rendered 768",
+          "passed": true
+        },
+        {
+          "label": "Homepage region bounds 768",
+          "passed": true
+        },
+        {
+          "label": "Headings stay within viewport 768",
+          "passed": true
+        },
+        {
+          "label": "First keyboard stop is skip link 768",
+          "passed": true
+        },
+        {
+          "label": "Skip link becomes visible 768",
+          "passed": true
+        },
+        {
+          "label": "Skip link reaches main 768",
+          "passed": true
+        },
+        {
+          "label": "Menu keyboard Enter opens 768",
+          "passed": true
+        },
+        {
+          "label": "Anchor click closes menu 768",
+          "passed": true
+        },
+        {
+          "label": "All 14 homepage regions rendered 1024",
+          "passed": true
+        },
+        {
+          "label": "Homepage region bounds 1024",
+          "passed": true
+        },
+        {
+          "label": "Headings stay within viewport 1024",
+          "passed": true
+        },
+        {
+          "label": "First keyboard stop is skip link 1024",
+          "passed": true
+        },
+        {
+          "label": "Skip link becomes visible 1024",
+          "passed": true
+        },
+        {
+          "label": "Skip link reaches main 1024",
+          "passed": true
+        },
+        {
+          "label": "Desktop navigation visible 1024",
+          "passed": true
+        },
+        {
+          "label": "All 14 homepage regions rendered 1440",
+          "passed": true
+        },
+        {
+          "label": "Homepage region bounds 1440",
+          "passed": true
+        },
+        {
+          "label": "Headings stay within viewport 1440",
+          "passed": true
+        },
+        {
+          "label": "First keyboard stop is skip link 1440",
+          "passed": true
+        },
+        {
+          "label": "Skip link becomes visible 1440",
+          "passed": true
+        },
+        {
+          "label": "Skip link reaches main 1440",
+          "passed": true
+        },
+        {
+          "label": "Desktop navigation visible 1440",
+          "passed": true
+        },
+        {
+          "label": "All internal homepage anchors resolve",
+          "passed": true
+        },
+        {
+          "label": "No empty placeholder link",
+          "passed": true
+        },
+        {
+          "label": "Homepage links and buttons have accessible names",
+          "passed": true
+        },
+        {
+          "label": "Homepage images have alt attributes",
+          "passed": true
+        },
+        {
+          "label": "One homepage H1",
+          "passed": true
+        },
+        {
+          "label": "Internal destination /",
+          "passed": true
+        },
+        {
+          "label": "Internal destination /?s&post_type=product",
+          "passed": true
+        },
+        {
+          "label": "Internal destination /?page_id=13",
+          "passed": true
+        },
+        {
+          "label": "Internal destination /?page_id=11",
+          "passed": true
+        },
+        {
+          "label": "Internal destination /?page_id=10",
+          "passed": true
+        },
+        {
+          "label": "Internal destination /?product_cat=viandes",
+          "passed": true
+        },
+        {
+          "label": "Internal destination /?product_cat=fruits-de-mer-poissons",
+          "passed": true
+        },
+        {
+          "label": "Internal destination /?product_cat=veau-volaille-agneau",
+          "passed": true
+        },
+        {
+          "label": "Internal destination /?product_cat=produits-gourmets",
+          "passed": true
+        },
+        {
+          "label": "Internal destination /?product_cat=desserts",
+          "passed": true
+        },
+        {
+          "label": "No fake newsletter subscription form",
+          "passed": true
+        },
+        {
+          "label": "Newsletter unavailability stated",
+          "passed": true
+        }
+      ],
+      "sections": [
+        {
+          "width": 320,
+          "sections": [
+            {
+              "selector": ".hero",
+              "present": true,
+              "x": 0,
+              "width": 320,
+              "height": 1499,
+              "headingCount": 1
+            },
+            {
+              "selector": ".features-strip",
+              "present": true,
+              "x": 0,
+              "width": 320,
+              "height": 298,
+              "headingCount": 0
+            },
+            {
+              "selector": ".collections",
+              "present": true,
+              "x": 0,
+              "width": 320,
+              "height": 3007,
+              "headingCount": 6
+            },
+            {
+              "selector": ".promise",
+              "present": true,
+              "x": 0,
+              "width": 320,
+              "height": 1863,
+              "headingCount": 4
+            },
+            {
+              "selector": ".featured",
+              "present": true,
+              "x": 0,
+              "width": 320,
+              "height": 1340,
+              "headingCount": 1
+            },
+            {
+              "selector": ".story",
+              "present": true,
+              "x": 0,
+              "width": 320,
+              "height": 1301,
+              "headingCount": 1
+            },
+            {
+              "selector": ".recettes",
+              "present": true,
+              "x": 0,
+              "width": 320,
+              "height": 2408,
+              "headingCount": 4
+            },
+            {
+              "selector": ".process",
+              "present": true,
+              "x": 0,
+              "width": 320,
+              "height": 1836,
+              "headingCount": 4
+            },
+            {
+              "selector": ".testimonials",
+              "present": true,
+              "x": 0,
+              "width": 320,
+              "height": 1846,
+              "headingCount": 1
+            },
+            {
+              "selector": ".health-strip",
+              "present": true,
+              "x": 0,
+              "width": 320,
+              "height": 548,
+              "headingCount": 0
+            },
+            {
+              "selector": ".cta",
+              "present": true,
+              "x": 0,
+              "width": 320,
+              "height": 843,
+              "headingCount": 1
+            },
+            {
+              "selector": ".ornate-frame",
+              "present": true,
+              "x": 24,
+              "width": 272,
+              "height": 555,
+              "headingCount": 1
+            },
+            {
+              "selector": ".newsletter",
+              "present": true,
+              "x": 0,
+              "width": 320,
+              "height": 409,
+              "headingCount": 1
+            },
+            {
+              "selector": ".footer",
+              "present": true,
+              "x": 0,
+              "width": 320,
+              "height": 1174,
+              "headingCount": 0
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "sections": [
+            {
+              "selector": ".hero",
+              "present": true,
+              "x": 0,
+              "width": 390,
+              "height": 1472,
+              "headingCount": 1
+            },
+            {
+              "selector": ".features-strip",
+              "present": true,
+              "x": 0,
+              "width": 390,
+              "height": 298,
+              "headingCount": 0
+            },
+            {
+              "selector": ".collections",
+              "present": true,
+              "x": 0,
+              "width": 390,
+              "height": 2852,
+              "headingCount": 6
+            },
+            {
+              "selector": ".promise",
+              "present": true,
+              "x": 0,
+              "width": 390,
+              "height": 1690,
+              "headingCount": 4
+            },
+            {
+              "selector": ".featured",
+              "present": true,
+              "x": 0,
+              "width": 390,
+              "height": 1232,
+              "headingCount": 1
+            },
+            {
+              "selector": ".story",
+              "present": true,
+              "x": 0,
+              "width": 390,
+              "height": 1217,
+              "headingCount": 1
+            },
+            {
+              "selector": ".recettes",
+              "present": true,
+              "x": 0,
+              "width": 390,
+              "height": 2189,
+              "headingCount": 4
+            },
+            {
+              "selector": ".process",
+              "present": true,
+              "x": 0,
+              "width": 390,
+              "height": 1620,
+              "headingCount": 4
+            },
+            {
+              "selector": ".testimonials",
+              "present": true,
+              "x": 0,
+              "width": 390,
+              "height": 1589,
+              "headingCount": 1
+            },
+            {
+              "selector": ".health-strip",
+              "present": true,
+              "x": 0,
+              "width": 390,
+              "height": 359,
+              "headingCount": 0
+            },
+            {
+              "selector": ".cta",
+              "present": true,
+              "x": 0,
+              "width": 390,
+              "height": 798,
+              "headingCount": 1
+            },
+            {
+              "selector": ".ornate-frame",
+              "present": true,
+              "x": 24,
+              "width": 342,
+              "height": 463,
+              "headingCount": 1
+            },
+            {
+              "selector": ".newsletter",
+              "present": true,
+              "x": 0,
+              "width": 390,
+              "height": 348,
+              "headingCount": 1
+            },
+            {
+              "selector": ".footer",
+              "present": true,
+              "x": 0,
+              "width": 390,
+              "height": 1174,
+              "headingCount": 0
+            }
+          ]
+        },
+        {
+          "width": 768,
+          "sections": [
+            {
+              "selector": ".hero",
+              "present": true,
+              "x": 0,
+              "width": 768,
+              "height": 1317,
+              "headingCount": 1
+            },
+            {
+              "selector": ".features-strip",
+              "present": true,
+              "x": 0,
+              "width": 768,
+              "height": 298,
+              "headingCount": 0
+            },
+            {
+              "selector": ".collections",
+              "present": true,
+              "x": 0,
+              "width": 768,
+              "height": 2630,
+              "headingCount": 6
+            },
+            {
+              "selector": ".promise",
+              "present": true,
+              "x": 0,
+              "width": 768,
+              "height": 1443,
+              "headingCount": 4
+            },
+            {
+              "selector": ".featured",
+              "present": true,
+              "x": 0,
+              "width": 768,
+              "height": 1111,
+              "headingCount": 1
+            },
+            {
+              "selector": ".story",
+              "present": true,
+              "x": 0,
+              "width": 768,
+              "height": 1024,
+              "headingCount": 1
+            },
+            {
+              "selector": ".recettes",
+              "present": true,
+              "x": 0,
+              "width": 768,
+              "height": 2078,
+              "headingCount": 4
+            },
+            {
+              "selector": ".process",
+              "present": true,
+              "x": 0,
+              "width": 768,
+              "height": 1472,
+              "headingCount": 4
+            },
+            {
+              "selector": ".testimonials",
+              "present": true,
+              "x": 0,
+              "width": 768,
+              "height": 1332,
+              "headingCount": 1
+            },
+            {
+              "selector": ".health-strip",
+              "present": true,
+              "x": 0,
+              "width": 768,
+              "height": 264,
+              "headingCount": 0
+            },
+            {
+              "selector": ".cta",
+              "present": true,
+              "x": 0,
+              "width": 768,
+              "height": 708,
+              "headingCount": 1
+            },
+            {
+              "selector": ".ornate-frame",
+              "present": true,
+              "x": 58,
+              "width": 652,
+              "height": 395,
+              "headingCount": 1
+            },
+            {
+              "selector": ".newsletter",
+              "present": true,
+              "x": 0,
+              "width": 768,
+              "height": 348,
+              "headingCount": 1
+            },
+            {
+              "selector": ".footer",
+              "present": true,
+              "x": 0,
+              "width": 768,
+              "height": 1155,
+              "headingCount": 0
+            }
+          ]
+        },
+        {
+          "width": 1024,
+          "sections": [
+            {
+              "selector": ".hero",
+              "present": true,
+              "x": 0,
+              "width": 1024,
+              "height": 1389,
+              "headingCount": 1
+            },
+            {
+              "selector": ".features-strip",
+              "present": true,
+              "x": 0,
+              "width": 1024,
+              "height": 112,
+              "headingCount": 0
+            },
+            {
+              "selector": ".collections",
+              "present": true,
+              "x": 0,
+              "width": 1024,
+              "height": 1431,
+              "headingCount": 6
+            },
+            {
+              "selector": ".promise",
+              "present": true,
+              "x": 0,
+              "width": 1024,
+              "height": 895,
+              "headingCount": 4
+            },
+            {
+              "selector": ".featured",
+              "present": true,
+              "x": 0,
+              "width": 1024,
+              "height": 1094,
+              "headingCount": 1
+            },
+            {
+              "selector": ".story",
+              "present": true,
+              "x": 0,
+              "width": 1024,
+              "height": 1065,
+              "headingCount": 1
+            },
+            {
+              "selector": ".recettes",
+              "present": true,
+              "x": 0,
+              "width": 1024,
+              "height": 1100,
+              "headingCount": 4
+            },
+            {
+              "selector": ".process",
+              "present": true,
+              "x": 0,
+              "width": 1024,
+              "height": 911,
+              "headingCount": 4
+            },
+            {
+              "selector": ".testimonials",
+              "present": true,
+              "x": 0,
+              "width": 1024,
+              "height": 848,
+              "headingCount": 1
+            },
+            {
+              "selector": ".health-strip",
+              "present": true,
+              "x": 0,
+              "width": 1024,
+              "height": 186,
+              "headingCount": 0
+            },
+            {
+              "selector": ".cta",
+              "present": true,
+              "x": 0,
+              "width": 1024,
+              "height": 721,
+              "headingCount": 1
+            },
+            {
+              "selector": ".ornate-frame",
+              "present": true,
+              "x": 210,
+              "width": 604,
+              "height": 403,
+              "headingCount": 1
+            },
+            {
+              "selector": ".newsletter",
+              "present": true,
+              "x": 0,
+              "width": 1024,
+              "height": 257,
+              "headingCount": 1
+            },
+            {
+              "selector": ".footer",
+              "present": true,
+              "x": 0,
+              "width": 1024,
+              "height": 694,
+              "headingCount": 0
+            }
+          ]
+        },
+        {
+          "width": 1440,
+          "sections": [
+            {
+              "selector": ".hero",
+              "present": true,
+              "x": 0,
+              "width": 1440,
+              "height": 1000,
+              "headingCount": 1
+            },
+            {
+              "selector": ".features-strip",
+              "present": true,
+              "x": 0,
+              "width": 1440,
+              "height": 93,
+              "headingCount": 0
+            },
+            {
+              "selector": ".collections",
+              "present": true,
+              "x": 0,
+              "width": 1440,
+              "height": 1448,
+              "headingCount": 6
+            },
+            {
+              "selector": ".promise",
+              "present": true,
+              "x": 0,
+              "width": 1440,
+              "height": 879,
+              "headingCount": 4
+            },
+            {
+              "selector": ".featured",
+              "present": true,
+              "x": 0,
+              "width": 1440,
+              "height": 780,
+              "headingCount": 1
+            },
+            {
+              "selector": ".story",
+              "present": true,
+              "x": 0,
+              "width": 1440,
+              "height": 783,
+              "headingCount": 1
+            },
+            {
+              "selector": ".recettes",
+              "present": true,
+              "x": 0,
+              "width": 1440,
+              "height": 1060,
+              "headingCount": 4
+            },
+            {
+              "selector": ".process",
+              "present": true,
+              "x": 0,
+              "width": 1440,
+              "height": 861,
+              "headingCount": 4
+            },
+            {
+              "selector": ".testimonials",
+              "present": true,
+              "x": 0,
+              "width": 1440,
+              "height": 852,
+              "headingCount": 1
+            },
+            {
+              "selector": ".health-strip",
+              "present": true,
+              "x": 0,
+              "width": 1440,
+              "height": 169,
+              "headingCount": 0
+            },
+            {
+              "selector": ".cta",
+              "present": true,
+              "x": 0,
+              "width": 1440,
+              "height": 759,
+              "headingCount": 1
+            },
+            {
+              "selector": ".ornate-frame",
+              "present": true,
+              "x": 418,
+              "width": 604,
+              "height": 419,
+              "headingCount": 1
+            },
+            {
+              "selector": ".newsletter",
+              "present": true,
+              "x": 0,
+              "width": 1440,
+              "height": 257,
+              "headingCount": 1
+            },
+            {
+              "selector": ".footer",
+              "present": true,
+              "x": 0,
+              "width": 1440,
+              "height": 458,
+              "headingCount": 0
+            }
+          ]
+        }
+      ],
+      "destinations": [
+        {
+          "path": "/",
+          "status": 200
+        },
+        {
+          "path": "/?s&post_type=product",
+          "status": 200
+        },
+        {
+          "path": "/?page_id=13",
+          "status": 200
+        },
+        {
+          "path": "/?page_id=11",
+          "status": 200
+        },
+        {
+          "path": "/?page_id=10",
+          "status": 200
+        },
+        {
+          "path": "/?product_cat=viandes",
+          "status": 200
+        },
+        {
+          "path": "/?product_cat=fruits-de-mer-poissons",
+          "status": 200
+        },
+        {
+          "path": "/?product_cat=veau-volaille-agneau",
+          "status": 200
+        },
+        {
+          "path": "/?product_cat=produits-gourmets",
+          "status": 200
+        },
+        {
+          "path": "/?product_cat=desserts",
+          "status": 200
+        }
+      ],
+      "contrastSamples": [
+        {
+          "selector": ".nav-link",
+          "color": "rgb(196, 133, 122)",
+          "background": "rgba(250, 247, 242, 0)",
+          "fontSize": "10.88px",
+          "fontWeight": "400"
+        },
+        {
+          "selector": ".hero__title em",
+          "color": "rgb(196, 133, 122)",
+          "background": "rgb(250, 247, 242)",
+          "fontSize": "92.8px",
+          "fontWeight": "400"
+        },
+        {
+          "selector": ".trust-item__label",
+          "color": "rgb(140, 136, 132)",
+          "background": "rgb(250, 247, 242)",
+          "fontSize": "9.92px",
+          "fontWeight": "400"
+        },
+        {
+          "selector": ".btn-blush",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(196, 133, 122)",
+          "fontSize": "10.88px",
+          "fontWeight": "500"
+        },
+        {
+          "selector": ".col-card__desc",
+          "color": "rgb(140, 136, 132)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "12.48px",
+          "fontWeight": "300"
+        },
+        {
+          "selector": ".newsletter .t-body",
+          "color": "rgb(74, 71, 68)",
+          "background": "rgb(44, 42, 39)",
+          "fontSize": "14.08px",
+          "fontWeight": "300"
+        },
+        {
+          "selector": ".footer__copy",
+          "color": "rgb(176, 173, 168)",
+          "background": "rgb(244, 237, 227)",
+          "fontSize": "11.52px",
+          "fontWeight": "300"
+        }
+      ],
+      "findings": [
+        {
+          "severity": "major",
+          "area": "content",
+          "detail": "FAQ, contact, phone and delivery policy use homepage-section fallbacks; complete approved content before launch."
+        },
+        {
+          "severity": "major",
+          "area": "newsletter",
+          "detail": "Unavailable-state paragraph inherits dark text on dark background; configured-link state also needs contrasting text/border."
+        },
+        {
+          "severity": "major",
+          "area": "accessibility",
+          "detail": "Known rose/gray text and buttons require approved contrast adjustment; no global palette changed."
+        },
+        {
+          "severity": "major",
+          "area": "commerce-content",
+          "detail": "Marketing quantities, origin, testimonials, guarantees and financing require owner validation."
+        }
+      ],
+      "failures": []
+    },
+    "commerce": {
+      "scope": "isolated-only",
+      "stage": "responsive_commerce",
+      "checks": [
+        {
+          "label": "Numeric ascending order across all 12 products",
+          "passed": true
+        },
+        {
+          "label": "Four pagination pages without duplicate or missing product",
+          "passed": true
+        },
+        {
+          "label": "Numeric descending order across all 12 products",
+          "passed": true
+        },
+        {
+          "label": "Price filter applies real 20–40 inclusive range",
+          "passed": true
+        },
+        {
+          "label": "Available variation resolves 250 g",
+          "passed": true
+        },
+        {
+          "label": "Variation price changes 250 g",
+          "passed": true
+        },
+        {
+          "label": "Available variation resolves 500 g",
+          "passed": true
+        },
+        {
+          "label": "Variation price changes 500 g",
+          "passed": true
+        },
+        {
+          "label": "Second variation added with correct portion",
+          "passed": true
+        },
+        {
+          "label": "Second variation subtotal is 35",
+          "passed": true
+        },
+        {
+          "label": "Out-of-stock variation option is present in persisted fixture",
+          "passed": true
+        },
+        {
+          "label": "Unavailable variation blocks purchase",
+          "passed": true
+        },
+        {
+          "label": "Server rejects an unavailable variation",
+          "passed": true
+        },
+        {
+          "label": "Browser quantity limit reflects available stock",
+          "passed": true
+        },
+        {
+          "label": "Server rejects quantity exceeding stock",
+          "passed": true
+        },
+        {
+          "label": "Rejected stock quantity does not add another cart line",
+          "passed": true
+        },
+        {
+          "label": "Classic checkout renders with nonempty synthetic cart",
+          "passed": true
+        },
+        {
+          "label": "Checkout required billing controls are present",
+          "passed": true
+        },
+        {
+          "label": "Checkout has no available payment gateway",
+          "passed": true
+        },
+        {
+          "label": "Native checkout nonce present without submission",
+          "passed": true
+        },
+        {
+          "label": "Blank required checkout field shows native error without submission",
+          "passed": true
+        },
+        {
+          "label": "Correcting required field clears native invalid state",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow catalogue 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded catalogue 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 catalogue 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled catalogue 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow simple 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded simple 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 simple 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled simple 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow variable 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded variable 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 variable 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled variable 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow panier 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded panier 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 panier 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled panier 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow commande 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded commande 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 commande 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled commande 320",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow catalogue 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded catalogue 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 catalogue 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled catalogue 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce keyboard focus returns catalogue 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow simple 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded simple 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 simple 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled simple 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce keyboard focus returns simple 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow variable 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded variable 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 variable 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled variable 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce keyboard focus returns variable 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow panier 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded panier 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 panier 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled panier 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce keyboard focus returns panier 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow commande 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded commande 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 commande 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled commande 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce keyboard focus returns commande 390",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow catalogue 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded catalogue 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 catalogue 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled catalogue 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow simple 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded simple 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 simple 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled simple 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow variable 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded variable 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 variable 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled variable 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow panier 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded panier 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 panier 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled panier 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow commande 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded commande 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 commande 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled commande 768",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow catalogue 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded catalogue 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 catalogue 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled catalogue 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow simple 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded simple 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 simple 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled simple 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow variable 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded variable 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 variable 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled variable 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow panier 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded panier 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 panier 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled panier 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow commande 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded commande 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 commande 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled commande 1024",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow catalogue 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded catalogue 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 catalogue 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled catalogue 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce keyboard focus returns catalogue 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow simple 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded simple 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 simple 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled simple 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce keyboard focus returns simple 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow variable 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded variable 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 variable 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled variable 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce keyboard focus returns variable 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow panier 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded panier 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 panier 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled panier 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce keyboard focus returns panier 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce no horizontal overflow commande 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce local images loaded commande 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce one H1 commande 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce controls labeled commande 1440",
+          "passed": true
+        },
+        {
+          "label": "Commerce keyboard focus returns commande 1440",
+          "passed": true
+        }
+      ],
+      "ordersSubmitted": 0,
+      "sorts": {
+        "ascending": {
+          "ids": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "pages": 4
+        },
+        "descending": {
+          "ids": [
+            35,
+            34,
+            33,
+            32,
+            31,
+            30,
+            29,
+            28,
+            27,
+            26,
+            25,
+            24
+          ],
+          "pages": 4
+        },
+        "filtered": {
+          "ids": [
+            26,
+            27,
+            28,
+            29,
+            30
+          ],
+          "pages": 2
+        }
+      },
+      "responsive": [
+        {
+          "width": 320,
+          "page": "catalogue",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 320,
+          "page": "simple",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 320,
+          "page": "variable",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 320,
+          "page": "panier",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 320,
+          "page": "commande",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 390,
+          "page": "catalogue",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 390,
+          "page": "simple",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 390,
+          "page": "variable",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 390,
+          "page": "panier",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 390,
+          "page": "commande",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 768,
+          "page": "catalogue",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 768,
+          "page": "simple",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 768,
+          "page": "variable",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 768,
+          "page": "panier",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 768,
+          "page": "commande",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 1024,
+          "page": "catalogue",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 1024,
+          "page": "simple",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 1024,
+          "page": "variable",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 1024,
+          "page": "panier",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 1024,
+          "page": "commande",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 1440,
+          "page": "catalogue",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 1440,
+          "page": "simple",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 1440,
+          "page": "variable",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 1440,
+          "page": "panier",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        },
+        {
+          "width": 1440,
+          "page": "commande",
+          "overflow": false,
+          "brokenLocal": 0,
+          "h1": 1,
+          "unlabeled": []
+        }
+      ],
+      "focusReview": [
+        {
+          "viewport": 390,
+          "page": "catalogue",
+          "outline": "solid",
+          "outlineWidth": "3px",
+          "boxShadow": "none",
+          "needsManualReview": false
+        },
+        {
+          "viewport": 390,
+          "page": "simple",
+          "outline": "solid",
+          "outlineWidth": "3px",
+          "boxShadow": "none",
+          "needsManualReview": false
+        },
+        {
+          "viewport": 390,
+          "page": "variable",
+          "outline": "solid",
+          "outlineWidth": "3px",
+          "boxShadow": "none",
+          "needsManualReview": false
+        },
+        {
+          "viewport": 390,
+          "page": "panier",
+          "outline": "solid",
+          "outlineWidth": "3px",
+          "boxShadow": "none",
+          "needsManualReview": false
+        },
+        {
+          "viewport": 390,
+          "page": "commande",
+          "outline": "solid",
+          "outlineWidth": "3px",
+          "boxShadow": "none",
+          "needsManualReview": false
+        },
+        {
+          "viewport": 1440,
+          "page": "catalogue",
+          "outline": "solid",
+          "outlineWidth": "3px",
+          "boxShadow": "none",
+          "needsManualReview": false
+        },
+        {
+          "viewport": 1440,
+          "page": "simple",
+          "outline": "solid",
+          "outlineWidth": "3px",
+          "boxShadow": "none",
+          "needsManualReview": false
+        },
+        {
+          "viewport": 1440,
+          "page": "variable",
+          "outline": "solid",
+          "outlineWidth": "3px",
+          "boxShadow": "none",
+          "needsManualReview": false
+        },
+        {
+          "viewport": 1440,
+          "page": "panier",
+          "outline": "solid",
+          "outlineWidth": "3px",
+          "boxShadow": "none",
+          "needsManualReview": false
+        },
+        {
+          "viewport": 1440,
+          "page": "commande",
+          "outline": "solid",
+          "outlineWidth": "3px",
+          "boxShadow": "none",
+          "needsManualReview": false
+        }
+      ],
+      "failures": [],
+      "finalCheckoutPath": "/?page_id=12"
+    },
+    "contrast": {
+      "scope": "proposal-only-no-theme-change",
+      "sources": [
+        "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
+        "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html"
+      ],
+      "current": [
+        {
+          "label": "Rose sur crème",
+          "foreground": "#C4857A",
+          "background": "#FAF7F2",
+          "ratio": 2.8141,
+          "normalAA": false,
+          "largeAA": false
+        },
+        {
+          "label": "Blanc sur rose",
+          "foreground": "#FFFFFF",
+          "background": "#C4857A",
+          "ratio": 3.0072,
+          "normalAA": false,
+          "largeAA": true
+        },
+        {
+          "label": "Gris sur crème",
+          "foreground": "#8C8884",
+          "background": "#FAF7F2",
+          "ratio": 3.2917,
+          "normalAA": false,
+          "largeAA": true
+        },
+        {
+          "label": "Gris clair sur crème 2",
+          "foreground": "#B0ADA8",
+          "background": "#F4EDE3",
+          "ratio": 1.9246,
+          "normalAA": false,
+          "largeAA": false
+        },
+        {
+          "label": "Infolettre indisponible",
+          "foreground": "#4A4744",
+          "background": "#2C2A27",
+          "ratio": 1.5508,
+          "normalAA": false,
+          "largeAA": false
+        },
+        {
+          "label": "Infolettre lien configuré",
+          "foreground": "#2C2A27",
+          "background": "#2C2A27",
+          "ratio": 1,
+          "normalAA": false,
+          "largeAA": false
+        },
+        {
+          "label": "Sauge sur fond pâle",
+          "foreground": "#8BA888",
+          "background": "#EBF2EA",
+          "ratio": 2.2871,
+          "normalAA": false,
+          "largeAA": false
+        },
+        {
+          "label": "Terre sur blanc",
+          "foreground": "#B8956A",
+          "background": "#FFFFFF",
+          "ratio": 2.7832,
+          "normalAA": false,
+          "largeAA": false
+        }
+      ],
+      "proposal": [
+        {
+          "label": "Rose encre sur #FAF7F2",
+          "foreground": "#94544B",
+          "background": "#FAF7F2",
+          "ratio": 5.4152,
+          "normalAA": true,
+          "largeAA": true
+        },
+        {
+          "label": "Gris texte sur #FAF7F2",
+          "foreground": "#6E6964",
+          "background": "#FAF7F2",
+          "ratio": 5.0809,
+          "normalAA": true,
+          "largeAA": true
+        },
+        {
+          "label": "Rose encre sur #F4EDE3",
+          "foreground": "#94544B",
+          "background": "#F4EDE3",
+          "ratio": 4.9793,
+          "normalAA": true,
+          "largeAA": true
+        },
+        {
+          "label": "Gris texte sur #F4EDE3",
+          "foreground": "#6E6964",
+          "background": "#F4EDE3",
+          "ratio": 4.672,
+          "normalAA": true,
+          "largeAA": true
+        },
+        {
+          "label": "Rose encre sur #F5E8E6",
+          "foreground": "#94544B",
+          "background": "#F5E8E6",
+          "ratio": 4.8411,
+          "normalAA": true,
+          "largeAA": true
+        },
+        {
+          "label": "Gris texte sur #F5E8E6",
+          "foreground": "#6E6964",
+          "background": "#F5E8E6",
+          "ratio": 4.5422,
+          "normalAA": true,
+          "largeAA": true
+        },
+        {
+          "label": "Rose encre sur #EBF2EA",
+          "foreground": "#94544B",
+          "background": "#EBF2EA",
+          "ratio": 5.0763,
+          "normalAA": true,
+          "largeAA": true
+        },
+        {
+          "label": "Gris texte sur #EBF2EA",
+          "foreground": "#6E6964",
+          "background": "#EBF2EA",
+          "ratio": 4.7629,
+          "normalAA": true,
+          "largeAA": true
+        },
+        {
+          "label": "Rose encre sur #FFFFFF",
+          "foreground": "#94544B",
+          "background": "#FFFFFF",
+          "ratio": 5.7869,
+          "normalAA": true,
+          "largeAA": true
+        },
+        {
+          "label": "Gris texte sur #FFFFFF",
+          "foreground": "#6E6964",
+          "background": "#FFFFFF",
+          "ratio": 5.4297,
+          "normalAA": true,
+          "largeAA": true
+        },
+        {
+          "label": "Bouton rose encre",
+          "foreground": "#FFFFFF",
+          "background": "#94544B",
+          "ratio": 5.7869,
+          "normalAA": true,
+          "largeAA": true
+        },
+        {
+          "label": "Infolettre claire",
+          "foreground": "#E8E2DA",
+          "background": "#2C2A27",
+          "ratio": 11.1218,
+          "normalAA": true,
+          "largeAA": true
+        },
+        {
+          "label": "Texte terre",
+          "foreground": "#806342",
+          "background": "#FFFFFF",
+          "ratio": 5.5537,
+          "normalAA": true,
+          "largeAA": true
+        },
+        {
+          "label": "Texte sauge",
+          "foreground": "#52694F",
+          "background": "#EBF2EA",
+          "ratio": 5.2749,
+          "normalAA": true,
+          "largeAA": true
+        }
+      ],
+      "limits": "Opaque flat-color pairs only. Photographic backgrounds, opacity, actual font weight, focus and hover need context checks. No WCAG certification claimed."
+    },
+    "php": {
+      "scope": "isolated-only",
+      "logs": [
+        {
+          "name": "php_server",
+          "present": true,
+          "fatal": 0,
+          "warnings": 0,
+          "deprecated": 0
+        },
+        {
+          "name": "wordpress_debug",
+          "present": true,
+          "fatal": 0,
+          "warnings": 0,
+          "deprecated": 0
+        }
+      ],
+      "fatal_count": 0
+    }
+  },
+  "limits": [
+    "No deployment to GoDaddy; its installed theme is unchanged by this phase.",
+    "No order submission; no tax/shipping/payment configuration validation.",
+    "No complete WCAG certification or pixel comparison of secondary sections.",
+    "Hosted final checkout URL and French WooCommerce locale not newly verified."
+  ]
+}
