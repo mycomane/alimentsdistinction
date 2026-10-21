@@ -50,6 +50,7 @@ const same=(a,b)=>Object.keys(a).every(k=>Math.abs(a[k]-b[k])<=1);
     check(await toggle.evaluate(el=>el===document.activeElement),'Menu restores keyboard focus '+width);
    }
    if(width===390){
+    await page.evaluate(()=>document.activeElement?.blur());
     pictures.after=await page.locator('.hero').screenshot({type:'jpeg',quality:65});
     for(const [name,data]of Object.entries(pictures))fs.writeFileSync(path.join(out,'hero-390-'+name+'.jpg'),data);
     const sheet=await browser.newPage({viewport:{width:1170,height:1720}});

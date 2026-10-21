@@ -47,7 +47,7 @@ jobs:
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
           node scripts/qa/browser.cjs
-          node scripts/qa/mobile-geometry.cjs --diagnose
+          node scripts/qa/mobile-geometry.cjs
       - name: Publish only isolated public-design evidence
         if: always()
         uses: actions/upload-artifact@v4

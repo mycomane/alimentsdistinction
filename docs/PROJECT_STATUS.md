@@ -6,7 +6,7 @@ Mise à jour : 21 octobre 2026 (America/Toronto).
 
 Base vérifiée : `82eccba3bdd3e5fc1b1920d6ce33a882291374f7` sur `feat/wordpress-woocommerce-theme`. La feuille de route, la passation, les recettes privée et isolée et le bilan d’activation WooCommerce ont été lus intégralement. Dernières exécutions existantes : QA isolé `39531003567` et recette privée `39531003568`, réussies.
 
-**P0 en cours : diagnostic contrôlé du décalage mobile de 53 px, uniquement dans WordPress jetable.** Les mesures distinguent la référence, la règle installée (retour à la ligne) et un contrôle CSS sans retour de ligne. Les résultats du nouveau scénario sont en attente; aucun succès supplémentaire déclaré.
+**P0 : cause confirmée, correction minimale préparée; régression du fichier corrigé en cours.** P1/P2 : préparation de la recette complémentaire et des propositions de contraste, en environnement isolé uniquement.
 
 ## Terminé
 
@@ -14,15 +14,17 @@ Base vérifiée : `82eccba3bdd3e5fc1b1920d6ce33a882291374f7` sur `feat/wordpress
 - Copie de travail propre créée au commit de base; modification locale préexistante de `volaille.jpg` préservée et exclue.
 - Scénario de géométrie préparé aux cinq largeurs 320/390/768/1024/1440 : enfants du bloc de réassurance, photo, titre, CTA, débordement et focus du menu.
 - Captures comparatives prévues uniquement depuis le runner isolé, sans accès ni données GoDaddy.
+- Diagnostic `9f567b6cde56ff1c9a86e089cd0fec68e14e7d55`, [run 39605089716](https://github.com/mycomane/alimentsdistinction/actions/runs/39605089716) réussi : le retour à la ligne du troisième indicateur ajoute 52,6 px. Son retrait retrouve exactement les mesures de référence aux cinq largeurs. Rapport : `P0_MOBILE_2026-10-21.md`.
+- Correction CSS : suppression de la seule règle mobile `flex-wrap: wrap` de `.hero__trust`; aucun changement à la maquette originale.
 
 ## Tests et preuves
 
 - Historique : 11 assertions PHP + 41 navigateur isolées; 33 assertions frontend GoDaddy. Voir les rapports sources pour leurs limites.
-- Nouveau diagnostic : à exécuter via le workflow isolé; aucun secret GoDaddy ni environnement `godaddy-temp` utilisé.
+- Diagnostic contrôlé réussi : 61 assertions supplémentaires de géométrie et focus, 41 navigateur et 11 PHP. Régression sur le thème corrigé : en attente du prochain run. Aucun secret GoDaddy ni environnement `godaddy-temp` utilisé.
 
 ## Anomalies et corrections envisagées
 
-- P0 : 53 px de hauteur supplémentaire à 320/390 px; `flex-wrap: wrap` de `.hero__trust` reste une hypothèse à confirmer par contrôle.
+- P0 : cause confirmée et suppression ciblée préparée; pas encore déployée.
 - P1 : contrastes insuffisants; propositions de palette à présenter sans les appliquer au thème.
 - P1 : contenu FAQ/contact/téléphone/livraison/recettes et infolettre à compléter/valider.
 - P2 : ordre numérique des tris, pagination, variations multiples et erreurs de quantités à couvrir isolément.

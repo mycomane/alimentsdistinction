@@ -40,7 +40,6 @@ section[id], footer[id] { scroll-margin-top: 140px; }
   .ad-recipe-grid { grid-template-columns: 1fr; }
   .btn { white-space: normal; text-align: center; }
   .hero__ctas { flex-wrap: wrap; }
-  .hero__trust { flex-wrap: wrap; }
   .ad-content { padding-top: 190px; }
 }
 @media (max-width: 782px) { .admin-bar .nav { top: 46px; } }
