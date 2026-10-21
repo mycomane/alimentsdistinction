@@ -92,3 +92,11 @@ Le compte a uniquement le rôle Abonné (capacités read/level_0 contrôlées), 
 - Syntaxe PHP/Bash/JS/YAML et présence de la dépendance/du nettoyage obligatoire vérifiées localement. ShellCheck/tests GitHub et exécution hébergée restent à confirmer par le nouveau run.
 
 La nouvelle approbation GitHub sera l'étape bloquante avant tout provisionnement GoDaddy. L'issue #1 et PROJECT_STATUS.md recevront le lien et le résultat; aucun succès hébergé anticipé.
+
+### Préparation GitHub confirmée — nouvelle recette P0
+
+- Commit [`6b3031a74792827836d3bab57d181896b7d15d40`](https://github.com/mycomane/alimentsdistinction/commit/6b3031a74792827836d3bab57d181896b7d15d40).
+- [Run recette 39686849316](https://github.com/mycomane/alimentsdistinction/actions/runs/39686849316) : préparation `119522989146` réussie, ShellCheck/syntaxe/six scénarios géométriques.
+- Job distant `119523045267` : **waiting**, reviewer `mycomane` pour `godaddy-temp`. Aucun compte distant encore créé.
+- L'autorisation de Julien pour ce nouvel Abonné est enregistrée; la **nouvelle revue GitHub reste obligatoire**, puis recette et nettoyage `always()`. Aucun redéploiement.
+- QA isolé automatique **39686849309 / 119522988346 : succès**, 300 assertions et zéro fatal/avertissement/dépréciation PHP compté. Le résultat de la recette GoDaddy elle-même reste en attente d’approbation/exécution.

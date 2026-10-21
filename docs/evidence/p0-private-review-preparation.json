@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-21",
+  "commit": "6b3031a74792827836d3bab57d181896b7d15d40",
+  "authorization": "Julien explicitly approved new 30-minute read-only subscriber with deletion/session revocation",
+  "reviewRun": 39686849316,
+  "prepareJob": 119522989146,
+  "prepareConclusion": "success",
+  "geometryUnitScenarios": 6,
+  "localLifecycle": {
+    "scope": "local disposable WP only",
+    "subscriberCookieValid": true,
+    "expiration30Minutes": true,
+    "accountDeleted": true,
+    "sessionsRevoked": true,
+    "priorCookieRejected": true,
+    "protectedStateUnchanged": true
+  },
+  "isolatedRun": 39686849309,
+  "isolatedJob": 119522988346,
+  "isolatedConclusion": "success",
+  "isolatedReport": {
+    "php": 11,
+    "baseline": 41,
+    "p0": 61,
+    "sections": 55,
+    "commerce": 132,
+    "failures": [],
+    "phpDiagnostics": {
+      "scope": "isolated-only",
+      "logs": [
+        {
+          "name": "php_server",
+          "present": true,
+          "fatal": 0,
+          "warnings": 0,
+          "deprecated": 0
+        },
+        {
+          "name": "wordpress_debug",
+          "present": true,
+          "fatal": 0,
+          "warnings": 0,
+          "deprecated": 0
+        }
+      ],
+      "fatal_count": 0
+    }
+  },
+  "hostedJob": 119523045267,
+  "hostedStatus": "waiting for godaddy-temp reviewer mycomane",
+  "hostedAccountCreated": false,
+  "themeRedeployment": false,
+  "authenticatedScreenshotsExported": false
+}

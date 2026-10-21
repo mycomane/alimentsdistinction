@@ -4,10 +4,10 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 ## Phase et derniers commits
 
-**P0 : déploiement technique 0.1.1 réussi sur le WordPress temporaire le 21 octobre 2026 à 18 h 21 HAE. Sauvegarde/rollback préparé, CSS servi et état protégé vérifiés. Recette visuelle hébergée authentifiée autorisée par Julien, préparation en cours; nouvelle revue GitHub obligatoire avant création de l’Abonné.**
+**P0 : déploiement technique 0.1.1 réussi sur le WordPress temporaire le 21 octobre 2026 à 18 h 21 HAE. Sauvegarde/rollback préparé, CSS servi et état protégé vérifiés. Recette visuelle hébergée authentifiée autorisée et préparation testée; run 39686849316 en attente de la revue GitHub avant création de l’Abonné.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
-- Dernier commit d’implémentation/tests vérifié : [`be5703eeaa434ada55cb33a961a0b08e11f6a862`](https://github.com/mycomane/alimentsdistinction/commit/be5703eeaa434ada55cb33a961a0b08e11f6a862), correction bornée des fins de ligne. Aucun changement au paquet du thème 0.1.1.
+- Dernier commit de recette préparé : [`6b3031a74792827836d3bab57d181896b7d15d40`](https://github.com/mycomane/alimentsdistinction/commit/6b3031a74792827836d3bab57d181896b7d15d40). Code déployé : `be5703eeaa434ada55cb33a961a0b08e11f6a862`; thème 0.1.1 inchangé.
 - Commit du correctif CSS : [`9618095516d982e10eebfe5c7aa0cdcc4bf85be3`](https://github.com/mycomane/alimentsdistinction/commit/9618095516d982e10eebfe5c7aa0cdcc4bf85be3).
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
@@ -19,7 +19,11 @@ La création d'un nouvel Abonné temporaire 30 minutes et sa suppression/révoca
 - Workflow `review-godaddy-private.yml` actualisé : nouveau reviewer obligatoire du run exact, préconditions version 0.1.1/WooCommerce et 23 empreintes, rapport géométrique ciblé et contrôle du CSS réellement demandé/reçu.
 - Tests locaux réussis : six scénarios détectant notamment +53 px et un cycle complet de session Abonné isolé (création, cookie valide, expiration, révocation/suppression, ancien cookie refusé, baseline stable).
 - Rapport distant prévu : 320/390/768/1024/1440, menu/clavier/images/ancres/pages techniques; aucun POST/panier/commande. Aucune capture ou HTML authentifié publié.
-- **Nouvelle exécution GitHub à confirmer**, puis approbation `godaddy-temp` avant toute création. Pas de compte GoDaddy créé durant la préparation.
+- **[Run recette privée 39686849316 — PRÊT POUR APPROBATION](https://github.com/mycomane/alimentsdistinction/actions/runs/39686849316)**, commit `6b3031a74792827836d3bab57d181896b7d15d40`.
+- Préparation `119522989146` : **succès**, syntaxe PHP/Bash/JS, ShellCheck et six scénarios géométriques détectant la régression.
+- Job `review` **119523045267 : waiting**, reviewer `mycomane`, environnement `godaddy-temp` confirmé. Aucun compte distant créé par cette préparation.
+- Revue requise : **Review deployments → godaddy-temp → Approve and deploy**. Le libellé GitHub est générique : ce workflow effectue la recette avec compte temporaire et nettoyage, **aucun redéploiement du thème**.
+- QA isolé automatique [39686849309](https://github.com/mycomane/alimentsdistinction/actions/runs/39686849309), job **119522988346 : succès**, **300 assertions** (11 PHP + 41 navigateur + 61 P0 + 55 sections + 132 WooCommerce), zéro fatal/avertissement/dépréciation PHP compté. Les résultats de la recette hébergée restent en attente de la revue et de son exécution.
 - [Autorisation et procédure détaillées](PRIVATE_REVIEW_APPROVED.md#nouvelle-autorisation--recette-p0-après-déploiement-011).
 
 ## État courant — déploiement technique réussi
@@ -132,7 +136,7 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 ## Prochaines étapes recommandées
 
-1. Terminer les tests GitHub de la recette autorisée et présenter le nouveau run à l’approbation `godaddy-temp`; pas de redéploiement du thème.
+1. Julien approuve le run de recette privée 39686849316 dans `godaddy-temp`; autorisation de l’Abonné déjà reçue, aucun redéploiement de thème.
 2. Après cette autorisation et la revue GitHub correspondante, mesurer le rendu hébergé à 320/390/768/1024/1440, menus/images/liens; révoquer la session et supprimer le seul compte de recette. Ne pas déclarer cette étape réussie à l’avance.
 3. Après validation graphique : intégrer les ajustements ciblés de contraste, états désactivés/survol/focus et navigation, puis refaire les vérifications isolées appropriées.
 4. Compléter les contenus commerciaux approuvés et les tests non couverts. Le formulaire de commande n’a jamais été soumis; les blocs Panier/Commande, lecteurs d’écran, pixels des sections secondaires et performance ne sont pas certifiés.
