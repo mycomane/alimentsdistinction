@@ -3,7 +3,7 @@ const fs=require('node:fs'),path=require('node:path');
 const {chromium}=require(path.join(process.env.RUNNER_TEMP,'ad-qa-tools/node_modules/playwright'));
 const dir=path.join(process.env.RUNNER_TEMP,'ad-isolated-qa'),base='http://127.0.0.1:8787';
 const ids=JSON.parse(fs.readFileSync(path.join(dir,'fixtures.json')));
-const report={scope:'isolated French storefront only',checks:[],failures:[],labels:{},ordersSubmitted:0};
+const report={scope:'isolated French storefront only',checks:[],failures:[],findings:[],labels:{},ordersSubmitted:0};
 const check=(ok,label)=>{report.checks.push({label,passed:!!ok});if(!ok)report.failures.push(label);};
 const text=async locator=>(await locator.innerText()).replace(/\s+/g,' ').trim();
 (async()=>{const browser=await chromium.launch();try{
@@ -12,7 +12,7 @@ const text=async locator=>(await locator.innerText()).replace(/\s+/g,' ').trim()
  const page=await context.newPage();page.on('pageerror',e=>report.failures.push(e.message));
  const goto=async id=>page.goto(base+'/?page_id='+id,{waitUntil:'networkidle'});
  await goto(ids.cart);report.labels.emptyCart=await text(page.locator('#main-content'));
- check(/panier est vide/i.test(report.labels.emptyCart),'Empty cart notice is French');
+ check(/panier est (?:actuellement )?vide/i.test(report.labels.emptyCart),'Empty cart notice is French');
  check(/Retour (?:à|vers) la boutique/i.test(report.labels.emptyCart),'Empty cart return link is French');
  await goto(ids.shop);report.labels.sorting=await text(page.locator('select.orderby'));
  check(/Tri par défaut/i.test(report.labels.sorting),'Catalog default sorting is French');
@@ -35,7 +35,7 @@ const text=async locator=>(await locator.innerText()).replace(/\s+/g,' ').trim()
  check(await page.locator('input.qty').inputValue()==='2','Synthetic quantity two is retained');
  check(/Mettre à jour le panier/i.test(report.labels.cart),'Cart update label is French');
  check(/Valider la commande/i.test(report.labels.cart),'Proceed-to-checkout label is French');
- check(/Sous-total/i.test(report.labels.cart),'Cart subtotal label is French');
+ report.labels.subtotal=await page.locator('.cart-subtotal td').getAttribute('data-title');check(report.labels.subtotal==='Sous-total','Mobile cart subtotal data-title is French');
  await page.locator('input.qty').fill('1');const [updated]=await Promise.all([page.waitForResponse(r=>r.request().method()==='POST'&&new URL(r.url()).origin===base),page.locator('button[name="update_cart"]').click()]);await updated.finished();await goto(ids.cart);
  check(await page.locator('input.qty').inputValue()==='1','French cart updates the synthetic quantity');
  await page.locator('#main-content').screenshot({path:path.join(dir,'evidence/french-cart.jpg'),type:'jpeg',quality:80});
@@ -46,6 +46,9 @@ const text=async locator=>(await locator.innerText()).replace(/\s+/g,' ').trim()
  check(/Commander/i.test(await text(page.locator('#place_order'))),'Checkout submission label is French (never clicked)');
  check(await page.locator('input[name="payment_method"]').count()===0,'No available real payment method');
  check(await page.locator('input[name="woocommerce-process-checkout-nonce"]').count()===1,'Native checkout security nonce remains present');
+ report.labels.privacy=await text(page.locator('.woocommerce-privacy-policy-text'));
+ if(/Your personal data/i.test(report.labels.privacy))report.findings.push({severity:'content',scope:'isolated fixture only; hosted status unknown',code:'persisted-privacy-english',detail:'Stored checkout privacy text remains English after locale change. Review stored content separately; no automatic hosted rewrite.'});
+ if(/Uncategorized/.test(report.labels.stockout))report.findings.push({severity:'fixture',code:'stored-category-english',detail:'Category created in the original English fixture remains English; not a theme translation string.'});
  for(const width of [390,1440]){await page.setViewportSize({width,height:1000});await goto(ids.checkout);check(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),width+' French checkout has no overflow');}
  await page.setViewportSize({width:390,height:1000});await goto(ids.checkout);
  await page.locator('#main-content').screenshot({path:path.join(dir,'evidence/french-checkout.jpg'),type:'jpeg',quality:80});
