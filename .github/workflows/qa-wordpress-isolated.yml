@@ -7,6 +7,7 @@ on:
       - 'scripts/qa/**'
       - 'tests/woocommerce-integration.php'
       - 'wordpress/**'
+      - 'docs/previews/**'
   workflow_dispatch:
 permissions:
   contents: read
@@ -46,8 +47,18 @@ jobs:
           php -S 127.0.0.1:8787 -t "$RUNNER_TEMP/ad-isolated-qa/wordpress" "$RUNNER_TEMP/ad-isolated-qa/router.php" > "$RUNNER_TEMP/ad-qa-php.log" 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
-          node scripts/qa/browser.cjs
-          node scripts/qa/mobile-geometry.cjs
+          test_status=0
+          node scripts/qa/browser.cjs || test_status=1
+          node scripts/qa/mobile-geometry.cjs || test_status=1
+          node scripts/qa/sections-audit.cjs || test_status=1
+          node scripts/qa/contrast-report.cjs || test_status=1
+          if php scripts/qa/extended-fixtures.php; then
+            node scripts/qa/commerce-extended.cjs || test_status=1
+          else
+            test_status=1
+          fi
+          php scripts/qa/no-orders.php || test_status=1
+          exit "$test_status"
       - name: Publish only isolated public-design evidence
         if: always()
         uses: actions/upload-artifact@v4
