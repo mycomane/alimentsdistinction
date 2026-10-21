@@ -55,7 +55,10 @@ const pauseUntilReady = () => new Promise((resolve, reject) => {
   await page.waitForFunction(()=>Number(document.querySelector('input.variation_id')?.value)>0);
   assert(Number(await page.locator('input.variation_id').inputValue())>0,'Variation selection resolves product id');
   await page.locator('input.qty').fill('1');
+  report.variationRequest = await page.locator('form.variations_form').evaluate(form=>Object.fromEntries(['product_id','add-to-cart','variation_id','attribute_portion','quantity'].map(name=>[name,form.querySelector('[name="'+name+'"]')?.value||null])));
   await page.locator('button.single_add_to_cart_button').click();
+  await page.waitForLoadState('networkidle');
+  report.variationNotices = await page.locator('.woocommerce-error, .woocommerce-message').allTextContents();
   await page.goto(`${base}/?page_id=${ids.cart}`,{waitUntil:'networkidle'});
   assert(await page.locator('.woocommerce-cart-form tr.cart_item').count()===2,'Simple and selected variation coexist in cart');
   assert((await page.locator('.woocommerce-cart-form').innerText()).includes('250 g'),'Selected variation portion survives HTTP navigation');
