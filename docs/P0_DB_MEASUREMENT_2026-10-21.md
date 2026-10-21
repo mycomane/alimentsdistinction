@@ -41,3 +41,14 @@ Les gardes existantes demeurent : branche exacte, nouvel accord reviewer pour le
 Le compte Abonné de recette reste **non autorisé et n'est pas créé**. Aucune opération sur `master`, le site commercial, les DNS, paiements ou Zoho.
 
 Le SHA testé, les résultats GitHub et le nouveau run en attente sont reportés dans [PROJECT_STATUS.md](PROJECT_STATUS.md) et l'issue #1 dès confirmation.
+
+## Résultats GitHub confirmés — nouvelle approbation attendue
+
+- Commit : [`ee9cd17655d5454483be339fdb5a7d4828305d58`](https://github.com/mycomane/alimentsdistinction/commit/ee9cd17655d5454483be339fdb5a7d4828305d58).
+- [Run 39638388563](https://github.com/mycomane/alimentsdistinction/actions/runs/39638388563).
+- Préparation `119355138291` : **succès**, 39 assertions parseur/espace + 17 gardes fichiers/Coming Soon, ShellCheck et syntaxe, requête réelle sur MySQL jetable et quatre scénarios de capture/parseur/nettoyage réussis. Aucun détail brut d'erreur n'a traversé les tests de refus.
+- QA WordPress `119355138814` : **succès**, 300 assertions, 0,00 px aux cinq largeurs, zéro commande et zéro fatal/avertissement/dépréciation PHP compté.
+- Déploiement `119356247301` : **waiting**, nouvelle revue `godaddy-temp` par `mycomane` requise et confirmée. Aucun accès GoDaddy effectué par cette reprise.
+- L'archive du thème reste identique : SHA256 `8162bc571bb5dea232badd562b5c9085c30187b1b4ff80f567f1f5e9fdb8497e`.
+
+La recette GoDaddy authentifiée et un nouvel Abonné restent non autorisés; aucune création de compte. La mesure réelle, les privilèges MySQL et la sauvegarde fraîche GoDaddy seront vérifiés dans l'exécution protégée après nouvelle approbation, sans présumer de leur réussite.

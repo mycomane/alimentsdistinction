@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-21",
+  "commit": "ee9cd17655d5454483be339fdb5a7d4828305d58",
+  "run": 39638388563,
+  "scope": "isolated; no GoDaddy operations by this run",
+  "prepare": {
+    "job": 119355138291,
+    "conclusion": "success",
+    "parserSpaceAssertions": 39,
+    "fileVisibilityAssertions": 17,
+    "mysqlScenarios": [
+      "valid aggregation accepted",
+      "empty database rejected",
+      "stderr warning rejected",
+      "MySQL unavailable rejected"
+    ],
+    "cleanupVerified": true
+  },
+  "qa": {
+    "job": 119355138814,
+    "conclusion": "success",
+    "assertions": 300,
+    "geometry": [
+      {
+        "width": 320,
+        "deltaAfter": 0
+      },
+      {
+        "width": 390,
+        "deltaAfter": 0
+      },
+      {
+        "width": 768,
+        "deltaAfter": 0
+      },
+      {
+        "width": 1024,
+        "deltaAfter": 0
+      },
+      {
+        "width": 1440,
+        "deltaAfter": 0
+      }
+    ],
+    "ordersSubmitted": 0,
+    "phpDiagnostics": {
+      "scope": "isolated-only",
+      "logs": [
+        {
+          "name": "php_server",
+          "present": true,
+          "fatal": 0,
+          "warnings": 0,
+          "deprecated": 0
+        },
+        {
+          "name": "wordpress_debug",
+          "present": true,
+          "fatal": 0,
+          "warnings": 0,
+          "deprecated": 0
+        }
+      ],
+      "fatal_count": 0
+    }
+  },
+  "deployment": {
+    "job": 119356247301,
+    "status": "waiting",
+    "environment": "godaddy-temp",
+    "reviewer": "mycomane",
+    "newApprovalRequired": true
+  },
+  "limitations": [
+    "GoDaddy WP-CLI version and exact failed output not observed",
+    "MySQL privileges and actual hosted size not verified by isolated tests",
+    "No hosted authenticated review account authorized"
+  ],
+  "themeZipSha256": "8162bc571bb5dea232badd562b5c9085c30187b1b4ff80f567f1f5e9fdb8497e"
+}
