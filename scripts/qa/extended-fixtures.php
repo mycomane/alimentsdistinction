@@ -16,7 +16,12 @@ for($i=1;$i<=12;$i++){
 }
 // Local-only catalog size makes four genuine pagination pages, without a theme filter.
 update_option('woocommerce_catalog_columns',3);update_option('woocommerce_catalog_rows',1);
-$variable=wc_get_product($ids['variable']);$attrs=$variable->get_attributes();$attrs['portion']->set_options(['250 g','500 g','1 kg']);$variable->set_attributes($attrs);$variable->save();
+$variable=wc_get_product($ids['variable']);$attrs=$variable->get_attributes();
+// Clone the attribute: mutating the same object bypasses WC CRUD's dirty-value comparison.
+$portion=clone $attrs['portion'];$portion->set_options(['250 g','500 g','1 kg']);$attrs['portion']=$portion;
+$variable->set_attributes($attrs);$variable->save();
+$reloaded=new WC_Product_Variable($variable->get_id());
+if(!in_array('1 kg',$reloaded->get_attributes()['portion']->get_options(),true))throw new RuntimeException('Synthetic variation option was not persisted');
 $v=new WC_Product_Variation();$v->set_parent_id($variable->get_id());$v->set_status('publish');$v->set_attributes(['portion'=>'1 kg']);$v->set_regular_price('60');$v->set_stock_status('outofstock');$v->save();WC_Product_Variable::sync($variable->get_id());
 file_put_contents($file,json_encode(['products'=>$products,'stockout_variation'=>$v->get_id(),'category'=>'qa-recette'],JSON_THROW_ON_ERROR));
 foreach([0,-1,6] as $quantity){

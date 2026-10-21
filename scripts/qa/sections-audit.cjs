@@ -31,7 +31,9 @@ const check=(passed,label)=>{report.checks.push({label,passed:!!passed});if(!pas
     await page.locator('#ad-navigation a').first().click();check(await toggle.getAttribute('aria-expanded')==='false','Anchor click closes menu '+width);
    }else check(await page.locator('#ad-navigation').isVisible(),'Desktop navigation visible '+width);
    if(width===390||width===1440){
-    await page.evaluate(()=>{document.activeElement?.blur();scrollTo(0,0);});await page.screenshot({path:path.join(out,'homepage-'+width+'.jpg'),type:'jpeg',quality:65,fullPage:true});
+    await page.evaluate(()=>{document.activeElement?.blur();scrollTo(0,0);});
+    const screenshot=await page.screenshot({path:path.join(out,'homepage-'+width+'.jpg'),type:'jpeg',quality:65,fullPage:true});
+    console.log('AD_HOMEPAGE_'+width+'_BASE64 '+screenshot.toString('base64'));
    }
   }
   await page.goto(base,{waitUntil:'networkidle'});
@@ -55,6 +57,7 @@ const check=(passed,label)=>{report.checks.push({label,passed:!!passed});if(!pas
   }));
   const preview=await browser.newPage({viewport:{width:1160,height:1000}});
   await preview.setContent(fs.readFileSync(path.resolve('docs/previews/contrast-options.html'),'utf8'));
+  await preview.evaluate(()=>document.fonts.ready);
   const picture=await preview.screenshot({type:'jpeg',quality:75,fullPage:true});
   fs.writeFileSync(path.join(out,'contrast-proposal.jpg'),picture);
   console.log('AD_QA_CONTRAST_PREVIEW_BASE64 '+picture.toString('base64'));

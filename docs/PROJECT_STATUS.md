@@ -8,7 +8,7 @@ Base vérifiée : `82eccba3bdd3e5fc1b1920d6ce33a882291374f7` sur `feat/wordpress
 
 Dernier commit de correction validé : `9618095516d982e10eebfe5c7aa0cdcc4bf85be3`.
 
-**P0 terminé en développement : correctif CSS réel validé, non déployé.** P1/P2 : recette complémentaire et propositions de contraste préparées, nouveau run en attente, en environnement isolé uniquement.
+**P0 terminé en développement : correctif CSS réel validé, non déployé.** P1 : 55 assertions sections/liens/clavier réussies, proposition de contraste préparée et non appliquée. P2 : relance requise après correction d’une fixture de variation, en environnement isolé uniquement.
 
 ## Terminé
 
@@ -25,7 +25,7 @@ Dernier commit de correction validé : `9618095516d982e10eebfe5c7aa0cdcc4bf85be3
 ## Tests et preuves
 
 - Historique : 11 assertions PHP + 41 navigateur isolées; 33 assertions frontend GoDaddy. Voir les rapports sources pour leurs limites.
-- Diagnostic et régression du correctif réel réussis (113 assertions ciblées par run). Recette étendue P1/P2 : résultats en attente. Aucun secret GoDaddy ni environnement `godaddy-temp` utilisé.
+- Diagnostic et régression du correctif réel réussis (113 assertions ciblées par run). [Run étendu 39607114646](https://github.com/mycomane/alimentsdistinction/actions/runs/39607114646) : P1 réussi (55 assertions), 14 couples de couleurs proposés calculés, P2 interrompu par une option de variation synthétique non persistée. Fixture corrigée, persistance vérifiée localement; résultat global de la relance en attente. Zéro commande et aucune passerelle disponible après ce run. Aucun secret GoDaddy ni environnement `godaddy-temp` utilisé.
 
 ## Anomalies et corrections envisagées
 

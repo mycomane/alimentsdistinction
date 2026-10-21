@@ -53,3 +53,11 @@ Le rose encre proposé garde une marge sur les fonds crème, crème 2, rose pâl
 ## Approbations
 
 Aucune permission supplémentaire requise pour ces tests isolés et calculs. **Julien doit approuver tout déploiement GoDaddy et toute modification importante de palette**. Aucune nouvelle recette distante nécessitant un compte n’est lancée. Les URL finales GoDaddy, notamment le renvoi de checkout vide, restent non confirmées par le relevé précédent; ne pas inventer ce résultat.
+
+## Premier run étendu : résultats partiels et correction de la fixture
+
+[Run 39607114646](https://github.com/mycomane/alimentsdistinction/actions/runs/39607114646), commit `a6e9482728b62367e80d82d18ae1dac6fdbe09fa` : P0 et les 52 contrôles existants réussis; **55 assertions sections/liens/clavier réussies** et **14 couples de couleurs proposés valides pour le texte normal sur leurs fonds unis**. L’échantillonnage du DOM confirme le texte sombre `#4A4744` sur charbon `#2C2A27` pour le paragraphe d’infolettre indisponible.
+
+Le job global échoue dans le nouveau test de variation : la fixture ne persistait pas l’option supplémentaire « 1 kg ». Cause reproduite localement : l’attribut WooCommerce avait été modifié sur le même objet, ce qui contournait la détection de changement du modèle CRUD. Le rechargement depuis la base ne renvoyait que « 250 g » et « 500 g ». La fixture clone désormais l’attribut avant modification et vérifie sa persistance après rechargement; ce contrôle est passé localement. Aucun correctif du thème ou du moteur WooCommerce n’est impliqué dans cet échec de données synthétiques.
+
+Les refus PHP des quantités 0, -1 et 6 ont réussi. La vérification finale confirme zéro commande créée et aucune passerelle disponible. Les assertions navigateur WooCommerce interrompues ne sont pas déclarées réussies; elles doivent passer dans la relance. Les rapports sont maintenant conservés même si un scénario navigateur s’interrompt.
