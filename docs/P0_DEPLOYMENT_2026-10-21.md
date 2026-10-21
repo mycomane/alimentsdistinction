@@ -73,3 +73,15 @@ Le statut opérationnel, les commits et liens d'exécution sont tenus à jour da
 ## Premier contrôle GitHub de préparation
 
 Le run `39615415227` a refusé de poursuivre dans ShellCheck : calcul de taille à arrondir plus prudemment et trois fragments PHP inline signalés pour leurs variables littérales. Aucun job distant exécuté. Les fragments PHP sont désormais dans le helper testé, et trois assertions supplémentaires vérifient que « Coming Soon » présent uniquement dans un script/style ne suffit pas. Nouvelle exécution requise avant approbation.
+
+## Résultat final de préparation — prêt pour approbation
+
+Commit testé : [`813b8a1dee186c1a3f5942976394cc44dd61f325`](https://github.com/mycomane/alimentsdistinction/commit/813b8a1dee186c1a3f5942976394cc44dd61f325). [Run 39615680576](https://github.com/mycomane/alimentsdistinction/actions/runs/39615680576).
+
+- Préparation `119276267562` : **succès**, ShellCheck inclus, ZIP et 23 empreintes exacts, 17 assertions de gardes/remplacement/retour arrière.
+- Recette isolée `119276268010` : **succès**, 300 assertions ciblées, aucune commande créée, aucune erreur fatale/avertissement/dépréciation PHP comptée. Écart P0 **0,00 px aux cinq largeurs 320/390/768/1024/1440**.
+- Job distant `119277446903` : **waiting**, reviewer `mycomane` pour `godaddy-temp` confirmé. Il n'a encore exécuté aucune connexion ni écriture GoDaddy.
+- L'approbation attendue se fait dans le run : **Review deployments → godaddy-temp → Approve and deploy**. La sauvegarde fraîche et les contrôles de rollback distants seront alors exécutés avant toute bascule, sans anticiper leur réussite.
+- La recette visuelle hébergée authentifiée reste soumise à l'accord spécifique pour un nouvel Abonné de test, 30 minutes et suppression après contrôle.
+
+Aucun changement de palette, aucune configuration WooCommerce, DNS, paiement, Zoho ou production. Le rapport actuel est « prêt pour approbation », **pas « déployé »**.

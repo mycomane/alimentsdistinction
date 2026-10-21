@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-21",
+  "scope": "isolated-only; no GoDaddy operation",
+  "commit": "813b8a1dee186c1a3f5942976394cc44dd61f325",
+  "run": 39615680576,
+  "prepareJob": 119276267562,
+  "qaJob": 119276268010,
+  "deployJob": 119277446903,
+  "deployStatus": "waiting for required godaddy-temp reviewer mycomane",
+  "checks": {
+    "php": 11,
+    "baseline": 41,
+    "p0": 61,
+    "sections": 55,
+    "commerce": 132,
+    "filesystemAndVisibilityGuards": 17
+  },
+  "geometry": [
+    {
+      "width": 320,
+      "deltaBefore": 52.6,
+      "deltaAfter": 0
+    },
+    {
+      "width": 390,
+      "deltaBefore": 52.59,
+      "deltaAfter": 0
+    },
+    {
+      "width": 768,
+      "deltaBefore": 0,
+      "deltaAfter": 0
+    },
+    {
+      "width": 1024,
+      "deltaBefore": 0,
+      "deltaAfter": 0
+    },
+    {
+      "width": 1440,
+      "deltaBefore": 0,
+      "deltaAfter": 0
+    }
+  ],
+  "phpDiagnostics": {
+    "scope": "isolated-only",
+    "logs": [
+      {
+        "name": "php_server",
+        "present": true,
+        "fatal": 0,
+        "warnings": 0,
+        "deprecated": 0
+      },
+      {
+        "name": "wordpress_debug",
+        "present": true,
+        "fatal": 0,
+        "warnings": 0,
+        "deprecated": 0
+      }
+    ],
+    "fatal_count": 0
+  },
+  "ordersSubmitted": 0,
+  "failures": [],
+  "hostedValidation": "Pending deployment and separate permission for new temporary subscriber"
+}
