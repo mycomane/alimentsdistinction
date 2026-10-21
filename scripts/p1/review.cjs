@@ -22,11 +22,13 @@ async function geometry(page){return page.evaluate(()=>{
 });}
 async function contrastAudit(page,v,width,kind='home'){
  await page.evaluate(()=>{document.activeElement?.blur();scrollTo(0,0);});
+ await page.waitForFunction(()=>scrollY===0);await page.waitForTimeout(500);
  const records=await page.evaluate(()=>{
   const rows=[],walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let node;
   const excluded='script,style,noscript,option,[aria-hidden="true"]';
   while(node=walker.nextNode()){
    const el=node.parentElement,text=node.textContent.trim();if(!text||el.closest(excluded)||/^[\s♛★✦◆•·→]+$/u.test(text))continue;
+   const sr=el.closest('.screen-reader-text');if(sr){const ss=getComputedStyle(sr);if(ss.clip!=='auto'||ss.clipPath!=='none')continue;}
    const style=getComputedStyle(el),rect=el.getBoundingClientRect();if(!rect.width||!rect.height||style.visibility==='hidden'||style.display==='none')continue;
    const range=document.createRange();range.selectNodeContents(node);
    const rects=[...range.getClientRects()].filter(r=>r.width>0&&r.height>0).map(r=>({x:r.left+scrollX,y:r.top+scrollY,width:r.width,height:r.height}));
@@ -36,6 +38,11 @@ async function contrastAudit(page,v,width,kind='home'){
    const id=rows.length;el.dataset.p1Contrast=id;
    rows.push({selector:el.tagName.toLowerCase()+'.'+String(el.className||'').trim().replace(/\s+/g,'.'),sample:text.slice(0,45),color:style.color,fontSize:parseFloat(style.fontSize),fontWeight:+style.fontWeight,opacity,rects,disabled:!!el.closest(':disabled,[aria-disabled="true"]'),logo:!!el.closest('.nav-logo__main,.footer__brand-name')});
   }
+  for(const el of document.querySelectorAll('.nav-icon')){
+   const r=el.getBoundingClientRect(),s=getComputedStyle(el);if(!r.width||!r.height)continue;
+   el.dataset.p1Contrast=rows.length;
+   rows.push({kind:'nontext',selector:'svg.nav-icon',sample:'navigation icon',color:s.color,fontSize:0,fontWeight:0,opacity:1,rects:[{x:r.left+scrollX,y:r.top+scrollY,width:r.width,height:r.height}],disabled:false,logo:false});
+  }
   return rows;
  });
  // Hide only text paint, preserving layout and actual photograph/overlay/background layers.
@@ -43,10 +50,10 @@ async function contrastAudit(page,v,width,kind='home'){
  const png=PNG.sync.read(await page.screenshot({fullPage:true,animations:'disabled'}));
  await page.evaluate(()=>{for(const [el,s]of window.p1OriginalStyles){if(s===null)el.removeAttribute('style');else el.setAttribute('style',s);}delete window.p1OriginalStyles;});
  const measured=records.map(r=>{let minimum=21,count=0;const fg=rgb(r.color);for(const rect of r.rects){for(let y=Math.max(0,Math.ceil(rect.y+1));y<Math.min(png.height,rect.y+rect.height-1);y+=3)for(let x=Math.max(0,Math.ceil(rect.x+1));x<Math.min(png.width,rect.x+rect.width-1);x+=3){const i=(png.width*y+x)*4,bg=[png.data[i],png.data[i+1],png.data[i+2]],effective=fg.map((c,k)=>c*r.opacity+bg[k]*(1-r.opacity));minimum=Math.min(minimum,ratio(effective,bg));count++;}}
-  const threshold=(r.fontSize>=24||(r.fontSize>=18.6667&&r.fontWeight>=700))?3:4.5;
+  const threshold=(r.kind==='nontext'||r.fontSize>=24||(r.fontSize>=18.6667&&r.fontWeight>=700))?3:4.5;
   return {selector:r.selector,sample:r.sample,color:r.color,threshold,minimum:+minimum.toFixed(4),sampledPixels:count,pass:minimum>=threshold,exempt:r.disabled||r.logo};});
  const failures=measured.filter(r=>!r.pass&&!r.exempt&&r.sampledPixels);
- const groups={};for(const [name,re]of Object.entries({navigation:/nav-link|nav-logo__sub|ad-cart-count/,cta:/cta__/,newsletter:/newsletter|t-body/,secondary:/col-card__desc|trust-item__label|footer__copy/,buttons:/btn|button/})){const a=measured.filter(r=>re.test(r.selector));groups[name]={count:a.length,minimum:a.length?Math.min(...a.map(x=>x.minimum)):null};}
+ const groups={};for(const [name,re]of Object.entries({navigation:/nav-link|nav-logo__sub|ad-cart-count|nav-icon/,cta:/cta__/,newsletter:/newsletter|t-body/,secondary:/col-card__desc|trust-item__label|footer__copy/,buttons:/btn|button/})){const a=measured.filter(r=>re.test(r.selector));groups[name]={count:a.length,minimum:a.length?Math.min(...a.map(x=>x.minimum)):null};}
  const entry={variant:v,width,kind,nodes:measured.length,failed:failures.length,groups,failures};report.contrasts.push(entry);
  if(v!=='base')check(failures.length===0,`Measured text contrast ${v} ${kind} ${width}`);
  return entry;
@@ -67,6 +74,7 @@ async function picture(page,name,locator){await page.evaluate(()=>document.activ
     report.geometry.push({variant:v,width,maxDelta:+max.toFixed(2)});check(max===0,`P0 zero geometry delta ${v} ${width}`);
     for(const c of compare(g,reference,width))check(c.passed,`${v} ${c.label}`);
     check(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),`No overflow ${v} ${width}`);
+    check(await page.evaluate(()=>[...document.images].filter(i=>i.src.startsWith(location.origin)&&i.complete&&i.naturalWidth===0).length===0),`Local images loaded ${v} ${width}`);
     await page.keyboard.press('Tab');check(await page.locator('.skip-link').evaluate(el=>document.activeElement===el&&el.getBoundingClientRect().top>=0),`Keyboard skip link ${v} ${width}`);
     if(width<=820){const t=page.getByRole('button',{name:'Menu',exact:true});await t.focus();await t.press('Enter');check(await t.getAttribute('aria-expanded')==='true',`Menu opens ${v} ${width}`);await t.press('Escape');check(await t.getAttribute('aria-expanded')==='false',`Menu closes ${v} ${width}`);}
     if(width===390||width===1440){
@@ -104,14 +112,14 @@ async function picture(page,name,locator){await page.evaluate(()=>document.activ
    check(await page.locator('form.checkout').count()===1,'Isolated checkout present '+v);
    const first=page.locator('#billing_first_name');await first.fill('');await first.focus();await page.keyboard.press('Tab');
    check(await first.evaluate(e=>e.closest('.form-row').classList.contains('woocommerce-invalid')),'Required-field error preserved '+v);
-   if(v!=='base'){const state=await controlSample(page,'#billing_first_name','invalid');report.states.push({variant:v,...state});check(ratio(rgb(state.border),rgb(state.background))>=3,'Invalid field boundary AA '+v);await contrastAudit(page,v,390,'checkout');}
+   if(v!=='base'){const state=await controlSample(page,'#billing_first_name','invalid');report.states.push({variant:v,...state});check(ratio(rgb(state.border),rgb(state.background))>=3&&state.border==='rgb(139, 53, 48)','Invalid field boundary AA '+v);await contrastAudit(page,v,390,'checkout');}
    await picture(page,`${v}-checkout-390`,'main');
   }
   // Comparison boards use only screenshots from this disposable environment.
   const sheet=await browser.newPage({viewport:{width:1200,height:900}});
   for(const [board,width,type]of [['desktop',1440,'hero'],['mobile',390,'hero'],['newsletter',390,'footer'],['woo-states',390,'disabled']]){
    const labels={base:'Actuel · 0.1.1',a:'A · Évolution discrète',b:'B · Lecture renforcée'};
-   const cards=['base','a','b'].map(v=>{const data=shots[`${v}-${type}-${width}`];const c=report.contrasts.find(x=>x.variant===v&&x.width===width&&x.kind==='home');return `<article><h2>${labels[v]}</h2><p>${v==='base'?'Référence à améliorer':'Proposition isolée · aucun déploiement'}<br>${c?c.failed+' échantillons de texte sous le seuil sur l’accueil':''}</p><img src="data:image/jpeg;base64,${data.toString('base64')}"></article>`;}).join('');
+   const cards=['base','a','b'].map(v=>{const data=shots[`${v}-${type}-${width}`];const c=report.contrasts.find(x=>x.variant===v&&x.width===width&&x.kind==='home');return `<article><h2>${labels[v]}</h2><p>${v==='base'?'Référence à améliorer':'Proposition isolée · aucun déploiement'}<br>${c?c.failed+' mesures sous le seuil sur l’accueil':''}</p><img src="data:image/jpeg;base64,${data.toString('base64')}"></article>`;}).join('');
    await sheet.setContent(`<html lang="fr"><head><style>*{box-sizing:border-box}body{margin:0;background:#f4ede3;color:#2c2a27;font:15px Arial}header{padding:18px 22px;background:#faf7f2}h1{margin:0;font:26px Georgia}section{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:12px}article{background:#fff;min-width:0}h2{font-size:19px;margin:16px 14px 8px}p{font-size:12px;margin:0 14px 15px;line-height:1.5}img{width:100%;display:block}</style></head><body><header><h1>Aliments Distinction · P1 · ${board}</h1><p style="margin:8px 0 0">Source WordPress isolé · Maquette GitHub · Rose décoratif conservé · Choix esthétique à approuver</p></header><section>${cards}</section></body></html>`);
    const data=await sheet.screenshot({type:'jpeg',quality:78,fullPage:true});fs.writeFileSync(path.join(out,'choice-'+board+'.jpg'),data);console.log('P1_IMAGE '+JSON.stringify({name:'choice-'+board+'.jpg',base64:data.toString('base64')}));
   }

@@ -32,3 +32,8 @@ html[data-p1-variant] .woocommerce a:not(.button) { color:var(--p1-ink); }
 html[data-p1-variant] .woocommerce span.onsale { background:var(--p1-sage); color:white; }
 html[data-p1-variant] .woocommerce nav.woocommerce-pagination ul li :is(span.current,a:hover,a:focus) { background:#F4EDE3; color:#2C2A27; }
 html[data-p1-variant] .woocommerce .required { color:#8B3530!important; }
+/* Actual textured/leaf backgrounds need a deeper ink than flat cream. */
+html[data-p1-variant] :is(.plaster-bg .t-label,.plaster-bg .btn-outline-blush,.story__quote) { color:#6B3832; }
+html[data-p1-variant] .plaster-bg .btn-outline-blush:hover { color:white; }
+html[data-p1-variant] .testimonial__avatar { color:var(--p1-ink); }
+html[data-p1-variant] .woocommerce .woocommerce-invalid :is(input,select,textarea) { border-color:#8B3530!important; }

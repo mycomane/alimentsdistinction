@@ -28,3 +28,9 @@ Focus : anneau bicolore blanc/charbon (contraste interne élevé), vérification
 Limites : échantillonnage conservateur sur rectangles et non certification WCAG; lecteurs d'écran, cibles tactiles, contenu et performance restent distincts. Les images de test sont isolées et ne contiennent aucune session ou donnée GoDaddy. Les exemples WooCommerce sont des produits fictifs. L'infolettre reste indisponible et aucune connexion n'est simulée.
 
 Références : [contraste texte](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html), [contraste non textuel](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html), [focus visible](https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html). Rapport et planche de choix à compléter après exécution réelle.
+
+## Premier passage contextualisé
+
+Run `39689556380` : les 15 géométries (actuel/A/B × cinq largeurs) sont restées à **0,00 px**, et les états/focus ont passé. Les seuils ont correctement bloqué les propositions sur certains textes posés sur des textures/feuilles : rose encre `#94544B` mesuré jusqu'à 2,96:1 dans ce contexte, malgré 5,41:1 sur crème uni. Un rose plus profond `#6B3832` est donc proposé **localement** pour ces libellés/citations et liens transparents, en conservant le rose encre ailleurs et le rose décoratif.
+
+Le test est aussi précisé pour ignorer les textes réellement masqués par clipping de lecteur d'écran (ils restent accessibles), attendre la fin de transition de la navigation avant l'échantillonnage et couvrir les icônes de navigation au seuil non textuel de 3:1. Ces précisions évitent d'analyser des rectangles qui ne correspondent pas à un élément visible/stabilisé. Le second passage doit confirmer les contrastes corrigés; pas de réussite anticipée.
