@@ -64,3 +64,13 @@ La correction autorise seulement **0 à 2 séquences LF/CRLF finales** après un
 Tests locaux : **46 assertions mesure/espace** et 17 gardes fichiers/visibilité réussies. Deux cas d'intégration supplémentaires appliquent à la sortie du vrai MySQL jetable le second LF observé et son équivalent CRLF, puis exercent le wrapper/parseur/nettoyage de production. Ces cas simulent le transport WP-CLI, sans prétendre exécuter sa distribution GoDaddy dans le runner.
 
 Le diagnostic a aussi confirmé les 23 fichiers originaux, l'identité temporaire et Coming Soon sur les cinq URLs; il n'a réalisé aucun déploiement, cache purge, compte ou mutation DB. Les [preuves de structure](evidence/p0-hosted-db-shape.json) ne contiennent aucune valeur de base. Une nouvelle approbation sera nécessaire sur le prochain run de déploiement, après tests.
+
+## Validation finale du correctif de fins de ligne
+
+Commit testé : [`be5703eeaa434ada55cb33a961a0b08e11f6a862`](https://github.com/mycomane/alimentsdistinction/commit/be5703eeaa434ada55cb33a961a0b08e11f6a862). [Run 39685183348](https://github.com/mycomane/alimentsdistinction/actions/runs/39685183348).
+
+- Préparation `119517310652` : **succès**, ShellCheck, 46 assertions mesure/espace + 17 protections fichiers/visibilité, six scénarios de transport/parseur/nettoyage sur MySQL jetable. Double LF et double CRLF validés; erreurs/avertissements/vide toujours refusés.
+- QA `119517311211` : **succès**, 300 assertions, zéro commande et zéro fatal/avertissement/dépréciation PHP compté; géométrie P0 à 0,00 px sur les cinq largeurs.
+- Déploiement `119518254594` : **waiting**, reviewer `mycomane` / `godaddy-temp` confirmé. Nouvelle approbation obligatoire, aucune opération distante de ce run à ce stade.
+
+Archive 0.1.1 identique et toutes les protections conservées. La mesure des valeurs, l'espace libre et la sauvegarde fraîche GoDaddy restent des conditions bloquantes du job après nouvelle approbation; la preuve du diagnostic concernait la structure de sortie, pas une autorisation de déploiement. Aucun compte de recette créé.

@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-21",
+  "scope": "isolated QA; no remote operation by this run",
+  "commit": "be5703eeaa434ada55cb33a961a0b08e11f6a862",
+  "run": 39685183348,
+  "prepare": {
+    "job": 119517310652,
+    "conclusion": "success",
+    "parserSpaceAssertions": 46,
+    "fileVisibilityAssertions": 17,
+    "mysqlScenarios": [
+      "valid",
+      "hosted_double_lf",
+      "double_crlf",
+      "empty rejected",
+      "stderr warning rejected",
+      "MySQL unavailable rejected"
+    ]
+  },
+  "qa": {
+    "job": 119517311211,
+    "conclusion": "success",
+    "phpAssertions": 11,
+    "baselineAssertions": 41,
+    "baselineFailures": [],
+    "p0Assertions": 61,
+    "sectionsAssertions": 55,
+    "commerceAssertions": 132,
+    "geometry": [
+      {
+        "width": 320,
+        "deltaAfter": 0
+      },
+      {
+        "width": 390,
+        "deltaAfter": 0
+      },
+      {
+        "width": 768,
+        "deltaAfter": 0
+      },
+      {
+        "width": 1024,
+        "deltaAfter": 0
+      },
+      {
+        "width": 1440,
+        "deltaAfter": 0
+      }
+    ],
+    "phpDiagnostics": {
+      "scope": "isolated-only",
+      "logs": [
+        {
+          "name": "php_server",
+          "present": true,
+          "fatal": 0,
+          "warnings": 0,
+          "deprecated": 0
+        },
+        {
+          "name": "wordpress_debug",
+          "present": true,
+          "fatal": 0,
+          "warnings": 0,
+          "deprecated": 0
+        }
+      ],
+      "fatal_count": 0
+    },
+    "ordersSubmitted": 0,
+    "failures": []
+  },
+  "deployment": {
+    "job": 119518254594,
+    "status": "waiting",
+    "environment": "godaddy-temp",
+    "reviewer": "mycomane",
+    "newApprovalRequired": true
+  },
+  "diagnosticProof": {
+    "run": 39639769111,
+    "job": 119360202463,
+    "wpCli": "2.12.0",
+    "dataRows": 1,
+    "finalLF": 2
+  },
+  "zipSha256": "8162bc571bb5dea232badd562b5c9085c30187b1b4ff80f567f1f5e9fdb8497e"
+}

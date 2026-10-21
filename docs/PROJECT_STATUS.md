@@ -4,10 +4,10 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 ## Phase et derniers commits
 
-**P0 : diagnostic hébergé réussi; cause établie (deux LF finaux). Correction ciblée du parseur préparée et tests locaux réussis. Nouveau run de déploiement à tester puis à approuver séparément. Aucun déploiement effectué par le diagnostic.**
+**P0 : diagnostic hébergé réussi; cause établie (deux LF finaux). Correction ciblée du parseur testée dans GitHub. Nouveau run 39685183348 PRÊT POUR APPROBATION, sans nouvelle opération distante. Aucun déploiement effectué par le diagnostic.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
-- Dernier commit préparatoire vérifié : [`344a97dbad1738398be3fcf0b8a24a5c018c410f`](https://github.com/mycomane/alimentsdistinction/commit/344a97dbad1738398be3fcf0b8a24a5c018c410f), diagnostic structurel seulement. Correction de mesure précédente : `ee9cd17655d5454483be339fdb5a7d4828305d58`; candidat du thème inchangé.
+- Dernier commit d’implémentation/tests vérifié : [`be5703eeaa434ada55cb33a961a0b08e11f6a862`](https://github.com/mycomane/alimentsdistinction/commit/be5703eeaa434ada55cb33a961a0b08e11f6a862), correction bornée des fins de ligne. Aucun changement au paquet du thème 0.1.1.
 - Commit du correctif CSS : [`9618095516d982e10eebfe5c7aa0cdcc4bf85be3`](https://github.com/mycomane/alimentsdistinction/commit/9618095516d982e10eebfe5c7aa0cdcc4bf85be3).
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
@@ -21,9 +21,15 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 - La taille native sans CSV renvoie 7 chiffres et un LF; aucun stderr. Aucune valeur de base, nom ou sortie brute publié.
 - **Cause du second échec prouvée :** le parseur n'autorisait qu'une fin de ligne après la ligne TSV valide; la chaîne WP-CLI hébergée en ajoute deux.
 - Correction bornée : autoriser zéro, une ou deux fins de ligne LF/CRLF complètes après une seule ligne numérique. Aucun `trim()` général, aucun avertissement ignoré, aucune donnée supplémentaire acceptée. Trois fins de ligne, lignes numériques supplémentaires, espaces/tabulations ajoutés et autres formats restent rejetés.
-- **46 assertions locales** parseur/espace réussies (39 précédentes + 7 nouveaux cas), ainsi que les 17 gardes fichiers/visibilité. Deux scénarios MySQL supplémentaires reproduisent la double fin de ligne dans le wrapper de production; résultat CI attendu.
+- **46 assertions parseur/espace réussies localement et sur GitHub** (39 précédentes + 7 nouveaux cas), ainsi que les 17 gardes fichiers/visibilité. Les **six scénarios MySQL** passent, dont double LF hébergé et double CRLF; wrapper de capture/parseur/nettoyage de production exercé avec transport WP-CLI simulé.
 - [Preuve structurelle hébergée](evidence/p0-hosted-db-shape.json). Aucune nouvelle sauvegarde, purge, mutation DB, création de compte ou mise à jour de thème par le diagnostic.
-- Nouvelle exécution du workflow de déploiement à confirmer après CI; **nouvelle revue `godaddy-temp` obligatoire**. L'accord du diagnostic ne vaut pas accord de déploiement.
+- **[Nouveau run 39685183348 — PRÊT POUR APPROBATION](https://github.com/mycomane/alimentsdistinction/actions/runs/39685183348)**, commit `be5703eeaa434ada55cb33a961a0b08e11f6a862`.
+- Job `prepare` **119517310652 : succès** : ShellCheck, paquet exact, 46 + 17 assertions et six scénarios MySQL.
+- Job `isolated-qa` **119517311211 : succès** : **300 assertions** (11 PHP + 41 navigateur + 61 P0 + 55 sections + 132 WooCommerce), écart 0,00 px aux cinq largeurs; zéro commande et zéro fatal/avertissement/dépréciation PHP compté.
+- Job distant **119518254594 : waiting**, environnement `godaddy-temp`, reviewer `mycomane` confirmé. **Aucune opération GoDaddy de ce nouveau run.**
+- [Preuve structurée du candidat](evidence/p0-newlines-qa.json). ZIP 0.1.1 inchangé : SHA256 `8162bc571bb5dea232badd562b5c9085c30187b1b4ff80f567f1f5e9fdb8497e`.
+- Après revue Coordination, Julien approuve ce **nouveau run** via Review deployments → godaddy-temp → Approve and deploy. Les préconditions, la sauvegarde fraîche et la répétition du rollback devront encore réussir avant la bascule. Aucun succès distant n'est anticipé.
+- L'accord du diagnostic ne vaut pas accord de déploiement; aucun Abonné autorisé ou créé.
 
 ## Historique — première correction de mesure DB
 
@@ -96,7 +102,7 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 | Priorité | Élément restant | Décision / action |
 | --- | --- | --- |
-| Passage GitHub obligatoire | Diagnostic réussi; correction des deux LF préparée | Nouveaux tests puis nouvelle approbation du run de déploiement |
+| Passage GitHub obligatoire | Correction des deux LF testée, run 39685183348 en attente | Revue Coordination puis nouvelle approbation `godaddy-temp` |
 | Validation Julien | Nouvelle recette géométrique hébergée après mise à jour | Autoriser un Abonné temporaire de 30 minutes avec suppression |
 | Majeur accessibilité | Textes rose/gris, boutons et infolettre insuffisamment contrastés | Valider les propositions graphiques avant leur intégration |
 | Majeur accessibilité | Navigation transparente sur photo | Valider une solution par contexte, par exemple une barre à fond crème opaque |
@@ -108,7 +114,7 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 ## Prochaines étapes recommandées
 
-1. Confirmer les tests du parseur corrigé et les nouvelles simulations de transport, puis faire revoir et approuver le nouveau run de déploiement.
+1. Faire revoir puis approuver le run 39685183348; les tests du parseur corrigé et de transport sont réussis. Ne pas réutiliser l’approbation du diagnostic.
 2. Après diagnostic, préparer et tester la correction nécessaire. Un déploiement ultérieur exige sa propre nouvelle approbation GitHub, puis sauvegarde fraîche/rollback et vérifications. L’approbation du diagnostic ne déclenche aucun déploiement. Recette authentifiée après autorisation distincte du compte temporaire. Ne pas relancer le premier installateur.
 3. Après validation graphique : intégrer les ajustements ciblés de contraste, états désactivés/survol/focus et navigation, puis refaire les vérifications isolées appropriées.
 4. Compléter les contenus commerciaux approuvés et les tests non couverts. Le formulaire de commande n’a jamais été soumis; les blocs Panier/Commande, lecteurs d’écran, pixels des sections secondaires et performance ne sont pas certifiés.
