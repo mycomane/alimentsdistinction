@@ -29,3 +29,21 @@ Les nouveaux réglages par défaut intrinsèques à l’activation ne sont pas u
 - Sur WordPress jetable 7.1.3 / WooCommerce 11.2.1 / PHP 8.3.6 : capture d’état, activation, création/affectation de quatre pages, vérification des réglages et des passerelles, retour arrière des affectations et mise à la corbeille des quatre nouvelles pages testés avec succès. Les pages préexistantes ont été conservées.
 - Ce test isolé ne remplace pas les préconditions web et la sauvegarde vérifiées lors de l’exécution GoDaddy.
 - Aucun fichier du thème n’est déployé par ce workflow.
+
+## Résultat confirmé — 21 octobre 2026 (UTC)
+
+Exécution [39515208953](https://github.com/mycomane/alimentsdistinction/actions/runs/39515208953), job `118945599076`, terminée avec succès le 21 octobre 2026 à 00:19 UTC, sur le commit `707d5d3c1084846922b3cac0a5f3b8793ab3fe8e`, après approbation du reviewer.
+
+- Préconditions validées : identité du site temporaire, thème Aliments Distinction actif, WooCommerce exactement 11.2.1 initialement inactif, aucune passerelle connue activée dans les options enregistrées.
+- Sauvegarde fraîche privée `wc-preactivate-39515208953` : fichiers et SQL, formats et sommes SHA256 vérifiés, hors répertoire public. Une restauration complète n’a pas été exécutée; les limites ci-dessus restent applicables.
+- PHP web : **8.2.34**, SAPI web et extensions requises confirmés.
+- WooCommerce **11.2.1 activé**; quatre pages publiées valides, distinctes et affectées : catalogue **ID 6**, panier **ID 7**, commande **ID 8**, mon compte **ID 9**.
+- Toutes les passerelles enregistrées contrôlées sont désactivées. Les réglages protégés qui existaient avant intervention et les nombres de produits, variations et commandes traditionnelles sont préservés. Aucun contenu marchand importé.
+- Réponses anonymes HTTPS contrôlées après activation sur l’accueil et les quatre pages : **Coming Soon conservé**. Ces contrôles ne constituent pas une recette des interfaces derrière cet écran.
+- Le thème n’a pas été remplacé. Aucun changement du site commercial, de DNS, de domaine, de Zoho ou de configuration commerciale demandé par le scénario.
+
+## Prochaine recette
+
+Les 42 assertions déjà réussies dans l’environnement WordPress/WooCommerce jetable restent une preuve locale, distincte du site GoDaddy. La recette visuelle ordinateur/mobile du thème et des interfaces WooCommerce sur GoDaddy nécessite encore un accès privé autorisé derrière Coming Soon; elle n’est pas déclarée terminée. Aucun parcours transactionnel complet ni paiement n’a été exécuté.
+
+Ne pas relancer aveuglément le workflow d’activation : l’opération est terminée. Les prochaines opérations doivent partir de cet état actif, préserver Coming Soon et les protections de l’environnement GitHub.
