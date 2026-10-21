@@ -7,7 +7,7 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 **P0 : le run 39638388563 a été approuvé puis a échoué avant sauvegarde/remplacement. Diagnostic structurel en lecture seule préparé, avec nouvelle approbation obligatoire. Aucun succès de déploiement revendiqué.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
-- Dernier commit d’implémentation/tests vérifié : [`ee9cd17655d5454483be339fdb5a7d4828305d58`](https://github.com/mycomane/alimentsdistinction/commit/ee9cd17655d5454483be339fdb5a7d4828305d58). Correction de mesure DB seulement; candidat du thème 0.1.1 inchangé.
+- Dernier commit préparatoire vérifié : [`344a97dbad1738398be3fcf0b8a24a5c018c410f`](https://github.com/mycomane/alimentsdistinction/commit/344a97dbad1738398be3fcf0b8a24a5c018c410f), diagnostic structurel seulement. Correction de mesure précédente : `ee9cd17655d5454483be339fdb5a7d4828305d58`; candidat du thème inchangé.
 - Commit du correctif CSS : [`9618095516d982e10eebfe5c7aa0cdcc4bf85be3`](https://github.com/mycomane/alimentsdistinction/commit/9618095516d982e10eebfe5c7aa0cdcc4bf85be3).
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
@@ -21,8 +21,8 @@ Le chemin échoue avant le `mkdir` de sauvegarde P0 et le remplacement du CSS. U
 - Diagnostic distinct `.github/workflows/diagnose-godaddy-p0-db.yml` : **aucun point d'entrée de déploiement**, aucun compte, purge ou export SQL.
 - Sondes en lecture seule : version WP-CLI si format reconnu, SELECT agrégé existant, SELECT de constantes publiques pour comparer le transport, taille native sans CSV.
 - Publication limitée aux longueurs, nombres de caractères/délimiteurs et types de cellules. Aucun contenu brut, nom de base/table, identifiant ou erreur SQL. Les fichiers de capture restent privés et sont supprimés sur sorties gérées.
-- **13 assertions locales** de structure/absence de divulgation réussies, Bash/PHP/YAML vérifiés; ShellCheck GitHub à confirmer.
-- Nouveau run diagnostic à confirmer puis soumettre à la revue `godaddy-temp`. Ne pas relancer un déploiement pour deviner le format.
+- **13 assertions de structure/absence de divulgation réussies localement et sur GitHub**, Bash/PHP/YAML et ShellCheck validés. Job `prepare` 119359938790 : succès.
+- **[Nouveau run diagnostic 39639769111](https://github.com/mycomane/alimentsdistinction/actions/runs/39639769111)** : préparation réussie; job distant `119360202463` en **waiting**, reviewer `mycomane` / `godaddy-temp` confirmé. Aucune opération distante par ce diagnostic à ce stade. Nouvelle approbation : Review deployments → godaddy-temp → Approve and deploy; malgré le libellé générique GitHub, ce workflow ne déploie aucun thème. Ne pas relancer un déploiement pour deviner le format.
 
 ## Historique — première correction de mesure DB
 
@@ -33,12 +33,12 @@ Le chemin échoue avant le `mkdir` de sauvegarde P0 et le remplacement du CSS. U
 - Remplacement par SELECT agrégé en octets sur la DB courante, parseur strict, stderr/statut contrôlés et journalisation expurgée. Aucune estimation arbitraire, aucun contournement en cas de mesure impossible.
 - Marge inchangée : 4 thèmes + 3 bases + 100 Mio; valeurs et arithmétique bornées. Toutes les protections de mise à jour et rollback conservées.
 - Tests locaux : **39 assertions mesure/espace + 17 gardes filesystem/Coming Soon réussies**; syntaxe vérifiée.
-- **Nouveau run : [39638388563 — prêt pour revue et approbation](https://github.com/mycomane/alimentsdistinction/actions/runs/39638388563)**, commit `ee9cd17655d5454483be339fdb5a7d4828305d58`.
+- **Nouveau run : [39638388563 — approuvé puis échoué](https://github.com/mycomane/alimentsdistinction/actions/runs/39638388563)**, commit `ee9cd17655d5454483be339fdb5a7d4828305d58`.
 - Job `prepare` **119355138291 : succès**. ShellCheck/lint/paquet exact; **39 assertions mesure/espace et 17 gardes fichiers/visibilité**. MySQL 8.0 jetable : requête réelle puis **quatre scénarios** capture/parseur/nettoyage réussis (normal, vide, avertissement, indisponibilité).
 - Job `isolated-qa` **119355138814 : succès**. **300 assertions ciblées** (11 PHP + 41 navigateur + 61 P0 + 55 sections + 132 WooCommerce); écart **0,00 px aux cinq largeurs**; aucune commande créée. Zéro fatal/avertissement/dépréciation PHP compté.
-- Job distant **119356247301 : `waiting`**, environnement `godaddy-temp`, reviewer `mycomane` confirmé. Aucun accès distant par ce nouveau run; sauvegarde et mesure réelles GoDaddy restent à confirmer après approbation.
+- Job distant **119356247301 : échec après approbation**, sur la forme de sortie de mesure; voir l’incident courant ci-dessus. Aucun remplacement du CSS atteint dans ce chemin.
 - [Preuves structurées de cette reprise](evidence/p0-db-measurement-qa.json). Artefact `p0-011-review-package` disponible dans le run, SHA du ZIP inchangé.
-- La Coordination peut maintenant réexaminer le workflow; Julien donnera ensuite la nouvelle approbation GitHub **Review deployments → godaddy-temp → Approve and deploy**. L'ancien accord n'autorise pas ce nouveau run.
+- Cet ancien run ne doit pas être relancé; le nouveau diagnostic a sa propre approbation.
 - Aucun changement du thème/couleurs/contenus; ZIP 0.1.1 identique. Aucun nouvel accès GoDaddy réalisé pendant cette correction.
 - [Diagnostic, stratégie et limites](P0_DB_MEASUREMENT_2026-10-21.md). [Procédure de déploiement/rollback](P0_DEPLOYMENT_2026-10-21.md).
 - **Nouvelle approbation reviewer requise avant toute opération distante.** L'ancien accord n'est pas réutilisé. La Coordination réexaminera le nouveau workflow.
@@ -83,9 +83,9 @@ Autres preuves :
 
 Les échecs intermédiaires de fixture/synchronisation sont expliqués dans le rapport Phase 3; le dernier run a corrigé ces causes dans les tests, sans changement du moteur WooCommerce.
 
-## État GoDaddy préservé
+## Historique — état GoDaddy avant les tentatives de déploiement
 
-Cette phase n’a exécuté **aucune opération GoDaddy**, aucun compte créé, aucune connexion Zoho, aucune configuration commerciale, DNS ou domaine.
+La phase isolée initiale n’avait exécuté **aucune opération GoDaddy**, aucun compte créé, aucune connexion Zoho, aucune configuration commerciale, DNS ou domaine.
 
 Dernier état hébergé vérifié antérieurement : thème **0.1.0** actif, WooCommerce **11.2.1** actif, quatre pages affectées. [Recette privée 39531003568](https://github.com/mycomane/alimentsdistinction/actions/runs/39531003568) : 33 assertions réussies, Coming Soon anonyme avant/après, compte Abonné supprimé et sessions révoquées. Ne pas extrapoler cette preuve aux modifications non déployées.
 
@@ -108,7 +108,7 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 ## Prochaines étapes recommandées
 
 1. Revoir et approuver le nouveau diagnostic structurel en lecture seule. Déterminer le format exact sans divulguer la sortie brute avant toute autre correction de mesure ou relance de déploiement.
-2. Après approbation GitHub : contrôles distants, sauvegarde fraîche et répétition de retour arrière, mise à jour atomique du CSS, vérifications techniques et Coming Soon. Recette authentifiée après autorisation distincte du compte temporaire. Ne pas relancer le premier installateur.
+2. Après diagnostic, préparer et tester la correction nécessaire. Un déploiement ultérieur exige sa propre nouvelle approbation GitHub, puis sauvegarde fraîche/rollback et vérifications. L’approbation du diagnostic ne déclenche aucun déploiement. Recette authentifiée après autorisation distincte du compte temporaire. Ne pas relancer le premier installateur.
 3. Après validation graphique : intégrer les ajustements ciblés de contraste, états désactivés/survol/focus et navigation, puis refaire les vérifications isolées appropriées.
 4. Compléter les contenus commerciaux approuvés et les tests non couverts. Le formulaire de commande n’a jamais été soumis; les blocs Panier/Commande, lecteurs d’écran, pixels des sections secondaires et performance ne sont pas certifiés.
 5. Aucun nouveau compte, produit, commande ou réglage GoDaddy sans motif et autorisation correspondant à la prochaine recette. Conserver Coming Soon.
