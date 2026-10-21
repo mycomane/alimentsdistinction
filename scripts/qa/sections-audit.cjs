@@ -11,12 +11,12 @@ const check=(passed,label)=>{report.checks.push({label,passed:!!passed});if(!pas
   const page=await browser.newPage();page.on('pageerror',e=>report.failures.push('JavaScript: '+e.message));
   for(const width of [320,390,768,1024,1440]){
    await page.setViewportSize({width,height:1000});await page.goto(base,{waitUntil:'networkidle'});await page.evaluate(()=>document.fonts.ready);
-   const sections=await page.evaluate(()=>['.hero','.features-strip','.collections','.promise','.featured','.story','.recettes','.process','.testimonials','.health-strip','.cta','.newsletter','.footer'].map(selector=>{
+   const sections=await page.evaluate(()=>['.hero','.features-strip','.collections','.promise','.featured','.story','.recettes','.process','.testimonials','.health-strip','.cta','.ornate-frame','.newsletter','.footer'].map(selector=>{
     const el=document.querySelector(selector);if(!el)return {selector,present:false};const r=el.getBoundingClientRect();
     return {selector,present:true,x:Math.round(r.x),width:Math.round(r.width),height:Math.round(r.height),headingCount:el.querySelectorAll('h1,h2,h3').length};
    }));
    report.sections.push({width,sections});
-   check(sections.every(s=>s.present&&s.height>0),'All 13 homepage regions rendered '+width);
+   check(sections.every(s=>s.present&&s.height>0),'All 14 homepage regions rendered '+width);
    check(sections.every(s=>s.x>=-1&&s.x+s.width<=width+1),'Homepage region bounds '+width);
    const bad=await page.evaluate(()=>[...document.querySelectorAll('h1,h2,h3')].filter(el=>{const r=el.getBoundingClientRect();return r.width>0&&(r.left< -1||r.right>innerWidth+1);}).length);
    check(bad===0,'Headings stay within viewport '+width);

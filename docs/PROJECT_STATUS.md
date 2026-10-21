@@ -8,7 +8,9 @@ Base vérifiée : `82eccba3bdd3e5fc1b1920d6ce33a882291374f7` sur `feat/wordpress
 
 Dernier commit de correction validé : `9618095516d982e10eebfe5c7aa0cdcc4bf85be3`.
 
-**P0 terminé en développement : correctif CSS réel validé, non déployé.** P1 : 55 assertions sections/liens/clavier réussies, proposition de contraste préparée et non appliquée. P2 : tris, pagination, filtre et parcours natifs confirmés; validation globale en relance après ajustement de l’attente du prix d’une variation. Les cinq tailles des écrans WooCommerce sont ajoutées à cette relance isolée.
+Dernier commit de recette étendue validé : `e13c89076e4fb6cd98dd85742cc25cf173795057`.
+
+**P0 terminé en développement : correctif CSS réel validé, non déployé.** P1/P2 : 298 assertions ciblées réussies. Derniers contrôles des journaux PHP et de validation d’un champ obligatoire en cours. La proposition de contraste reste séparée du thème.
 
 ## Terminé
 
@@ -25,7 +27,7 @@ Dernier commit de correction validé : `9618095516d982e10eebfe5c7aa0cdcc4bf85be3
 ## Tests et preuves
 
 - Historique : 11 assertions PHP + 41 navigateur isolées; 33 assertions frontend GoDaddy. Voir les rapports sources pour leurs limites.
-- Diagnostic et régression du correctif réel réussis (113 assertions ciblées par run). [Run étendu 39607114646](https://github.com/mycomane/alimentsdistinction/actions/runs/39607114646) : P1 réussi (55 assertions), 14 couples de couleurs proposés calculés, P2 interrompu par une option de variation synthétique non persistée. Fixture corrigée, persistance vérifiée localement; résultat global de la relance en attente. Zéro commande et aucune passerelle disponible après ce run. Aucun secret GoDaddy ni environnement `godaddy-temp` utilisé.
+- Diagnostic et régression du correctif réel réussis (113 assertions ciblées par run). [Run étendu réussi 39608791472](https://github.com/mycomane/alimentsdistinction/actions/runs/39608791472) : **298 assertions** dont 55 sections/clavier et 130 WooCommerce étendu, plus 14 couples de couleurs et trois refus de quantités PHP. 25 combinaisons page/taille WooCommerce, zéro commande, aucun paiement disponible. Les deux échecs intermédiaires de fixture/synchronisation et leurs corrections sont documentés dans `RECETTE_PHASE3_2026-10-21.md`. Aucune modification distante.
 
 ## Anomalies et corrections envisagées
 
@@ -36,8 +38,8 @@ Dernier commit de correction validé : `9618095516d982e10eebfe5c7aa0cdcc4bf85be3
 
 ## Décisions et prochaines étapes
 
-1. Examiner les résultats P1/P2 et les captures isolées, puis classer les défauts sans masquer les limites de couverture.
-2. Présenter la correction P0 validée et la proposition de contraste avec les preuves avant toute demande de déploiement.
+1. Consigner les derniers contrôles PHP/champ requis; les captures desktop/téléphone et la planche de contraste ont été examinées, avec défauts classés dans le rapport Phase 3.
+2. Faire valider le correctif P0 pour une future mise à jour GoDaddy et la proposition de contraste avant intégration. Les coordonnées, politiques et affirmations commerciales restent à fournir/valider par le responsable.
 3. **Autorisation explicite de Julien requise avant tout déploiement sur GoDaddy.** Aucun changement de palette important, configuration commerciale ou nouveau compte distant inclus.
 
 Work publie les commits et preuves dans ce dépôt; la conversation de Coordination doit lire ce fichier pour se synchroniser. Le commit qui contient ce document est accessible dans son historique; aucun SHA auto-référentiel n’est inventé.

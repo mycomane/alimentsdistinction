@@ -73,6 +73,11 @@ const orderedIds=page=>page.locator('ul.products li.product').evaluateAll(els=>e
   check(await page.locator('.validate-required input').count()>0,'Checkout required billing controls are present');
   check(await page.locator('input[name="payment_method"]').count()===0,'Checkout has no available payment gateway');
   check(await page.locator('form.checkout input[name="woocommerce-process-checkout-nonce"]').count()===1,'Native checkout nonce present without submission');
+  const firstName=page.locator('#billing_first_name');await firstName.fill('');await firstName.focus();await firstName.press('Tab');
+  await page.waitForFunction(()=>document.getElementById('billing_first_name')?.getAttribute('aria-invalid')==='true');
+  check(await firstName.evaluate(e=>e.closest('.form-row').classList.contains('woocommerce-invalid-required-field')),'Blank required checkout field shows native error without submission');
+  await firstName.fill('QA');await firstName.press('Tab');
+  check(await firstName.getAttribute('aria-invalid')!=='true','Correcting required field clears native invalid state');
   report.finalCheckoutPath=new URL(page.url()).pathname+new URL(page.url()).search;
   report.stage='responsive_commerce';
   const screens=[];
@@ -93,7 +98,7 @@ const orderedIds=page=>page.locator('ul.products li.product').evaluateAll(els=>e
       await first.focus();await page.keyboard.press('Tab');await page.keyboard.press('Shift+Tab');
       check(await first.evaluate(e=>document.activeElement===e),'Commerce keyboard focus returns '+key+' '+width);
       const indicator=await first.evaluate(e=>{const s=getComputedStyle(e);return {outline:s.outlineStyle,width:s.outlineWidth,boxShadow:s.boxShadow};});
-      report.focusReview.push({width,page:key,...indicator,needsManualReview:(indicator.outline==='none'||parseFloat(indicator.width)===0)&&indicator.boxShadow==='none'});
+      report.focusReview.push({viewport:width,page:key,outline:indicator.outline,outlineWidth:indicator.width,boxShadow:indicator.boxShadow,needsManualReview:(indicator.outline==='none'||parseFloat(indicator.width)===0)&&indicator.boxShadow==='none'});
      }
     }
     if(width===390){

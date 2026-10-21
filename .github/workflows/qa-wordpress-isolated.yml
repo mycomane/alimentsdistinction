@@ -58,6 +58,7 @@ jobs:
             test_status=1
           fi
           php scripts/qa/no-orders.php || test_status=1
+          python3 scripts/qa/php-log-check.py || test_status=1
           exit "$test_status"
       - name: Publish only isolated public-design evidence
         if: always()

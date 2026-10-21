@@ -8,7 +8,7 @@ P0 corrigé dans la branche, non déployé : voir `P0_MOBILE_2026-10-21.md`. Cet
 
 | Domaine | Contrôle préparé | Limite |
 | --- | --- | --- |
-| Accueil | 13 régions, titres et limites horizontales à cinq largeurs, captures 390/1440 | Pas de certification visuelle de chaque pixel |
+| Accueil | 14 régions, dont le bloc de garantie, titres et limites horizontales à cinq largeurs, captures 390/1440 | Pas de certification visuelle de chaque pixel |
 | Navigation | Liens d’ancres, noms accessibles, destinations internes HTTP, menu bureau/mobile | Réseaux sociaux non visités; aucun contenu tiers validé |
 | Clavier | Premier arrêt sur lien d’évitement, visibilité, activation, menu Enter/Échap | Contrôle de base, pas audit exhaustif lecteur d’écran |
 | Contenu | Replis FAQ/contact/téléphone/livraison; indisponibilité explicite de l’infolettre | Validation commerciale et rédaction requises |
@@ -42,6 +42,8 @@ Le rose encre proposé garde une marge sur les fonds crème, crème 2, rose pâl
 
 **Points de conception à faire approuver :** textes et boutons plus foncés; texte et lien d’infolettre clairs sur fond charbon; focus bicolore pour les fonds sombres. Les états survol/focus, bordures utiles, messages et surfaces photographiques doivent encore être contrôlés en contexte. Ces seuls rapports de contraste ne constituent pas une conformité WCAG globale. Aucun changement de palette n’est appliqué dans le thème.
 
+Pour la navigation actuellement transparente sur le héro, un simple remplacement de la couleur des liens ne garantit pas le contraste sur la photo. Proposition à valider : fond crème opaque pour la barre de navigation, liens rose encre/charbon et focus visible. Cette modification d’aspect n’est pas appliquée ici; la planche de couleurs teste des fonds unis, pas la photo.
+
 ## Anomalies connues avant validation finale du run
 
 - **Majeur pour ouverture commerciale** : contrastes des textes/boutons et contenu sombre de l’infolettre; le futur lien configuré utilise également une classe sombre sur fond sombre.
@@ -63,3 +65,28 @@ Le job global échoue dans le nouveau test de variation : la fixture ne persista
 Les refus PHP des quantités 0, -1 et 6 ont réussi. La vérification finale confirme zéro commande créée et aucune passerelle disponible. Les assertions navigateur WooCommerce interrompues ne sont pas déclarées réussies; elles doivent passer dans la relance. Les rapports sont maintenant conservés même si un scénario navigateur s’interrompt.
 
 La relance `39608086528` au commit `1dacbd019bdae0670fc499a6f3a1d9255bb30605` confirme la persistance de la fixture et les tris réels (12 produits dans l’ordre attendu sur quatre pages), le filtre 20–40 sur deux pages, l’ajout de la portion 500 g et son sous-total 35, la variation indisponible, le refus de quantité excessive et l’affichage de checkout sans paiement. Sur 20 assertions nouvelles, une échoue : le test lit le prix de 500 g avant la mise à jour différée de la zone de prix native, alors que le bouton de la variation précédente est encore activé. Le test attend désormais le prix attendu avant de le mesurer. La recette finale ajoute en outre les cinq tailles sur catalogue, deux fiches, panier et checkout, avec libellés et focus de base. Résultat global de cette nouvelle exécution à confirmer.
+
+## Recette étendue réussie
+
+[Run 39608791472](https://github.com/mycomane/alimentsdistinction/actions/runs/39608791472), job `119251872664`, commit `e13c89076e4fb6cd98dd85742cc25cf173795057` : **succès**.
+
+- 11 assertions PHP historiques + 41 navigateur historiques + 61 géométrie P0 + 55 sections/liens/clavier + 130 WooCommerce étendu = **298 assertions ciblées réussies**.
+- 25 combinaisons page/taille WooCommerce (catalogue, fiche simple, fiche variable, panier, checkout × cinq largeurs) : aucun débordement horizontal ni image locale cassée, un H1, contrôles visibles libellés.
+- Dix sondes clavier sur contrôles WooCommerce à 390/1440 px : le focus revient au contrôle et un contour solide de 3 px est présent. Le rapport suivant renomme le champ de largeur du contour pour conserver distinctement la largeur de viewport.
+- Tri numérique ascendant et descendant confirmé sur les douze produits, quatre pages sans doublon; filtre 20–40 donnant exactement cinq produits sur deux pages.
+- Variations 250/500 g et prix, ajout de 500 g avec sous-total 35, blocage de la variation indisponible et refus serveur; quantités au-delà du stock refusées sans nouvelle ligne de panier.
+- Formulaire classique de checkout, champs requis et nonce présents; **aucune soumission** et aucune passerelle disponible. Vérification finale : zéro commande et aucun paiement actif. Les trois refus PHP des quantités 0, -1, 6 passent aussi.
+- 14 couples de couleurs proposés mesurés, tous au-dessus de 4,5:1 pour leurs fonds unis; proposition non appliquée.
+
+La dernière relance ajoute une synthèse des journaux PHP fatals sans publier les journaux bruts, le contrôle de l’état d’erreur d’un champ obligatoire vide sans soumission, et le bloc de garantie parmi les régions mesurées. Ces résultats supplémentaires sont en attente; ils ne sont pas anticipés ici.
+
+## Revue des captures isolées
+
+Les captures desktop 1440 et téléphone 390 du run `39608086528` ont été examinées : héro, collections, engagements, produit mis en avant, histoire, réassurance, recettes, processus, témoignages, CTA, garantie, infolettre et pied de page. Le flux est cohérent et les contenus s’empilent sur téléphone. Le manque de contraste de l’infolettre est confirmé visuellement. Il ne s’agit pas d’une comparaison pixel par pixel des sections secondaires à `index.html`.
+
+- [Accueil 390 px](evidence/homepage-390.jpg)
+- [Accueil 1440 px](evidence/homepage-1440.jpg)
+- [Planche de contraste non appliquée](evidence/contrast-proposal.jpg)
+- Comparaison du héro corrigé : `P0_MOBILE_2026-10-21.md`.
+
+Ces images sont issues du WordPress jetable sans session privée, ni cookie ou donnée de GoDaddy. Les copies complètes des preuves JSON/JPEG sont aussi dans l’artefact `isolated-design-evidence` (rétention 14 jours); les rapports et images référencés ici sont conservés dans la branche.
