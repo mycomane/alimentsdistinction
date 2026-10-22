@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-22",
+  "run": 39873774537,
+  "status": "completed",
+  "conclusion": "success",
+  "completed_at": "2026-10-22T23:57:15Z",
+  "sha": "6163fa04069b3390a03156ae97cc44df5b0c8f20",
+  "job": 120157351181,
+  "human_approval": {
+    "login": "mycomane",
+    "environment": "godaddy-temp",
+    "recorded_before_ssh": true
+  },
+  "work_approved": false,
+  "theme_version": "0.1.3",
+  "locale": "fr_CA",
+  "protected_state_verified": true,
+  "coming_soon_after": true,
+  "http_static_sources_exact": 4,
+  "http_coming_soon_pages": 5,
+  "private_fresh_backup_verified": true,
+  "private_four_file_rollback_rehearsal": true,
+  "incident_rollback_needed": false,
+  "hosted_authenticated_responsive_review": false,
+  "new_review_identity_created": false,
+  "source": "GitHub run metadata, approvals API and completed deployment job log; no new hosting operation"
+}

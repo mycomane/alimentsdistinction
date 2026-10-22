@@ -1,5 +1,18 @@
 # Aliments Distinction — suivi Work / Coordination
 
+## P1 0.1.3 — déploiement temporaire réussi après approbation humaine
+
+**22 octobre 2026, fin du run à 23:57:15 UTC.** [Run 39873774537](https://github.com/mycomane/alimentsdistinction/actions/runs/39873774537) désormais **completed/success**, SHA livré `6163fa04069b3390a03156ae97cc44df5b0c8f20`, job protégé `120157351181`. Vérification effectuée depuis les métadonnées, l'historique d'approbation et les journaux GitHub, après réception de la capture de Julien.
+
+L'API confirme l'approbation **mycomane / godaddy-temp**; la première étape du job la confirme avant SSH. Work n'a pas approuvé ce run. L'état Waiting décrit plus bas est historique et a été levé par cette approbation humaine.
+
+Les journaux confirment : identité exacte du WordPress temporaire avant transfert; mesure et espace acceptés sans assouplissement; sauvegarde fraîche **privée** SQL/thème/langues/manifeste/SHA et répétition privée d'application/récupération; remplacement strict des quatre fichiers approuvés; cache d'en-tête du thème invalidé de façon ciblée; inventaire complet et état protégé vérifiés en **0.1.3**, langue **fr_CA** conservée. HTTP : quatre sources CSS/JS exactes avec version 0.1.3, accueil et quatre pages techniques répondant 200 / **Coming Soon** après mutation. Aucune récupération d'incident n'a été nécessaire.
+
+**Limites :** il s'agit des contrôles du workflow, pas d'une recette visuelle authentifiée du rendu hébergé sur ordinateur/téléphone. Aucun compte de recette créé; aucune transaction effectuée. La sauvegarde reste sur le même hébergeur; restauration SQL globale/hors site non certifiée. La confidentialité enregistrée contient toujours un texte anglais, sujet séparé. Palette, recettes et promesses commerciales hors lot; les invariants des réglages et données protégés sont vérifiés par le job.
+
+**Prochaine étape :** revue de ces preuves par la Coordination, puis définition de la recette visuelle hébergée dans un accès autorisé. Issue #2 laissée ouverte. Cette constatation n'autorise aucune nouvelle connexion/modification GoDaddy, création de compte ou nouvelle exécution. Les états d'attente et décisions précédents ci-dessous sont historiques.
+
+
 ## P1 0.1.3 — deuxième demande en Waiting / Review deployments
 
 **22 octobre 2026 — SHA exact du run et des tests : `6163fa04069b3390a03156ae97cc44df5b0c8f20`.** [Nouvelle exécution protégée 39873774537](https://github.com/mycomane/alimentsdistinction/actions/runs/39873774537) : **waiting**, tentative 1, environnement **godaddy-temp**, reviewer humain **mycomane**. API pending_deployments confirmée; historique d'approbations vide; job GoDaddy `120157351181` en waiting, sans étape commencée. **Work s'arrête à la revue, sans approbation ni SSH ni modification GoDaddy.**
