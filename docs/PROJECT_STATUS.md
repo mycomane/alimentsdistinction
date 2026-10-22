@@ -1,6 +1,16 @@
 # Aliments Distinction — suivi Work / Coordination
 
-Mise à jour : **22 octobre 2026**, audit de sécurité en lecture seule.
+Mise à jour : **22 octobre 2026**, reprise P1 en développement isolé après clôture sécurité par la Coordination.
+
+## P1 reprise — préparation française canadienne
+
+- Issue #3 vérifiée **clôturée**, base de reprise `eae4fbf24120d13d005c3a0617acd24cac116253`. La Coordination autorise la préparation isolée; une opération GoDaddy reste soumise à une autorisation distincte et à sa revue GitHub.
+- Dernier échec français `39699480039` : ShellCheck SC2016 sur le PHP intégré à une chaîne shell littérale. Extraction du calcul dans `scripts/locale/space.php`, avec les mêmes bornes numériques et la même marge P0. Aucun avertissement désactivé, aucun garde affaibli. Le helper est inclus dans le bundle et les simulations.
+- Tests locaux de reprise : syntaxe PHP/bash et `git diff --check` réussis; **46 assertions DB/marge, 28 assertions fichiers langues, 7 contrôles Coming Soon, 4 simulations shell** réussis (succès et trois échecs avec retour arrière). Aucun SSH ni changement hébergé.
+- Contrôles du workflow : branche exclusive, concurrence sans annulation, préparation + QA isolée du commit exact, `environment: godaddy-temp`, preuve d'approbation humaine du run avant SSH, empreinte SSH et identité temporaire conservées. L'API du connecteur ne prend pas en charge la lecture directe des règles d'environnement; leur état frais ne doit pas être annoncé comme vérifié par cette lecture. Le garde indépendant exige toujours une approbation humaine enregistrée avant toute connexion.
+- Le commit de préparation déclenche les vérifications GitHub; leurs résultats seront consignés après exécution. Un éventuel job protégé en attente ne vaut pas autorisation de configurer le serveur. Work ne l'approuve pas.
+- Périmètre proposé inchangé : paquets officiels épinglés + WPLANG fr_CA; aucun texte légal enregistré ni règle commerciale. Thème 0.1.2/palette Actuel conservés. Le WordPress hébergé n'est pas déclaré français.
+- Avant opération distante : autorisation explicite du périmètre fr_CA, revue GitHub propre au nouveau run, sauvegarde fraîche et retour arrière ciblé prévus dans le contrôleur. Pas de publication de détails serveur supplémentaires dans les issues.
 
 ## Vérification de sécurité du WordPress temporaire — 22 octobre, 11 h 54 HAE
 

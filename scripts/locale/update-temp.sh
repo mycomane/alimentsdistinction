@@ -37,7 +37,7 @@ theme_kb="$(du -sk "$theme" | awk '{print $1}')"
 lang_kb=0
 if [ -d "$lang" ]; then lang_kb="$(du -sk "$lang" | awk '{print $1}')"; fi
 payload_kb="$(du -sk "$bundle/payload/languages" | awk '{print $1}')"
-combined_kb="$(php -r 'require $argv[1]; $sum=0; foreach(array_slice($argv,2) as $v){$sum+=p0_safe_integer($v,false);} echo p0_safe_integer((string)$sum);' "$bundle/ops/p0-db-size.php" "$theme_kb" "$lang_kb" "$payload_kb")"
+combined_kb="$(php "$ops/space.php" "$theme_kb" "$lang_kb" "$payload_kb")"
 db_bytes="$(bash "$bundle/ops/measure-p0-db.sh" "$root")"
 free_kb="$(df -Pk "$home_dir" | awk 'NR==2{print $4}')"
 php "$bundle/ops/p0-db-size.php" space "$combined_kb" "$db_bytes" "$free_kb"

@@ -47,7 +47,7 @@ for case in ['success','activation_failure','verification_failure','coming_failu
    (lang/'plugins').mkdir(parents=True);(lang/'fr_CA.mo').write_text('old custom translation');(lang/'plugins/other-fr_FR.mo').write_text('unchanged other language/plugin')
   old=inventory(lang)
   bundle=base/'bundle';(bundle/'locale').mkdir(parents=True);(bundle/'ops').mkdir();(bundle/'payload').mkdir()
-  for name in ['files.php','state.php','wp-functions.php','public-check.php','update-temp.sh']:shutil.copy(repo/'scripts/locale'/name,bundle/'locale'/name)
+  for name in ['files.php','state.php','wp-functions.php','public-check.php','space.php','update-temp.sh']:shutil.copy(repo/'scripts/locale'/name,bundle/'locale'/name)
   for name in ['p0-files.php','p0-db-size.php','p0-db-size.sql','measure-p0-db.sh']:shutil.copy(repo/'scripts/ops'/name,bundle/'ops'/name)
   shutil.copytree(payload/'languages',bundle/'payload/languages');shutil.copy(payload/'manifest.json',bundle/'manifest.json');shutil.copy(payload/'theme-manifest.json',bundle/'theme-manifest.json')
   bin_dir=base/'bin';bin_dir.mkdir()
