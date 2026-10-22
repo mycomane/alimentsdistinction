@@ -2,10 +2,7 @@ name: French Canadian configuration — temporary site, mandatory reviewer
 # Revision 3: native reusable QA dependency; no cross-run polling deadline.
 # WPLANG and pinned core/WooCommerce fr_CA only; NEW human approval mandatory.
 on:
-  # Julien authorized a temporary branch/path-scoped trigger; remove after queueing.
-  push:
-    branches: [feat/wordpress-woocommerce-theme]
-    paths: ['docs/locale/FR_CA_REVIEW_REQUEST_2026-10-22.txt']
+  # Temporary authorized push trigger removed after queueing the new review run.
   workflow_dispatch:
 permissions:
   contents: read
