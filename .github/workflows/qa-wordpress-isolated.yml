@@ -6,6 +6,8 @@ on:
       # This routing and the four approved copy files use qa-p1-approved-copy.yml.
       - '.github/workflows/update-godaddy-temp-p1.yml'
       - 'scripts/qa/**'
+      # Obsolete newsletter expectations are covered by targeted P1 copy QA.
+      - '!scripts/qa/sections-audit.cjs'
       - 'tests/woocommerce-integration.php'
       - 'wordpress/**'
       - '!wordpress/aliments-distinction/footer.php'

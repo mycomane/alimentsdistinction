@@ -46,9 +46,10 @@ const check=(passed,label)=>{report.checks.push({label,passed:!!passed});if(!pas
   const urls=[...new Set(links.map(l=>l.url).filter(url=>{const u=new URL(url);return u.origin===base&&!u.hash&&!u.searchParams.has('add-to-cart');}))];
   for(const url of urls){const response=await page.request.get(url,{maxRedirects:4});report.destinations.push({path:new URL(url).pathname+new URL(url).search,status:response.status()});check(response.ok()&&new URL(response.url()).origin===base,'Internal destination '+new URL(url).pathname+new URL(url).search);}
   check(await page.locator('.newsletter input,.newsletter form').count()===0,'No fake newsletter subscription form');
-  check((await page.locator('.newsletter').innerText()).includes('bientôt disponibles'),'Newsletter unavailability stated');
+  check((await page.locator('.newsletter').innerText()).includes('L’inscription à l’infolettre n’est pas encore disponible.'),'Newsletter unavailability stated');
   report.findings.push({severity:'major',area:'content',detail:'FAQ, contact, phone and delivery policy use homepage-section fallbacks; complete approved content before launch.'});
-  report.findings.push({severity:'major',area:'newsletter',detail:'Unavailable-state paragraph inherits dark text on dark background; configured-link state also needs contrasting text/border.'});
+  check(await page.locator('.newsletter .ad-newsletter-panel').count()===1,'Approved newsletter panel rendered');
+  // Newsletter contrast is measured in tests/p1-copy-isolated/browser.cjs for both states.
   report.findings.push({severity:'major',area:'accessibility',detail:'Known rose/gray text and buttons require approved contrast adjustment; no global palette changed.'});
   report.findings.push({severity:'major',area:'commerce-content',detail:'Marketing quantities, origin, testimonials, guarantees and financing require owner validation.'});
   report.contrastSamples=await page.evaluate(()=>['.nav-link','.hero__title em','.trust-item__label','.btn-blush','.col-card__desc','.newsletter .t-body','.footer__copy'].map(selector=>{

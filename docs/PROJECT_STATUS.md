@@ -1,5 +1,14 @@
 # Aliments Distinction — suivi Work / Coordination
 
+## P1 0.1.3 — préparation autorisée, revue humaine obligatoire (22 octobre 2026)
+
+Directive [#6353441551](https://github.com/mycomane/alimentsdistinction/issues/2#issuecomment-6353441551) lue intégralement. Base GitHub `4544ead988c2aeb3ded1f33520c8ecb8d2791d00`; version hébergée 0.1.2 non modifiée. Préparation des quatre fichiers déjà approuvés et incrément strict version/cache 0.1.3. [Dossier/protocole complet](p1/RELEASE_0.1.3_REVIEW.md).
+
+Local réussis : paquet 23 fichiers et SHA ZIP `9d5dd4f86704495c71cf7f79cd8327b8d4af80ac22eacd0a62a4a8b764c4000d`, syntaxe/design/ressources, 31 assertions remplacement/rollback, quatre simulations du vrai script shell et quatre cas de garde d'approbation. Nouveau workflow dédié préparé; procédures 0.1.2 et fr_CA inchangées. CI ciblée de 58 assertions réutilisée, garde d'inventaire complet ajoutée; résultats au SHA publié à confirmer dans la prochaine mise à jour.
+
+**Statut : préparation seulement, aucune modification GoDaddy.** Une seule nouvelle demande de revue à créer; l'URL, SHA exact et résultats de CI seront ajoutés après constat. Job protégé godaddy-temp, approbation humaine du run exact avant tout SSH. Aucune sauvegarde distante fraîche ni répétition distante exécutée avant approbation. La Coordination doit revoir ce dossier et le run avant la décision de Julien. Limites : rendu hébergé authentifié et ressources externes non validés par cette préparation; aucune certification WCAG globale. Recettes/promesses commerciales/confidentialité anglaise restent séparées.
+
+
 ## Validation de Julien — 22 octobre 2026
 
 Julien a répondu **« accepté »** au résultat final de P1 : intégration et recette isolées, 58 assertions réussies, captures avant/après, contraste 13,3903:1 et hero sans décalage. **Résultat isolé accepté.** Les décisions Recettes/promesses commerciales différées et confidentialité persistante séparée restent inchangées. Cette acceptation **n'autorise aucun déploiement ni nouvelle opération GoDaddy**; autorisation distincte et revue GitHub du futur run exact toujours nécessaires. La Coordination peut définir la prochaine phase.
