@@ -1,0 +1,573 @@
+{
+  "scope": "targeted loopback WordPress only; external resources blocked; no login/order",
+  "baseline": "0771856d2251620fcf578143f353877e9cd2ca36",
+  "checks": [
+    {
+      "label": "candidate theme CSS parses",
+      "passed": true
+    },
+    {
+      "label": "reproduce missing charset in former simulated destination",
+      "passed": true
+    },
+    {
+      "label": "explicit UTF-8 fixes simulated destination only",
+      "passed": true
+    },
+    {
+      "label": "before unavailable 390 actual French WordPress",
+      "passed": true
+    },
+    {
+      "label": "before unavailable 390 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "label": "before unavailable 390 useful existing contact fallback",
+      "passed": true
+    },
+    {
+      "label": "before unavailable 1440 actual French WordPress",
+      "passed": true
+    },
+    {
+      "label": "before unavailable 1440 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "label": "before unavailable 1440 useful existing contact fallback",
+      "passed": true
+    },
+    {
+      "label": "before configured 390 actual French WordPress",
+      "passed": true
+    },
+    {
+      "label": "before configured 390 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "label": "before configured 390 useful existing contact fallback",
+      "passed": true
+    },
+    {
+      "label": "before configured 1440 actual French WordPress",
+      "passed": true
+    },
+    {
+      "label": "before configured 1440 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "label": "before configured 1440 useful existing contact fallback",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 390 actual French WordPress",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 390 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 390 useful existing contact fallback",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 390 single approved cream panel",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 390 no misleading phone entry",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 390 approved French copy",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 390 hero geometry unchanged",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 390 text contrast on actual panel",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 390 neutral availability text",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 390 contact reaches local section",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 1440 actual French WordPress",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 1440 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 1440 useful existing contact fallback",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 1440 single approved cream panel",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 1440 no misleading phone entry",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 1440 approved French copy",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 1440 hero geometry unchanged",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 1440 text contrast on actual panel",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 1440 neutral availability text",
+      "passed": true
+    },
+    {
+      "label": "after unavailable 1440 contact reaches local section",
+      "passed": true
+    },
+    {
+      "label": "after configured 390 actual French WordPress",
+      "passed": true
+    },
+    {
+      "label": "after configured 390 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "label": "after configured 390 useful existing contact fallback",
+      "passed": true
+    },
+    {
+      "label": "after configured 390 single approved cream panel",
+      "passed": true
+    },
+    {
+      "label": "after configured 390 no misleading phone entry",
+      "passed": true
+    },
+    {
+      "label": "after configured 390 approved French copy",
+      "passed": true
+    },
+    {
+      "label": "after configured 390 hero geometry unchanged",
+      "passed": true
+    },
+    {
+      "label": "after configured 390 text contrast on actual panel",
+      "passed": true
+    },
+    {
+      "label": "after configured 390 keyboard focus on panel",
+      "passed": true
+    },
+    {
+      "label": "after configured 390 hover contrast",
+      "passed": true
+    },
+    {
+      "label": "after configured 390 link opens local simulated destination",
+      "passed": true
+    },
+    {
+      "label": "after configured 1440 actual French WordPress",
+      "passed": true
+    },
+    {
+      "label": "after configured 1440 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "label": "after configured 1440 useful existing contact fallback",
+      "passed": true
+    },
+    {
+      "label": "after configured 1440 single approved cream panel",
+      "passed": true
+    },
+    {
+      "label": "after configured 1440 no misleading phone entry",
+      "passed": true
+    },
+    {
+      "label": "after configured 1440 approved French copy",
+      "passed": true
+    },
+    {
+      "label": "after configured 1440 hero geometry unchanged",
+      "passed": true
+    },
+    {
+      "label": "after configured 1440 text contrast on actual panel",
+      "passed": true
+    },
+    {
+      "label": "after configured 1440 keyboard focus on panel",
+      "passed": true
+    },
+    {
+      "label": "after configured 1440 hover contrast",
+      "passed": true
+    },
+    {
+      "label": "after configured 1440 link opens local simulated destination",
+      "passed": true
+    },
+    {
+      "label": "no page JavaScript errors during targeted review",
+      "passed": true
+    }
+  ],
+  "observations": [
+    {
+      "phase": "before",
+      "mode": "unavailable",
+      "width": 390,
+      "textContrast": 1.5508,
+      "heroGeometry": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 1420.5
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 870.5
+        },
+        {
+          "x": 0,
+          "y": 870.5,
+          "width": 390,
+          "height": 550
+        },
+        {
+          "x": 24,
+          "y": 228.296875,
+          "width": 342,
+          "height": 103.65625
+        },
+        {
+          "x": 24,
+          "y": 760.1875,
+          "width": 342,
+          "height": 62.3125
+        }
+      ]
+    },
+    {
+      "phase": "before",
+      "mode": "unavailable",
+      "width": 1440,
+      "textContrast": 1.5508,
+      "heroGeometry": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 720,
+          "height": 1000
+        },
+        {
+          "x": 720,
+          "y": 0,
+          "width": 720,
+          "height": 1000
+        },
+        {
+          "x": 80,
+          "y": 232.578125,
+          "width": 576,
+          "height": 300.65625
+        },
+        {
+          "x": 80,
+          "y": 870.25,
+          "width": 576,
+          "height": 45.453125
+        }
+      ]
+    },
+    {
+      "phase": "before",
+      "mode": "configured",
+      "width": 390,
+      "textContrast": 1,
+      "heroGeometry": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 1420.5
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 870.5
+        },
+        {
+          "x": 0,
+          "y": 870.5,
+          "width": 390,
+          "height": 550
+        },
+        {
+          "x": 24,
+          "y": 228.296875,
+          "width": 342,
+          "height": 103.65625
+        },
+        {
+          "x": 24,
+          "y": 760.1875,
+          "width": 342,
+          "height": 62.3125
+        }
+      ]
+    },
+    {
+      "phase": "before",
+      "mode": "configured",
+      "width": 1440,
+      "textContrast": 1,
+      "heroGeometry": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 720,
+          "height": 1000
+        },
+        {
+          "x": 720,
+          "y": 0,
+          "width": 720,
+          "height": 1000
+        },
+        {
+          "x": 80,
+          "y": 232.578125,
+          "width": 576,
+          "height": 300.65625
+        },
+        {
+          "x": 80,
+          "y": 870.25,
+          "width": 576,
+          "height": 45.453125
+        }
+      ]
+    },
+    {
+      "phase": "after",
+      "mode": "unavailable",
+      "width": 390,
+      "textContrast": 13.3903,
+      "heroGeometry": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 1420.5
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 870.5
+        },
+        {
+          "x": 0,
+          "y": 870.5,
+          "width": 390,
+          "height": 550
+        },
+        {
+          "x": 24,
+          "y": 228.296875,
+          "width": 342,
+          "height": 103.65625
+        },
+        {
+          "x": 24,
+          "y": 760.1875,
+          "width": 342,
+          "height": 62.3125
+        }
+      ]
+    },
+    {
+      "phase": "after",
+      "mode": "unavailable",
+      "width": 1440,
+      "textContrast": 13.3903,
+      "heroGeometry": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 720,
+          "height": 1000
+        },
+        {
+          "x": 720,
+          "y": 0,
+          "width": 720,
+          "height": 1000
+        },
+        {
+          "x": 80,
+          "y": 232.578125,
+          "width": 576,
+          "height": 300.65625
+        },
+        {
+          "x": 80,
+          "y": 870.25,
+          "width": 576,
+          "height": 45.453125
+        }
+      ]
+    },
+    {
+      "phase": "after",
+      "mode": "configured",
+      "width": 390,
+      "textContrast": 13.3903,
+      "heroGeometry": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 1420.5
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 870.5
+        },
+        {
+          "x": 0,
+          "y": 870.5,
+          "width": 390,
+          "height": 550
+        },
+        {
+          "x": 24,
+          "y": 228.296875,
+          "width": 342,
+          "height": 103.65625
+        },
+        {
+          "x": 24,
+          "y": 760.1875,
+          "width": 342,
+          "height": 62.3125
+        }
+      ]
+    },
+    {
+      "phase": "after",
+      "mode": "configured",
+      "width": 1440,
+      "textContrast": 13.3903,
+      "heroGeometry": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 720,
+          "height": 1000
+        },
+        {
+          "x": 720,
+          "y": 0,
+          "width": 720,
+          "height": 1000
+        },
+        {
+          "x": 80,
+          "y": 232.578125,
+          "width": 576,
+          "height": 300.65625
+        },
+        {
+          "x": 80,
+          "y": 870.25,
+          "width": 576,
+          "height": 45.453125
+        }
+      ]
+    }
+  ],
+  "encodingProbe": [
+    {
+      "charset": "windows-1252",
+      "text": "Destination dâ€™essai isolÃ©e"
+    },
+    {
+      "charset": "UTF-8",
+      "text": "Destination d’essai isolée"
+    }
+  ],
+  "failures": 0,
+  "external_fonts_and_photos_not_validated": true,
+  "ci": {
+    "run": 39867328004,
+    "job": 120132702299,
+    "sha": "b40a3740889ad212f06a1ab99bfba10018ae0a35",
+    "conclusion": "success",
+    "artifact": 12465395899
+  },
+  "hero_max_delta_px": 0,
+  "visual_review": [
+    "newsletter-after-configured-1440.png",
+    "newsletter-after-unavailable-390.png",
+    "newsletter-before-unavailable-1440.png",
+    "newsletter-after-unavailable-1440.png",
+    "footer-after-unavailable-390.png"
+  ],
+  "hosting_access": false,
+  "deployed": false
+}

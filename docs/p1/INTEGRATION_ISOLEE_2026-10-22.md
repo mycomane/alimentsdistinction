@@ -2,6 +2,25 @@
 
 Directive [Coordination #6351044184](https://github.com/mycomane/alimentsdistinction/issues/2#issuecomment-6351044184), décisions de Julien conservées dans [le registre](DECISIONS_JULIEN_2026-10-22.md). Base exacte : `0771856d2251620fcf578143f353877e9cd2ca36`. Aucun déploiement ni accès GoDaddy autorisé ou exécuté.
 
+## Résultat final : prêt pour revue, non déployé
+
+**[CI 39867328004](https://github.com/mycomane/alimentsdistinction/actions/runs/39867328004) completed/success**, SHA exact `b40a3740889ad212f06a1ab99bfba10018ae0a35`, job `120132702299`. Code de thème introduit par [4fc4e05e](https://github.com/mycomane/alimentsdistinction/commit/4fc4e05eea1bff366d77b5b5406c55e1e08d2efb); le second commit ne change que le test et la documentation, aucun octet du thème. [Diff complet depuis la base approuvée](https://github.com/mycomane/alimentsdistinction/compare/0771856d2251620fcf578143f353877e9cd2ca36...b40a3740889ad212f06a1ab99bfba10018ae0a35).
+
+**58 assertions ciblées réussies** sur le même SHA : WordPress fr_CA réel en loopback; avant/après, deux états d'infolettre, 390 et 1440 px; panneau, message, français/alt, Contact/ancre, destination locale, focus clavier et survol; CSS analysé et zéro erreur JS de page. Écart maximal mesuré des rectangles du hero : **0 px**. Aucun débordement aux deux largeurs; aucun problème n'a justifié le passage supplémentaire à 320 dans ce lot.
+
+| Mesure sur le rendu isolé | Avant, 390/1440 | Après, 390/1440 |
+| --- | --- | --- |
+| Message sans URL d'infolettre | 1,5508:1 | **13,3903:1** |
+| Lien d'infolettre configuré, au repos | 1:1 | **13,3903:1** |
+| Focus / survol du lien après | Non accepté comme référence accessible | Focus solide ≥ 3 px / contraste ≥ 3:1; texte au survol ≥ 4,5:1, assertions réussies |
+| Géométrie hero après correction | Base comparée dans la même fixture | **0 px d'écart maximal** |
+
+Journaux PHP serveur et WordPress présents : **zéro fatal, warning ou deprecated** compté; vérification finale **zéro commande créée et aucune passerelle active**. Aucune connexion ou soumission sur un service réel; aucune authentification de recette. Les photos/fontes externes ne sont pas validées par ce test, qui les bloque explicitement et utilise mouvement réduit/replis locaux. Les autres contrastes de la palette restent ouverts : aucune conformité WCAG globale n'est annoncée.
+
+[Planche avant/après autonome avec captures intégrées](integration-before-after.html) · [Preuve JSON durable, 58 assertions et sonde d'encodage](evidence/approved-copy-integration-2026-10-22.json). Artefact `p1-approved-copy-evidence`, ID `12465395899`, douze captures, JSON et diagnostics; non expiré à la vérification. Captures mobile/ordinateur et Contact examinées. Le build automatique [39853746868](https://github.com/mycomane/alimentsdistinction/actions/runs/39853746868) a réussi, sans installation ou publication.
+
+**Cause du premier échec confirmée par reproduction navigateur** : la page simulée sans charset est décodée en `windows-1252` et affiche des accents corrompus; avec en-tête/meta UTF-8, son titre est correct. Le lien du thème naviguait bien; aucun ajustement du thème n'a été nécessaire pour résoudre cette assertion. Le premier passage incomplet reste décrit ci-dessous, sans être déclaré réussi rétrospectivement.
+
 ## Intégration
 
 Les quatre sources locales ont été comparées octet pour octet aux fichiers du HEAD GitHub avant application. `git apply --check` réussi, puis [patch déjà approuvé](approved-copy-newsletter.patch) appliqué sans conflit aux fichiers du thème de la branche de développement :
@@ -26,7 +45,7 @@ CSS analysé par PostCSS, portée exacte protégée par les empreintes des quatr
 
 Premier passage : [39853746877](https://github.com/mycomane/alimentsdistinction/actions/runs/39853746877), SHA `4fc4e05eea1bff366d77b5b5406c55e1e08d2efb`, job `120086428337`, terminé en échec après **43 assertions réussies** et une assertion échouée sur le titre de la destination locale simulée. Contrastes réels confirmés dans le JSON : avant 1,5508:1 (message) / 1:1 (lien), après 13,3903:1 dans les scénarios atteints. Les captures avant/après et les contrôles focus/hero/contact précédents sont conservés dans l'artefact `12458124062`; le dernier scénario et les contrôles de fin ne sont pas déclarés réussis.
 
-La simulation HTML de destination ne précisait aucun charset, malgré des accents. Le test est corrigé avec en-tête UTF-8 et meta charset; une petite reproduction comparative sans/avec charset est ajoutée pour confirmer le diagnostic dans le navigateur épinglé. **Le thème reste strictement identique au premier passage**; cette correction concerne uniquement le test. Le résultat de la nouvelle CI doit être consulté avant de confirmer cette cause ou le succès global. L'attente d'installation provenait principalement des paquets système du navigateur, pas d'une étape GoDaddy.
+La simulation HTML de destination ne précisait aucun charset, malgré des accents. Le test est corrigé avec en-tête UTF-8 et meta charset; une petite reproduction comparative sans/avec charset est ajoutée. **Le thème reste strictement identique au premier passage**; cette correction concerne uniquement le test. La nouvelle CI verte et sa sonde confirment désormais la cause et le succès global, comme détaillé ci-dessus. L'attente d'installation provenait principalement des paquets système du navigateur, pas d'une étape GoDaddy.
 
 Attention pour une future suite complète : `scripts/qa/sections-audit.cjs` attend encore « bientôt disponibles » et ajoute un constat historique de texte sombre sans le recalculer. Ces attentes devront être adaptées au correctif validé avant de réutiliser cette suite pour une livraison. Elles ne sont pas modifiées ici pour éviter une relance complète; aucune réussite de cette suite n'est revendiquée au nouveau SHA.
 

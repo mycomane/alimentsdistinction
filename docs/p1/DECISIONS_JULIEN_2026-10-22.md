@@ -1,5 +1,7 @@
 # P1 — décisions de Julien, 22 octobre 2026
 
+> **Suivi d'intégration :** selon la nouvelle directive de Coordination, le patch ci-dessous est désormais appliqué aux quatre fichiers du thème **sur la branche de développement uniquement**, commit `4fc4e05eea1bff366d77b5b5406c55e1e08d2efb`. Voir [rapport d'intégration isolée](INTEGRATION_ISOLEE_2026-10-22.md). Les mentions « non appliqué » plus bas décrivent la préparation initiale; aucune installation GoDaddy ni autorisation de déploiement n'en découle. Recettes/promesses différées et brouillon de confidentialité gardent les décisions ci-dessous.
+
 Source : réponse explicite de Julien dans Work après examen des cinq sections de `content-ux-proposals.html`. Ces décisions doivent être reprises par la Coordination et par tout prochain intervenant; elles ne doivent pas être redemandées comme si elles étaient nouvelles. Base GitHub avant ce suivi : `15f06d99b3888c1b3e26a9904ed366db9833690e`.
 
 ## Validations acquises
