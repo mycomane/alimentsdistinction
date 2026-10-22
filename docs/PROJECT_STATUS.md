@@ -1,5 +1,12 @@
 # Aliments Distinction — suivi Work / Coordination
 
+## P1 0.1.3 — deuxième contrôle isolé et correction de fixture (22 octobre 2026)
+
+[CI isolée 39871878644](https://github.com/mycomane/alimentsdistinction/actions/runs/39871878644), SHA `1c774ee543d98b088ea77cee7d1567423dd79511` : job release-safety **success** (ShellCheck, 17 gardes fichiers, 31 assertions quatre fichiers, quatre simulations shell, quatre réponses d'approbation, 46 assertions parseur/espace et six scénarios MySQL). Job navigateur échoué dans la sonde : la lecture immédiatement après remplacement reste ancienne malgré `opcache.enable_cli=0`; les 58 assertions n'ont pas été atteintes sur ce passage.
+
+Correction suivante : désactiver également `opcache.enable=0` pour le serveur HTTP jetable, enregistrer chaque observation avant assertion et comparer défaut / CLI seulement / désactivation complète. Le runtime local sans extension OPCache passe; constat du runner à confirmer par la nouvelle CI. Quatre contrôles de cache/version des ressources rendues sont ajoutés aux 58 assertions existantes (62 attendues), sans changer le thème. Le workflow ciblé surveille aussi le futur YAML de livraison afin que tout nouveau run protégé autorisé dispose de QA au même SHA. Aucun second run protégé créé ni ancienne exécution relancée.
+
+
 ## P1 0.1.3 — incident CI avant revue, aucune mutation (22 octobre 2026)
 
 Première et unique exécution protégée créée : [39871446467](https://github.com/mycomane/alimentsdistinction/actions/runs/39871446467), SHA `ad4921dc7917bf225c4d4d388b7c2abb9770e79f`. Échec de préparation : ShellCheck SC2016 sur deux fragments PHP cités volontairement dans le shell. Aucun SSH ni job mutatif : **deploy skipped**, pas de Review deployments atteinte. Build [39871446421](https://github.com/mycomane/alimentsdistinction/actions/runs/39871446421) réussi. QA ciblé [39871446480](https://github.com/mycomane/alimentsdistinction/actions/runs/39871446480) échoué : `after unavailable 390 single approved cream panel` (ancien panneau rendu après remplacement des fichiers de fixture).

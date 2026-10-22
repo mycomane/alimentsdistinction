@@ -54,6 +54,7 @@ function install(phase){for(const file of Object.keys(scope.files)){
        contact:[...document.querySelectorAll('.footer a')].filter(a=>a.textContent.trim()==='Nous joindre').map(a=>a.href),
        phone:document.querySelector('.footer').textContent.includes('Commander par téléphone'),
        geometry:['.hero','.hero__left','.hero__right','.hero__title','.hero__trust'].map(selector=>{const r=document.querySelector(selector).getBoundingClientRect();return{x:r.x,y:r.y+scrollY,width:r.width,height:r.height};}),
+       sources:[...document.querySelectorAll('link[rel=stylesheet][href],script[src]')].map(e=>new URL(e.href||e.src)).filter(u=>['/wp-content/themes/aliments-distinction/assets/css/design.css','/wp-content/themes/aliments-distinction/style.css','/wp-content/themes/aliments-distinction/assets/css/commerce.css','/wp-content/themes/aliments-distinction/assets/js/theme.js'].includes(u.pathname)).map(u=>({path:u.pathname,version:u.searchParams.get('ver')})),
        copy:document.querySelector('.hero__eyebrow').textContent.trim(),alt:document.querySelector('.hero__right img').alt,
       };
      });
@@ -63,6 +64,8 @@ function install(phase){for(const file of Object.keys(scope.files)){
      ok(state.contact.length===1&&state.contact[0]===origin+'/#contact',label+' useful existing contact fallback');
      if(phase==='before')baselineGeometry[mode+'-'+width]=state.geometry;
      else{
+      const version=css.match(/^Version: (.+)$/m)[1];
+      ok(state.sources.length===4&&state.sources.every(s=>s.version===version),label+' four enqueued assets use exact theme version/cache key');
       ok(state.panelCount===1,label+' single approved cream panel');
       ok(!state.phone,label+' no misleading phone entry');
       ok(state.copy==='Produits locaux · Québec'&&state.alt==='Sélection de produits Aliments Distinction',label+' approved French copy');
@@ -77,7 +80,7 @@ function install(phase){for(const file of Object.keys(scope.files)){
        ok(contrast(hover.color,hover.background)>=4.5,label+' hover contrast');
       }
      }
-     observations.push({phase,mode,width,textContrast:+contrast(state.foreground,state.background).toFixed(4),heroGeometry:state.geometry});
+     observations.push({phase,mode,width,textContrast:+contrast(state.foreground,state.background).toFixed(4),heroGeometry:state.geometry,sources:state.sources});
      await page.mouse.move(0,0);await page.locator('.newsletter').screenshot({path:path.join(out,'newsletter-'+phase+'-'+mode+'-'+width+'.png')});
      if(phase==='after'){
       await page.locator('.footer').screenshot({path:path.join(out,'footer-after-'+mode+'-'+width+'.png')});

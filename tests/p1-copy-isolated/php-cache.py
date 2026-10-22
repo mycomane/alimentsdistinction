@@ -8,8 +8,8 @@ out.mkdir(parents=True,exist_ok=True)
 rows=[]
 with tempfile.TemporaryDirectory(prefix='ad-php-cache-') as tmp:
     root=Path(tmp)
-    (root/'config.php').write_text('<?php header("Content-Type: application/json");echo json_encode(["sapi"=>PHP_SAPI,"enable_cli"=>ini_get("opcache.enable_cli"),"revalidate_freq"=>ini_get("opcache.revalidate_freq"),"file_update_protection"=>ini_get("opcache.file_update_protection")]);')
-    for name,args in [('default',[]),('disabled',['-d','opcache.enable_cli=0'])]:
+    (root/'config.php').write_text('<?php header("Content-Type: application/json");echo json_encode(["sapi"=>PHP_SAPI,"enable"=>ini_get("opcache.enable"),"enable_cli"=>ini_get("opcache.enable_cli"),"revalidate_freq"=>ini_get("opcache.revalidate_freq"),"file_update_protection"=>ini_get("opcache.file_update_protection")]);')
+    for name,args in [('default',[]),('cli-only-disabled',['-d','opcache.enable_cli=0']),('disabled',['-d','opcache.enable=0','-d','opcache.enable_cli=0'])]:
         target=root/'render.php';target.write_text('<?php echo "OLD";')
         # Let default file-update protection expire before warming the probe.
         time.sleep(3)
@@ -27,8 +27,10 @@ with tempfile.TemporaryDirectory(prefix='ad-php-cache-') as tmp:
                     with urllib.request.urlopen(url+'/render.php',timeout=3) as response: return response.read().decode()
                 before=render();target.write_text('<?php echo "NEW";');after=render()
                 rows.append({'mode':name,'config':config,'before':before,'after_immediate_replace':after})
+                (out/'php-cache-probe.json').write_text(json.dumps(rows,indent=2)+'\n')
+                print('PHP_CACHE_OBSERVATION '+json.dumps(rows[-1]),flush=True)
                 assert before=='OLD'
-                if name=='disabled': assert after=='NEW', 'Opcode-free local render must use replaced bytes'
+                if name=='disabled': assert config['enable'] in ['0',False] and after=='NEW', 'Opcode-free local render must use replaced bytes'
             finally:
                 process.terminate();process.wait(timeout=5)
 (out/'php-cache-probe.json').write_text(json.dumps(rows,indent=2)+'\n')

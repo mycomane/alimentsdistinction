@@ -4,6 +4,7 @@ on:
     branches: [feat/wordpress-woocommerce-theme]
     paths:
       - '.github/workflows/qa-p1-approved-copy.yml'
+      - '.github/workflows/update-godaddy-temp-p1-013.yml'
       - '.github/workflows/qa-wordpress-isolated.yml'
       - 'tests/p1-copy-isolated/**'
       - 'wordpress/aliments-distinction/footer.php'
@@ -48,7 +49,7 @@ jobs:
           NODE_PATH: ${{ runner.temp }}/ad-p1-copy-tools/node_modules
         run: |
           set -euo pipefail
-          php -d opcache.enable_cli=0 -S 127.0.0.1:8787 -t "$RUNNER_TEMP/ad-isolated-qa/wordpress" "$RUNNER_TEMP/ad-isolated-qa/router.php" > "$RUNNER_TEMP/ad-qa-php.log" 2>&1 &
+          php -d opcache.enable=0 -d opcache.enable_cli=0 -S 127.0.0.1:8787 -t "$RUNNER_TEMP/ad-isolated-qa/wordpress" "$RUNNER_TEMP/ad-isolated-qa/router.php" > "$RUNNER_TEMP/ad-qa-php.log" 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
           python3 tests/p1-copy-isolated/php-cache.py
