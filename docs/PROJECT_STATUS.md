@@ -1,5 +1,14 @@
 # Aliments Distinction — suivi Work / Coordination
 
+## État courant — 22 octobre 2026, 15 h 53 HAE : fr_CA appliqué avec succès au WordPress temporaire
+
+- [Run 39843113925](https://github.com/mycomane/alimentsdistinction/actions/runs/39843113925) **completed/success**, SHA `2949707b119f158461fdfa9a7a634a359af51a97`. Après le point d'arrêt de Work, une approbation humaine `mycomane` pour `godaddy-temp` est enregistrée dans l'API; le job a vérifié cette approbation du run exact avant SSH. Work n'a soumis aucune approbation et n'a lancé aucune nouvelle opération hébergée pour cette vérification.
+- Journal du job `120049875766` contrôlé : sauvegarde **fraîche SQL/thème/langues/SHA et répétition privée application/rollback réussies**, baseline protégée conforme, activation via API et validation dans un processus neuf réussies. Résultat final du contrôleur : fr_CA et libellés natifs français vérifiés, thème/paramètres protégés/Coming Soon conservés. Aucun rollback d'échec requis dans ce run.
+- Sept observations hébergées : CORE_READABLE=1, RECOGNIZED_BEFORE=0, RECOGNIZED_AFTER=1, API_CHANGED=1, WRITE_QUERY_OK=1, RAW_QUERY_OK=1, RAW_MATCH=1. La reconnaissance après invalidation est **observée dans cette exécution hébergée**; cela ne reconstitue pas la cause historique de l'ancien run échoué.
+- Aucun contenu de confidentialité enregistré n'a été réécrit; aucune recette visuelle authentifiée ou création de compte n'a été effectuée sur l'hôte. Les parcours complets restent des preuves de fixture, pas de commande réelle validée. Récupération intégrale hors site non certifiée; sauvegarde privée fraîche confirmée sur l'hébergement.
+- [Dossier et preuve finale du run](locale/FR_CA_PROTECTED_RUN_2026-10-22.md). Le déclencheur temporaire est déjà retiré. Prochaine décision de Coordination : valider cette réussite et définir la reprise P1 / revue des contenus français sans configuration commerciale supplémentaire. Issue #4 laissée ouverte pour décision de Coordination; aucune nouvelle autorisation de mutation déduite du succès.
+- Les états Waiting et fr_CA non installé ci-dessous sont l'historique antérieur à cette approbation et à ce succès. Site commercial, master, DNS, Zoho, paiements et règles commerciales restent hors intervention.
+
 ## État courant — 22 octobre 2026 : nouvelle préparation fr_CA réussie, Waiting / Review deployments
 
 - Julien a explicitement répondu **oui** dans Work à l'ajout temporaire d'un déclenchement par commit sur la seule branche `feat/wordpress-woocommerce-theme`, sans approbation de déploiement. Cette autorisation remplace uniquement l'exigence de déclenchement manuel de la phase précédente. Base `deda077b81fb200044172f75d30c0db247ffce7a`.

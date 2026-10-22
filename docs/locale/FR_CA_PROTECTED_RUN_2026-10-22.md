@@ -1,5 +1,15 @@
 # Nouvelle revue fr_CA — 22 octobre 2026
 
+## Résultat final après approbation humaine — 15 h 53 HAE
+
+Le run 39843113925 est désormais **completed/success** sur le SHA 2949707b119f158461fdfa9a7a634a359af51a97. L'API d'approbations confirme une approbation `mycomane` de `godaddy-temp`, et le journal du job `120049875766` confirme son contrôle avant SSH. Work s'était arrêté à la revue, n'a approuvé aucun déploiement et vérifie maintenant uniquement les preuves GitHub en lecture seule.
+
+Journal final : baseline protégée, **sauvegarde fraîche SQL/thème/langues/SHA et répétition privée réussies**, activation puis vérification dans une invocation WP-CLI distincte. Le contrôleur confirme fr_CA effectif, deux libellés natifs français, inventaire exact, thème/paramètres protégés et Coming Soon préservés. Aucune récupération d'échec n'est requise par ce run réussi. La sauvegarde privée sur l'hébergement n'est pas une certification de récupération intégrale hors site.
+
+Observations hébergées exactes : `CORE_READABLE=1`, `RECOGNIZED_BEFORE=0`, `RECOGNIZED_AFTER=1`, `API_CHANGED=1`, `WRITE_QUERY_OK=1`, `RAW_QUERY_OK=1`, `RAW_MATCH=1`. La reconnaissance après invalidation ciblée est donc observée **dans ce run**; la cause transitoire de l'ancien run échoué demeure historiquement non confirmée.
+
+Le contenu de confidentialité enregistré reste inchangé; aucune revue visuelle authentifiée ou création de compte n'a été réalisée sur GoDaddy. Les tests transactionnels restent isolés et aucune commande/paiement réel n'est revendiqué. Le reste du présent dossier décrit la préparation et le point d'arrêt **avant** cette approbation humaine; les mentions fr_CA non installé et waiting y sont historiques.
+
 ## Exécution à examiner
 
 - [Run protégé 39843113925](https://github.com/mycomane/alimentsdistinction/actions/runs/39843113925), nouvelle exécution; aucun ancien run relancé.
