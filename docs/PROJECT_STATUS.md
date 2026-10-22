@@ -1,5 +1,25 @@
 # Aliments Distinction — suivi Work / Coordination
 
+## Résultat final — préparation corrigée validée, nouvelle revue à autoriser
+
+**22 octobre 2026 — dernier commit technique testé `ef62260133a797334ece79193bbd8b9a4ea9238d`.** [CI isolée 39872741229](https://github.com/mycomane/alimentsdistinction/actions/runs/39872741229) **completed/success**, jobs navigateur `120150854756` et sécurité `120150855096`. Cette mise à jour de documentation est postérieure au SHA testé et ne change pas le lot. [Diff depuis la base 0.1.2](https://github.com/mycomane/alimentsdistinction/compare/0771856d2251620fcf578143f353877e9cd2ca36...ef62260133a797334ece79193bbd8b9a4ea9238d).
+
+- **62 assertions WordPress fr_CA réussies** : 58 scénarios réutilisés + quatre vérifications des URL de cache/version 0.1.3 pour design.css, style.css, commerce.css, theme.js. Avant/après, deux états d'infolettre, 390/1440; contraste après 13,3903:1 dans les quatre scénarios; hero **0 px d'écart**; focus/survol/contact/liens et absence de débordement validés.
+- Zéro erreur JS; journaux PHP serveur et WordPress présents : zéro fatal, warning ou deprecated; zéro commande créée, aucune passerelle active dans la fixture.
+- Sécurité/préparation vertes : ShellCheck et syntaxes, 17 gardes fichiers, 31 assertions quatre fichiers/interruptions/récupération, quatre scénarios shell avec faux transports, quatre cas du garde d'approbation, 46 assertions du parseur/espace, six scénarios MySQL jetable. Aucun garde DB/espace assoupli.
+- Paquet 23 fichiers et manifeste lié au SHA, artefact `12466593717`; preuves/captures `12467500473`. [Preuve JSON durable](p1/evidence/release-013-2026-10-22.json). Deux captures finales inspectées (infolettre ordinateur configurée et pied de page téléphone). Le thème reste strictement le patch approuvé + en-tête 0.1.3; ZIP SHA256 inchangé `9d5dd4f86704495c71cf7f79cd8327b8d4af80ac22eacd0a62a4a8b764c4000d`.
+
+**Cause du rendu ancien reproduite dans le runner** : SAPI `cli-server`, `opcache.enable=1`, `enable_cli=0`, revalidation 2 secondes. Une lecture immédiate après remplacement renvoie OLD par défaut **et** avec enable_cli seul désactivé; `opcache.enable=0` + `enable_cli=0` renvoie NEW. La désactivation porte uniquement sur le serveur isolé de permutation des fichiers. Aucun réglage de cache GoDaddy modifié. Le signal ShellCheck a été résolu en déplaçant le PHP du shell dans son contrôleur PHP, sans supprimer SC2016.
+
+**État de livraison : aucun GoDaddy modifié, aucun SSH, aucune approbation.** L'unique run protégé autorisé [39871446467](https://github.com/mycomane/alimentsdistinction/actions/runs/39871446467) a échoué avant revue; job deploy ignoré, liste pending_deployments vide. Il n'est **pas** en Waiting / Review deployments. Aucun deuxième run protégé ni relance créé. Les deux passages suivants sont seulement des CI isolées sans environnement ni secrets.
+
+La directive [#6353441551](https://github.com/mycomane/alimentsdistinction/issues/2#issuecomment-6353441551) autorisait **« une seule nouvelle exécution »**. **Décision nécessaire :** revue du dossier corrigé par la Coordination, puis nouvel accord explicite de Julien pour une autre demande protégée. La future création doit modifier intentionnellement le YAML dédié, déclenchera aussi les tests ciblés au même nouveau SHA, et doit s'arrêter à Review deployments. Ne pas relancer le run échoué ni approuver le prochain run depuis Work.
+
+Le protocole ci-dessous demeure applicable après cette future approbation seulement : sauvegarde fraîche privée SQL/thème/langues/manifestes/SHA, mesure et espace, essai de récupération, remplacement strict de quatre fichiers, cache d'en-tête ciblé, invariants/HTTP/Coming Soon et rollback 0.1.2 sans restauration SQL globale. Aucune sauvegarde fraîche hébergée revendiquée ici. Rendu hébergé authentifié, ressources externes et conformité WCAG globale non validés; recettes, promesses commerciales et confidentialité anglaise différées.
+
+[Protocole complet et historique des incidents](p1/RELEASE_0.1.3_REVIEW.md). Les sections antérieures ci-dessous sont historiques.
+
+
 ## P1 0.1.3 — deuxième contrôle isolé et correction de fixture (22 octobre 2026)
 
 [CI isolée 39871878644](https://github.com/mycomane/alimentsdistinction/actions/runs/39871878644), SHA `1c774ee543d98b088ea77cee7d1567423dd79511` : job release-safety **success** (ShellCheck, 17 gardes fichiers, 31 assertions quatre fichiers, quatre simulations shell, quatre réponses d'approbation, 46 assertions parseur/espace et six scénarios MySQL). Job navigateur échoué dans la sonde : la lecture immédiatement après remplacement reste ancienne malgré `opcache.enable_cli=0`; les 58 assertions n'ont pas été atteintes sur ce passage.
