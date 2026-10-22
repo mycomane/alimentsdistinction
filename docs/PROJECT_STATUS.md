@@ -1,8 +1,25 @@
 # Aliments Distinction — suivi Work / Coordination
 
-Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
+Mise à jour : **22 octobre 2026**, audit de sécurité en lecture seule.
+
+## PRIORITÉ COURANTE — sécurité PHP2Shell, issue #3
+
+**P1 et la configuration française sont suspendues. Protection PHP Web NON CONFIRMÉE : aucune mise à jour ni nouvelle opération GoDaddy exécutée.**
+
+- Base documentaire auditée : `421b582ff3a127e577aeab515ef990d3cd2334c7`; le commit de ce compte rendu figure dans l'historique, sans SHA auto-inventé. Branche exclusive inchangée.
+- Preuve Web historique retrouvée : [run 39515208953, job 118945599076](https://github.com/mycomane/alimentsdistinction/actions/runs/39515208953/job/118945599076), **2026-10-21 00:17:35 UTC : PHP Web 8.2.34**. SAPI non indiqué dans le marqueur du journal. Ce n'est pas une mesure actuelle; un correctif fournisseur rétroporté n'est pas établi.
+- Preuve CLI plus récente : [déploiement 39696116068](https://github.com/mycomane/alimentsdistinction/actions/runs/39696116068), **2026-10-21 23:57:44 UTC : PHP CLI 8.2.35**, WP 7.1.3, WooCommerce 11.2.1 actif, thème 0.1.2. **CLI ne prouve pas Web**.
+- Tentative GoDaddy en lecture seule **2026-10-22 04:09:34 UTC** : `ERR_SOCKS_CONNECTION_FAILED`; aucun tableau de bord ou SSO WordPress chargé. GET HTTPS public distinct vers le temporaire : **403**. Aucun contournement ni endpoint PHP créé.
+- Avis officiels PHP/Centre canadien vérifiés : seuils corrigés **8.2.35 / 8.3.36 / 8.4.27 / 8.5.12**. L'ancien 8.2.34 observé impose une vérification urgente, pas une conclusion sur l'état actuel.
+- P1 : run de configuration [39699480039](https://github.com/mycomane/alimentsdistinction/actions/runs/39699480039) terminé en échec de préparation avant SSH; [QA isolée 39699479899](https://github.com/mycomane/alimentsdistinction/actions/runs/39699479899) réussie. Aucun déploiement en attente lancé par cet audit; français hébergé toujours non configuré par ce lot.
+- Prochaine étape bloquante : rétablir l'accès administratif ou obtenir une attestation GoDaddy du **PHP Web exact, SAPI, build/correctifs des deux CVE et renouvellement des workers** de ce seul site temporaire. Ni le sélecteur « 8.2 » ni le CLI ne suffisent.
+- Si correction nécessaire : présenter le périmètre et les risques à Julien, vérifier une sauvegarde fraîche réellement restaurable, compatibilité et retour arrière avec GoDaddy, puis obtenir l'approbation distincte avant mutation. Ne pas revenir à un runtime vulnérable sans confinement approuvé.
+- Aucune intervention sur le commercial, master, DNS, Coming Soon, paiements ou Zoho. Audit de compromission et inventaire frais exhaustif des extensions **non réalisés**. Issue #3 non clôturée.
+- [Rapport, preuves, limites et plan conditionnel](SECURITY_PHP2SHELL_2026-10-22.md).
 
 ## Phase et derniers commits
+
+Les sections P1 ci-dessous sont l'historique antérieur à la suspension de sécurité.
 
 **P0 clôturé. P1 : thème 0.1.2 déployé avec succès sur GoDaddy temporaire après autorisation de Julien et nouvelle revue GitHub. Palette « Actuel » conservée; seuls les deux contrôles approuvés et la version/cache ont changé. Coming Soon maintenu, sauvegarde et état protégé vérifiés. Point restant : WordPress hébergé est en `en_US`; l’inventaire des paquets français n’est pas établi par le premier diagnostic.**
 
