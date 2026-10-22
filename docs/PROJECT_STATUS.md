@@ -1,5 +1,13 @@
 # Aliments Distinction — suivi Work / Coordination
 
+## État actuel — 22 octobre 2026 : sept observations WPLANG instrumentées, CI isolée à confirmer
+
+- [Directive Coordination](https://github.com/mycomane/alimentsdistinction/issues/4#issuecomment-6349384832) lue intégralement. Base GitHub `a5c20f1c2a65067b9134c6bbad5f3f8c694a951a`; branche exclusive conservée.
+- Sept sorties `WPLANG_OBSERVE KEY=0|1` instrumentées dans le contrôleur existant : liste fermée, booléens stricts, aucune donnée SQL/chemin/identité. Les observations non atteintes ne sont pas émises. Les refus, la relecture indépendante même après API false et le rollback restent conservés.
+- Tests existants réutilisés; assertions additionnelles sur les traces ordonnées, leur confidentialité, SELECT post-API échoué et refus pré-baseline. Huit contrats workflow réussis localement (sept existants et un contrôle d'ordre/invocations distinctes), syntaxe PHP et diff vérifiés. CI WordPress/SQLite fraîche à confirmer avant toute conclusion applicative.
+- Aucun changement des workflows, du thème, des fichiers de rollback ou des paramètres hébergés. `workflow_dispatch`, `deploy.if ... && false`, `godaddy-temp`, dépendance QA du même SHA et revue humaine du run exact restent présents. Aucun workflow GoDaddy/SSH/rerun/approbation.
+- Cause historique GoDaddy non prouvée, fr_CA non déclaré installé, restauration intégrale hors site non certifiée. Après CI verte : soumettre le diff instrumenté à la Coordination. Toute réactivation exige une nouvelle autorisation explicite de Julien, puis une nouvelle revue GitHub du run exact; aucune de ces autorisations n'est accordée par le présent développement isolé.
+
 ## État actuel — 22 octobre 2026 : dossier final WPLANG soumis à revue
 
 - [Validation Coordination](https://github.com/mycomane/alimentsdistinction/issues/4#issuecomment-6348793088) lue intégralement. Base/dernier commit avant ce lot documentaire : `61ca2879edc3e10bdcd2149212ac1f910bd8bd0a`; le commit de livraison est celui de l'historique de cette section. Branche exclusive `feat/wordpress-woocommerce-theme`.

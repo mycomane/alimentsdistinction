@@ -69,21 +69,38 @@ function ad_locale_capture(array $pageIDs=['shop'=>6,'cart'=>7,'checkout'=>8,'my
  $raw=ad_locale_raw();if(get_locale()!=='en_US'||($raw!==null&&!in_array($raw['option_value'],['','en_US'],true)))throw new RuntimeException('Expected English baseline only');
  return ['locale_before'=>'en_US','WPLANG'=>$raw,'protected'=>ad_locale_protected($pageIDs)];
 }
+function ad_locale_observe(string $key,$value):void {
+ $allowed=['CORE_READABLE','RECOGNIZED_BEFORE','RECOGNIZED_AFTER','API_CHANGED','WRITE_QUERY_OK','RAW_QUERY_OK','RAW_MATCH'];
+ if(!in_array($key,$allowed,true)||!is_bool($value))throw new RuntimeException('LOCALE_STATE_REFUSED');
+ echo 'WPLANG_OBSERVE '.$key.'='.($value?'1':'0')."\n";
+}
 function ad_locale_activate(array $baseline,array $pageIDs=['shop'=>6,'cart'=>7,'checkout'=>8,'myaccount'=>9]):void {
  global $wpdb;
  if(ad_locale_raw()!==$baseline['WPLANG']||ad_locale_protected($pageIDs)!==$baseline['protected'])throw new RuntimeException('Pre-locale protected state drift');
+ $readable=is_readable(WP_LANG_DIR.'/fr_CA.mo')||is_readable(WP_LANG_DIR.'/fr_CA.l10n.php');
+ ad_locale_observe('CORE_READABLE',$readable);
+ if(!$readable)throw new RuntimeException('FR_CA_NOT_AVAILABLE');
+ ad_locale_observe('RECOGNIZED_BEFORE',in_array('fr_CA',get_available_languages(),true));
  ad_locale_refresh_language_files();
- if(!in_array('fr_CA',get_available_languages(),true))throw new RuntimeException('FR_CA_NOT_AVAILABLE');
+ $recognized=in_array('fr_CA',get_available_languages(),true);
+ ad_locale_observe('RECOGNIZED_AFTER',$recognized);
+ if(!$recognized)throw new RuntimeException('FR_CA_NOT_AVAILABLE');
  $old=$baseline['WPLANG'];$autoload=$old===null||in_array($old['autoload'],['yes','on','auto','auto-on'],true);
  $previous=$wpdb->suppress_errors(true);
  try{$changed=update_option('WPLANG','fr_CA',$autoload);$writeFailed=$wpdb->last_error!=='';}
  catch(Throwable $e){throw new RuntimeException('WPLANG_API_EXCEPTION');}
  finally{$wpdb->suppress_errors($previous);}
+ ad_locale_observe('API_CHANGED',$changed);
+ ad_locale_observe('WRITE_QUERY_OK',!$writeFailed);
  // Always perform the independent raw read, including when the API returns false.
- $raw=ad_locale_raw();
+ try{$raw=ad_locale_raw();}
+ catch(Throwable $e){if($e->getMessage()==='WPLANG_QUERY_FAILED')ad_locale_observe('RAW_QUERY_OK',false);throw $e;}
+ ad_locale_observe('RAW_QUERY_OK',true);
+ $matches=$raw!==null&&($raw['option_value']??null)==='fr_CA';
+ ad_locale_observe('RAW_MATCH',$matches);
  if($writeFailed)throw new RuntimeException('WPLANG_WRITE_FAILED');
  if(!$changed)throw new RuntimeException('WPLANG_API_FALSE');
- if($raw===null||($raw['option_value']??null)!=='fr_CA')throw new RuntimeException('WPLANG_RAW_MISMATCH');
+ if(!$matches)throw new RuntimeException('WPLANG_RAW_MISMATCH');
  if(ad_locale_protected($pageIDs)!==$baseline['protected'])throw new RuntimeException('Unexpected protected change after language update');
 }
 function ad_locale_refresh_language_files():void {

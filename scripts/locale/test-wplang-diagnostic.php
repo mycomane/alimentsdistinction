@@ -6,11 +6,21 @@ $dir=getenv('RUNNER_TEMP').'/ad-isolated-qa';require $dir.'/wordpress/wp-load.ph
 require __DIR__.'/wp-functions.php';ad_locale_identity(true);
 $ids=json_decode(file_get_contents($dir.'/fixtures.json'),true,512,JSON_THROW_ON_ERROR);
 $pageIDs=array_intersect_key($ids,array_flip(['shop','cart','checkout','myaccount']));
-$checks=[];
+$checks=[];$traces=[];$lastTrace='';
 function wd_ok(bool $v,string $label):void {global $checks;if(!$v)throw new RuntimeException('DIAGNOSTIC_ASSERTION_FAILED');$checks[]=['case'=>$label,'passed'=>true];}
 function wd_no(callable $call,string $code,string $label):void {
  try{$call();}catch(RuntimeException $e){wd_ok($e->getMessage()===$code,$label);return;}
  throw new RuntimeException('DIAGNOSTIC_EXPECTED_REFUSAL_MISSING');
+}
+function wd_activate(array $baseline,array $pageIDs):void {
+ global $lastTrace;ob_start();
+ try{ad_locale_activate($baseline,$pageIDs);}finally{$lastTrace=ob_get_clean();}
+}
+function wd_trace(array $expected,string $label,string $code='SUCCESS'):void {
+ global $lastTrace,$traces;
+ $text='';foreach($expected as $key=>$value)$text.='WPLANG_OBSERVE '.$key.'='.($value?'1':'0')."\n";
+ wd_ok($lastTrace===$text,$label.' exact ordered confidential observations');
+ $traces[]=['case'=>$label,'observations'=>$expected,'code'=>$code];
 }
 global $wpdb;
 delete_option('WPLANG');$baseline=ad_locale_capture($pageIDs);
@@ -21,7 +31,8 @@ wd_ok(!in_array('fr_CA',get_available_languages(),true),'no files means fr_CA is
 wd_ok(sanitize_option('WPLANG','fr_CA')!=='fr_CA','native sanitization rejects unavailable language');
 wd_ok(update_option('WPLANG','fr_CA')===false,'native API returns false when sanitization retains old value');
 wd_ok(ad_locale_raw()===$baseline['WPLANG'],'rejected native update leaves baseline intact');
-wd_no(fn()=>ad_locale_activate($baseline,$pageIDs),'FR_CA_NOT_AVAILABLE','new guard rejects missing files before writing');
+wd_no(fn()=>wd_activate($baseline,$pageIDs),'FR_CA_NOT_AVAILABLE','new guard rejects missing files before writing');
+wd_trace(['CORE_READABLE'=>false],'missing catalog','FR_CA_NOT_AVAILABLE');
 
 // Install only pinned bytes in this fresh fixture, outside WordPress upgrader,
 // as the hosted shell does. Preserve the already-primed discovery cache.
@@ -43,30 +54,39 @@ wd_ok(update_option('WPLANG','fr_CA')===false&&ad_locale_raw()===$baseline['WPLA
 wp_cache_set('wplang-diag-unrelated','keep','translation_files');
 $themeKey=md5(WP_LANG_DIR.'/themes/');wp_cache_set($themeKey,['fixture-theme'],'translation_files');
 wp_cache_set($pluginKey,[],'translation_files');
-ad_locale_activate($baseline,$pageIDs);
+wd_activate($baseline,$pageIDs);
+$success=['CORE_READABLE'=>true,'RECOGNIZED_BEFORE'=>false,'RECOGNIZED_AFTER'=>true,'API_CHANGED'=>true,'WRITE_QUERY_OK'=>true,'RAW_QUERY_OK'=>true,'RAW_MATCH'=>true];
+wd_trace($success,'stale discovery repaired');
 wd_ok(ad_locale_raw()['option_value']==='fr_CA','targeted native invalidation permits official option API');
 wd_ok(in_array('fr_CA',get_available_languages(),true),'native discovery recognizes installed core catalog after refresh');
 wd_ok(sanitize_option('WPLANG','fr_CA')==='fr_CA','native sanitization remains active and accepts recognized language');
 wd_ok(wp_cache_get('wplang-diag-unrelated','translation_files')==='keep'&&wp_cache_get($themeKey,'translation_files')===['fixture-theme'],'refresh preserves unrelated and theme cache entries');
 wd_ok(wp_cache_get($pluginKey,'translation_files')===false,'plugin discovery entry is narrowly invalidated');
 ad_locale_restore($baseline);wd_ok(ad_locale_raw()===$baseline['WPLANG'],'successful isolated activation rolls back exactly');
+wd_activate($baseline,$pageIDs);$recognizedSuccess=$success;$recognizedSuccess['RECOGNIZED_BEFORE']=true;
+wd_trace($recognizedSuccess,'already recognized catalog');ad_locale_restore($baseline);
 
 $hidden=static fn($languages)=>array_values(array_diff($languages,['fr_CA']));
 add_filter('get_available_languages',$hidden);
-wd_no(fn()=>ad_locale_activate($baseline,$pageIDs),'FR_CA_NOT_AVAILABLE','availability filter is respected, never bypassed');
+wd_no(fn()=>wd_activate($baseline,$pageIDs),'FR_CA_NOT_AVAILABLE','availability filter is respected, never bypassed');
+wd_trace(['CORE_READABLE'=>true,'RECOGNIZED_BEFORE'=>false,'RECOGNIZED_AFTER'=>false],'availability filter','FR_CA_NOT_AVAILABLE');
 remove_filter('get_available_languages',$hidden);
 
 $blocked=static fn($value,$old)=>$old;add_filter('pre_update_option_WPLANG',$blocked,10,2);
 $rawReads=0;$trace=static function($query)use(&$rawReads){if(str_starts_with($query,'SELECT option_value, autoload FROM '))$rawReads++;return $query;};add_filter('query',$trace);
-wd_no(fn()=>ad_locale_activate($baseline,$pageIDs),'WPLANG_API_FALSE','pre-update filter returns distinct API false code');
+wd_no(fn()=>wd_activate($baseline,$pageIDs),'WPLANG_API_FALSE','pre-update filter returns distinct API false code');
+$apiFalse=$recognizedSuccess;$apiFalse['API_CHANGED']=false;$apiFalse['RAW_MATCH']=false;
+wd_trace($apiFalse,'API false with independent raw read','WPLANG_API_FALSE');
 remove_filter('query',$trace);wd_ok($rawReads===2,'raw row is independently re-read even when the API returns false');
 remove_filter('pre_update_option_WPLANG',$blocked,10);
 wd_ok(ad_locale_raw()===$baseline['WPLANG'],'blocked update preserves exact baseline');
 $sanitize=static fn($value)=>get_option('WPLANG');add_filter('sanitize_option_WPLANG',$sanitize);
-wd_no(fn()=>ad_locale_activate($baseline,$pageIDs),'WPLANG_API_FALSE','sanitization filter refusal is preserved');
+wd_no(fn()=>wd_activate($baseline,$pageIDs),'WPLANG_API_FALSE','sanitization filter refusal is preserved');
+wd_trace($apiFalse,'sanitization refusal','WPLANG_API_FALSE');
 remove_filter('sanitize_option_WPLANG',$sanitize);
 $throws=static function(){throw new RuntimeException('fixture-sensitive-internal-detail');};add_filter('pre_update_option_WPLANG',$throws);
-wd_no(fn()=>ad_locale_activate($baseline,$pageIDs),'WPLANG_API_EXCEPTION','unexpected API exception becomes a fixed non-sensitive code');
+wd_no(fn()=>wd_activate($baseline,$pageIDs),'WPLANG_API_EXCEPTION','unexpected API exception becomes a fixed non-sensitive code');
+wd_trace(array_slice($recognizedSuccess,0,3,true),'API exception no invented result','WPLANG_API_EXCEPTION');
 remove_filter('pre_update_option_WPLANG',$throws);
 foreach(['FR_CA_NOT_AVAILABLE','WPLANG_API_FALSE','WPLANG_RAW_MISMATCH','WPLANG_QUERY_FAILED','WPLANG_WRITE_FAILED','WPLANG_API_EXCEPTION'] as $code)wd_ok(ad_locale_public_error(new RuntimeException($code))===$code,'public diagnostic permits fixed code '.$code);
 wd_ok(ad_locale_public_error(new RuntimeException('fixture-sensitive-internal-detail'))==='LOCALE_STATE_REFUSED','unallowlisted error details are not published');
@@ -78,7 +98,9 @@ $writeFault=static function($query)use($wpdb){
  return $query;
 };
 add_filter('query',$writeFault);
-wd_no(fn()=>ad_locale_activate($baseline,$pageIDs),'WPLANG_WRITE_FAILED','real fixture DB write error has a fixed code');
+wd_no(fn()=>wd_activate($baseline,$pageIDs),'WPLANG_WRITE_FAILED','real fixture DB write error has a fixed code');
+$writeFalse=$apiFalse;$writeFalse['WRITE_QUERY_OK']=false;
+wd_trace($writeFalse,'DB write failure','WPLANG_WRITE_FAILED');
 remove_filter('query',$writeFault);
 wd_ok(ad_locale_raw()===$baseline['WPLANG'],'failed DB write preserves original row');
 $readFault=static function($query)use($wpdb){
@@ -89,9 +111,23 @@ add_filter('query',$readFault);
 wd_no(fn()=>ad_locale_raw(),'WPLANG_QUERY_FAILED','real fixture raw-read error has a fixed code');
 remove_filter('query',$readFault);
 
+// Fail only the post-API raw SELECT: the baseline SELECT must still succeed.
+$readCount=0;$postReadFault=static function($query)use($wpdb,&$readCount){
+ if(str_starts_with($query,'SELECT option_value, autoload FROM ')&&++$readCount===2)return "SELECT wplang_fixture_missing_column FROM {$wpdb->options}";
+ return $query;
+};
+add_filter('query',$postReadFault);
+wd_no(fn()=>wd_activate($baseline,$pageIDs),'WPLANG_QUERY_FAILED','post-API raw read error refuses activation');
+$queryFalse=array_slice($recognizedSuccess,0,6,true);$queryFalse['RAW_QUERY_OK']=false;
+wd_trace($queryFalse,'DB read failure no invented conformity','WPLANG_QUERY_FAILED');
+remove_filter('query',$postReadFault);ad_locale_restore($baseline);
+wd_ok(ad_locale_raw()===$baseline['WPLANG'],'exact rollback after post-API read failure');
+
 $missing=static function($option)use($wpdb){if($option==='WPLANG')$wpdb->delete($wpdb->options,['option_name'=>'WPLANG']);};
 add_action('updated_option',$missing,10,1);
-wd_no(fn()=>ad_locale_activate($baseline,$pageIDs),'WPLANG_RAW_MISMATCH','API success with absent raw row is refused');
+wd_no(fn()=>wd_activate($baseline,$pageIDs),'WPLANG_RAW_MISMATCH','API success with absent raw row is refused');
+$mismatch=$recognizedSuccess;$mismatch['RAW_MATCH']=false;
+wd_trace($mismatch,'raw row absent','WPLANG_RAW_MISMATCH');
 remove_action('updated_option',$missing,10);
 wd_no(fn()=>ad_locale_restore($baseline),'Unknown WPLANG change; no blind rollback','missing unknown row is not blindly overwritten by rollback');
 // Fixture repair through the official API, then exact tested rollback.
@@ -101,13 +137,23 @@ wd_ok(ad_locale_raw()===$baseline['WPLANG'],'exact rollback after fixture-only m
 
 $divergent=static function($option)use($wpdb){if($option==='WPLANG')$wpdb->update($wpdb->options,['option_value'=>'fixture-unexpected'],['option_name'=>'WPLANG']);};
 add_action('updated_option',$divergent,10,1);
-wd_no(fn()=>ad_locale_activate($baseline,$pageIDs),'WPLANG_RAW_MISMATCH','API success with divergent raw row is refused');
+wd_no(fn()=>wd_activate($baseline,$pageIDs),'WPLANG_RAW_MISMATCH','API success with divergent raw row is refused');
+wd_trace($mismatch,'raw row divergent','WPLANG_RAW_MISMATCH');
 remove_action('updated_option',$divergent,10);
 wd_no(fn()=>ad_locale_restore($baseline),'Unknown WPLANG change; no blind rollback','divergent raw row is not overwritten by rollback');
 wp_cache_delete('alloptions','options');wp_cache_delete('WPLANG','options');wp_cache_delete('notoptions','options');
 update_option('WPLANG','fr_CA');ad_locale_restore($baseline);
 wd_ok(ad_locale_raw()===$baseline['WPLANG'],'exact rollback after fixture-only divergent-row repair');
 wd_ok(ad_locale_protected($pageIDs)===$baseline['protected'],'all protected commercial and page state unchanged');
+
+// Invalid keys/values and pre-baseline refusal emit nothing, including fake secrets.
+foreach([['fixture-sensitive-internal-detail',true],['RAW_MATCH','fixture-sensitive-internal-detail']] as [$key,$value]){
+ ob_start();try{wd_no(fn()=>ad_locale_observe($key,$value),'LOCALE_STATE_REFUSED','invalid observation schema refused');}finally{$invalidOutput=ob_get_clean();}
+ wd_ok($invalidOutput==='','invalid observation has no public output');
+}
+$drift=$baseline;$drift['protected']=[];
+wd_no(fn()=>wd_activate($drift,$pageIDs),'Pre-locale protected state drift','baseline refusal precedes observations');
+wd_trace([],'baseline refusal','LOCALE_STATE_REFUSED');
 
 // A file rollback also needs narrow discovery invalidation: otherwise a cached
 // catalog list can advertise a file that was just removed. Fixture-owned files only.
@@ -121,7 +167,7 @@ foreach(['fr_CA.mo','fr_CA.l10n.php'] as $p)if(is_file($stash.'/'.$p))rename($st
 rmdir($stash);ad_locale_invalidate_language_discovery();
 wd_ok(in_array('fr_CA',get_available_languages(),true),'fixture catalogs restored for existing fresh-process tests');
 
-$evidence=['scope'=>'isolated WordPress SQLite; no hosting connection','checks'=>$checks,'count'=>count($checks),'failures'=>0,'hosting_root_cause_confirmed'=>false,'correction_deployed'=>false];
+$evidence=['scope'=>'isolated WordPress SQLite; no hosting connection','checks'=>$checks,'count'=>count($checks),'observations'=>$traces,'failures'=>0,'hosting_root_cause_confirmed'=>false,'correction_deployed'=>false];
 if(!is_dir($dir.'/evidence'))mkdir($dir.'/evidence',0755);
 file_put_contents($dir.'/evidence/wplang-diagnostic.json',json_encode($evidence,JSON_PRETTY_PRINT|JSON_THROW_ON_ERROR)."\n");
 echo 'PASS: '.count($checks)." real isolated WPLANG diagnostic assertions; stale discovery reproduced, no hosted cause inferred.\n";

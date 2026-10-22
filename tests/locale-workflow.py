@@ -85,6 +85,17 @@ class NativeWorkflowGuards(unittest.TestCase):
         self.assertIn('contents: read', workflow)
         self.assertIn('fetch-depth: 0', workflow)  # Pinned deployed-tree comparison needs history.
 
+    def test_files_verified_before_activation_and_fresh_locale_process(self):
+        shell = (ROOT / 'scripts/locale/update-temp.sh').read_text()
+        apply = shell.index('php "$ops/files.php" apply "$backup/candidate-ready"')
+        activate = shell.index('wp --path="$root" eval-file "$ops/state.php" activate', apply)
+        verify = shell.index('wp --path="$root" eval-file "$ops/state.php" verify "$backup/wp-baseline.json" new', activate)
+        self.assertLess(apply, activate)
+        self.assertLess(activate, verify)
+        files = (ROOT / 'scripts/locale/files.php').read_text()
+        body = files[files.index('function lf_apply('):files.index('function lf_rollback(')]
+        self.assertLess(body.index("lf_check($root,$s,'new')"), body.index("$j['phase']='files-verified'"))
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
