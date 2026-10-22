@@ -1,5 +1,12 @@
 # Aliments Distinction — suivi Work / Coordination
 
+## État courant — 22 octobre 2026 : déclenchement temporaire autorisé par Julien
+
+- Julien a explicitement répondu **oui** dans Work à l'ajout temporaire d'un déclenchement par commit sur la seule branche `feat/wordpress-woocommerce-theme`, sans approbation de déploiement. Cette autorisation remplace uniquement l'exigence de déclenchement manuel de la phase précédente. Base `deda077b81fb200044172f75d30c0db247ffce7a`.
+- Déclencheur temporaire limité à cette branche et au seul nouveau marqueur `docs/locale/FR_CA_REVIEW_REQUEST_2026-10-22.txt`. Une nouvelle préparation est demandée; aucun ancien run relancé. Le déclencheur sera retiré dès la mise en file confirmée, en conservant le marqueur inchangé pour éviter un second événement correspondant.
+- Aucun changement au contrôleur WPLANG instrumenté, thème, sauvegardes, rollback ou paquets. Revue `godaddy-temp`, `needs: [prepare, isolated-qa]`, garde humaine du run exact avant SSH, identité temporaire et Coming Soon conservés. **Arrêt obligatoire à Waiting / Review deployments; aucune approbation par Work.**
+- Contrats locaux/diff et résultats GitHub du nouveau SHA à consigner après exécution. Aucune opération GoDaddy ni sauvegarde distante fraîche prétendue. Cause historique, filtres/cache/ACL/DB et récupération intégrale hors site restent les risques documentés. Les sections suivantes sont historiques.
+
 ## État actuel — 22 octobre 2026 : workflow fr_CA réactivé, déclenchement manuel bloqué techniquement
 
 - [Autorisation limitée de Julien / directive Coordination](https://github.com/mycomane/alimentsdistinction/issues/4#issuecomment-6349578366) lue intégralement. Base `80d32d69840676609cabc7690e03bf5847343afb`. Autorisation de préparer une nouvelle exécution et atteindre **Waiting / Review deployments uniquement**; aucune approbation ni modification GoDaddy autorisée à Work.

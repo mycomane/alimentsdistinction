@@ -38,7 +38,7 @@ class NativeWorkflowGuards(unittest.TestCase):
         self.assertRegex(deploy, r"(?m)^    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'$" )
         self.assertNotIn('&& false', deploy)  # Explicit authorization: environment review remains mandatory.
         self.assertIn('  workflow_dispatch:', CONFIG)
-        self.assertNotIn('  push:', CONFIG)
+        self.assertIn('  push:\n    branches: [feat/wordpress-woocommerce-theme]\n    paths: [\'docs/locale/FR_CA_REVIEW_REQUEST_2026-10-22.txt\']', CONFIG)
 
     def test_human_gate_before_checkout_or_remote_access(self):
         deploy = job('deploy')

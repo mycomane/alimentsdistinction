@@ -1,0 +1,5 @@
+Julien explicitly authorized the temporary branch-scoped push trigger on 2026-10-22.
+Purpose: one NEW fr_CA preparation on feat/wordpress-woocommerce-theme only.
+Stop at Waiting / Review deployments. Work must never approve the deployment.
+No GoDaddy or SSH operation before a NEW human review of this exact run.
+Remove the temporary push trigger after queueing; retain this marker unchanged.
