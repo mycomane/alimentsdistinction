@@ -2,13 +2,13 @@
 
 Mise à jour : **22 octobre 2026**, audit de sécurité en lecture seule.
 
-## Vérification Web obtenue — 22 octobre, 11 h 54 HAE
+## Vérification de sécurité du WordPress temporaire — 22 octobre, 11 h 54 HAE
 
-**PHP Web 8.2.35, SAPI `fpm-fcgi` : version corrigée pour CVE-2026-109618/109619 confirmée par la capture Santé du site fournie par Julien. Aucune mise à jour PHP supplémentaire nécessaire pour ces deux CVE sur la base de cette observation.**
+**Le runtime PHP Web du WordPress temporaire a été vérifié par Julien dans Santé du site. La version observée satisfait aux correctifs applicables aux CVE-2026-109618 et CVE-2026-109619. Aucune mise à jour supplémentaire n'est nécessaire pour ces deux vulnérabilités sur la base de cette observation.**
 
 - Source : capture utilisateur `image(7).png`, Outils → Santé du site → Informations → Serveur. Horloge visible : `2026-10-22T15:54:28+00:00` (11 h 54 min 28 s HAE). Observation par Julien dans son navigateur; pas une mesure automatisée Work. L'URL n'est pas visible sur cette capture; rattachement au temporaire fondé sur la séquence GoDaddy/SSO montrée, dont l'hôte temporaire figurait sur les captures précédentes.
-- Valeurs exactes : PHP `8.2.35 (Supports 64bit values)`, SAPI `fpm-fcgi`. La capture GoDaddy précédente `image(3).png` annonçait également le correctif de sécurité de l'hébergement.
-- Le seuil officiel [PHP du 21 octobre](https://www.php.net/archive/2026.php) est 8.2.35 pour la branche 8.2. Le constat Web remplace l'incertitude de version du bilan initial ci-dessous, conservé comme historique. [Preuve structurée](evidence/php-web-user-review-2026-10-22.json).
+- Par précaution, les valeurs techniques exactes du runtime et du serveur ne sont pas reproduites dans ce document de suivi public. La preuve d'audit demeure conservée séparément dans le dépôt, qui est actuellement public; cela ne constitue donc pas un retrait complet de ces données de toutes les sources.
+- Le constat est cohérent avec les [versions corrigées officiellement publiées par PHP](https://www.php.net/archive/2026.php). Il remplace l'incertitude de version du bilan initial ci-dessous, conservé comme historique. La capture n'affiche pas l'URL du site; son attribution au temporaire repose sur la navigation administrative précédente.
 - Aucun changement serveur, déploiement ou test d'exploitation effectué. Cela ne constitue pas un audit de compromission ni une certification de toutes les extensions ou de tous les workers. Le site commercial reste hors périmètre.
 - Blocage de version Web levé; **clôture de l'issue #3 et reprise P1 à confirmer par la Coordination**. Aucun workflow protégé déclenché. P1/fr_CA reste en attente de cette décision et de la revue GitHub propre à toute opération distante.
 
@@ -17,8 +17,8 @@ Mise à jour : **22 octobre 2026**, audit de sécurité en lecture seule.
 **P1 et la configuration française sont suspendues. Protection PHP Web NON CONFIRMÉE : aucune mise à jour ni nouvelle opération GoDaddy exécutée.**
 
 - Base documentaire auditée : `421b582ff3a127e577aeab515ef990d3cd2334c7`; le commit de ce compte rendu figure dans l'historique, sans SHA auto-inventé. Branche exclusive inchangée.
-- Preuve Web historique retrouvée : [run 39515208953, job 118945599076](https://github.com/mycomane/alimentsdistinction/actions/runs/39515208953/job/118945599076), **2026-10-21 00:17:35 UTC : PHP Web 8.2.34**. SAPI non indiqué dans le marqueur du journal. Ce n'est pas une mesure actuelle; un correctif fournisseur rétroporté n'est pas établi.
-- Preuve CLI plus récente : [déploiement 39696116068](https://github.com/mycomane/alimentsdistinction/actions/runs/39696116068), **2026-10-21 23:57:44 UTC : PHP CLI 8.2.35**, WP 7.1.3, WooCommerce 11.2.1 actif, thème 0.1.2. **CLI ne prouve pas Web**.
+- Preuve Web historique antérieure à la vérification actuelle : [run 39515208953, job 118945599076](https://github.com/mycomane/alimentsdistinction/actions/runs/39515208953/job/118945599076), **2026-10-21 00:17:35 UTC**. Elle ne remplace pas une mesure récente et n'était pas suffisante pour conclure au correctif.
+- Preuve CLI plus récente : [déploiement 39696116068](https://github.com/mycomane/alimentsdistinction/actions/runs/39696116068), **2026-10-21 23:57:44 UTC**. WordPress 7.1.3, WooCommerce 11.2.1 actif, thème 0.1.2. **CLI ne prouve pas Web**, d'où le contrôle séparé du runtime HTTP.
 - Tentative GoDaddy en lecture seule **2026-10-22 04:09:34 UTC** : `ERR_SOCKS_CONNECTION_FAILED`; aucun tableau de bord ou SSO WordPress chargé. GET HTTPS public distinct vers le temporaire : **403**. Aucun contournement ni endpoint PHP créé.
 - Avis officiels PHP/Centre canadien vérifiés : seuils corrigés **8.2.35 / 8.3.36 / 8.4.27 / 8.5.12**. L'ancien 8.2.34 observé impose une vérification urgente, pas une conclusion sur l'état actuel.
 - P1 : run de configuration [39699480039](https://github.com/mycomane/alimentsdistinction/actions/runs/39699480039) terminé en échec de préparation avant SSH; [QA isolée 39699479899](https://github.com/mycomane/alimentsdistinction/actions/runs/39699479899) réussie. Aucun déploiement en attente lancé par cet audit; français hébergé toujours non configuré par ce lot.
@@ -53,7 +53,7 @@ Les sections P1 ci-dessous sont l'historique antérieur à la suspension de séc
 ## P1 — déploiement 0.1.2 réussi; français hébergé à compléter
 
 - **[Run 39696116068](https://github.com/mycomane/alimentsdistinction/actions/runs/39696116068) : succès**, job de déploiement `119554780896`. Approbation humaine `mycomane` de `godaddy-temp` enregistrée et vérifiée pour cette exécution précise. Marqueur de réussite : **21 octobre 2026, 19 h 57 HAE**. Aucune auto-approbation.
-- Identité temporaire contrôlée avant téléversement : home/siteurl strictement `https://1302636.us22.myftpupload.com`. WordPress **7.1.3**, PHP **CLI 8.2.35**, WooCommerce **11.2.1** actif; thème actif de **0.1.1 à 0.1.2**. Version PHP web non remesurée.
+- Identité temporaire contrôlée avant téléversement : home/siteurl strictement `https://1302636.us22.myftpupload.com`. WordPress **7.1.3**, WooCommerce **11.2.1** actif; thème actif de **0.1.1 à 0.1.2**. À l'époque, la version PHP Web n'avait pas encore été vérifiée séparément.
 - Deux fichiers seulement : `assets/css/commerce.css` (contrôles approuvés) et `style.css` (ligne Version/cache). **Les 23 empreintes initiales puis finales sont vérifiées.** Source officielle, images et palette globale préservées; ancien workflow P0 intact.
 - **Sauvegarde fraîche privée** : `~/.ad-private-backups/p1-012-39696116068/`, thème complet et SQL compressé avec SHA256 vérifiés. Archive du thème extraite et vérifiée; mise à jour puis retour arrière de la paire répétés sur cette copie privée, sauvegarde originale préservée. Sauvegarde sur l’hôte seulement, pas de restauration SQL intégrale/hors site certifiée.
 - Remplacement réel journalisé de la paire; invalidation de la seule clé de cache d’en-tête du thème. Les **deux CSS sont servis en HTTP avec leurs empreintes exactes avant/après**. Aucune restauration de la paire réelle nécessaire : tous les contrôles finaux passent.
@@ -128,7 +128,7 @@ Site : **https://1302636.us22.myftpupload.com/** uniquement. [Run 39685183348](h
 | Retour arrière | Extraction privée du thème complet conforme; échange CSS aller/retour réellement répété dans le dossier privé avant bascule |
 | Mise à jour | Seul `style.css` remplacé atomiquement : suppression de la règle P0 et en-tête 0.1.1; les 22 autres fichiers inchangés |
 | Cache | Seule clé d'en-tête de ce thème invalidée; aucune purge globale ou CDN |
-| État final | WordPress **7.1.3**, PHP **CLI 8.2.35**, WooCommerce **11.2.1 actif**, thème **0.1.1 actif** |
+| État final | WordPress **7.1.3**, WooCommerce **11.2.1 actif**, thème **0.1.1 actif** |
 | CSS servi | HTTP : octets exacts du nouveau `style.css?ver=0.1.1`, SHA256 attendu confirmé |
 | Visibilité | Accueil + quatre pages techniques : HTTP 200 et **Coming Soon** avant/après |
 | Réglages et données protégés | Empreintes commerciales/visibilité/pages, tables taxes/livraisons et compteurs produits/commandes/utilisateurs inchangés |
