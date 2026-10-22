@@ -1,12 +1,14 @@
 # Aliments Distinction — suivi Work / Coordination
 
-## État actuel — 22 octobre 2026 : sept observations WPLANG instrumentées, CI isolée à confirmer
+## État actuel — 22 octobre 2026 : sept observations WPLANG instrumentées, CI isolée verte
 
 - [Directive Coordination](https://github.com/mycomane/alimentsdistinction/issues/4#issuecomment-6349384832) lue intégralement. Base GitHub `a5c20f1c2a65067b9134c6bbad5f3f8c694a951a`; branche exclusive conservée.
 - Sept sorties `WPLANG_OBSERVE KEY=0|1` instrumentées dans le contrôleur existant : liste fermée, booléens stricts, aucune donnée SQL/chemin/identité. Les observations non atteintes ne sont pas émises. Les refus, la relecture indépendante même après API false et le rollback restent conservés.
-- Tests existants réutilisés; assertions additionnelles sur les traces ordonnées, leur confidentialité, SELECT post-API échoué et refus pré-baseline. Huit contrats workflow réussis localement (sept existants et un contrôle d'ordre/invocations distinctes), syntaxe PHP et diff vérifiés. CI WordPress/SQLite fraîche à confirmer avant toute conclusion applicative.
+- Tests existants réutilisés; assertions additionnelles sur les traces ordonnées, leur confidentialité, SELECT post-API échoué et refus pré-baseline. Huit contrats workflow réussis localement (sept existants et un contrôle d'ordre/invocations distinctes), syntaxe PHP et diff vérifiés.
+- **CI fraîche [39840545859](https://github.com/mycomane/alimentsdistinction/actions/runs/39840545859) completed/success**, SHA instrumenté exact `196cf8f131b71c74b1287e59ae65de44ad3cbff3`, job `120040091571`. Journal vérifié : **62 assertions WPLANG (43 réutilisées + 19 supplémentaires), 30 rollback, quatre simulations shell et huit contrats réussis**. Vérification fr_CA/deux libellés en processus neuf, 311 fichiers épinglés et 23 fichiers du thème conformes. Aucune commande créée ni passerelle active dans la fixture; aucun navigateur exécuté malgré le libellé historique du contrôle de commandes.
+- Artefact `wplang-diagnostic-isolated-evidence`, ID `12453261072`. [Rapport, matrice observations/codes, diff et projet de demande d'autorisation](locale/WPLANG_OBSERVATIONS_2026-10-22.md). Ce résultat prouve les scénarios synthétiques et la non-régression isolée, pas le comportement transitoire GoDaddy.
 - Aucun changement des workflows, du thème, des fichiers de rollback ou des paramètres hébergés. `workflow_dispatch`, `deploy.if ... && false`, `godaddy-temp`, dépendance QA du même SHA et revue humaine du run exact restent présents. Aucun workflow GoDaddy/SSH/rerun/approbation.
-- Cause historique GoDaddy non prouvée, fr_CA non déclaré installé, restauration intégrale hors site non certifiée. Après CI verte : soumettre le diff instrumenté à la Coordination. Toute réactivation exige une nouvelle autorisation explicite de Julien, puis une nouvelle revue GitHub du run exact; aucune de ces autorisations n'est accordée par le présent développement isolé.
+- Cause historique GoDaddy non prouvée, fr_CA non déclaré installé, restauration intégrale hors site non certifiée. Diff instrumenté et preuves soumis à la Coordination; phase isolée terminée. Toute réactivation exige une nouvelle autorisation explicite de Julien, puis une nouvelle revue GitHub du run exact; aucune de ces autorisations n'est accordée par le présent développement isolé. Les sections suivantes décrivent l'historique documentaire et ne remplacent pas cet état.
 
 ## État actuel — 22 octobre 2026 : dossier final WPLANG soumis à revue
 

@@ -1,6 +1,6 @@
 # WPLANG — protocole final et dossier de revue
 
-**Suivi du 22 octobre :** le protocole accepté par la [Coordination](https://github.com/mycomane/alimentsdistinction/issues/4#issuecomment-6349384832) est maintenant instrumenté dans le contrôleur, sans réactivation du workflow. Les mentions « à implémenter » ci-dessous décrivent la livraison documentaire initiale; l'état et les preuves du lot instrumenté sont suivis dans [PROJECT_STATUS.md](../PROJECT_STATUS.md). Aucun comportement GoDaddy n'est validé par ces tests isolés.
+**Suivi du 22 octobre :** le protocole accepté par la [Coordination](https://github.com/mycomane/alimentsdistinction/issues/4#issuecomment-6349384832) est maintenant instrumenté et testé dans le contrôleur, sans réactivation du workflow. [Rapport et matrice du lot instrumenté](WPLANG_OBSERVATIONS_2026-10-22.md) : CI 39840545859 verte, 62 assertions ciblées + 30 rollback + quatre simulations + huit contrats. Les mentions « à implémenter » ci-dessous décrivent la livraison documentaire initiale; [PROJECT_STATUS.md](../PROJECT_STATUS.md) contient l'état courant. Aucun comportement GoDaddy n'est validé par ces tests isolés.
 
 22 octobre 2026. **Préparation documentaire uniquement, aucune autorisation de configuration.**
 
