@@ -36,6 +36,7 @@ class NativeWorkflowGuards(unittest.TestCase):
         self.assertNotIn('always()', deploy)
         self.assertNotIn('continue-on-error:', CONFIG + QA)
         self.assertIn("if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'", deploy)
+        self.assertNotIn('&& false', deploy)
 
     def test_human_gate_before_checkout_or_remote_access(self):
         deploy = job('deploy')
@@ -60,8 +61,7 @@ class NativeWorkflowGuards(unittest.TestCase):
         self.assertIn('php scripts/qa/no-orders.php', QA)
         self.assertIn('python3 tests/locale-workflow.py', job('prepare'))
 
-    def test_issue4_diagnosis_has_no_mutation_route(self):
-        self.assertIn('&& false', job('deploy'))
+    def test_read_only_diagnosis_has_no_mutation_route(self):
         diagnostic = (ROOT / '.github/workflows/diagnose-locale-filesystem.yml').read_text()
         self.assertIn('environment: godaddy-temp', diagnostic)
         self.assertIn('needs: [isolated-guards]', diagnostic)

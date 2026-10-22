@@ -54,8 +54,8 @@ jobs:
     uses: ./.github/workflows/qa-locale-fr-ca.yml
   deploy:
     needs: [prepare, isolated-qa]
-    # Issue #4: diagnosis and isolated review only; no mutation can be queued.
-    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme' && false
+    # Issue #4: preparation authorized; NEW human review required before SSH.
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
     name: APPROVAL REQUIRED — fr_CA language only on temporary WordPress
     runs-on: ubuntu-latest
     environment: godaddy-temp

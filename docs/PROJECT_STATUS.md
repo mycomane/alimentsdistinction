@@ -2,7 +2,18 @@
 
 Mise à jour : **22 octobre 2026**, issue #4 : diagnostic fichiers fr_CA, mutations suspendues.
 
+## Nouveau lot fr_CA — préparation autorisée, arrêt obligatoire à Review deployments
+
+- [Directive Coordination/Julien](https://github.com/mycomane/alimentsdistinction/issues/4#issuecomment-6347149703) lue intégralement. Base `c6e423df7b2e2c0f63feb83976c2ce8283144fad`; branche exclusive conservée. Autorisation de préparation et création d'une nouvelle exécution seulement, **pas d'approbation ni de modification GoDaddy**.
+- [Run correctif 39822268395](https://github.com/mycomane/alimentsdistinction/actions/runs/39822268395) désormais **completed/success** : préparation et recette fr_CA réutilisable du même commit `d026569f5092c1c1efb7c5d8050d47b02d295975` réussies; ancien job mutatif skipped. Les 61 assertions d'ownership sont confirmées. Confidentialité enregistrée et catégorie de fixture anglaises restent hors de la configuration de langue.
+- Diff préparé : retrait du seul `&& false` du job de mutation et mise à jour du commentaire; test de contrat adapté à ce rétablissement. `needs: [prepare, isolated-qa]`, branche, `environment: godaddy-temp`, preuve de revue humaine du run exact avant SSH et tous les scripts opérationnels sont inchangés. Aucun nouveau workflow concurrent ou contournement; nouveau run du workflow existant.
+- Vérifications locales : six contrats workflow, analyse YAML/bash et `git diff --check` réussis. Recette complète du nouveau SHA requise sur GitHub avant la demande de revue; aucun ancien run relancé. Aucune modification du correctif de fichiers déjà validé ni des 23 fichiers du thème.
+- Le nouveau run sera consigné après création et arrêté à **Waiting / Review deployments**. Work ne l'approuve pas. La sauvegarde ne sera créée qu'après approbation, dans un stockage privé de l'hébergement hors racine Web, propre à cette nouvelle exécution; aucune ancienne préparation n'est consommée.
+- [Dossier de revue : diff, périmètre, sauvegarde, politique d'échec et risques](locale/FR_CA_NEXT_REVIEW.md). ACL/rename peut encore provoquer un arrêt; retour ciblé des langues/WPLANG uniquement, refus de dérive inconnue, aucune restauration SQL automatique. Restauration intégrale hors site toujours non certifiée.
+
 ## Issue #4 — mesure confirmée, correctif opérationnel en préparation isolée
+
+Historique du correctif isolé; la préparation du nouveau lot ci-dessus rétablit seulement la possibilité d'une demande de revue humaine.
 
 - Le [diagnostic lecture seule 39820612012](https://github.com/mycomane/alimentsdistinction/actions/runs/39820612012) a **réussi** après nouvelle approbation humaine vérifiée. Job `119970652449`, preuve du **22 octobre à 13 h 16 min 14 s HAE** : seule la comparaison propriétaire candidat/dossier est fausse; comparaison avec les fichiers existants, volume, nombre de liens, empreintes, canonicalité, droits et inventaire sont conformes. [Preuve expurgée](locale/issue4-filesystem-booleans.json). Aucune valeur UID/GID ni chemin privé résolu publié.
 - La recette réutilisable de [39820611879](https://github.com/mycomane/alimentsdistinction/actions/runs/39820611879) a également **réussi**; le job de mutation est resté **skipped**. L'approbation lecture seule a uniquement autorisé la lecture de l'ancienne préparation; elle ne vaut pas approbation de configuration fr_CA.
