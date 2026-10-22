@@ -1,5 +1,14 @@
 # Aliments Distinction — suivi Work / Coordination
 
+## Décisions courantes — P1, 22 octobre 2026 : validations de Julien enregistrées
+
+- [Registre persistant des décisions](p1/DECISIONS_JULIEN_2026-10-22.md), base avant suivi `15f06d99b3888c1b3e26a9904ed366db9833690e`. Contrôles d'achat français jugés satisfaisants; formulation de confidentialité, proposition distincte d'infolettre, Contact et cohérence du français **approuvés par Julien**. Ne pas redemander ces choix de principe.
+- **Recettes différées** : Julien veut une grande sélection par produit, menant à la section Recettes du site. Aucun changement de légende « Aperçu de recette », création de contenu ou nouveau lien provisoire appliqué maintenant.
+- **Promesses commerciales différées** : à reprendre avec Jean-François/Meggy avant le déploiement/publication du site; aucune garantie, origine, chiffre, condition de paiement/livraison/retour ou avis inventé/modifié. Garder ce point comme validation préalable à l'ouverture commerciale.
+- [Correctif limité préparé en patch](p1/approved-copy-newsletter.patch) : français, Contact et panneau crème/charbon; recettes, promesses, palette globale, typographie, illustrations et contrôles d'achat intacts. **Patch documentaire non appliqué au thème suivi, non consommé par les workflows.** Le texte anglais persistant reste à remplacer dans un lot de contenu séparé; aucune option WordPress écrite.
+- Préparation isolée : trois gabarits PHP syntaxiquement valides, huit assertions du rendu du pied de page avec/sans URL d'infolettre réussies, applicabilité du patch vérifiée. Pas de nouvelle recette complète/CI A/B demandée. Les tests de la planche précédente restent leurs preuves d'origine, sans extrapolation au thème patché.
+- Aucune opération GoDaddy/SSH, nouvelle publication, nouvelle version déployée ou modification de Coming Soon. Validation graphique/éditoriale distincte de l'autorisation future de déploiement. Palette Actuel conservée; les sections suivantes gardent l'historique antérieur aux décisions.
+
 ## Phase courante — P1, 22 octobre 2026 : audit français/UX et propositions isolées
 
 - [Directive de reprise P1](https://github.com/mycomane/alimentsdistinction/issues/2#issuecomment-6349987857) lue intégralement; issue #4 vérifiée clôturée. Base du lot : `21ae9f00ee35e25c70ed4f6d807ba6f89658f9ba`. Installation fr_CA réussie, thème 0.1.2 et palette Actuel conservés.

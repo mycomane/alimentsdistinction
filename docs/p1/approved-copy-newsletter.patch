@@ -1,0 +1,123 @@
+--- a/wordpress/aliments-distinction/footer.php
++++ b/wordpress/aliments-distinction/footer.php
+@@ -7,9 +7,11 @@
+                     <span class="newsletter__label">Rejoignez la communauté</span>
+                     <h3 class="newsletter__title">Recettes, nouveautés<br>& <em>offres exclusives</em></h3>
+                 </div>
++                <div class="ad-newsletter-panel">
+                 <?php $ad_newsletter = get_theme_mod( 'ad_newsletter_url', '' ); if ( $ad_newsletter ) : ?>
+ <a class="btn btn-outline-charcoal" href="<?php echo esc_url( $ad_newsletter ); ?>">S’inscrire à l’infolettre</a>
+-<?php else : ?><p class="t-body">Les inscriptions à l’infolettre seront bientôt disponibles.</p><?php endif; ?>
++<?php else : ?><p class="t-body">L’inscription à l’infolettre n’est pas encore disponible.</p><?php endif; ?>
++                </div>
+             </div>
+         </div>
+     </section>
+@@ -35,10 +37,10 @@
+                     <div class="footer__col-title">Collections</div>
+                     <ul class="footer__links">
+                         <li><a class="footer__link" href="<?php echo esc_url( ad_collection_url( 'viandes' ) ); ?>">Viandes Prime</a></li>
+-                        <li><a class="footer__link" href="<?php echo esc_url( ad_collection_url( 'fruits-de-mer-poissons' ) ); ?>">Fruits de mer & Poissons</a></li>
++                        <li><a class="footer__link" href="<?php echo esc_url( ad_collection_url( 'fruits-de-mer-poissons' ) ); ?>">Fruits de mer et poissons</a></li>
+                         <li><a class="footer__link" href="<?php echo esc_url( ad_collection_url( 'veau-volaille-agneau' ) ); ?>">Veau · Volaille & Agneau</a></li>
+-                        <li><a class="footer__link" href="<?php echo esc_url( ad_collection_url( 'produits-gourmets' ) ); ?>">Produits Gourmets</a></li>
+-                        <li><a class="footer__link" href="<?php echo esc_url( ad_collection_url( 'desserts' ) ); ?>">Desserts Artisanaux</a></li>
++                        <li><a class="footer__link" href="<?php echo esc_url( ad_collection_url( 'produits-gourmets' ) ); ?>">Produits gourmets</a></li>
++                        <li><a class="footer__link" href="<?php echo esc_url( ad_collection_url( 'desserts' ) ); ?>">Desserts artisanaux</a></li>
+                     </ul>
+                 </div>
+                 <div>
+@@ -54,7 +56,6 @@
+                     <div class="footer__col-title">Contact</div>
+                     <ul class="footer__links">
+                         <li><a class="footer__link" href="<?php echo esc_url( ad_page_url( 'contact', 'contact' ) ); ?>">Nous joindre</a></li>
+-                        <li><a class="footer__link" href="<?php echo esc_url( ad_page_url( 'contact', 'contact' ) ); ?>">Commander par téléphone</a></li>
+                         <li><a class="footer__link" href="<?php echo esc_url( ad_page_url( 'politique-livraison', 'process' ) ); ?>">Politique de livraison</a></li>
+                         <?php if ( get_privacy_policy_url() ) : ?><li><a class="footer__link" href="<?php echo esc_url( get_privacy_policy_url() ); ?>">Confidentialité</a></li><?php endif; ?>
+                     </ul>
+--- a/wordpress/aliments-distinction/style.css
++++ b/wordpress/aliments-distinction/style.css
+@@ -6,6 +6,9 @@
+ Requires PHP: 8.1
+ Text Domain: aliments-distinction
+ */
++/* P1 approved newsletter surface; reuse the owners' existing palette. */
++.newsletter .ad-newsletter-panel { background: var(--cream); color: var(--charcoal); padding: 18px; min-width: 0; }
++.newsletter .ad-newsletter-panel .t-body { color: var(--charcoal); margin: 0; }
+ :focus-visible { outline: 3px solid var(--charcoal); outline-offset: 5px; }
+ .skip-link { position: fixed; top: -100px; left: 16px; z-index: 100001; padding: 12px; background: white; }
+ .skip-link:focus { top: 12px; }
+--- a/wordpress/aliments-distinction/front-page.php
++++ b/wordpress/aliments-distinction/front-page.php
+@@ -36,7 +36,7 @@
+             </div>
+ 
+             <div class="hero__eyebrow">
+-                <span class="t-label">Produits Locaux · Québec</span>
++                <span class="t-label">Produits locaux · Québec</span>
+             </div>
+             <h1 class="t-h1 hero__title">
+                 La table<br>que vous <em>méritez</em>
+@@ -72,7 +72,7 @@
+             </div>
+         </div>
+         <div class="hero__right" style="position:relative; overflow:hidden;">
+-            <img src="https://images.unsplash.com/photo-1615937691194-97dbd3f3dc29?w=1200&q=90" alt="Produits premium Aliments Distinction">
++            <img src="https://images.unsplash.com/photo-1615937691194-97dbd3f3dc29?w=1200&q=90" alt="Sélection de produits Aliments Distinction">
+             <div class="hero__right-overlay"></div>
+ 
+             <!-- FEUILLES BOTANIQUES coin bas droite -->
+@@ -159,7 +159,7 @@
+                 </div>
+                 <div class="strip-item">
+                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+-                    <span class="strip-item__text">Producteurs Locaux</span>
++                    <span class="strip-item__text">Producteurs locaux</span>
+                 </div>
+                 <div class="strip-item">
+                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+@@ -222,7 +222,7 @@
+                     </div>
+                     <div class="col-card__body">
+                         <div class="col-card__label">Produits de la mer</div>
+-                        <h3 class="col-card__title">Fruits de mer & Poissons</h3>
++                        <h3 class="col-card__title">Fruits de mer et poissons</h3>
+                         <p class="col-card__desc">Découvrez notre longe de morue, notre saumon de qualité tartare et sushi, nos crevettes nordiques ainsi que nos pétoncles U10, sélectionnés pour leur fraîcheur, leur texture et leur goût exceptionnel.</p>
+                         <span class="col-card__link">Explorer</span>
+                     </div>
+@@ -240,11 +240,11 @@
+                 </a>
+                 <a href="<?php echo esc_url( ad_collection_url( 'produits-gourmets' ) ); ?>" class="col-card" data-reveal data-d="2">
+                     <div class="col-card__img col-card__img-std">
+-                        <img src="<?php echo esc_url( ad_asset( 'images/tartare.webp' ) ); ?>" alt="Produits Gourmets">
++                        <img src="<?php echo esc_url( ad_asset( 'images/tartare.webp' ) ); ?>" alt="Produits gourmets">
+                     </div>
+                     <div class="col-card__body">
+-                        <div class="col-card__label">Produits Préparés</div>
+-                        <h3 class="col-card__title">Produits Gourmets</h3>
++                        <div class="col-card__label">Produits préparés</div>
++                        <h3 class="col-card__title">Produits gourmets</h3>
+                         <p class="col-card__desc">Coquilles aux fruits de mer, bouchées de saumon fumé à l'érable et sélection raffinée.</p>
+                         <span class="col-card__link">Explorer</span>
+                     </div>
+@@ -255,7 +255,7 @@
+                     </div>
+                     <div class="col-card__body">
+                         <div class="col-card__label">Finales sucrées</div>
+-                        <h3 class="col-card__title">Desserts Artisanaux</h3>
++                        <h3 class="col-card__title">Desserts artisanaux</h3>
+                         <p class="col-card__desc">Des créations sucrées pour couronner votre repas en beauté.</p>
+                         <span class="col-card__link">Explorer</span>
+                     </div>
+--- a/wordpress/aliments-distinction/template-parts/navigation.php
++++ b/wordpress/aliments-distinction/template-parts/navigation.php
+@@ -7,7 +7,7 @@
+             <img src="<?php echo esc_url( ad_asset( 'images/logo.png' ) ); ?>" alt="Aliments Distinction" style="height:88px; width:auto; object-fit:contain;">
+             <div class="nav-logo">
+                 <span class="nav-logo__main">Aliments Distinction</span>
+-                <span class="nav-logo__sub">Produits Locaux · Livraison à domicile</span>
++                <span class="nav-logo__sub">Produits locaux · Livraison à domicile</span>
+             </div>
+         </a>
+         <button class="ad-menu-toggle" type="button" aria-expanded="false" aria-controls="ad-navigation">Menu</button>
+

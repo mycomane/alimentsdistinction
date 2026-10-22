@@ -1,5 +1,7 @@
 # P1 — contenus français et UX : dossier de décision
 
+> **Décisions reçues ensuite :** [registre des validations de Julien](DECISIONS_JULIEN_2026-10-22.md). Confidentialité proposée, panneau d'infolettre, Contact et cohérence française approuvés; contrôles d'achat conservés. **Recettes différées** pour une grande sélection par produit vers la section Recettes, sans changement de légende immédiat. **Promesses commerciales à revoir avec les propriétaires avant publication**, sans modification automatique. Le présent audit conserve les propositions initiales; ce registre prévaut pour leur statut.
+
 22 octobre 2026. **Prêt pour revue de propositions, aucune application au thème ni à GoDaddy.**
 
 Directive : [reprise P1 par la Coordination](https://github.com/mycomane/alimentsdistinction/issues/2#issuecomment-6349987857). Base examinée : `21ae9f00ee35e25c70ed4f6d807ba6f89658f9ba`, branche exclusive `feat/wordpress-woocommerce-theme`. Issue #4 vérifiée clôturée; [installation fr_CA 39843113925](https://github.com/mycomane/alimentsdistinction/actions/runs/39843113925) completed/success sur `2949707b119f158461fdfa9a7a634a359af51a97`. Aucun nouveau contrôle GoDaddy, SSH, compte, accès authentifié, déploiement ou configuration commerciale dans cet audit.
