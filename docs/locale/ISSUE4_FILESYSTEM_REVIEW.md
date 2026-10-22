@@ -51,3 +51,11 @@ La suite `locale-ownership.php` utilise uniquement des répertoires jetables : p
 L'environnement Work a refusé la modification du propriétaire d'une fixture : le passage local partiel est explicite et n'est jamais utilisé en CI. GitHub exécutera la suite complète sous sudo dans son runner jetable, ainsi qu'un sous-processus non privilégié pour les permissions effectives. La recette fr_CA reste réutilisée au même commit, sans doublon autonome. Les résultats du nouveau commit seront consignés après exécution; aucun test distant n'est déclaré réussi avant approbation et mesure.
 
 Le site commercial, master, DNS, domaines, Zoho, paiements, taxes, livraison, utilisateurs et produits restent hors de cette opération. Coming Soon et sauvegardes préservés. Une sauvegarde de fichiers/base vérifiée sur l'hôte ne certifie toujours pas une restauration intégrale hors site.
+
+## Résultats GitHub obtenus
+
+Code [a2724994](https://github.com/mycomane/alimentsdistinction/commit/a27249945dc56457db2ef5ad41bd06524edaff7b) : [job de tests 119970586230](https://github.com/mycomane/alimentsdistinction/actions/runs/39820612012/job/119970586230) **success**, 49 assertions de la suite complète (sans option partielle), 28 gardes existants, six contrats workflow. Les cas de propriétaire et de permissions non privilégiées ont donc bien été exécutés sur le runner jetable GitHub, contrairement au passage local partiel.
+
+[Préparation 119970585696](https://github.com/mycomane/alimentsdistinction/actions/runs/39820611879/job/119970585696) **success**, paquets/thème/gardes inchangés et quatre simulations de retour arrière vérifiés. La recette navigateur réutilisée de ce même commit est encore en cours au dernier contrôle; sa réussite n'est pas anticipée.
+
+Le [nouveau diagnostic 39820612012](https://github.com/mycomane/alimentsdistinction/actions/runs/39820612012) est **waiting**, job de lecture seule `119970652449`. API pending_deployments : environnement `godaddy-temp`, reviewer humain `mycomane`. **Validation de la Coordination puis nouvelle approbation limitée à cette lecture seule requises.** Aucun diagnostic distant n'a encore eu lieu et aucune condition uid/dev/nlink n'est attribuée à GoDaddy sans cette preuve. Aucun déploiement n'est demandé par ce run.
