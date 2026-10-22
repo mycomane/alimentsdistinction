@@ -7,7 +7,7 @@
             <img src="<?php echo esc_url( ad_asset( 'images/logo.png' ) ); ?>" alt="Aliments Distinction" style="height:88px; width:auto; object-fit:contain;">
             <div class="nav-logo">
                 <span class="nav-logo__main">Aliments Distinction</span>
-                <span class="nav-logo__sub">Produits Locaux · Livraison à domicile</span>
+                <span class="nav-logo__sub">Produits locaux · Livraison à domicile</span>
             </div>
         </a>
         <button class="ad-menu-toggle" type="button" aria-expanded="false" aria-controls="ad-navigation">Menu</button>

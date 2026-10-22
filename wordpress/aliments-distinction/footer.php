@@ -7,9 +7,11 @@
                     <span class="newsletter__label">Rejoignez la communauté</span>
                     <h3 class="newsletter__title">Recettes, nouveautés<br>& <em>offres exclusives</em></h3>
                 </div>
+                <div class="ad-newsletter-panel">
                 <?php $ad_newsletter = get_theme_mod( 'ad_newsletter_url', '' ); if ( $ad_newsletter ) : ?>
 <a class="btn btn-outline-charcoal" href="<?php echo esc_url( $ad_newsletter ); ?>">S’inscrire à l’infolettre</a>
-<?php else : ?><p class="t-body">Les inscriptions à l’infolettre seront bientôt disponibles.</p><?php endif; ?>
+<?php else : ?><p class="t-body">L’inscription à l’infolettre n’est pas encore disponible.</p><?php endif; ?>
+                </div>
             </div>
         </div>
     </section>
@@ -35,10 +37,10 @@
                     <div class="footer__col-title">Collections</div>
                     <ul class="footer__links">
                         <li><a class="footer__link" href="<?php echo esc_url( ad_collection_url( 'viandes' ) ); ?>">Viandes Prime</a></li>
-                        <li><a class="footer__link" href="<?php echo esc_url( ad_collection_url( 'fruits-de-mer-poissons' ) ); ?>">Fruits de mer & Poissons</a></li>
+                        <li><a class="footer__link" href="<?php echo esc_url( ad_collection_url( 'fruits-de-mer-poissons' ) ); ?>">Fruits de mer et poissons</a></li>
                         <li><a class="footer__link" href="<?php echo esc_url( ad_collection_url( 'veau-volaille-agneau' ) ); ?>">Veau · Volaille & Agneau</a></li>
-                        <li><a class="footer__link" href="<?php echo esc_url( ad_collection_url( 'produits-gourmets' ) ); ?>">Produits Gourmets</a></li>
-                        <li><a class="footer__link" href="<?php echo esc_url( ad_collection_url( 'desserts' ) ); ?>">Desserts Artisanaux</a></li>
+                        <li><a class="footer__link" href="<?php echo esc_url( ad_collection_url( 'produits-gourmets' ) ); ?>">Produits gourmets</a></li>
+                        <li><a class="footer__link" href="<?php echo esc_url( ad_collection_url( 'desserts' ) ); ?>">Desserts artisanaux</a></li>
                     </ul>
                 </div>
                 <div>
@@ -54,7 +56,6 @@
                     <div class="footer__col-title">Contact</div>
                     <ul class="footer__links">
                         <li><a class="footer__link" href="<?php echo esc_url( ad_page_url( 'contact', 'contact' ) ); ?>">Nous joindre</a></li>
-                        <li><a class="footer__link" href="<?php echo esc_url( ad_page_url( 'contact', 'contact' ) ); ?>">Commander par téléphone</a></li>
                         <li><a class="footer__link" href="<?php echo esc_url( ad_page_url( 'politique-livraison', 'process' ) ); ?>">Politique de livraison</a></li>
                         <?php if ( get_privacy_policy_url() ) : ?><li><a class="footer__link" href="<?php echo esc_url( get_privacy_policy_url() ); ?>">Confidentialité</a></li><?php endif; ?>
                     </ul>

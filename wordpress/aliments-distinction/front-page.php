@@ -36,7 +36,7 @@
             </div>
 
             <div class="hero__eyebrow">
-                <span class="t-label">Produits Locaux · Québec</span>
+                <span class="t-label">Produits locaux · Québec</span>
             </div>
             <h1 class="t-h1 hero__title">
                 La table<br>que vous <em>méritez</em>
@@ -72,7 +72,7 @@
             </div>
         </div>
         <div class="hero__right" style="position:relative; overflow:hidden;">
-            <img src="https://images.unsplash.com/photo-1615937691194-97dbd3f3dc29?w=1200&q=90" alt="Produits premium Aliments Distinction">
+            <img src="https://images.unsplash.com/photo-1615937691194-97dbd3f3dc29?w=1200&q=90" alt="Sélection de produits Aliments Distinction">
             <div class="hero__right-overlay"></div>
 
             <!-- FEUILLES BOTANIQUES coin bas droite -->
@@ -159,7 +159,7 @@
                 </div>
                 <div class="strip-item">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                    <span class="strip-item__text">Producteurs Locaux</span>
+                    <span class="strip-item__text">Producteurs locaux</span>
                 </div>
                 <div class="strip-item">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -222,7 +222,7 @@
                     </div>
                     <div class="col-card__body">
                         <div class="col-card__label">Produits de la mer</div>
-                        <h3 class="col-card__title">Fruits de mer & Poissons</h3>
+                        <h3 class="col-card__title">Fruits de mer et poissons</h3>
                         <p class="col-card__desc">Découvrez notre longe de morue, notre saumon de qualité tartare et sushi, nos crevettes nordiques ainsi que nos pétoncles U10, sélectionnés pour leur fraîcheur, leur texture et leur goût exceptionnel.</p>
                         <span class="col-card__link">Explorer</span>
                     </div>
@@ -240,11 +240,11 @@
                 </a>
                 <a href="<?php echo esc_url( ad_collection_url( 'produits-gourmets' ) ); ?>" class="col-card" data-reveal data-d="2">
                     <div class="col-card__img col-card__img-std">
-                        <img src="<?php echo esc_url( ad_asset( 'images/tartare.webp' ) ); ?>" alt="Produits Gourmets">
+                        <img src="<?php echo esc_url( ad_asset( 'images/tartare.webp' ) ); ?>" alt="Produits gourmets">
                     </div>
                     <div class="col-card__body">
-                        <div class="col-card__label">Produits Préparés</div>
-                        <h3 class="col-card__title">Produits Gourmets</h3>
+                        <div class="col-card__label">Produits préparés</div>
+                        <h3 class="col-card__title">Produits gourmets</h3>
                         <p class="col-card__desc">Coquilles aux fruits de mer, bouchées de saumon fumé à l'érable et sélection raffinée.</p>
                         <span class="col-card__link">Explorer</span>
                     </div>
@@ -255,7 +255,7 @@
                     </div>
                     <div class="col-card__body">
                         <div class="col-card__label">Finales sucrées</div>
-                        <h3 class="col-card__title">Desserts Artisanaux</h3>
+                        <h3 class="col-card__title">Desserts artisanaux</h3>
                         <p class="col-card__desc">Des créations sucrées pour couronner votre repas en beauté.</p>
                         <span class="col-card__link">Explorer</span>
                     </div>

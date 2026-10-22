@@ -1,0 +1,19 @@
+{
+  "baseline": "0771856d2251620fcf578143f353877e9cd2ca36",
+  "files": {
+    "wordpress/aliments-distinction/footer.php": {
+      "candidate_sha256": "69c560f6e8f556e93827bc021b74f0521d18c280ec1bc778e167d104a92c8e33"
+    },
+    "wordpress/aliments-distinction/front-page.php": {
+      "candidate_sha256": "b070e0e33493bc58bb3b89a678032b0e2bf5f2d2608fb04c80bcd93677a0c974"
+    },
+    "wordpress/aliments-distinction/style.css": {
+      "candidate_sha256": "7fab65e3eac077ed2f5faabe977f52a7d8de2862fcfb62b146e6386dc6450ce2"
+    },
+    "wordpress/aliments-distinction/template-parts/navigation.php": {
+      "candidate_sha256": "8819598f8185bd270d60bb44852f45f1ff4cef11c6793a1caee61c703a190b7b"
+    }
+  },
+  "approved_patch_sha256": "fec51aa478bac4e8c36e728903479ba64540c808ae68eba629277373949ce162"
+}
+

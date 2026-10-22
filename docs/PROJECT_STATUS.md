@@ -1,5 +1,13 @@
 # Aliments Distinction — suivi Work / Coordination
 
+## Phase courante — P1, 22 octobre 2026 : correctif approuvé intégré dans la branche, recette ciblée
+
+- [Directive Coordination](https://github.com/mycomane/alimentsdistinction/issues/2#issuecomment-6351044184) lue intégralement. Base `0771856d2251620fcf578143f353877e9cd2ca36`; quatre sources comparées exactement au HEAD distant, patch applicable puis appliqué sans conflit au thème de développement. [Rapport d'intégration, périmètre et version/cache](p1/INTEGRATION_ISOLEE_2026-10-22.md).
+- Infolettre crème/charbon avec/sans destination, Contact unique et français approuvés intégrés. Recettes et promesses **inchangées/reportées**; aucun contenu anglais persistant ni politique publiée modifié. Palette/typographie/photos/CSS officiel/commandes WooCommerce préservés. Version 0.1.2 de développement, future 0.1.3 proposée seulement pour un éventuel lot autorisé.
+- Contrôles locaux existants de syntaxe PHP/JS, CSS officiel et sept images originales réussis, diff vérifié. Tests limités aux quatre fichiers : portée exacte/empreintes, CSS, WordPress fr_CA jetable, footer deux branches, contraste/focus/hover/contact et géométrie du hero à 390/1440, captures avant/après. Résultats du nouveau SHA à confirmer; aucun résultat historique substitué.
+- Routage des push de ces quatre fichiers vers la petite recette isolée, pour éviter la relance automatique de 300 assertions. Jobs de la suite générale et ses entrées workflow_call/workflow_dispatch conservés; prérequis des déploiements inchangés, aucun workflow protégé modifié. Aucun script scripts/p1/** ou CSS de variante A/B modifié.
+- **Aucun GoDaddy/SSH/déploiement/compte de recette hébergé**, aucune configuration commerciale ou écriture de confidentialité. Arrêt après tests/commit isolés; nouvelle autorisation indispensable pour toute livraison et nouvelle revue godaddy-temp du futur run exact. Les sections suivantes sont historiques, notamment le statut antérieur « patch non appliqué ».
+
 ## Décisions courantes — P1, 22 octobre 2026 : validations de Julien enregistrées
 
 - [Registre persistant des décisions](p1/DECISIONS_JULIEN_2026-10-22.md), base avant suivi `15f06d99b3888c1b3e26a9904ed366db9833690e`. Contrôles d'achat français jugés satisfaisants; formulation de confidentialité, proposition distincte d'infolettre, Contact et cohérence du français **approuvés par Julien**. Ne pas redemander ces choix de principe.

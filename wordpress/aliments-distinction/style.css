@@ -6,6 +6,9 @@ Requires at least: 6.6
 Requires PHP: 8.1
 Text Domain: aliments-distinction
 */
+/* P1 approved newsletter surface; reuse the owners' existing palette. */
+.newsletter .ad-newsletter-panel { background: var(--cream); color: var(--charcoal); padding: 18px; min-width: 0; }
+.newsletter .ad-newsletter-panel .t-body { color: var(--charcoal); margin: 0; }
 :focus-visible { outline: 3px solid var(--charcoal); outline-offset: 5px; }
 .skip-link { position: fixed; top: -100px; left: 16px; z-index: 100001; padding: 12px; background: white; }
 .skip-link:focus { top: 12px; }
