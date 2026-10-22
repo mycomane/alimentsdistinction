@@ -1,5 +1,7 @@
 # P1 — recette française et validation de l’aperçu
 
+> **Actualisation du 22 octobre :** fr_CA est installé et validé sur le WordPress temporaire par le run 39843113925, issue #4 clôturée. Le texte de confidentialité enregistré reste à faire valider/traduire; les observations de catégorie/monnaie de la fixture ne décrivent pas nécessairement l'hôte. [Audit français/UX et propositions actuels](CONTENT_UX_REVIEW_2026-10-22.md). Le reste de ce document conserve l'historique du 21 octobre, notamment les tests fr_FR et l'ancien état en_US.
+
 **21 octobre 2026.** Julien a validé l’aperçu des contrôles et demandé de continuer. La palette « Actuel » choisie par Jean-François et Meggy est conservée. L’accord graphique ne déclenche aucune opération sur GoDaddy.
 
 ## Méthode et budget

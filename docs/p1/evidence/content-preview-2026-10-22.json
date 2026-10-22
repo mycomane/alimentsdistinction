@@ -1,0 +1,147 @@
+{
+  "scope": "static documentary preview only; no hosted or WordPress test",
+  "checks": [
+    {
+      "label": "320 documentary preview fr_CA",
+      "passed": true
+    },
+    {
+      "label": "320 documentary preview no overflow",
+      "passed": true
+    },
+    {
+      "label": "320 reused embedded screenshots load",
+      "passed": true
+    },
+    {
+      "label": "320 single documentary H1",
+      "passed": true
+    },
+    {
+      "label": "320 no executable form or script",
+      "passed": true
+    },
+    {
+      "label": "390 documentary preview fr_CA",
+      "passed": true
+    },
+    {
+      "label": "390 documentary preview no overflow",
+      "passed": true
+    },
+    {
+      "label": "390 reused embedded screenshots load",
+      "passed": true
+    },
+    {
+      "label": "390 single documentary H1",
+      "passed": true
+    },
+    {
+      "label": "390 no executable form or script",
+      "passed": true
+    },
+    {
+      "label": "768 documentary preview fr_CA",
+      "passed": true
+    },
+    {
+      "label": "768 documentary preview no overflow",
+      "passed": true
+    },
+    {
+      "label": "768 reused embedded screenshots load",
+      "passed": true
+    },
+    {
+      "label": "768 single documentary H1",
+      "passed": true
+    },
+    {
+      "label": "768 no executable form or script",
+      "passed": true
+    },
+    {
+      "label": "1024 documentary preview fr_CA",
+      "passed": true
+    },
+    {
+      "label": "1024 documentary preview no overflow",
+      "passed": true
+    },
+    {
+      "label": "1024 reused embedded screenshots load",
+      "passed": true
+    },
+    {
+      "label": "1024 single documentary H1",
+      "passed": true
+    },
+    {
+      "label": "1024 no executable form or script",
+      "passed": true
+    },
+    {
+      "label": "1440 documentary preview fr_CA",
+      "passed": true
+    },
+    {
+      "label": "1440 documentary preview no overflow",
+      "passed": true
+    },
+    {
+      "label": "1440 reused embedded screenshots load",
+      "passed": true
+    },
+    {
+      "label": "1440 single documentary H1",
+      "passed": true
+    },
+    {
+      "label": "1440 no executable form or script",
+      "passed": true
+    },
+    {
+      "label": "preview keyboard focus visible",
+      "passed": true
+    },
+    {
+      "label": "preview keyboard opens reused checkout evidence",
+      "passed": true
+    },
+    {
+      "label": "no preview JavaScript page errors",
+      "passed": true
+    }
+  ],
+  "failures": 0,
+  "viewports": [
+    320,
+    390,
+    768,
+    1024,
+    1440
+  ],
+  "reused_run": 39843113925,
+  "ci": {
+    "run": 39846138630,
+    "job": 120059783656,
+    "sha": "68ca613c8adbfb85b46259b6d0b8c03baef8b864",
+    "conclusion": "success",
+    "artifact": 12454803652
+  },
+  "review": {
+    "images_examined": [
+      "proposals-390.png",
+      "newsletter-proposal.png"
+    ],
+    "applied_to_theme": false,
+    "hosting_access": false
+  },
+  "flat_contrast_proposal": {
+    "foreground": "#2C2A27",
+    "background": "#FAF7F2",
+    "ratio": 13.3903,
+    "scope": "proposal only; existing palette; no global WCAG claim"
+  }
+}

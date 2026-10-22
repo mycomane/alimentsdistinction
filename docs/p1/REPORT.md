@@ -1,5 +1,7 @@
 # P1 — propositions, choix retenu et livraison 0.1.2
 
+> **État courant au 22 octobre :** styles 0.1.2 et interface fr_CA validés sur le site temporaire; issue #4 clôturée. Reprise P1 limitée à l'audit et aux propositions : [dossier éditorial/UX](CONTENT_UX_REVIEW_2026-10-22.md) et [planche](content-ux-proposals.html). Palette Actuel conservée, variantes complètes A/B archivées. Les mentions en_US/non localisé ci-dessous sont historiques. Aucun nouveau déploiement autorisé par cette revue.
+
 > **État au 21 octobre, 19 h 57 HAE : styles 0.1.2 déployés avec succès après revue humaine GitHub.** [Preuve](evidence/release-0.1.2-deployment.json). Palette « Actuel » conservée, seuls les contrôles validés de A ont été livrés. **GoDaddy est encore en `en_US` : localisation à compléter; inventaire des paquets français non établi par le premier diagnostic.** Les sections de propositions et tests isolés ci-dessous conservent l’historique; voir [PROJECT_STATUS.md](../PROJECT_STATUS.md) pour l’état courant.
 
 > **Décision de Julien : conserver « Actuel », palette choisie par Jean-François et Meggy.** Seuls le bouton d’ajout au panier et le sélecteur de variation reprennent A. Les variantes complètes ci-dessous sont archivées pour référence, sans intégration. Site en français; vérification dédiée avec les traductions officielles WordPress/WooCommerce. Aucun déploiement autorisé par ce choix.
