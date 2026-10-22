@@ -2,7 +2,17 @@
 
 Mise à jour : **22 octobre 2026**, audit de sécurité en lecture seule.
 
-## PRIORITÉ COURANTE — sécurité PHP2Shell, issue #3
+## Vérification Web obtenue — 22 octobre, 11 h 54 HAE
+
+**PHP Web 8.2.35, SAPI `fpm-fcgi` : version corrigée pour CVE-2026-109618/109619 confirmée par la capture Santé du site fournie par Julien. Aucune mise à jour PHP supplémentaire nécessaire pour ces deux CVE sur la base de cette observation.**
+
+- Source : capture utilisateur `image(7).png`, Outils → Santé du site → Informations → Serveur. Horloge visible : `2026-10-22T15:54:28+00:00` (11 h 54 min 28 s HAE). Observation par Julien dans son navigateur; pas une mesure automatisée Work. L'URL n'est pas visible sur cette capture; rattachement au temporaire fondé sur la séquence GoDaddy/SSO montrée, dont l'hôte temporaire figurait sur les captures précédentes.
+- Valeurs exactes : PHP `8.2.35 (Supports 64bit values)`, SAPI `fpm-fcgi`. La capture GoDaddy précédente `image(3).png` annonçait également le correctif de sécurité de l'hébergement.
+- Le seuil officiel [PHP du 21 octobre](https://www.php.net/archive/2026.php) est 8.2.35 pour la branche 8.2. Le constat Web remplace l'incertitude de version du bilan initial ci-dessous, conservé comme historique. [Preuve structurée](evidence/php-web-user-review-2026-10-22.json).
+- Aucun changement serveur, déploiement ou test d'exploitation effectué. Cela ne constitue pas un audit de compromission ni une certification de toutes les extensions ou de tous les workers. Le site commercial reste hors périmètre.
+- Blocage de version Web levé; **clôture de l'issue #3 et reprise P1 à confirmer par la Coordination**. Aucun workflow protégé déclenché. P1/fr_CA reste en attente de cette décision et de la revue GitHub propre à toute opération distante.
+
+## Historique — audit initial PHP2Shell, avant preuve Web
 
 **P1 et la configuration française sont suspendues. Protection PHP Web NON CONFIRMÉE : aucune mise à jour ni nouvelle opération GoDaddy exécutée.**
 

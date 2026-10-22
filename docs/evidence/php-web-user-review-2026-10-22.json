@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-22",
+  "source": "Julien-provided screenshot of WordPress Site Health > Info > Server",
+  "attachment": "image(7).png",
+  "visible_server_time": "2026-10-22T15:54:28+00:00",
+  "php_web_version": "8.2.35",
+  "php_sapi": "fpm-fcgi",
+  "expected_site": "https://1302636.us22.myftpupload.com",
+  "identity_limit": "URL not visible in this screenshot; attributed through preceding screenshots and guided GoDaddy SSO sequence for the temporary host.",
+  "verification_method": "Human browser screenshot reviewed by Work; not a fresh automated host measurement.",
+  "cves": [
+    "CVE-2026-109618",
+    "CVE-2026-109619"
+  ],
+  "fixed_branch_threshold": "8.2.35",
+  "version_result": "matches_fixed_upstream_version",
+  "official_source": "https://www.php.net/archive/2026.php",
+  "server_changes_by_work": false,
+  "compromise_audit_performed": false,
+  "commercial_site_checked": false,
+  "coordination_decision": "Issue closure and P1 resumption pending Coordination review."
+}
