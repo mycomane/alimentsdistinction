@@ -2,6 +2,31 @@
 
 22 octobre 2026. Base `f450668419ba05549ae0ea747d9f63e647199478`, branche exclusive de développement.
 
+## Mise à jour après le diagnostic approuvé
+
+Le [job 119970652449](https://github.com/mycomane/alimentsdistinction/actions/runs/39820612012/job/119970652449) est **success**. Approbation humaine du run enregistrée et contrôlée avant SSH. À **13 h 16 min 14 s HAE**, seule `candidate_owner_matches_directory` est fausse; les treize autres contrôles sont vrais, notamment `existing_targets_owner_matches_candidate`. [Preuve JSON expurgée](issue4-filesystem-booleans.json). Le constat identifie donc une comparaison trop large avec le propriétaire du dossier; aucun problème de volume ou de lien n'a été observé par ce diagnostic. Les métadonnées historiques n'étaient pas enregistrées, mais la préparation existante a été retrouvée conforme aux empreintes/inventaire.
+
+La recette isolée 39820611879 est réussie. Aucun job de mutation n'a été exécuté; l'opération approuvée était strictement le diagnostic. Les sections suivantes conservent le raisonnement préalable comme historique.
+
+## Correctif opérationnel proposé — isolé, non déployé
+
+La nouvelle politique conserve l'identité des **fichiers** plutôt que de l'assimiler au propriétaire du **dossier** :
+
+1. L'espace de journalisation privé doit être canonique, inscriptible et non modifiable par le groupe/public. Tous les candidats doivent appartenir à son propriétaire, avoir un seul lien, le bon contenu et le même volume que la cible.
+2. Avant toute mutation publique, un journal exclusif privé est créé; son propriétaire doit confirmer la même identité d'écriture. Cela ne dépend pas d'une extension POSIX optionnelle et ne modifie aucun propriétaire.
+3. Chaque fichier existant ciblé doit appartenir à cette même identité. Le remplacement conserve le garde P0 d'atomicité, de mode, d'empreintes et de propriétaire. Un fichier étranger est refusé même si le dossier est inscriptible.
+4. Pour un fichier nouveau, candidat/processus sont liés par le contrôle du journal; même volume, lien unique et hash sont revalidés avant et après rename. Aucun fichier inattendu n'est écrasé.
+5. Les dossiers sont canoniques, inscriptibles et non inscriptibles publiquement. Leur inode, propriétaire, groupe, mode et volume sont scellés pour l'opération et recontrôlés avant chaque remplacement. Un changement en cours provoque un arrêt; aucun chown de dossier n'est tenté.
+6. La récupération vérifie aussi les propriétaires/volumes de tous les fichiers à changer avant sa première restauration/suppression, puis conserve les gardes d'inventaire et d'empreintes. Une dérive de propriétaire inconnue impose un arrêt, pas un contournement.
+
+Les métadonnées servent uniquement en mémoire et dans les contrôles privés; les erreurs publiées restent des codes fixes. Les 23 fichiers du thème, les 311 traductions épinglées, les gardes P0, la sauvegarde fraîche, le contrôle WPLANG et Coming Soon ne changent pas. Les permissions des dossiers existants ne sont jamais réécrites.
+
+**Risque résiduel à valider :** les droits effectifs et ACL GoDaddy peuvent encore refuser un rename malgré le précontrôle. Dans ce cas, le contrôleur s'arrête et utilise son retour arrière ciblé; une dérive inconnue peut nécessiter une intervention de récupération. La sauvegarde reste sur le même hébergement, sans restauration intégrale hors site certifiée. Les nouvelles vérifications privées de journal et de stabilité sont sûres par refus mais n'ont pas été exécutées sur GoDaddy par ce diagnostic antérieur. Aucune compatibilité distante supplémentaire n'est anticipée.
+
+Les tests ajoutés distinguent dossier d'un autre propriétaire avec fichiers existants et fichiers nouveaux (autorisés), candidat/fichier étranger (refusé), changement d'identité d'un dossier après une première modification (refusé), retour arrière d'un fichier dont le propriétaire a changé (refus avant toute autre restauration), et permissions d'espace privé/dossier dangereuses (refusées). La suite locale partielle ne remplace pas les tests complets du runner GitHub.
+
+Le job de mutation reste désactivé pendant la revue. **Validation Coordination/Julien du correctif, puis nouvelle exécution avec revue humaine propre, obligatoires avant tout déploiement.** Les propositions conditionnelles historiques ci-dessous ne sont pas des opérations réalisées.
+
 ## Constat prouvé
 
 [Run 39817398299](https://github.com/mycomane/alimentsdistinction/actions/runs/39817398299), job `119960431819` : revue humaine confirmée, identité temporaire validée, inventaire et marge de sauvegarde satisfaits, Coming Soon vérifié, sauvegarde et répétition privée réussies. Ensuite : `Locale filesystem/owner precondition failed`. Le rollback ciblé est confirmé; aucune restauration SQL ni installation fr_CA réussie à déclarer. Ne pas relancer ce run : ses préparations privées existent déjà.

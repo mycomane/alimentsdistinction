@@ -43,13 +43,28 @@ try {
     [$d,$s] = oa_fixture('candidate-owner'); $src=$d.'/source/fr_CA.mo'; $old=lstat($src)['uid'];
     oa_ok(chown($src, $old === 2 ? 3 : 2)); clearstatcache();
     oa_ok(!oa_report($d,$s)['candidate_owner_matches_directory']);
-    oa_no(fn()=>oa_apply($d,$s), 'Locale precondition refused: candidate_owner_matches_directory');
+    oa_no(fn()=>oa_apply($d,$s), 'Locale precondition refused: candidate_owner_matches_private_workspace');
     oa_ok(!file_exists($d.'/journal') && lf_inventory($d.'/target') === $s['old']); chown($src,$old);
 
     [$d,$s] = oa_fixture('directory-owner'); $old=lstat($d.'/target')['uid'];
     oa_ok(chown($d.'/target',$old === 2 ? 3 : 2)); $r=oa_report($d,$s);
     oa_ok(!$r['candidate_owner_matches_directory'] && $r['existing_targets_owner_matches_candidate']);
-    oa_no(fn()=>oa_apply($d,$s), 'Locale precondition refused: candidate_owner_matches_directory'); chown($d.'/target',$old);
+    oa_apply($d,$s); oa_ok(lf_inventory($d.'/target')===$s['new']);
+    lf_rollback($d.'/backup',$d.'/target',$s,$d.'/rollback'); oa_ok(lf_inventory($d.'/target')===$s['old']); chown($d.'/target',$old);
+
+    [$d,$s] = oa_fixture('different-directory-new-files');
+    foreach($s['payload']['files'] as $p=>$h)unlink($d.'/target/'.$p);
+    $s=lf_snapshot($d.'/target',$s['payload']); $old=lstat($d.'/target')['uid']; chown($d.'/target',$old===2?3:2);
+    oa_apply($d,$s); oa_ok(lf_inventory($d.'/target')===$s['new']);
+    lf_rollback($d.'/backup',$d.'/target',$s,$d.'/rollback'); oa_ok(lf_inventory($d.'/target')===[]); chown($d.'/target',$old);
+
+    [$d,$s] = oa_fixture('foreign-new-file-recovery');
+    foreach($s['payload']['files'] as $p=>$h)unlink($d.'/target/'.$p);
+    $s=lf_snapshot($d.'/target',$s['payload']); oa_apply($d,$s);
+    $target=$d.'/target/fr_CA.mo';$old=lstat($target)['uid'];chown($target,$old===2?3:2);
+    oa_no(fn()=>lf_rollback($d.'/backup',$d.'/target',$s,$d.'/rollback'),'Locale precondition refused: candidate_owner_matches_private_workspace');
+    oa_ok(!file_exists($d.'/rollback')&&lf_inventory($d.'/target')===$s['new']);
+    chown($target,$old);lf_rollback($d.'/backup',$d.'/target',$s,$d.'/rollback');oa_ok(lf_inventory($d.'/target')===[]);
     }
 
     [$d,$s] = oa_fixture('hardlink'); oa_ok(link($d.'/source/fr_CA.mo',$d.'/alias'));
@@ -98,7 +113,20 @@ try {
     oa_no(function()use($d,$s,$target,$old){lf_apply($d.'/source',$d.'/target',$s,$d.'/journal',function($n)use($target,$old){if($n===1)chown($target,$old===2?3:2);});}, 'Atomic filesystem/owner precondition failed');
     oa_ok(hash_file('sha256',$d.'/target/fr_CA.mo')===$s['new']['fr_CA.mo']);
     chown($target,$old); lf_rollback($d.'/backup',$d.'/target',$s,$d.'/rollback'); oa_ok(lf_inventory($d.'/target')===$s['old']);
+
+    [$d,$s] = oa_fixture('directory-drift'); $old=lstat($d.'/target')['uid'];
+    oa_no(function()use($d,$s,$old){lf_apply($d.'/source',$d.'/target',$s,$d.'/journal',function($n)use($d,$old){if($n===1)chown($d.'/target',$old===2?3:2);});}, 'Language directory identity changed');
+    chown($d.'/target',$old); lf_rollback($d.'/backup',$d.'/target',$s,$d.'/rollback'); oa_ok(lf_inventory($d.'/target')===$s['old']);
+
+    [$d,$s] = oa_fixture('foreign-existing-file'); $target=$d.'/target/fr_CA.mo'; $old=lstat($target)['uid']; chown($target,$old===2?3:2);
+    oa_no(fn()=>oa_apply($d,$s),'Locale precondition refused: candidate_owner_matches_existing_file');
+    oa_ok(!file_exists($d.'/journal')); chown($target,$old);
     }
+
+    [$d,$s] = oa_fixture('world-writable'); chmod($d.'/target',0777);
+    oa_no(fn()=>oa_apply($d,$s),'World-writable language directory refused'); chmod($d.'/target',0755);
+    [$d,$s] = oa_fixture('workspace-writable'); chmod($d,0777);
+    oa_no(fn()=>oa_apply($d,$s),'Writable-by-others locale workspace refused'); chmod($d,0755);
 
     echo "PASS: $oa_checks isolated filesystem assertions; ".($oa_partial ? 'PARTIAL local run: owner changes and unprivileged effective-permission checks NOT executed' : 'FULL owner/device/link/permissions/partial-recovery run')."; sanitized booleans only.\n";
 } finally {

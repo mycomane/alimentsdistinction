@@ -30,41 +30,81 @@ function lf_write(string $file,array $value):void {
 function lf_check(string $root,array $snapshot,string $phase):void {
  $s=lf_state($snapshot);if(!in_array($phase,['old','new'],true)||lf_inventory($root)!==$s[$phase])throw new RuntimeException('Language inventory drift');
 }
+function lf_workspace_owner(string $journal):int {
+ $dir=dirname($journal);clearstatcache();
+ if(is_link($dir)||!is_dir($dir)||realpath($dir)!==$dir||!is_writable($dir))throw new RuntimeException('Unsafe private locale workspace');
+ $stat=lstat($dir);
+ if(($stat['mode']&0022)!==0)throw new RuntimeException('Writable-by-others locale workspace refused');
+ return $stat['uid'];
+}
+function lf_directory_identity(string $dir):array {
+ clearstatcache();
+ if(is_link($dir)||!is_dir($dir)||realpath($dir)!==$dir||!is_writable($dir))throw new RuntimeException('Unsafe language directory');
+ $stat=lstat($dir);
+ if(($stat['mode']&0002)!==0)throw new RuntimeException('World-writable language directory refused');
+ return array_intersect_key($stat,array_flip(['dev','ino','uid','gid','mode']));
+}
+function lf_candidate_identity(string $src,int $uid,int $dev):void {
+ clearstatcache();
+ if(is_link($src)||!is_file($src)||realpath($src)!==$src)throw new RuntimeException('Locale candidate mismatch');
+ $stat=lstat($src);
+ if($stat['nlink']!==1)throw new RuntimeException('Locale precondition refused: candidate_single_link');
+ if($stat['uid']!==$uid)throw new RuntimeException('Locale precondition refused: candidate_owner_matches_private_workspace');
+ if($stat['dev']!==$dev)throw new RuntimeException('Locale precondition refused: candidate_device_matches_directory');
+}
 function lf_apply(string $source,string $root,array $snapshot,string $journal,?callable $after=null):void {
  $s=lf_state($snapshot);lf_check($root,$s,'old');
  if(file_exists($journal)||is_link($journal))throw new RuntimeException('Existing locale journal; no blind retry');
- $owner=lstat(is_dir($root)?$root:dirname($root));
+ $uid=lf_workspace_owner($journal);$anchor=is_dir($root)?$root:dirname($root);
+ $directories=[$anchor=>lf_directory_identity($anchor)];$dev=$directories[$anchor]['dev'];
  foreach($s['payload']['files'] as $p=>$hash){
   $src=$source.'/'.$p;
   if(!is_file($src)||is_link($src)||realpath($src)!==$src||hash_file('sha256',$src)!==$hash)throw new RuntimeException('Locale candidate mismatch');
-  $stat=lstat($src);
-  if($stat['nlink']!==1)throw new RuntimeException('Locale precondition refused: candidate_single_link');
-  if($stat['uid']!==$owner['uid'])throw new RuntimeException('Locale precondition refused: candidate_owner_matches_directory');
-  if($stat['dev']!==$owner['dev'])throw new RuntimeException('Locale precondition refused: candidate_device_matches_directory');
+  lf_candidate_identity($src,$uid,$dev);
+  if(isset($s['old'][$p])&&lstat($root.'/'.$p)['uid']!==$uid)throw new RuntimeException('Locale precondition refused: candidate_owner_matches_existing_file');
  }
  $j=['phase'=>'prepared','intent'=>null,'changed'=>[]];lf_write($journal,$j);
- foreach([$root,$root.'/plugins'] as $dir){if(!is_dir($dir)){if(!mkdir($dir,0755)||!chmod($dir,0755))throw new RuntimeException('Language directory unavailable');}if(realpath($dir)!==$dir||!is_writable($dir))throw new RuntimeException('Unsafe language directory');}
+ // An exclusive private journal is created by this process. Its owner must
+ // agree with the workspace/candidates before any public language change.
+ if(lstat($journal)['uid']!==$uid||lstat($journal)['nlink']!==1)throw new RuntimeException('Locale journal owner mismatch');
+ foreach([$root,$root.'/plugins'] as $dir){
+  foreach($directories as $known=>$identity)if(lf_directory_identity($known)!==$identity)throw new RuntimeException('Language directory identity changed');
+  if(!is_dir($dir)){if(!mkdir($dir,0755)||!chmod($dir,0755))throw new RuntimeException('Language directory unavailable');}
+  $directories[$dir]=lf_directory_identity($dir);
+  if($directories[$dir]['dev']!==$dev)throw new RuntimeException('Language directory device mismatch');
+ }
  foreach($s['payload']['files'] as $p=>$hash){
   if(($s['old'][$p]??null)===$hash)continue;
-  $src=$source.'/'.$p;$target=$root.'/'.$p;$j['intent']=$p;lf_write($journal,$j);
+  foreach($directories as $dir=>$identity)if(lf_directory_identity($dir)!==$identity)throw new RuntimeException('Language directory identity changed');
+  $src=$source.'/'.$p;$target=$root.'/'.$p;lf_candidate_identity($src,$uid,$dev);$j['intent']=$p;lf_write($journal,$j);
   if(isset($s['old'][$p]))p0_replace($src,$target,$s['old'][$p],$hash);
-  else{if(file_exists($target)||is_link($target)||!chmod($src,0644)||!rename($src,$target))throw new RuntimeException('New translation file refused');if(hash_file('sha256',$target)!==$hash)throw new RuntimeException('New translation hash mismatch');}
+  else{if(file_exists($target)||is_link($target)||!chmod($src,0644)||!rename($src,$target))throw new RuntimeException('New translation file refused');if(hash_file('sha256',$target)!==$hash)throw new RuntimeException('New translation hash mismatch');lf_candidate_identity($target,$uid,$dev);}
   $j['changed'][]=$p;$j['intent']=null;lf_write($journal,$j);if($after)$after(count($j['changed']));
  }
  lf_check($root,$s,'new');$j['phase']='files-verified';lf_write($journal,$j);
 }
 function lf_rollback(string $source,string $root,array $snapshot,string $journal):void {
  $s=lf_state($snapshot);$now=lf_inventory($root);
+ $uid=lf_workspace_owner($journal);
  // Entire language inventory must be a known old/new combination; no unrelated overwrite.
  foreach($now as $p=>$hash){if(!isset($s['new'][$p])||($hash!==($s['old'][$p]??null)&&$hash!==$s['new'][$p]))throw new RuntimeException('Unknown translation drift; recovery refused');}
  foreach($s['old'] as $p=>$hash){if(!isset($now[$p]))throw new RuntimeException('Original translation disappeared');}
  foreach($s['payload']['files'] as $p=>$hash){if(isset($s['old'][$p])){ $f=$source.'/'.$p;if(!is_file($f)||is_link($f)||realpath($f)!==$f||hash_file('sha256',$f)!==$s['old'][$p])throw new RuntimeException('Original translation recovery copy unavailable');}}
+ // Reject any changed file with an unknown owner/device before restoring or
+ // deleting even the first known file. Unchanged originals are not touched.
+ foreach($s['payload']['files'] as $p=>$hash){
+  if(($now[$p]??null)===($s['old'][$p]??null))continue;
+  $dev=lf_directory_identity(dirname($root.'/'.$p))['dev'];
+  lf_candidate_identity($root.'/'.$p,$uid,$dev);
+  if(isset($s['old'][$p]))lf_candidate_identity($source.'/'.$p,$uid,$dev);
+ }
  $j=['phase'=>'rollback-prepared','intent'=>null,'restored'=>[]];lf_write($journal,$j);
+ if(lstat($journal)['uid']!==$uid)throw new RuntimeException('Locale rollback journal owner mismatch');
  foreach(array_reverse(array_keys($s['payload']['files'])) as $p){
   if(($now[$p]??null)===($s['old'][$p]??null))continue;
   $j['intent']=$p;lf_write($journal,$j);$target=$root.'/'.$p;
   if(isset($s['old'][$p]))p0_replace($source.'/'.$p,$target,$s['new'][$p],$s['old'][$p]);
-  else{clearstatcache();if(is_link($target)||hash_file('sha256',$target)!==$s['new'][$p]||!unlink($target))throw new RuntimeException('Unknown new translation; deletion refused');}
+  else{lf_candidate_identity($target,$uid,lf_directory_identity(dirname($target))['dev']);clearstatcache();if(is_link($target)||hash_file('sha256',$target)!==$s['new'][$p]||!unlink($target))throw new RuntimeException('Unknown new translation; deletion refused');}
   $j['restored'][]=$p;$j['intent']=null;lf_write($journal,$j);
  }
  lf_check($root,$s,'old');

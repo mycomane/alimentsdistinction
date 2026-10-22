@@ -1,0 +1,25 @@
+{
+  "source_run": "https://github.com/mycomane/alimentsdistinction/actions/runs/39820612012",
+  "source_job": 119970652449,
+  "source_code_commit": "a27249945dc56457db2ef5ad41bd06524edaff7b",
+  "observed_at_utc": "2026-10-22T17:16:14.5407868Z",
+  "method": "Newly human-approved SSH read-only inspection of existing preparation; no installation or configuration",
+  "checks": {
+    "candidate_device_matches_directory": true,
+    "candidate_hashes_match": true,
+    "candidate_owner_matches_directory": false,
+    "candidate_single_link": true,
+    "existing_targets_device_matches_candidate": true,
+    "existing_targets_owner_matches_candidate": true,
+    "existing_targets_single_link": true,
+    "inventory_has_no_links": true,
+    "inventory_matches_snapshot": true,
+    "source_canonical": true,
+    "target_canonical": true,
+    "target_effectively_writable": true,
+    "target_execute_bits_present": true,
+    "target_write_bits_present": true
+  },
+  "mutation_performed": false,
+  "deployment_authorized_by_this_evidence": false
+}

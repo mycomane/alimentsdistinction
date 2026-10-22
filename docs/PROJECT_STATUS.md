@@ -2,7 +2,18 @@
 
 Mise à jour : **22 octobre 2026**, issue #4 : diagnostic fichiers fr_CA, mutations suspendues.
 
+## Issue #4 — mesure confirmée, correctif opérationnel en préparation isolée
+
+- Le [diagnostic lecture seule 39820612012](https://github.com/mycomane/alimentsdistinction/actions/runs/39820612012) a **réussi** après nouvelle approbation humaine vérifiée. Job `119970652449`, preuve du **22 octobre à 13 h 16 min 14 s HAE** : seule la comparaison propriétaire candidat/dossier est fausse; comparaison avec les fichiers existants, volume, nombre de liens, empreintes, canonicalité, droits et inventaire sont conformes. [Preuve expurgée](locale/issue4-filesystem-booleans.json). Aucune valeur UID/GID ni chemin privé résolu publié.
+- La recette réutilisable de [39820611879](https://github.com/mycomane/alimentsdistinction/actions/runs/39820611879) a également **réussi**; le job de mutation est resté **skipped**. L'approbation lecture seule a uniquement autorisé la lecture de l'ancienne préparation; elle ne vaut pas approbation de configuration fr_CA.
+- Le contrôle comparait des identités distinctes : celle des fichiers préparés/existants et celle du dossier d'hébergement. Correctif ciblé préparé : candidat appartenant à l'espace de travail privé sûr et au processus créant son journal exclusif; fichier existant du même propriétaire; volumes/liens/empreintes inchangés. Le propriétaire du dossier peut différer, mais son identité, ses droits et son volume sont vérifiés et doivent rester stables avant chaque remplacement. Aucun chown/chmod de dossier GoDaddy introduit.
+- Retours arrière renforcés : refuser tout propriétaire/volume de fichier changé avant la première restauration/suppression. Tests du cas légitime avec traductions existantes **et nouvelles**, propriétaire étranger, changement de dossier en cours d'opération, propriétaire de fichier modifié, permissions dangereuses et rollback partiel ajoutés.
+- Tests locaux du nouveau correctif : **39 assertions partielles**, 28 gardes langues, 6 contrats workflow et **4 simulations shell** réussis; suite complète GitHub à consigner après fin. Les 23 fichiers du thème, les 311 fichiers épinglés et les gardes P0 ont été vérifiés inchangés. La limitation locale sur les changements de propriétaire reste explicitement distinguée de la CI complète.
+- **Mutations toujours désactivées.** Nouveau code et recette du même commit à faire valider par la Coordination; aucun nouveau run GoDaddy de mutation lancé et aucun ancien run relancé. Le correctif ne sera activé qu'après accord distinct et nouvelle revue humaine GitHub.
+
 ## PRIORITÉ COURANTE — issue #4, précondition fichiers fr_CA
+
+Historique de la préparation du diagnostic, remplacé pour la cause constatée par la mesure ci-dessus.
 
 - Directive [issue #4](https://github.com/mycomane/alimentsdistinction/issues/4) et journaux `119960431819` lus. Base du correctif : `f450668419ba05549ae0ea747d9f63e647199478`. Aucun ancien run relancé, aucune nouvelle opération GoDaddy exécutée par cette phase.
 - [Run 39817398299](https://github.com/mycomane/alimentsdistinction/actions/runs/39817398299) : préparation et recette réutilisable **réussies**, opération distante **échouée après revue humaine**. La synchronisation native a fonctionné. Échec du garde combiné dans `lf_apply()` avant journal/remplacement des fichiers publics; **condition exacte parmi nlink/uid/dev non prouvée par ce message**.
