@@ -1,8 +1,6 @@
 name: French Canadian locale — isolated only, no GoDaddy
 on:
-  push:
-    branches: [feat/wordpress-woocommerce-theme]
-    paths: ['.github/workflows/qa-locale-fr-ca.yml', 'scripts/locale/**', 'docs/locale/fr-ca-packages.json', 'scripts/review-french-storefront.cjs', 'tests/locale-*.php', 'tests/locale-*.py', '.github/workflows/configure-locale-fr-ca.yml']
+  workflow_call:
 permissions:
   contents: read
 jobs:

@@ -47,3 +47,13 @@ Le second passage `39698258841` a arrêté le test d’option avant la recette n
 Tests locaux réussis sur un WordPress jetable fraîchement préparé : **30 assertions WPLANG/protection/retour exact**, vérification dans un nouveau processus PHP de la locale fr_CA et de deux libellés natifs, **28 assertions de fichiers**, **7 assertions de visibilité**, **4 simulations du vrai shell** (succès, erreur après changement de WPLANG, échec de vérification, Coming Soon perdu). Les simulations n’établissent pas un résultat GoDaddy ou une restauration SQL complète.
 
 La prochaine exécution GitHub doit confirmer ces tests et la recette navigateur du commit exact avant de rendre disponible la revue `godaddy-temp`. Ne pas annoncer le français installé sur GoDaddy avant le résultat réel de ce nouveau job protégé.
+
+## Synchronisation native — 22 octobre
+
+La recette [39813094307](https://github.com/mycomane/alimentsdistinction/actions/runs/39813094307) est réussie, mais son statut final a été publié après l'expiration de la barrière de 900 secondes du run de configuration 39813094381. La préparation technique avait réussi; le job distant a été ignoré. Ne pas relancer cet ancien run.
+
+La configuration appelle maintenant `qa-locale-fr-ca.yml` via `workflow_call`, au même commit, et le job protégé dépend nativement de la préparation **et** de cette recette. Cette organisation suit la [documentation GitHub des workflows réutilisables](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows). Aucun délai de sondage inter-workflows; les délais bornés des jobs de test restent en place. Le workflow QA n'a plus de déclencheur push autonome, ce qui évite les doublons. Les changements de code pertinents déclenchent le workflow parent sur la seule branche autorisée.
+
+La recette appelée reçoit `contents: read`, aucun secret d'hébergement et aucun environnement protégé. Les tests `tests/locale-workflow.py` vérifient les dépendances, l'appel local, l'absence de contournement des résultats et la présence du contrôle humain avant SSH. Ils ne simulent pas l'ordonnanceur GitHub et ne prouvent pas les règles actuelles de l'environnement distant.
+
+La nouvelle revue GitHub du run exact, la sauvegarde fraîche, les contrôles Coming Soon et le retour arrière ciblé restent obligatoires. Aucun changement GoDaddy n'est exécuté par cette préparation.

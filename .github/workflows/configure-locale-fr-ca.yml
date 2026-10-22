@@ -1,10 +1,10 @@
 name: French Canadian configuration — temporary site, mandatory reviewer
-# Revision 2: standalone strict size sum; human review remains mandatory.
+# Revision 3: native reusable QA dependency; no cross-run polling deadline.
 # WPLANG and pinned core/WooCommerce fr_CA only; NEW human approval mandatory.
 on:
   push:
     branches: [feat/wordpress-woocommerce-theme]
-    paths: ['.github/workflows/configure-locale-fr-ca.yml']
+    paths: ['.github/workflows/configure-locale-fr-ca.yml', '.github/workflows/qa-locale-fr-ca.yml', 'scripts/locale/**', 'docs/locale/fr-ca-packages.json', 'scripts/review-french-storefront.cjs', 'tests/locale-*.php', 'tests/locale-*.py']
 permissions:
   contents: read
   actions: read
@@ -26,6 +26,7 @@ jobs:
           set -euo pipefail
           test "$GITHUB_REF_NAME" = feat/wordpress-woocommerce-theme
           python3 scripts/check-theme.py
+          python3 tests/locale-workflow.py
           python3 scripts/locale/prepare-packages.py
           python3 scripts/locale/prepare-release.py
           for file in scripts/locale/*.php; do php -l "$file"; done
@@ -47,16 +48,9 @@ jobs:
           if-no-files-found: error
   isolated-qa:
     if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
-    runs-on: ubuntu-latest
-    timeout-minutes: 18
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - name: Require isolated fr_CA tests on this exact commit
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: python3 scripts/locale/wait-qa.py
+    permissions:
+      contents: read
+    uses: ./.github/workflows/qa-locale-fr-ca.yml
   deploy:
     needs: [prepare, isolated-qa]
     if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
