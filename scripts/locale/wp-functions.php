@@ -11,13 +11,23 @@ function ad_locale_identity(bool $isolated=false):void {
  if(WP_LANG_DIR!==ABSPATH.'wp-content/languages')throw new RuntimeException('Custom language root; review required');
 }
 function ad_locale_raw():?array {
- global $wpdb;return $wpdb->get_row("SELECT option_value, autoload FROM {$wpdb->options} WHERE option_name='WPLANG'",ARRAY_A);
+ global $wpdb;$row=$wpdb->get_row("SELECT option_value, autoload FROM {$wpdb->options} WHERE option_name='WPLANG'",ARRAY_A);if($wpdb->last_error!=='')throw new RuntimeException('WPLANG query unavailable');return $row;
+}
+function ad_locale_rows(string $sql):array {
+ global $wpdb;$rows=$wpdb->get_results($sql,ARRAY_A);if(!is_array($rows)||$wpdb->last_error!=='')throw new RuntimeException('Protected rows query unavailable');return $rows;
+}
+function ad_locale_var(string $sql) {
+ global $wpdb;$value=$wpdb->get_var($sql);if($wpdb->last_error!=='')throw new RuntimeException('Protected scalar query unavailable');return $value;
+}
+function ad_locale_count(string $sql):int {
+ $value=ad_locale_var($sql);if(!is_scalar($value)||!preg_match('/\A(?:0|[1-9][0-9]*)\z/D',(string)$value)||strlen((string)$value)>15)throw new RuntimeException('Protected count unavailable');return (int)$value;
 }
 function ad_locale_protected(array $pageIDs=['shop'=>6,'cart'=>7,'checkout'=>8,'myaccount'=>9]):array {
  global $wpdb;
 $state = ['options' => [], 'pages' => [], 'counts' => [], 'tables' => []];
 // Hash protected options directly from SQL; values never leave the private host file.
-$rows = $wpdb->get_results("SELECT option_name, option_value, autoload FROM {$wpdb->options} ORDER BY option_name", ARRAY_A);
+$rows = ad_locale_rows("SELECT option_name, option_value, autoload FROM {$wpdb->options} ORDER BY option_name");
+if(!is_array($rows)||$wpdb->last_error!=='')throw new RuntimeException('Protected options query unavailable');
 foreach ($rows as $row) {
     $name = $row['option_name'];
     if (preg_match('/^(woocommerce_|theme_mods_|sidebars_widgets$|widget_|active_plugins$|stylesheet$|template$|siteurl$|home$|blog_public$|show_on_front$|page_on_front$|page_for_posts$|permalink_structure$)/', $name)
@@ -32,20 +42,21 @@ foreach ($pageIDs as $key => $expectedID) {
     $state['pages'][$key] = hash('sha256', serialize([$page, get_post_meta($id)]));
 }
 foreach (['product', 'product_variation', 'shop_order', 'page'] as $type) {
-    $state['counts'][$type] = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type=%s", $type));
+    $state['counts'][$type] = ad_locale_count($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type=%s", $type));
 }
-$state['counts']['users'] = (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->users}");
+$state['counts']['users'] = ad_locale_count("SELECT COUNT(*) FROM {$wpdb->users}");
 foreach (['wc_orders', 'woocommerce_shipping_zones', 'woocommerce_shipping_zone_locations', 'woocommerce_shipping_zone_methods', 'woocommerce_tax_rates', 'woocommerce_tax_rate_locations'] as $suffix) {
     $table = $wpdb->prefix . $suffix;
-    if ($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->esc_like($table))) !== $table) { $state['tables'][$suffix] = null; continue; }
+    if (ad_locale_var($wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->esc_like($table))) !== $table) { $state['tables'][$suffix] = null; continue; }
     $safe = '`' . str_replace('`', '``', $table) . '`';
-    if ($suffix === 'wc_orders') { $state['counts']['hpos'] = (int) $wpdb->get_var("SELECT COUNT(*) FROM $safe"); continue; }
-    $hashes = array_map(static fn($row) => hash('sha256', serialize($row)), $wpdb->get_results("SELECT * FROM $safe", ARRAY_A));
+    if ($suffix === 'wc_orders') { $state['counts']['hpos'] = ad_locale_count("SELECT COUNT(*) FROM $safe"); continue; }
+    $hashes = array_map(static fn($row) => hash('sha256', serialize($row)), ad_locale_rows("SELECT * FROM $safe"));
     sort($hashes); $state['tables'][$suffix] = hash('sha256', serialize($hashes));
 }
 foreach (WC()->payment_gateways()->payment_gateways() as $gateway) {
     if ($gateway->enabled === 'yes') { throw new RuntimeException('Enabled gateway detected; review required'); }
 }
+if($wpdb->last_error!=='')throw new RuntimeException('Protected state query unavailable');
 return $state;
 }
 function ad_locale_capture(array $pageIDs=['shop'=>6,'cart'=>7,'checkout'=>8,'myaccount'=>9]):array {
@@ -64,8 +75,9 @@ function ad_locale_restore(array $baseline):void {
  if($now===null||$now['option_value']!=='fr_CA')throw new RuntimeException('Unknown WPLANG change; no blind rollback');
  if($baseline['WPLANG']===null){if(!delete_option('WPLANG'))throw new RuntimeException('Cannot remove newly created WPLANG');}
  else{
-  $old=$baseline['WPLANG'];update_option('WPLANG',$old['option_value']);
-  if($wpdb->update($wpdb->options,['autoload'=>$old['autoload']],['option_name'=>'WPLANG'],['%s'],['%s'])===false)throw new RuntimeException('Cannot restore original WPLANG autoload');
+  $old=$baseline['WPLANG'];
+  // Restore the exact original row: WordPress sanitizes legacy en_US to an empty value.
+  if($wpdb->update($wpdb->options,['option_value'=>$old['option_value'],'autoload'=>$old['autoload']],['option_name'=>'WPLANG'],['%s','%s'],['%s'])===false)throw new RuntimeException('Cannot restore original WPLANG row');
   // Exact per-site option cache keys required for the targeted option restoration.
   wp_cache_delete('WPLANG','options');wp_cache_delete('alloptions','options');wp_cache_delete('notoptions','options');
  }
