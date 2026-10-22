@@ -2,6 +2,14 @@
 
 Mandat : [autorisation de préparer, sans déployer](https://github.com/mycomane/alimentsdistinction/issues/4#issuecomment-6347149703). Base `c6e423df7b2e2c0f63feb83976c2ce8283144fad`, branche `feat/wordpress-woocommerce-theme`. Correction de propriété conservée exactement depuis `d026569f5092c1c1efb7c5d8050d47b02d295975`.
 
+## Exécution prête à examiner
+
+**[39824523597 — Waiting / Review deployments](https://github.com/mycomane/alimentsdistinction/actions/runs/39824523597)**, commit [752fe13e7188c32cfd9d236f8be8cba43f1ec660](https://github.com/mycomane/alimentsdistinction/commit/752fe13e7188c32cfd9d236f8be8cba43f1ec660). Préparation `119984167951` et recette `119984168515` réussies. Job protégé `119985019616` waiting, sans étape démarrée. Nouvelle revue `godaddy-temp` par `mycomane` confirmée en attente; zéro approbation enregistrée au contrôle final. Work s'arrête ici.
+
+Preuves du nouveau SHA : 61 assertions complètes d'ownership, six contrats workflow, gardes P0/DB/langues/Coming Soon et quatre simulations réussis; 30 assertions WPLANG/retour exact, 24 contrôles de parcours français et 45 contrôles aux cinq résolutions, zéro échec. Aucun paiement ni commande synthétique soumis. Les fichiers d'opération et de thème n'ont pas changé depuis le correctif validé. Aucun accès ou changement GoDaddy n'a commencé pour ce run.
+
+La sauvegarde de cette exécution n'existe pas encore : elle est une précondition exécutée et vérifiée après une éventuelle approbation humaine, avant l'écriture publique. Les tests ne constituent pas une preuve de récupération GoDaddy pour ce nouveau run. L'approbation passée du diagnostic reste indépendante.
+
 ## Diff de workflow proposé
 
 Dans `.github/workflows/configure-locale-fr-ca.yml`, job `deploy` seulement :
@@ -44,4 +52,4 @@ Une ACL ou politique GoDaddy peut encore refuser un rename malgré les précontr
 
 - [39822268395](https://github.com/mycomane/alimentsdistinction/actions/runs/39822268395) : succès du correctif, 61 assertions complètes de propriété et recette française aux cinq largeurs, zéro commande soumise/passerelle activée dans l'installation synthétique; GoDaddy non modifié par ce run.
 - [39820612012](https://github.com/mycomane/alimentsdistinction/actions/runs/39820612012) : diagnostic lecture seule approuvé réussi, preuve expurgée conservée dans `issue4-filesystem-booleans.json`.
-- Nouveau lot : résultat et lien ajoutés à PROJECT_STATUS.md après préparation. **Aucun français hébergé ni succès de déploiement annoncé avant approbation et vérification réelle.**
+- Nouveau lot : préparation et recette du commit exact réussies, lien et attente de revue consignés ci-dessus et dans PROJECT_STATUS.md. **Aucun français hébergé ni succès de déploiement annoncé avant approbation et vérification réelle.**
