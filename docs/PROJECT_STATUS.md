@@ -10,7 +10,7 @@ Mise à jour : **22 octobre 2026**, audit de sécurité en lecture seule.
 - Par précaution, les valeurs techniques exactes du runtime et du serveur ne sont pas reproduites dans ce document de suivi public. La preuve d'audit demeure conservée séparément dans le dépôt, qui est actuellement public; cela ne constitue donc pas un retrait complet de ces données de toutes les sources.
 - Le constat est cohérent avec les [versions corrigées officiellement publiées par PHP](https://www.php.net/archive/2026.php). Il remplace l'incertitude de version du bilan initial ci-dessous, conservé comme historique. La capture n'affiche pas l'URL du site; son attribution au temporaire repose sur la navigation administrative précédente.
 - Aucun changement serveur, déploiement ou test d'exploitation effectué. Cela ne constitue pas un audit de compromission ni une certification de toutes les extensions ou de tous les workers. Le site commercial reste hors périmètre.
-- Blocage de version Web levé; **clôture de l'issue #3 et reprise P1 à confirmer par la Coordination**. Aucun workflow protégé déclenché. P1/fr_CA reste en attente de cette décision et de la revue GitHub propre à toute opération distante.
+- Blocage de version Web levé; **issue #3 clôturée par la Coordination pour le WordPress temporaire, reprise de P1 autorisée en développement isolé**. Aucun workflow protégé déclenché par cette décision. Toute opération GoDaddy, dont une éventuelle configuration fr_CA, demeure soumise à une autorisation et à la revue GitHub propres à son périmètre.
 
 ## Historique — audit initial PHP2Shell, avant preuve Web
 
