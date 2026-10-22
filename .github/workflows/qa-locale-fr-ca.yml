@@ -2,7 +2,7 @@ name: French Canadian locale — isolated only, no GoDaddy
 on:
   push:
     branches: [feat/wordpress-woocommerce-theme]
-    paths: ['.github/workflows/qa-locale-fr-ca.yml', 'scripts/locale/**', 'docs/locale/fr-ca-packages.json']
+    paths: ['.github/workflows/qa-locale-fr-ca.yml', 'scripts/locale/**', 'docs/locale/fr-ca-packages.json', 'scripts/review-french-storefront.cjs', 'tests/locale-*.php', 'tests/locale-*.py', '.github/workflows/configure-locale-fr-ca.yml']
 permissions:
   contents: read
 jobs:
@@ -40,8 +40,11 @@ jobs:
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
           status=0
           python3 scripts/locale/prepare-packages.py --isolated
-          php scripts/locale/select-isolated.php
+          php tests/locale-files.php
+          php scripts/locale/test-state-isolated.php test
+          php scripts/locale/test-state-isolated.php verify
           node scripts/review-french-storefront.cjs || status=1
+          node scripts/qa/french-controls.cjs || status=1
           php scripts/qa/no-orders.php || status=1
           python3 scripts/qa/php-log-check.py || status=1
           exit "$status"

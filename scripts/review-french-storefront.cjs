@@ -11,7 +11,7 @@ const text=async locator=>(await locator.innerText()).replace(/\s+/g,' ').trim()
  await context.route('**/*',route=>{const u=new URL(route.request().url());if(u.origin!==base||u.searchParams.get('wc-ajax')==='checkout'||u.pathname.includes('order-received'))return route.abort();return route.continue();});
  const page=await context.newPage();page.on('pageerror',e=>report.failures.push(e.message));
  const goto=async id=>page.goto(base+'/?page_id='+id,{waitUntil:'networkidle'});
- await goto(ids.cart);report.labels.emptyCart=await text(page.locator('#main-content'));
+ await goto(ids.cart);report.locale=await page.locator('html').getAttribute('lang');const canadian=report.locale.toLowerCase().replace('_','-')==='fr-ca';check(['fr-fr','fr-ca'].includes(report.locale.toLowerCase().replace('_','-')),'French storefront document locale');report.labels.emptyCart=await text(page.locator('#main-content'));
  check(/panier est (?:actuellement )?vide/i.test(report.labels.emptyCart),'Empty cart notice is French');
  check(/Retour (?:à|vers) la boutique/i.test(report.labels.emptyCart),'Empty cart return link is French');
  await goto(ids.shop);report.labels.sorting=await text(page.locator('select.orderby'));
@@ -19,7 +19,7 @@ const text=async locator=>(await locator.innerText()).replace(/\s+/g,' ').trim()
  check(/(?:prix|tarif) croissant/i.test(report.labels.sorting)&&/(?:prix|tarif) décroissant/i.test(report.labels.sorting),'Price sorting options are French');
  await page.goto(base+'/?p='+ids.out,{waitUntil:'networkidle'});
  report.labels.stockout=await text(page.locator('.summary'));
- check(/Rupture de stock/i.test(report.labels.stockout),'Stockout message is French');
+ check((canadian?/En rupture d['’]inventaire/i:/Rupture de stock/i).test(report.labels.stockout),'Stockout message uses native French locale wording');
  check(await page.locator('button.single_add_to_cart_button').count()===0,'Stockout product cannot be bought');
  await page.goto(base+'/?p='+ids.variable,{waitUntil:'networkidle'});
  const select=page.locator('select[name="attribute_portion"]'),button=page.locator('button.single_add_to_cart_button');
@@ -34,7 +34,7 @@ const text=async locator=>(await locator.innerText()).replace(/\s+/g,' ').trim()
  check(await page.locator('tr.cart_item').count()===1,'Selected synthetic variation reaches the cart');
  check(await page.locator('input.qty').inputValue()==='2','Synthetic quantity two is retained');
  check(/Mettre à jour le panier/i.test(report.labels.cart),'Cart update label is French');
- check(/Valider la commande/i.test(report.labels.cart),'Proceed-to-checkout label is French');
+ check((canadian?/Procéder à la commande/i:/Valider la commande/i).test(report.labels.cart),'Proceed-to-checkout uses native French locale wording');
  report.labels.subtotal=await page.locator('.cart-subtotal td').getAttribute('data-title');check(report.labels.subtotal==='Sous-total','Mobile cart subtotal data-title is French');
  await page.locator('input.qty').fill('1');const [updated]=await Promise.all([page.waitForResponse(r=>r.request().method()==='POST'&&new URL(r.url()).origin===base),page.locator('button[name="update_cart"]').click()]);await updated.finished();await goto(ids.cart);
  check(await page.locator('input.qty').inputValue()==='1','French cart updates the synthetic quantity');
