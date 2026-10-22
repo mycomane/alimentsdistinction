@@ -1,5 +1,7 @@
 # Revue du nouveau lot fr_CA — 22 octobre 2026
 
+**Mise à jour après revue humaine : run 39824523597 échoué sur `WPLANG activation failed`; retour arrière ciblé vérifié.** Les états Waiting/préparation ci-dessous sont historiques. Voir [l'incident WPLANG](INCIDENT_WPLANG_2026-10-22.md) et PROJECT_STATUS.md. Ne pas relancer ce run ni interpréter la précédente approbation comme une autorisation de nouvel essai.
+
 Mandat : [autorisation de préparer, sans déployer](https://github.com/mycomane/alimentsdistinction/issues/4#issuecomment-6347149703). Base `c6e423df7b2e2c0f63feb83976c2ce8283144fad`, branche `feat/wordpress-woocommerce-theme`. Correction de propriété conservée exactement depuis `d026569f5092c1c1efb7c5d8050d47b02d295975`.
 
 ## Exécution prête à examiner

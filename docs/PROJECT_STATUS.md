@@ -2,7 +2,20 @@
 
 Mise à jour : **22 octobre 2026**, issue #4 : diagnostic fichiers fr_CA, mutations suspendues.
 
+## État courant — run 39824523597 échoué, rollback vérifié
+
+- Capture de Julien examinée puis [jobs et journal](https://github.com/mycomane/alimentsdistinction/actions/runs/39824523597/job/119985019616) relus sans nouvelle connexion GoDaddy. Après l'arrêt Work à Waiting, la nouvelle approbation humaine a été enregistrée pour ce run exact à **13 h 43 min 45 s HAE**. L'opération distante a ensuite échoué; l'état Waiting ci-dessous est désormais historique.
+- Préparation et recette du commit `752fe13e7188c32cfd9d236f8be8cba43f1ec660` **réussies**. Sauvegarde fraîche SQL/thème/langues/SHA et répétition privée **réellement réussies** pour ce run avant écriture publique; les anciennes sauvegardes n'ont pas été consommées. Stockage privé sur le même hébergement, sans restauration intégrale hors site certifiée.
+- **Le correctif de propriété a franchi l'application/vérification des fichiers de traduction.** Le nouvel échec apparaît ensuite dans `ad_locale_activate()` : **`WPLANG activation failed`**, à **13 h 44 min 51 s HAE**. Il ne s'agit donc pas du précédent refus d'ownership.
+- Le garde associe deux conditions : retour false de `update_option('WPLANG','fr_CA',...)` **ou** valeur brute relue différente de fr_CA. Les preuves actuelles ne départagent pas ces deux cas et n'identifient pas la cause profonde. Ne pas conclure arbitrairement à une ACL, un cache, une base en lecture seule ou un filtre GoDaddy.
+- **ROLLBACK VERIFIED à 13 h 45 min 02 s HAE** : WPLANG/locale anglaise et inventaire des langues d'origine restaurés, thème et état protégé vérifiés, accueil + quatre pages techniques HTTP 200 et Coming Soon maintenu. Aucun import SQL. Le run est **failure**, **fr_CA n'est pas installé/validé sur l'hébergement par cette opération**.
+- Cette reprise après capture effectue uniquement la lecture des preuves et la mise à jour documentaire. **Aucun ancien run relancé, aucune nouvelle modification GoDaddy, aucun nouveau workflow lancé.** Tout prochain essai distant doit faire l'objet d'une nouvelle autorisation et revue humaine propres au nouveau périmètre/run.
+- Prochaine proposition Coordination : séparer les états diagnostiques en booléens expurgés (locale disponible, retour d'API, valeur persistée conforme, résultat de requête) et reproduire les cas d'échec isolés, sans changer la politique de refus ni forcer une écriture SQL. Une observation de la ligne actuelle seule ne reconstitue pas son état au moment de l'échec.
+- [Analyse du nouvel incident et limites](locale/INCIDENT_WPLANG_2026-10-22.md). Issue #4 reste ouverte; aucune certification de localisation française hébergée.
+
 ## Nouveau lot fr_CA — préparation autorisée, arrêt obligatoire à Review deployments
+
+Historique de la préparation avant approbation. Le résultat réel après revue figure dans l'incident courant ci-dessus.
 
 **PRÊT POUR VALIDATION FINALE : [run 39824523597 — Waiting / Review deployments](https://github.com/mycomane/alimentsdistinction/actions/runs/39824523597). Work s'arrête ici et n'approuve pas. Aucune opération GoDaddy n'a commencé pour cette nouvelle exécution.**
 
