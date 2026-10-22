@@ -83,6 +83,7 @@ class NativeWorkflowGuards(unittest.TestCase):
         for forbidden in ['environment:', 'secrets.', 'sshpass', 'playwright', '1302636.', 'uses: ./.github/workflows/qa-locale-fr-ca.yml']:
             self.assertNotIn(forbidden, workflow)
         self.assertIn('contents: read', workflow)
+        self.assertIn('fetch-depth: 0', workflow)  # Pinned deployed-tree comparison needs history.
 
 
 if __name__ == '__main__':

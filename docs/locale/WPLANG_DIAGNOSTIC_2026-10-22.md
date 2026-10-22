@@ -46,6 +46,8 @@ Le workflow de configuration n'a plus de déclenchement push pendant cette phase
 
 Local : 40 assertions ciblées du premier passage, 30 assertions WPLANG existantes, vérification native dans un processus neuf, sept contrats et syntaxe réussis. Trois assertions supplémentaires sur la découverte après rollback sont incluses dans la suite finale attendue en CI fraîche; elles ne sont pas présentées comme exécutées localement lors du premier passage. L'absence de commande/passerelle a été vérifiée dans la fixture. Preuve JSON du nouveau run attendue avant conclusion de CI.
 
+Premier run léger [39831266514](https://github.com/mycomane/alimentsdistinction/actions/runs/39831266514) arrêté avant les cas applicatifs : historique Git superficiel incompatible avec la comparaison au thème installé. La récupération complète de l'historique est ajoutée au checkout; ni la référence épinglée ni le contrôle d'intégrité ne sont supprimés. Le nouveau commit déclenche une nouvelle exécution isolée, sans relancer ce run échoué.
+
 ## Protocole futur proposé à la Coordination
 
 1. Examiner le nouveau SHA, les tests et les codes de refus. Ne pas relancer le run échoué ni supprimer ses sauvegardes.
