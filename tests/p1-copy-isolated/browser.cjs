@@ -5,7 +5,7 @@ const repo=path.resolve(__dirname,'../..'),scope=require('./scope.json');
 const root=path.join(process.env.RUNNER_TEMP,'ad-isolated-qa'),theme=path.join(root,'wordpress/wp-content/themes/aliments-distinction');
 const out=path.join(root,'evidence');fs.mkdirSync(out,{recursive:true});
 const origin='http://127.0.0.1:8787',prefix='wordpress/aliments-distinction/';
-const checks=[],observations=[],errors=[],baselineGeometry={};
+const checks=[],observations=[],errors=[],baselineGeometry={},encodingProbe=[];
 const ok=(value,label)=>{checks.push({label,passed:!!value});if(!value)throw new Error('P1_TARGETED_ASSERTION_FAILED: '+label);};
 const luminance=rgb=>rgb.match(/[\d.]+/g).slice(0,3).map(Number).map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4;}).reduce((s,v,i)=>s+v*[.2126,.7152,.0722][i],0);
 const contrast=(a,b)=>{a=luminance(a);b=luminance(b);return(Math.max(a,b)+.05)/(Math.min(a,b)+.05);};
@@ -18,11 +18,24 @@ function install(phase){for(const file of Object.keys(scope.files)){
  try{
   const css=fs.readFileSync(path.join(repo,prefix,'style.css'),'utf8');postcss.parse(css);
   ok(true,'candidate theme CSS parses');
+  // Reproduce the first run's fixture-only encoding failure, then verify UTF-8.
+  const probe=await browser.newPage();
+  await probe.route(origin+'/encoding-*',route=>{
+   const fixed=new URL(route.request().url()).pathname==='/encoding-fixed';
+   return route.fulfill({status:200,contentType:fixed?'text/html; charset=utf-8':'text/html',body:'<!doctype html><html lang="fr-CA">'+(fixed?'<meta charset="utf-8">':'')+'<h1>Destination d’essai isolée</h1></html>'});
+  });
+  for(const mode of ['old','fixed']){
+   await probe.goto(origin+'/encoding-'+mode);
+   encodingProbe.push(await probe.evaluate(()=>({charset:document.characterSet,text:document.querySelector('h1').textContent})));
+  }
+  ok(encodingProbe[0].text!=='Destination d’essai isolée','reproduce missing charset in former simulated destination');
+  ok(encodingProbe[1].charset==='UTF-8'&&encodingProbe[1].text==='Destination d’essai isolée','explicit UTF-8 fixes simulated destination only');
+  await probe.close();
   const page=await browser.newPage();await page.emulateMedia({reducedMotion:'reduce'});page.on('pageerror',()=>errors.push('PAGE_ERROR'));
   await page.route(/^https?:/,route=>{
    const url=new URL(route.request().url());
    if(url.origin!==origin)return route.abort();
-   if(url.pathname==='/newsletter-preview')return route.fulfill({status:200,contentType:'text/html',body:'<!doctype html><html lang="fr-CA"><h1>Destination d’essai isolée</h1></html>'});
+   if(url.pathname==='/newsletter-preview')return route.fulfill({status:200,contentType:'text/html; charset=utf-8',body:'<!doctype html><html lang="fr-CA"><meta charset="utf-8"><h1>Destination d’essai isolée</h1></html>'});
    return route.continue();
   });
   for(const phase of ['before','after']){
@@ -83,7 +96,7 @@ function install(phase){for(const file of Object.keys(scope.files)){
  }catch(e){failure=e;}
  finally{
   install('after');await browser.close();
-  fs.writeFileSync(path.join(out,'p1-approved-copy.json'),JSON.stringify({scope:'targeted loopback WordPress only; external resources blocked; no login/order',baseline:scope.baseline,checks,observations,failures:checks.filter(c=>!c.passed).length+(failure&&!checks.some(c=>!c.passed)?1:0),external_fonts_and_photos_not_validated:true},null,2)+'\n');
+  fs.writeFileSync(path.join(out,'p1-approved-copy.json'),JSON.stringify({scope:'targeted loopback WordPress only; external resources blocked; no login/order',baseline:scope.baseline,checks,observations,encodingProbe,failures:checks.filter(c=>!c.passed).length+(failure&&!checks.some(c=>!c.passed)?1:0),external_fonts_and_photos_not_validated:true},null,2)+'\n');
  }
  if(failure)throw failure;
  console.log(`PASS: ${checks.length} targeted WordPress assertions; 390/1440, before/after, two newsletter states, focus/hover/contact, unchanged hero.`);
