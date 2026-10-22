@@ -1,5 +1,32 @@
 # P1 0.1.3 — protocole de livraison et dossier de revue
 
+## P1 0.1.3 — deuxième demande en Waiting / Review deployments
+
+**22 octobre 2026 — SHA exact du run et des tests : `6163fa04069b3390a03156ae97cc44df5b0c8f20`.** [Nouvelle exécution protégée 39873774537](https://github.com/mycomane/alimentsdistinction/actions/runs/39873774537) : **waiting**, tentative 1, environnement **godaddy-temp**, reviewer humain **mycomane**. API pending_deployments confirmée; historique d'approbations vide; job GoDaddy `120157351181` en waiting, sans étape commencée. **Work s'arrête à la revue, sans approbation ni SSH ni modification GoDaddy.**
+
+Autorisation : [deuxième accord explicite de Julien / Coordination #6353797110](https://github.com/mycomane/alimentsdistinction/issues/2#issuecomment-6353797110). Une seule nouvelle exécution protégée créée. L'ancien run échoué `39871446467` n'a pas été relancé.
+
+| Contrôle au même SHA | Résultat |
+| --- | --- |
+| `prepare`, job 120154268626 | success |
+| `isolated-qa`, job 120154268231 | success; vérifie la CI ciblée au SHA exact |
+| [CI ciblée 39873774433](https://github.com/mycomane/alimentsdistinction/actions/runs/39873774433), targeted-copy 120154267975 | success; **62 assertions fr_CA**, 390/1440, deux états d'infolettre, avant/après, focus/survol/liens/contact, géométrie hero et quatre versions de ressources |
+| Même CI, release-safety 120154267799 | success |
+| PHP / commandes / paiements isolés | zéro fatal/warning/deprecated dans les deux journaux présents; zéro commande créée, aucune passerelle active |
+
+Préparation vérifiée : syntaxe PHP/JS/CSS, ShellCheck, intégrité maquette/7 ressources, garde du périmètre complet, **17** gardes fichiers, **31** assertions de remplacement/récupération des quatre fichiers et interruptions, **4** simulations du vrai script shell, **4** cas du garde d'approbation, **46** assertions parseur/espace et **6** scénarios MySQL jetable. Aucune protection de mesure SQL ou d'espace assouplie.
+
+**Diff du déclenchement :** [commit 6163fa04](https://github.com/mycomane/alimentsdistinction/commit/6163fa04069b3390a03156ae97cc44df5b0c8f20), **une seule ligne de commentaire remplacée** dans `.github/workflows/update-godaddy-temp-p1-013.yml`, mentionnant cette nouvelle autorisation. Aucun code exécutable du workflow, thème, test, secret, reviewer ou ancien workflow changé. La présente mise à jour documentaire ne redéclenche pas le run; la livraison reste figée au SHA ci-dessus.
+
+Lot inchangé : `footer.php`, `front-page.php`, `style.css`, `template-parts/navigation.php`; version/cache **0.1.3**, ZIP **23 fichiers**, SHA256 **9d5dd4f86704495c71cf7f79cd8327b8d4af80ac22eacd0a62a4a8b764c4000d**. Paquet/manifeste du run protégé : artefact `12467626613`. Preuves/captures de la nouvelle CI : `12467777111`; paquet isolé : `12467755498`.
+
+**Étapes réservées à une approbation ultérieure de Julien sur ce run exact, après revue Coordination :** vérification SSH/identité du site temporaire, sauvegarde fraîche privée SQL/thème/langues/manifestes/SHA et espace, répétition privée du rollback, puis éventuelle application et vérification/rollback 0.1.2 selon le protocole. **Aucune sauvegarde fraîche hébergée ni essai distant réalisé dans cette phase.** Aucune autorisation de déploiement inférée.
+
+Risques/limites conservés : cache CDN, rendu authentifié GoDaddy non testé, fontes/photos externes bloquées dans la fixture, 320/768/1024 non réexécutés dans ce lot ciblé, absence de restauration SQL globale/hors hébergeur certifiée, empreinte SSH historique non confirmée indépendamment; aucune certification WCAG globale. Palette Actuel, recettes, promesses commerciales et confidentialité persistante hors lot. Coming Soon doit demeurer actif; site commercial, master, DNS, Zoho, taxes, livraison, produits, clients, commandes et paiements non modifiés.
+
+**Prochaine décision : validation technique de la Coordination, puis décision de Julien sur le nouveau run 39873774537. Work n'approuve aucun déploiement.** Les sections suivantes conservent l'historique des étapes précédentes.
+
+
 ## Résultat final — préparation corrigée validée, nouvelle revue à autoriser
 
 **22 octobre 2026 — dernier commit technique testé `ef62260133a797334ece79193bbd8b9a4ea9238d`.** [CI isolée 39872741229](https://github.com/mycomane/alimentsdistinction/actions/runs/39872741229) **completed/success**, jobs navigateur `120150854756` et sécurité `120150855096`. Cette mise à jour de documentation est postérieure au SHA testé et ne change pas le lot. [Diff depuis la base 0.1.2](https://github.com/mycomane/alimentsdistinction/compare/0771856d2251620fcf578143f353877e9cd2ca36...ef62260133a797334ece79193bbd8b9a4ea9238d).

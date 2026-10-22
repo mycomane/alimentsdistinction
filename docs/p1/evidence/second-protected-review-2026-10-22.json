@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-22",
+  "authorization": "https://github.com/mycomane/alimentsdistinction/issues/2#issuecomment-6353797110",
+  "run_id": 39873774537,
+  "url": "https://github.com/mycomane/alimentsdistinction/actions/runs/39873774537",
+  "sha": "6163fa04069b3390a03156ae97cc44df5b0c8f20",
+  "status": "waiting",
+  "run_attempt": 1,
+  "environment": "godaddy-temp",
+  "reviewer": "mycomane",
+  "approvals": [],
+  "deploy_job": {
+    "id": 120157351181,
+    "status": "waiting",
+    "steps_started": false
+  },
+  "prepare": {
+    "id": 120154268626,
+    "conclusion": "success"
+  },
+  "isolated_qa_gate": {
+    "id": 120154268231,
+    "conclusion": "success"
+  },
+  "targeted_ci": {
+    "run_id": 39873774433,
+    "sha": "6163fa04069b3390a03156ae97cc44df5b0c8f20",
+    "conclusion": "success",
+    "assertions": 62,
+    "job": 120154267975,
+    "release_safety_job": 120154267799
+  },
+  "changed_trigger": {
+    "path": ".github/workflows/update-godaddy-temp-p1-013.yml",
+    "additions": 1,
+    "deletions": 1,
+    "comment_only": true
+  },
+  "theme_files": [
+    "footer.php",
+    "front-page.php",
+    "style.css",
+    "template-parts/navigation.php"
+  ],
+  "theme_version": "0.1.3",
+  "zip_files": 23,
+  "zip_sha256": "9d5dd4f86704495c71cf7f79cd8327b8d4af80ac22eacd0a62a4a8b764c4000d",
+  "artifacts": {
+    "protected_package": 12467626613,
+    "qa_evidence": 12467777111,
+    "isolated_package": 12467755498
+  },
+  "old_failed_run_rerun": false,
+  "ssh_started": false,
+  "hosting_modified": false,
+  "fresh_hosted_backup_performed": false,
+  "requires_distinct_future_human_approval": true
+}
