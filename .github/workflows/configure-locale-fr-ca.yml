@@ -2,9 +2,8 @@ name: French Canadian configuration — temporary site, mandatory reviewer
 # Revision 3: native reusable QA dependency; no cross-run polling deadline.
 # WPLANG and pinned core/WooCommerce fr_CA only; NEW human approval mandatory.
 on:
-  push:
-    branches: [feat/wordpress-woocommerce-theme]
-    paths: ['.github/workflows/configure-locale-fr-ca.yml', '.github/workflows/qa-locale-fr-ca.yml', 'scripts/locale/**', 'docs/locale/fr-ca-packages.json', 'scripts/review-french-storefront.cjs', 'tests/locale-*.php', 'tests/locale-*.py']
+  # WPLANG investigation: no push-triggered configuration or heavy browser QA.
+  workflow_dispatch:
 permissions:
   contents: read
   actions: read
@@ -54,8 +53,8 @@ jobs:
     uses: ./.github/workflows/qa-locale-fr-ca.yml
   deploy:
     needs: [prepare, isolated-qa]
-    # Issue #4: preparation authorized; NEW human review required before SSH.
-    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    # WPLANG investigation: mutation disabled until a distinct authorization.
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme' && false
     name: APPROVAL REQUIRED — fr_CA language only on temporary WordPress
     runs-on: ubuntu-latest
     environment: godaddy-temp

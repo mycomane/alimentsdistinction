@@ -108,6 +108,7 @@ finish() {
     if [ "$rollback_ok" -eq 1 ]; then
       php "$ops/files.php" rollback "$backup/rollback-ready" "$lang" "$backup/language-snapshot.json" "$backup/rollback-journal.json" || rollback_ok=0
     fi
+    wp --path="$root" eval-file "$ops/state.php" invalidate-discovery "$backup/wp-baseline.json" || rollback_ok=0
     wp --path="$root" eval-file "$ops/state.php" verify "$backup/wp-baseline.json" old || rollback_ok=0
     php "$ops/files.php" check "$lang" "$backup/language-snapshot.json" old || rollback_ok=0
     php "$bundle/ops/p0-files.php" check "$theme" "$bundle/theme-manifest.json" old || rollback_ok=0

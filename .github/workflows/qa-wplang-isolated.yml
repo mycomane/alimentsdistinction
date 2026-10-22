@@ -1,0 +1,49 @@
+name: WPLANG targeted diagnosis — isolated only, no browser or GoDaddy
+on:
+  push:
+    branches: [feat/wordpress-woocommerce-theme]
+    paths: ['.github/workflows/qa-wplang-isolated.yml', 'scripts/locale/wp-functions.php', 'scripts/locale/state.php', 'scripts/locale/update-temp.sh', 'scripts/locale/test-wplang-diagnostic.php', 'tests/locale-workflow.py', 'tests/locale-deployment.py']
+permissions:
+  contents: read
+jobs:
+  wplang-diagnostic:
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Syntax and safe workflow contracts
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq php-cli php-sqlite3 php-xml php-mbstring php-curl php-gd
+          python3 tests/locale-workflow.py
+          php -l scripts/locale/wp-functions.php
+          php -l scripts/locale/state.php
+          php -l scripts/locale/test-wplang-diagnostic.php
+          bash -n scripts/locale/update-temp.sh
+          shellcheck scripts/locale/update-temp.sh scripts/ops/measure-p0-db.sh
+      - name: Fresh synthetic WordPress and pinned language bytes
+        run: |
+          set -euo pipefail
+          python3 scripts/qa/prepare.py
+          php scripts/qa/seed.php
+          php scripts/qa/fixtures.php
+          python3 scripts/locale/prepare-packages.py
+          python3 scripts/locale/prepare-release.py
+      - name: Targeted real API faults and existing exact-rollback tests
+        run: |
+          set -euo pipefail
+          php scripts/locale/test-wplang-diagnostic.php
+          php scripts/locale/test-state-isolated.php test
+          php scripts/locale/test-state-isolated.php verify
+          python3 tests/locale-deployment.py
+          php scripts/qa/no-orders.php
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wplang-diagnostic-isolated-evidence
+          path: ${{ runner.temp }}/ad-isolated-qa/evidence/wplang-diagnostic.json
+          if-no-files-found: error
+          retention-days: 14

@@ -2,7 +2,19 @@
 
 Mise à jour : **22 octobre 2026**, issue #4 : diagnostic fichiers fr_CA, mutations suspendues.
 
+## Priorité courante — diagnostic WPLANG isolé, aucune opération GoDaddy
+
+- [Directive Coordination](https://github.com/mycomane/alimentsdistinction/issues/4#issuecomment-6347458764) lue intégralement. Base `09b3870364348b29d3f95ebb4193201359350469`. Aucun ancien run relancé, aucune nouvelle connexion ou modification GoDaddy.
+- **Mécanisme reproduit sur WordPress 7.1.3/SQLite :** après mise en cache d'une liste vide, l'installation des fichiers fr_CA hors upgrader ne suffit pas à les faire reconnaître. La sanitisation native conserve alors l'ancienne valeur et l'API renvoie false. **Ce n'est pas une preuve de la cause historique GoDaddy**; d'autres refus par filtre ou erreur de requête sont également reproduits.
+- Correction candidate isolée : API publique `WP_Textdomain_Registry::invalidate_mo_files_cache()` limitée aux listes de traductions core/plugins, puis contrôle de disponibilité et API `update_option` conservés. Lecture SQL brute indépendante même si l'API renvoie false; codes fixes distincts pour disponibilité, retour API, erreur d'écriture/lecture, valeur brute divergente et exception API. Aucune écriture SQL pour forcer fr_CA; aucune neutralisation de sanitize_option ou des filtres.
+- Sorties du contrôleur protégées : codes sur liste fermée, pas de trace privée ou erreur SQL publiée. Le rollback exact existant reste en place; invalidation ciblée supplémentaire après restauration des fichiers pour éviter une liste fantôme de langues.
+- Local : **40 assertions ciblées initiales + 30 assertions réelles WPLANG/rollback existantes**, vérification fr_CA/libellés dans un processus neuf, sept contrats workflow, syntaxe et diff vérifiés. Trois contrôles supplémentaires de découverte après rollback ajoutés pour la CI fraîche. Aucun navigateur, paiement ou commande.
+- **Configuration de mutation désactivée** : déclenchement automatique push retiré pendant le diagnostic, job deploy bloqué par `&& false`. Nouveau workflow `qa-wplang-isolated.yml` strictement local, sans secrets, environnement protégé, SSH ou navigateur; tests/API WordPress réels et quatre simulations shell, résultat à consigner après exécution. Aucun workflow de configuration n'est demandé par ce lot.
+- [Rapport et protocole de validation proposé](locale/WPLANG_DIAGNOSTIC_2026-10-22.md). Toute future opération distante ou configuration reste soumise à une nouvelle autorisation et revue humaine; la lecture post-rollback ne prouve pas l'état transitoire au moment du refus.
+
 ## État courant — run 39824523597 échoué, rollback vérifié
+
+Dernier état hébergé prouvé; aucune nouvelle mesure distante pendant le diagnostic isolé ci-dessus.
 
 - Capture de Julien examinée puis [jobs et journal](https://github.com/mycomane/alimentsdistinction/actions/runs/39824523597/job/119985019616) relus sans nouvelle connexion GoDaddy. Après l'arrêt Work à Waiting, la nouvelle approbation humaine a été enregistrée pour ce run exact à **13 h 43 min 45 s HAE**. L'opération distante a ensuite échoué; l'état Waiting ci-dessous est désormais historique.
 - Préparation et recette du commit `752fe13e7188c32cfd9d236f8be8cba43f1ec660` **réussies**. Sauvegarde fraîche SQL/thème/langues/SHA et répétition privée **réellement réussies** pour ce run avant écriture publique; les anciennes sauvegardes n'ont pas été consommées. Stockage privé sur le même hébergement, sans restauration intégrale hors site certifiée.

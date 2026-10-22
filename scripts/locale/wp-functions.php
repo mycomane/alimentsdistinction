@@ -11,13 +11,19 @@ function ad_locale_identity(bool $isolated=false):void {
  if(WP_LANG_DIR!==ABSPATH.'wp-content/languages')throw new RuntimeException('Custom language root; review required');
 }
 function ad_locale_raw():?array {
- global $wpdb;$row=$wpdb->get_row("SELECT option_value, autoload FROM {$wpdb->options} WHERE option_name='WPLANG'",ARRAY_A);if($wpdb->last_error!=='')throw new RuntimeException('WPLANG query unavailable');return $row;
+ global $wpdb;$previous=$wpdb->suppress_errors(true);
+ try{$row=$wpdb->get_row("SELECT option_value, autoload FROM {$wpdb->options} WHERE option_name='WPLANG'",ARRAY_A);$failed=$wpdb->last_error!=='';}finally{$wpdb->suppress_errors($previous);}
+ if($failed)throw new RuntimeException('WPLANG_QUERY_FAILED');return $row;
 }
 function ad_locale_rows(string $sql):array {
- global $wpdb;$rows=$wpdb->get_results($sql,ARRAY_A);if(!is_array($rows)||$wpdb->last_error!=='')throw new RuntimeException('Protected rows query unavailable');return $rows;
+ global $wpdb;$previous=$wpdb->suppress_errors(true);
+ try{$rows=$wpdb->get_results($sql,ARRAY_A);$failed=$wpdb->last_error!=='';}finally{$wpdb->suppress_errors($previous);}
+ if(!is_array($rows)||$failed)throw new RuntimeException('Protected rows query unavailable');return $rows;
 }
 function ad_locale_var(string $sql) {
- global $wpdb;$value=$wpdb->get_var($sql);if($wpdb->last_error!=='')throw new RuntimeException('Protected scalar query unavailable');return $value;
+ global $wpdb;$previous=$wpdb->suppress_errors(true);
+ try{$value=$wpdb->get_var($sql);$failed=$wpdb->last_error!=='';}finally{$wpdb->suppress_errors($previous);}
+ if($failed)throw new RuntimeException('Protected scalar query unavailable');return $value;
 }
 function ad_locale_count(string $sql):int {
  $value=ad_locale_var($sql);if(!is_scalar($value)||!preg_match('/\A(?:0|[1-9][0-9]*)\z/D',(string)$value)||strlen((string)$value)>15)throw new RuntimeException('Protected count unavailable');return (int)$value;
@@ -64,10 +70,39 @@ function ad_locale_capture(array $pageIDs=['shop'=>6,'cart'=>7,'checkout'=>8,'my
  return ['locale_before'=>'en_US','WPLANG'=>$raw,'protected'=>ad_locale_protected($pageIDs)];
 }
 function ad_locale_activate(array $baseline,array $pageIDs=['shop'=>6,'cart'=>7,'checkout'=>8,'myaccount'=>9]):void {
+ global $wpdb;
  if(ad_locale_raw()!==$baseline['WPLANG']||ad_locale_protected($pageIDs)!==$baseline['protected'])throw new RuntimeException('Pre-locale protected state drift');
+ ad_locale_refresh_language_files();
+ if(!in_array('fr_CA',get_available_languages(),true))throw new RuntimeException('FR_CA_NOT_AVAILABLE');
  $old=$baseline['WPLANG'];$autoload=$old===null||in_array($old['autoload'],['yes','on','auto','auto-on'],true);
- if(!update_option('WPLANG','fr_CA',$autoload)||ad_locale_raw()['option_value']!=='fr_CA')throw new RuntimeException('WPLANG activation failed');
+ $previous=$wpdb->suppress_errors(true);
+ try{$changed=update_option('WPLANG','fr_CA',$autoload);$writeFailed=$wpdb->last_error!=='';}
+ catch(Throwable $e){throw new RuntimeException('WPLANG_API_EXCEPTION');}
+ finally{$wpdb->suppress_errors($previous);}
+ // Always perform the independent raw read, including when the API returns false.
+ $raw=ad_locale_raw();
+ if($writeFailed)throw new RuntimeException('WPLANG_WRITE_FAILED');
+ if(!$changed)throw new RuntimeException('WPLANG_API_FALSE');
+ if($raw===null||($raw['option_value']??null)!=='fr_CA')throw new RuntimeException('WPLANG_RAW_MISMATCH');
  if(ad_locale_protected($pageIDs)!==$baseline['protected'])throw new RuntimeException('Unexpected protected change after language update');
+}
+function ad_locale_refresh_language_files():void {
+ if(!is_readable(WP_LANG_DIR.'/fr_CA.mo')&&!is_readable(WP_LANG_DIR.'/fr_CA.l10n.php'))throw new RuntimeException('FR_CA_NOT_AVAILABLE');
+ ad_locale_invalidate_language_discovery();
+}
+function ad_locale_invalidate_language_discovery():void {
+ global $wp_textdomain_registry;
+ if(!($wp_textdomain_registry instanceof WP_Textdomain_Registry)||!method_exists($wp_textdomain_registry,'invalidate_mo_files_cache'))throw new RuntimeException('LANGUAGE_CACHE_REFRESH_UNAVAILABLE');
+ // Same core API as a language-pack upgrade: only core/plugin language-file
+ // discovery entries are invalidated. No global object-cache flush or bypass.
+ $wp_textdomain_registry->invalidate_mo_files_cache(null,['type'=>'translation','translations'=>[
+  ['type'=>'core','language'=>'fr_CA','slug'=>'default','version'=>'7.1.3'],
+  ['type'=>'plugin','language'=>'fr_CA','slug'=>'woocommerce','version'=>'11.2.1'],
+ ]]);
+}
+function ad_locale_public_error(Throwable $error):string {
+ $allowed=['FR_CA_NOT_AVAILABLE','LANGUAGE_CACHE_REFRESH_UNAVAILABLE','WPLANG_QUERY_FAILED','WPLANG_WRITE_FAILED','WPLANG_API_FALSE','WPLANG_RAW_MISMATCH','WPLANG_API_EXCEPTION','LOCALE_STATE_RUNTIME_WARNING'];
+ return in_array($error->getMessage(),$allowed,true)?$error->getMessage():'LOCALE_STATE_REFUSED';
 }
 function ad_locale_restore(array $baseline):void {
  global $wpdb;$now=ad_locale_raw();

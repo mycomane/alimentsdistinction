@@ -36,7 +36,9 @@ class NativeWorkflowGuards(unittest.TestCase):
         self.assertNotIn('always()', deploy)
         self.assertNotIn('continue-on-error:', CONFIG + QA)
         self.assertIn("if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'", deploy)
-        self.assertNotIn('&& false', deploy)
+        self.assertIn('&& false', deploy)  # WPLANG diagnostic phase: no mutation.
+        self.assertIn('  workflow_dispatch:', CONFIG)
+        self.assertNotIn('  push:', CONFIG)
 
     def test_human_gate_before_checkout_or_remote_access(self):
         deploy = job('deploy')
@@ -74,6 +76,13 @@ class NativeWorkflowGuards(unittest.TestCase):
         self.assertNotIn('update-temp.sh', diagnostic)
         self.assertLess(diagnostic.index('name: Require NEW recorded human approval'),
                         diagnostic.index('name: Verify SSH identity'))
+
+    def test_wplang_diagnostic_is_local_and_lightweight(self):
+        workflow = (ROOT / '.github/workflows/qa-wplang-isolated.yml').read_text()
+        self.assertIn('php scripts/locale/test-wplang-diagnostic.php', workflow)
+        for forbidden in ['environment:', 'secrets.', 'sshpass', 'playwright', '1302636.', 'uses: ./.github/workflows/qa-locale-fr-ca.yml']:
+            self.assertNotIn(forbidden, workflow)
+        self.assertIn('contents: read', workflow)
 
 
 if __name__ == '__main__':

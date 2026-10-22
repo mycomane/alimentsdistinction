@@ -22,6 +22,7 @@ elif args[0]=='eval-file' and Path(args[1]).name=='state.php':
   assert value=='en_US';locale.write_text('fr_CA')
   if os.environ['CASE']=='activation_failure':sys.exit(1)
  elif mode=='rollback':assert value in ['en_US','fr_CA'];locale.write_text('en_US')
+ elif mode=='invalidate-discovery':assert value=='en_US'
  elif mode=='verify':
   assert json.loads(Path(args[3]).read_text())['protected']=='simulation'
   assert value==('fr_CA' if args[4]=='new' else 'en_US')
