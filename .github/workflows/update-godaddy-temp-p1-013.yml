@@ -1,5 +1,5 @@
 name: P1 0.1.3 approved copy — temporary site, mandatory reviewer
-# New P1 scope approved by Julien; a NEW exact-run GitHub approval is mandatory.
+# Second review request authorized by Julien: issue #2 comment 6353797110; stop at Review deployments.
 on:
   push:
     branches: [feat/wordpress-woocommerce-theme]
