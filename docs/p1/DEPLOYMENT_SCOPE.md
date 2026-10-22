@@ -2,7 +2,7 @@
 
 **21 octobre 2026 — lot 0.1.2 déployé avec succès après autorisation de Julien et nouvelle approbation GitHub `mycomane` / `godaddy-temp`.** [Run 39696116068](https://github.com/mycomane/alimentsdistinction/actions/runs/39696116068), job `119554780896`, commit exact `ad3006ca7c618b9d71617232bec67fe7c9cd322a`. Fin vérifiée à 19 h 57 HAE.
 
-[Résultat vérifié, sauvegarde et limites](evidence/release-0.1.2-deployment.json). Coming Soon et état protégé maintenus; paire CSS et inventaire complet vérifiés. Langue observée en lecture seule : `en_US`, paquets français absents, libellés et confidentialité encore anglais. Aucun changement de langue/contenu n’était inclus dans ce lot. Pas de recette visuelle authentifiée supplémentaire.
+[Résultat vérifié, sauvegarde et limites](evidence/release-0.1.2-deployment.json). Coming Soon et état protégé maintenus; paire CSS et inventaire complet vérifiés. Langue observée en lecture seule : `en_US`, inventaire français à vérifier, libellés et confidentialité encore anglais. Aucun changement de langue/contenu n’était inclus dans ce lot. Pas de recette visuelle authentifiée supplémentaire.
 
 Le périmètre ci-dessous documente le mécanisme approuvé. La barrière de revue a été franchie humainement; aucune approbation n’est encore attendue pour ce run terminé.
 

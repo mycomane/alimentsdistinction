@@ -4,13 +4,20 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 ## Phase et derniers commits
 
-**P0 clôturé. P1 : thème 0.1.2 déployé avec succès sur GoDaddy temporaire après autorisation de Julien et nouvelle revue GitHub. Palette « Actuel » conservée; seuls les deux contrôles approuvés et la version/cache ont changé. Coming Soon maintenu, sauvegarde et état protégé vérifiés. Point restant : WordPress hébergé est en `en_US`, sans paquets français; le français n’est pas encore installé sur GoDaddy.**
+**P0 clôturé. P1 : thème 0.1.2 déployé avec succès sur GoDaddy temporaire après autorisation de Julien et nouvelle revue GitHub. Palette « Actuel » conservée; seuls les deux contrôles approuvés et la version/cache ont changé. Coming Soon maintenu, sauvegarde et état protégé vérifiés. Point restant : WordPress hébergé est en `en_US`; l’inventaire des paquets français n’est pas établi par le premier diagnostic.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
 - Code P1 déployé/testé : [`ad3006ca7c618b9d71617232bec67fe7c9cd322a`](https://github.com/mycomane/alimentsdistinction/commit/ad3006ca7c618b9d71617232bec67fe7c9cd322a), thème **0.1.2**. Précédent code P0 : `be5703eeaa434ada55cb33a961a0b08e11f6a862`, thème 0.1.1. Les propositions A/B complètes n’ont pas été intégrées.
 - Commit du correctif CSS : [`9618095516d982e10eebfe5c7aa0cdcc4bf85be3`](https://github.com/mycomane/alimentsdistinction/commit/9618095516d982e10eebfe5c7aa0cdcc4bf85be3).
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
+
+## Localisation française — préparation et tests fr_CA en cours
+
+- Julien demande de continuer après le bilan de livraison. Préparation de la langue et des traductions françaises, avec **aucun changement de règles commerciales ou texte légal**, Coming Soon conservé. Toute opération GoDaddy sera soumise à une nouvelle revue GitHub.
+- **Correction du diagnostic P1 :** `en_US` et les libellés anglais sont confirmés. Les clés historiques `core_fr_pack` / `woo_fr_pack` du premier contrôle ciblaient en réalité `get_locale()` (donc en_US). Elles ne prouvent **pas** l’absence de fr_CA/fr_FR. Les valeurs brutes sont conservées et leur interprétation corrigée; le nouvel inventaire ciblera explicitement les deux locales.
+- APIs officielles WordPress.org vérifiées : paquets **fr_CA pour WordPress 7.1.3 et WooCommerce 11.2.1 disponibles**. Les deux ZIP sont épinglés par SHA256 dans `locale/fr-ca-packages.json`; **311 fichiers** validés et extraits localement sous une liste de chemins autorisés. Refus de tout changement de paquet en amont avant nouvelle revue.
+- Locale de travail proposée : **fr_CA**, adaptée au site québécois. Recette isolée ciblée à exécuter sur les interfaces françaises natives avant préparation de l’opération protégée. Aucun fichier de thème modifié, aucune réexécution des 300 assertions pour cette préparation.
 
 ## P1 — déploiement 0.1.2 réussi; français hébergé à compléter
 
@@ -20,7 +27,7 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 - **Sauvegarde fraîche privée** : `~/.ad-private-backups/p1-012-39696116068/`, thème complet et SQL compressé avec SHA256 vérifiés. Archive du thème extraite et vérifiée; mise à jour puis retour arrière de la paire répétés sur cette copie privée, sauvegarde originale préservée. Sauvegarde sur l’hôte seulement, pas de restauration SQL intégrale/hors site certifiée.
 - Remplacement réel journalisé de la paire; invalidation de la seule clé de cache d’en-tête du thème. Les **deux CSS sont servis en HTTP avec leurs empreintes exactes avant/après**. Aucune restauration de la paire réelle nécessaire : tous les contrôles finaux passent.
 - Options protégées, pages techniques, comptes/produits/commandes et règles de taxes/livraison vérifiés inchangés par le script. **Accueil et quatre pages techniques anonymes : HTTP 200 et Coming Soon avant/après**. Aucun nouveau compte, produit, commande, paiement ou réglage commercial.
-- **Diagnostic de langue en lecture seule : `en_US`, paquet core français absent, paquet WooCommerce français absent**, libellés renvoyés « Add to cart » / « Choose an option ». Texte de confidentialité enregistré avec marqueur anglais. **La version 0.1.2 déploie les styles; elle ne rend pas encore le WordPress hébergé français.** Aucun réglage de langue, paquet ou texte légal modifié par ce lot. Préparer une phase française distincte avec protection des réglages commerciaux et validation du contenu.
+- **Diagnostic de langue en lecture seule : `en_US`, présence des paquets français non établie**, libellés renvoyés « Add to cart » / « Choose an option ». Texte de confidentialité enregistré avec marqueur anglais. **La version 0.1.2 déploie les styles; elle ne rend pas encore le WordPress hébergé français.** Aucun réglage de langue, paquet ou texte légal modifié par ce lot. Préparer une phase française distincte avec protection des réglages commerciaux et validation du contenu.
 - **Limite : aucun nouveau contrôle visuel authentifié sur GoDaddy**, aucune capture hébergée ni compte de recette créé. Recette visuelle/transactionnelle isolée réussie; ne pas en déduire un parcours transactionnel complet hébergé ou une certification globale.
 - [Preuve de déploiement](p1/evidence/release-0.1.2-deployment.json). La [preuve de préparation/revue](p1/evidence/release-0.1.2-review.json) conserve le statut historique avant approbation.
 - QA du commit exact : [39696116033](https://github.com/mycomane/alimentsdistinction/actions/runs/39696116033), job `119553783106`, **succès**; suite complète + 45 contrôles français aux cinq largeurs, aucune erreur JS/PHP détectée et aucune commande/passerelle active. Job barrière `119553783373` réussi, aucune seconde suite complète inutile.

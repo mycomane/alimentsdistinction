@@ -61,9 +61,14 @@
   "limitations": [
     "No authenticated hosted responsive review or screenshot",
     "No review account created",
-    "French labels verified in isolated fr_FR tests, not installed on GoDaddy",
+    "French labels verified in isolated fr_FR tests; hosted effective locale remains en_US and French package inventory was not established",
     "No locale, translations or stored privacy text changed",
     "No real payment or order",
     "Backup is private on-host; no full SQL restore/offsite recovery certification"
-  ]
+  ],
+  "locale_diagnostic_interpretation": {
+    "tested_package_locale": "en_US",
+    "french_package_presence": "not_established",
+    "correction": "Original core_fr_pack/woo_fr_pack flags actually tested the current locale, not fr_CA/fr_FR. Keep raw logged flags; do not infer French package absence."
+  }
 }
