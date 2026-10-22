@@ -1,5 +1,17 @@
 # Aliments Distinction — suivi Work / Coordination
 
+## État actuel — 22 octobre 2026 : dossier final WPLANG soumis à revue
+
+- [Validation Coordination](https://github.com/mycomane/alimentsdistinction/issues/4#issuecomment-6348793088) lue intégralement. Base/dernier commit avant ce lot documentaire : `61ca2879edc3e10bdcd2149212ac1f910bd8bd0a`; le commit de livraison est celui de l'historique de cette section. Branche exclusive `feat/wordpress-woocommerce-theme`.
+- [Protocole final et dossier de revue](locale/WPLANG_FINAL_REVIEW.md) : préconditions, observations booléennes fermées proposées, politique d'arrêt/rollback, critères de succès et risques. L'instrumentation additionnelle est spécifiée, **pas encore appliquée ni testée**; elle devra avoir ses petites preuves isolées avant toute future configuration.
+- Ordre confirmé par lecture du code : inventaire complet vérifié à la fin de `files.php apply`, puis invalidation native dans `state.php activate`; vérification de locale/libellés dans une invocation WP-CLI distincte. Aucun cache global purgé et aucun filtre contourné.
+- Preuves réutilisées, sans nouvelle recette lourde : [39831592138](https://github.com/mycomane/alimentsdistinction/actions/runs/39831592138), statut success revérifié, SHA `71058a956e63980a7ac96f116c64478003a3176b`; **43 assertions WPLANG + 30 rollback + 4 simulations shell + 7 contrats**, vérification en processus neuf. Ces résultats restent attribués à ce SHA; ce lot ne change aucun code exécutable.
+- Contrôles complémentaires locaux de ce dossier : sept contrats workflow réexécutés avec succès, contrôle statique de l'ordre application/activation/vérification et inventaire avant retour réussi, liens relatifs des deux documents vérifiés, `git diff --check` réussi. Aucun nouveau résultat hébergé revendiqué.
+- Cause historique du refus GoDaddy toujours non prouvée. Dernier état hébergé prouvé : retour arrière vérifié; **fr_CA non déclaré installé**. Sauvegarde/restauration intégrale hors site non certifiée; ACL/filtres/base peuvent encore refuser une future opération.
+- Aucun nouveau workflow GoDaddy, ancien run relancé, SSH, compte de test ou changement distant. Workflow de configuration conservé en `workflow_dispatch`, job mutatif bloqué par `&& false`; aucune réactivation ni approbation par Work.
+- Décisions attendues : validation du dossier par la Coordination; accord distinct de Julien avant réactivation, puis nouvelle revue GitHub du run exact avant toute écriture. Prochaine préparation technique : instrumentation minimale et tests ciblés définis au dossier, sans modifier les gardes. L'issue #4 reste ouverte.
+- Les sections ci-dessous sont l'historique et ne remplacent pas cet état courant. Site commercial, master, DNS, paiements, Zoho et Coming Soon hors intervention.
+
 Mise à jour : **22 octobre 2026**, issue #4 : diagnostic fichiers fr_CA, mutations suspendues.
 
 ## Priorité courante — diagnostic WPLANG isolé, aucune opération GoDaddy
