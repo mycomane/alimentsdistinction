@@ -53,8 +53,8 @@ jobs:
     uses: ./.github/workflows/qa-locale-fr-ca.yml
   deploy:
     needs: [prepare, isolated-qa]
-    # WPLANG investigation: mutation disabled until a distinct authorization.
-    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme' && false
+    # Julien authorized preparation only: stop at the NEW human environment review.
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
     name: APPROVAL REQUIRED — fr_CA language only on temporary WordPress
     runs-on: ubuntu-latest
     environment: godaddy-temp

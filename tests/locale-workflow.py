@@ -35,8 +35,8 @@ class NativeWorkflowGuards(unittest.TestCase):
         self.assertIn('needs: [prepare, isolated-qa]', deploy)
         self.assertNotIn('always()', deploy)
         self.assertNotIn('continue-on-error:', CONFIG + QA)
-        self.assertIn("if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'", deploy)
-        self.assertIn('&& false', deploy)  # WPLANG diagnostic phase: no mutation.
+        self.assertRegex(deploy, r"(?m)^    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'$" )
+        self.assertNotIn('&& false', deploy)  # Explicit authorization: environment review remains mandatory.
         self.assertIn('  workflow_dispatch:', CONFIG)
         self.assertNotIn('  push:', CONFIG)
 

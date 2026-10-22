@@ -1,5 +1,14 @@
 # Aliments Distinction — suivi Work / Coordination
 
+## État actuel — 22 octobre 2026 : préparation fr_CA réactivée sous revue obligatoire
+
+- [Autorisation limitée de Julien / directive Coordination](https://github.com/mycomane/alimentsdistinction/issues/4#issuecomment-6349578366) lue intégralement. Base `80d32d69840676609cabc7690e03bf5847343afb`. Autorisation de préparer une nouvelle exécution et atteindre **Waiting / Review deployments uniquement**; aucune approbation ni modification GoDaddy autorisée à Work.
+- Diff minimal : retrait du seul `&& false`, commentaire adapté et contrat correspondant. `workflow_dispatch` sans push, branche exclusive, `needs: [prepare, isolated-qa]`, `environment: godaddy-temp`, verrou de concurrence et vérification humaine du run exact avant SSH conservés. Le contrôleur de langue instrumenté, sauvegardes, rollback, thème et paquets épinglés restent inchangés.
+- Huit contrats, contrôle de diff et syntaxe bash réussis localement avant publication. La préparation et la QA réutilisable devront réussir sur le nouveau SHA; les preuves WPLANG 62 + 30 assertions de `196cf8f1` ne sont pas présentées comme exécutées sur ce nouveau SHA.
+- Déclenchement manuel unique à effectuer si l'interface le permet, sans relancer d'ancien run. Lien/statut du nouveau run à consigner après observation réelle. Aucune sauvegarde distante fraîche revendiquée à ce stade : identité exacte, espace SQL/disque, sauvegarde privée SQL/thème/langues/SHA, répétition privée, Coming Soon et état protégé seront contrôlés **après** approbation humaine, avant mutation des langues/WPLANG.
+- Risques inchangés : cause historique non confirmée, cache/filtres/ACL/base propres à l'hébergement, récupération intégrale hors site non certifiée. Fr_CA non déclaré installé. Aucun accès GoDaddy/SSH ni compte créé par cette préparation; master, site commercial, DNS, Zoho, paiements et paramètres commerciaux hors périmètre.
+- Les sections suivantes sont historiques; les mentions du blocage `&& false` y décrivent les phases précédentes. Aucun clic **Approve and deploy** ne sera effectué par Work.
+
 ## État actuel — 22 octobre 2026 : sept observations WPLANG instrumentées, CI isolée verte
 
 - [Directive Coordination](https://github.com/mycomane/alimentsdistinction/issues/4#issuecomment-6349384832) lue intégralement. Base GitHub `a5c20f1c2a65067b9134c6bbad5f3f8c694a951a`; branche exclusive conservée.
