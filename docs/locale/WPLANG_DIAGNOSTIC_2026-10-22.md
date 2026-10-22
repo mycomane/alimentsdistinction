@@ -22,7 +22,7 @@ La reproduction utilise le cache objet du processus isolé. Un backend persistan
 
 | Cas synthétique réel | Résultat attendu |
 | --- | --- |
-| Catalogues absents ou langue masquée par un filtre de disponibilité | FR_CA_NOT_AVAILABLE, aucune écriture |
+| Catalogues absents ou langue masquée par un filtre de disponibilité | FR_CA_NOT_AVAILABLE, aucune écriture WPLANG |
 | Filtre pre-update ou sanitisation conservant l'ancienne valeur | WPLANG_API_FALSE, relecture brute néanmoins exécutée |
 | Erreur d'écriture de la base synthétique | WPLANG_WRITE_FAILED, baseline inchangée |
 | Erreur de SELECT brute synthétique | WPLANG_QUERY_FAILED, aucune donnée SQL publiée |
@@ -47,6 +47,14 @@ Le workflow de configuration n'a plus de déclenchement push pendant cette phase
 Local : 40 assertions ciblées du premier passage, 30 assertions WPLANG existantes, vérification native dans un processus neuf, sept contrats et syntaxe réussis. Trois assertions supplémentaires sur la découverte après rollback sont incluses dans la suite finale attendue en CI fraîche; elles ne sont pas présentées comme exécutées localement lors du premier passage. L'absence de commande/passerelle a été vérifiée dans la fixture. Preuve JSON du nouveau run attendue avant conclusion de CI.
 
 Premier run léger [39831266514](https://github.com/mycomane/alimentsdistinction/actions/runs/39831266514) arrêté avant les cas applicatifs : historique Git superficiel incompatible avec la comparaison au thème installé. La récupération complète de l'historique est ajoutée au checkout; ni la référence épinglée ni le contrôle d'intégrité ne sont supprimés. Le nouveau commit déclenche une nouvelle exécution isolée, sans relancer ce run échoué.
+
+### Résultat final vérifié
+
+**[39831592138 — success](https://github.com/mycomane/alimentsdistinction/actions/runs/39831592138)**, job `120008848791`, commit [71058a956e63980a7ac96f116c64478003a3176b](https://github.com/mycomane/alimentsdistinction/commit/71058a956e63980a7ac96f116c64478003a3176b). La correction des API/codes et le diagnostic sont introduits par `1de11c4d73c791c240db0c3b941b1a1526193b45`; le commit final complète l'historique Git du runner et son test de contrat.
+
+**43 assertions ciblées**, dont les trois contrôles supplémentaires de rollback/découverte, ont désormais été exécutées sur une fixture fraîche GitHub. Les **30 assertions WPLANG préexistantes**, la vérification fr_CA et des deux libellés dans un nouveau processus, les **quatre simulations shell** et les **sept contrats workflow** réussissent aussi. Les 311 fichiers de langue épinglés et leurs empreintes SHA, les 23 fichiers de thème et les gardes P0 sont vérifiés. Aucune commande créée ni passerelle active dans la fixture. Le message générique du contrôle de commandes réutilisé mentionne historiquement le navigateur; **aucun navigateur n'a été installé ou exécuté par ce workflow**.
+
+Artefact du run : `wplang-diagnostic-isolated-evidence`, ID `12449660554`, JSON des cas/compteurs, sans données serveur. Aucun workflow de configuration ou SSH n'a été lancé. Le mécanisme reproduit justifie la correction candidate de reconnaissance et le protocole ci-dessous, sans établir la cause transitoire exacte du précédent incident GoDaddy.
 
 ## Protocole futur proposé à la Coordination
 
