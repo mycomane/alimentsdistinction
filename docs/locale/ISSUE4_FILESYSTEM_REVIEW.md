@@ -27,6 +27,8 @@ Les tests ajoutés distinguent dossier d'un autre propriétaire avec fichiers ex
 
 Le job de mutation reste désactivé pendant la revue. **Validation Coordination/Julien du correctif, puis nouvelle exécution avec revue humaine propre, obligatoires avant tout déploiement.** Les propositions conditionnelles historiques ci-dessous ne sont pas des opérations réalisées.
 
+Preuve du correctif [d026569f](https://github.com/mycomane/alimentsdistinction/commit/d026569f5092c1c1efb7c5d8050d47b02d295975) : [préparation 119976329966](https://github.com/mycomane/alimentsdistinction/actions/runs/39822268395/job/119976329966) **success**, **61 assertions complètes** incluant les nouveaux cas de propriétaire/dossier, 28 gardes de langues, 17 gardes P0, 46 assertions DB/marge, sept contrôles Coming Soon et quatre simulations shell. Les six contrats workflow et les 311 fichiers/23 fichiers de thème ont aussi été vérifiés. La recette navigateur réutilisable `119976330761` est encore en cours au dernier contrôle; aucun résultat hébergé supplémentaire n'est revendiqué.
+
 ## Constat prouvé
 
 [Run 39817398299](https://github.com/mycomane/alimentsdistinction/actions/runs/39817398299), job `119960431819` : revue humaine confirmée, identité temporaire validée, inventaire et marge de sauvegarde satisfaits, Coming Soon vérifié, sauvegarde et répétition privée réussies. Ensuite : `Locale filesystem/owner precondition failed`. Le rollback ciblé est confirmé; aucune restauration SQL ni installation fr_CA réussie à déclarer. Ne pas relancer ce run : ses préparations privées existent déjà.
