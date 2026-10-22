@@ -48,9 +48,10 @@ jobs:
           NODE_PATH: ${{ runner.temp }}/ad-p1-copy-tools/node_modules
         run: |
           set -euo pipefail
-          php -S 127.0.0.1:8787 -t "$RUNNER_TEMP/ad-isolated-qa/wordpress" "$RUNNER_TEMP/ad-isolated-qa/router.php" > "$RUNNER_TEMP/ad-qa-php.log" 2>&1 &
+          php -d opcache.enable_cli=0 -S 127.0.0.1:8787 -t "$RUNNER_TEMP/ad-isolated-qa/wordpress" "$RUNNER_TEMP/ad-isolated-qa/router.php" > "$RUNNER_TEMP/ad-qa-php.log" 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          python3 tests/p1-copy-isolated/php-cache.py
           node tests/p1-copy-isolated/browser.cjs
           php scripts/qa/no-orders.php
           python3 scripts/qa/php-log-check.py
@@ -61,3 +62,62 @@ jobs:
           path: ${{ runner.temp }}/ad-isolated-qa/evidence/
           retention-days: 14
           if-no-files-found: ignore
+  release-safety:
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    services:
+      mysql-fixture:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: isolated-p0-fixture
+          MYSQL_ROOT_HOST: '%'
+        ports: ['127.0.0.1:33306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -pisolated-p0-fixture"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify exact P1 scope, package and four-file recovery without GoDaddy
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = feat/wordpress-woocommerce-theme
+          python3 scripts/check-theme.py
+          python3 scripts/package-theme.py
+          python3 scripts/ops/prepare-p1-013-release.py
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          php -l scripts/ops/p1-013-state.php
+          php -l scripts/ops/p1-013-files.php
+          php -l scripts/ops/p0-files.php
+          php -l scripts/ops/p0-db-size.php
+          bash -n scripts/ops/update-p1-013-temp.sh
+          bash -n scripts/ops/measure-p0-db.sh
+          shellcheck scripts/ops/update-p1-013-temp.sh scripts/ops/measure-p0-db.sh
+          php tests/p0-files.php
+          php tests/p1-013-files.php
+          python3 tests/p1-013-deployment.py
+          python3 tests/p1-013-workflow.py
+          node --check scripts/qa/sections-audit.cjs
+          php tests/p0-db-size.php
+      - name: Verify SQL measurement on disposable MySQL, including blocked/error cases
+        env:
+          P0_TEST_MYSQL: '1'
+          MYSQL_PWD: isolated-p0-fixture
+        run: |
+          set -euo pipefail
+          if ! command -v mysql >/dev/null; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq default-mysql-client
+          fi
+          python3 tests/p0-db-integration.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p1-013-isolated-review-package
+          path: |
+            dist/aliments-distinction-0.1.3.zip
+            dist/p1-013-manifest.json
+          retention-days: 14
+          if-no-files-found: error

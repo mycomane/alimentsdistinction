@@ -56,7 +56,7 @@ check_public() {
 check_css() {
   local phase="$1" version="$2" file hash code
   for file in assets/css/design.css assets/css/commerce.css assets/js/theme.js style.css; do
-    hash="$(php -r '$m=json_decode(file_get_contents($argv[1]),true,512,JSON_THROW_ON_ERROR);echo $m[$argv[2]][$argv[3]];' "$ops/p1-013-manifest.json" "$phase" "$file")" || return 1
+    hash="$(php "$ops/p1-013-files.php" digest "$ops/p1-013-manifest.json" "$phase" "$file")" || return 1
     code="$(curl --silent --show-error --max-time 35 --max-redirs 0 --proto '=https' -H 'Cache-Control: no-cache' -w '%{http_code}' "$expected/wp-content/themes/aliments-distinction/$file?ver=$version" -o "$backup/served-css")" || return 1
     test "$code" = 200 || return 1
     test "$(sha256sum "$backup/served-css" | awk '{print $1}')" = "$hash" || return 1
@@ -69,7 +69,7 @@ wp --path="$root" eval-file "$ops/p1-013-state.php" locale
 wp --path="$root" eval-file "$ops/p1-013-state.php" capture "$backup/protected-state.json" 0.1.2
 cp -a "$theme" "$backup/theme-0.1.2"
 cp -a "$root/wp-content/languages" "$backup/languages"
-php -r 'require $argv[1];$s=json_decode(file_get_contents($argv[2]),true,512,JSON_THROW_ON_ERROR);p0_check($argv[3],$s["languages"]);' "$ops/p0-files.php" "$backup/protected-state.json" "$backup/languages"
+php "$ops/p1-013-files.php" languages "$ops/p1-013-manifest.json" "$backup/protected-state.json" "$backup/languages"
 tar -C "$backup" -czf "$backup/languages.tar.gz" languages
 tar -tzf "$backup/languages.tar.gz" >/dev/null
 php "$ops/p0-files.php" check "$backup/theme-0.1.2" "$ops/p1-013-manifest.json" old

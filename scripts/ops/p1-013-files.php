@@ -78,8 +78,11 @@ if (realpath($_SERVER['SCRIPT_FILENAME'])===__FILE__) {
         if ($mode==='apply') { p1_apply($argv[3],$argv[4],$m,$argv[5]); }
         elseif ($mode==='rollback') { p1_rollback($argv[3],$argv[4],$m,$argv[5]); }
         elseif ($mode==='digest') {
-            if (!in_array($argv[3],['old','new'],true) || !in_array($argv[4],$m['changed'],true)) { throw new RuntimeException('Invalid digest scope'); }
+            if (!in_array($argv[3],['old','new'],true) || !in_array($argv[4],array_merge($m['changed'],['assets/css/design.css','assets/css/commerce.css','assets/js/theme.js']),true)) { throw new RuntimeException('Invalid digest scope'); }
             echo $m[$argv[3]][$argv[4]];exit;
+        } elseif ($mode==='languages') {
+            $state=json_decode(file_get_contents($argv[3]),true,512,JSON_THROW_ON_ERROR);
+            p0_check($argv[4],$state['languages']);
         } else { throw new RuntimeException('Unknown P1 operation'); }
         echo "PASS: exact P1 four-file set operation verified.\n";
     } catch (Throwable $e) { fwrite(STDERR,$e->getMessage()."\n");exit(1); }

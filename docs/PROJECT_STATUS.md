@@ -1,5 +1,14 @@
 # Aliments Distinction — suivi Work / Coordination
 
+## P1 0.1.3 — incident CI avant revue, aucune mutation (22 octobre 2026)
+
+Première et unique exécution protégée créée : [39871446467](https://github.com/mycomane/alimentsdistinction/actions/runs/39871446467), SHA `ad4921dc7917bf225c4d4d388b7c2abb9770e79f`. Échec de préparation : ShellCheck SC2016 sur deux fragments PHP cités volontairement dans le shell. Aucun SSH ni job mutatif : **deploy skipped**, pas de Review deployments atteinte. Build [39871446421](https://github.com/mycomane/alimentsdistinction/actions/runs/39871446421) réussi. QA ciblé [39871446480](https://github.com/mycomane/alimentsdistinction/actions/runs/39871446480) échoué : `after unavailable 390 single approved cream panel` (ancien panneau rendu après remplacement des fichiers de fixture).
+
+Correction technique préparée sans toucher au thème : fragments PHP déplacés vers le contrôleur PHP existant du lot 0.1.3, sans suppression de règle ShellCheck; serveur PHP isolé explicitement sans cache d'opcodes pour le test de permutation avant/après, avec sonde comparative de configuration et lecture immédiate des fichiers. Les octets du thème et le ZIP restent identiques. Les causes et résultats de la sonde seront consignés après CI; le cache est à ce stade une hypothèse à vérifier.
+
+La même préparation de sécurité et MySQL jetable est réutilisée dans un job **sans environnement/secrets/SSH** du workflow de recette. Aucun second run protégé ni relance de l'ancien run n'est créé. Une nouvelle demande de revue nécessitera une autorisation distincte après résultats corrigés et revue Coordination.
+
+
 ## P1 0.1.3 — préparation autorisée, revue humaine obligatoire (22 octobre 2026)
 
 Directive [#6353441551](https://github.com/mycomane/alimentsdistinction/issues/2#issuecomment-6353441551) lue intégralement. Base GitHub `4544ead988c2aeb3ded1f33520c8ecb8d2791d00`; version hébergée 0.1.2 non modifiée. Préparation des quatre fichiers déjà approuvés et incrément strict version/cache 0.1.3. [Dossier/protocole complet](p1/RELEASE_0.1.3_REVIEW.md).

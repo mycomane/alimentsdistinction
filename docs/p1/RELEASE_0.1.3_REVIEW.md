@@ -1,5 +1,12 @@
 # P1 0.1.3 — protocole de livraison et dossier de revue
 
+## Incident préalable à la revue
+
+Le run protégé [39871446467](https://github.com/mycomane/alimentsdistinction/actions/runs/39871446467), SHA `ad4921dc7917bf225c4d4d388b7c2abb9770e79f`, a échoué avant approbation; job mutatif ignoré. SC2016 détecte deux fragments PHP shell (citation littérale intentionnelle); ceux-ci sont déplacés dans le contrôleur PHP du lot, sans désactiver ShellCheck. La recette de permutation avant/après a aussi rendu l'ancien panneau après installation des nouveaux fichiers : ajout d'une sonde HTTP PHP pour observer le cache d'opcodes, et désactivation explicite de celui-ci **uniquement pour le serveur de test isolé**. Aucune configuration GoDaddy changée.
+
+Une CI sans environnement, SSH ou secrets réexécute les tests corrigés, y compris le job de préparation et MySQL jetable. **Aucun deuxième run protégé autorisé ou créé, aucune relance de 39871446467.** Après preuves vertes, la Coordination devra valider puis obtenir l'autorisation d'une nouvelle demande de revue. Le protocole ci-dessous décrit la future opération, pas une opération effectuée ou actuellement en attente d'approbation.
+
+
 Autorisation : [Coordination / Julien #6353441551](https://github.com/mycomane/alimentsdistinction/issues/2#issuecomment-6353441551), 22 octobre 2026. Préparation et **une seule nouvelle demande de revue** autorisées; aucune approbation ni opération GoDaddy par Work. Le run et son SHA exact seront consignés dans PROJECT_STATUS.md après la CI.
 
 ## Lot exact
