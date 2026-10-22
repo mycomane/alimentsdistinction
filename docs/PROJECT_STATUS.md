@@ -1,8 +1,22 @@
 # Aliments Distinction — suivi Work / Coordination
 
-Mise à jour : **22 octobre 2026**, reprise P1 en développement isolé après clôture sécurité par la Coordination.
+Mise à jour : **22 octobre 2026**, issue #4 : diagnostic fichiers fr_CA, mutations suspendues.
+
+## PRIORITÉ COURANTE — issue #4, précondition fichiers fr_CA
+
+- Directive [issue #4](https://github.com/mycomane/alimentsdistinction/issues/4) et journaux `119960431819` lus. Base du correctif : `f450668419ba05549ae0ea747d9f63e647199478`. Aucun ancien run relancé, aucune nouvelle opération GoDaddy exécutée par cette phase.
+- [Run 39817398299](https://github.com/mycomane/alimentsdistinction/actions/runs/39817398299) : préparation et recette réutilisable **réussies**, opération distante **échouée après revue humaine**. La synchronisation native a fonctionné. Échec du garde combiné dans `lf_apply()` avant journal/remplacement des fichiers publics; **condition exacte parmi nlink/uid/dev non prouvée par ce message**.
+- Sauvegarde fraîche et répétition privée confirmées dans l'ancien journal; retour arrière ciblé vérifié (langue d'origine, inventaire des langues, thème et Coming Soon), aucune restauration SQL. **fr_CA n'est pas déclaré installé.** Aucune restauration intégrale hors site certifiée.
+- Correctif préparé : trois codes de refus distincts, logique nlink/uid/dev inchangée, gardes P0 intacts. Diagnostic non mutatif séparé : uniquement des booléens autorisés sur liens, égalités de propriétaire/volume, canonicalité, droits et inventaire. Aucun UID/GID, chemin privé résolu ou sortie SQL publié.
+- La source préparée est actuellement comparée au propriétaire du dossier, et non seulement à celui du fichier existant. Cette égalité peut être trop stricte dans certains hébergements, mais ce n'est qu'une hypothèse pour GoDaddy. **Aucun assouplissement de propriété ou de volume n'est livré sans la mesure qui départage les cas.**
+- Tests locaux : **37 assertions fichiers partielles**, 28 assertions langues/retour arrière, 7 contrôles Coming Soon, 6 contrats workflow et **4 simulations shell** réussis. Les changements réels de propriétaire et l'exécution sous utilisateur non privilégié sont refusés par l'environnement local : ils ne sont pas présentés comme testés ici. Le runner GitHub jetable exécutera la suite complète sous sudo, sans option partielle. Syntaxe PHP/bash/YAML et `git diff --check` vérifiés.
+- Workflow de configuration : job de mutation **explicitement désactivé pour cette phase**, préparation + recette fr_CA réutilisable du même commit conservées. Nouveau workflow de diagnostic **lecture seule** préparé : tests isolés d'abord, puis **nouvelle revue humaine `godaddy-temp` du run exact** avant SSH. Script envoyé sur stdin, lecture des seuls candidats/sauvegardes existants, verrou partagé ouvert en lecture; aucun téléversement de fichier ou endpoint public.
+- La mesure distante est indispensable pour conclure quel sous-test a échoué. **Validation Coordination/Julien demandée pour ce seul diagnostic en lecture seule**, pas pour une configuration fr_CA. Si aucun sous-test n'échoue désormais, la condition historique reste indéterminée : ne pas inventer une cause.
+- [Analyse, méthode de diagnostic, tests et adaptations conditionnelles](locale/ISSUE4_FILESYSTEM_REVIEW.md). Sauvegardes existantes préservées; aucun chown/chmod ni nettoyage sur GoDaddy. Tout futur correctif de mutation nécessitera nouvelle preuve, recette et approbation distincte.
 
 ## P1 reprise — préparation française canadienne
+
+Historique de la préparation précédente; l'état courant est celui de l'issue #4 ci-dessus.
 
 ### Synchronisation de la recette — correction du 22 octobre
 
@@ -10,7 +24,7 @@ Mise à jour : **22 octobre 2026**, reprise P1 en développement isolé après c
 - Recette [39813094307](https://github.com/mycomane/alimentsdistinction/actions/runs/39813094307) désormais **success** sur `5b05b745c45df8369af315b42b41426cc5781a1e`; job `119944333190` terminé le 22 octobre à **12 h 31 min 46 s HAE**, statut final du run enregistré à **12 h 44 min 27 s HAE**. La barrière avait échoué à **12 h 34 min 58 s HAE**. Les journaux confirment les tests WPLANG/rollback, libellés fr_CA, panier synthétique et contrôles aux cinq largeurs; aucune commande ni passerelle active dans la fixture.
 - Correction : la recette devient un workflow réutilisable appelé localement au **même commit**; `needs: [prepare, isolated-qa]` est la dépendance native avant le job protégé. Plus d'attente inter-workflows de 15 minutes, ni second run autonome identique. Le script historique `wait-qa.py` reste dans l'historique de code mais n'est plus exécuté par ce workflow.
 - Contrôles locaux : **5 tests de contrat de synchronisation/protections réussis**, YAML analysé, `git diff --check` réussi. Le nouveau run doit confirmer l'exécution native; aucun succès anticipé.
-- Correctif enregistré : [b58b5432](https://github.com/mycomane/alimentsdistinction/commit/b58b5432db8425965a30ef3ad83a7174a9131bc4). Nouvelle [exécution 39817398299](https://github.com/mycomane/alimentsdistinction/actions/runs/39817398299), même commit : job `prepare` **119959370754 réussi**, recette appelée `isolated-qa / french-storefront` **119959370948 en cours** (installation du navigateur au dernier contrôle). Les cinq tests de contrat ont été exécutés dans la préparation. Un seul run parent, aucune copie autonome de la recette. Le job protégé n'est pas encore annoncé prêt à approuver.
+- Correctif enregistré : [b58b5432](https://github.com/mycomane/alimentsdistinction/commit/b58b5432db8425965a30ef3ad83a7174a9131bc4). [Exécution 39817398299](https://github.com/mycomane/alimentsdistinction/actions/runs/39817398299) : préparation `119959370754` et recette appelée `119959370948` **réussies**, puis opération distante `119960431819` **échouée** avec retour arrière vérifié; voir issue #4. L'ancien run ne doit pas être relancé.
 - Protections conservées : nouvelle revue humaine `godaddy-temp` du run exact, vérification de l'approbation avant SSH, sauvegarde fraîche et retour arrière ciblé, Coming Soon, identité temporaire, concurrence sans annulation, thème et règles commerciales inchangés. La recette appelée ne reçoit aucun secret GoDaddy.
 - Périmètre reste la préparation du français canadien. Aucune autorisation d'opération distante n'est déduite de la clôture sécurité ou de la réussite des tests. Ne pas approuver un job de configuration avant l'accord explicite de Julien pour ce périmètre.
 

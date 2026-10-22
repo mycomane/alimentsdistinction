@@ -60,6 +60,21 @@ class NativeWorkflowGuards(unittest.TestCase):
         self.assertIn('php scripts/qa/no-orders.php', QA)
         self.assertIn('python3 tests/locale-workflow.py', job('prepare'))
 
+    def test_issue4_diagnosis_has_no_mutation_route(self):
+        self.assertIn('&& false', job('deploy'))
+        diagnostic = (ROOT / '.github/workflows/diagnose-locale-filesystem.yml').read_text()
+        self.assertIn('environment: godaddy-temp', diagnostic)
+        self.assertIn('needs: [isolated-guards]', diagnostic)
+        self.assertIn('actions/runs/$GITHUB_RUN_ID/approvals', diagnostic)
+        self.assertIn('flock -sn 9', diagnostic)
+        self.assertIn('exec 9< ', diagnostic)
+        self.assertIn('php -- --existing-review', diagnostic)
+        self.assertNotIn('scp ', diagnostic)
+        self.assertNotIn('secrets: inherit', diagnostic)
+        self.assertNotIn('update-temp.sh', diagnostic)
+        self.assertLess(diagnostic.index('name: Require NEW recorded human approval'),
+                        diagnostic.index('name: Verify SSH identity'))
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

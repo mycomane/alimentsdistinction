@@ -36,6 +36,7 @@ jobs:
           php tests/p0-db-size.php
           php tests/locale-files.php
           php tests/locale-public.php
+          sudo php tests/locale-ownership.php
           python3 tests/locale-deployment.py
       - uses: actions/upload-artifact@v4
         with:
@@ -53,7 +54,8 @@ jobs:
     uses: ./.github/workflows/qa-locale-fr-ca.yml
   deploy:
     needs: [prepare, isolated-qa]
-    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    # Issue #4: diagnosis and isolated review only; no mutation can be queued.
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme' && false
     name: APPROVAL REQUIRED — fr_CA language only on temporary WordPress
     runs-on: ubuntu-latest
     environment: godaddy-temp

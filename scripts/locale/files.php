@@ -37,7 +37,10 @@ function lf_apply(string $source,string $root,array $snapshot,string $journal,?c
  foreach($s['payload']['files'] as $p=>$hash){
   $src=$source.'/'.$p;
   if(!is_file($src)||is_link($src)||realpath($src)!==$src||hash_file('sha256',$src)!==$hash)throw new RuntimeException('Locale candidate mismatch');
-  $stat=lstat($src);if($stat['nlink']!==1||$stat['uid']!==$owner['uid']||$stat['dev']!==$owner['dev'])throw new RuntimeException('Locale filesystem/owner precondition failed');
+  $stat=lstat($src);
+  if($stat['nlink']!==1)throw new RuntimeException('Locale precondition refused: candidate_single_link');
+  if($stat['uid']!==$owner['uid'])throw new RuntimeException('Locale precondition refused: candidate_owner_matches_directory');
+  if($stat['dev']!==$owner['dev'])throw new RuntimeException('Locale precondition refused: candidate_device_matches_directory');
  }
  $j=['phase'=>'prepared','intent'=>null,'changed'=>[]];lf_write($journal,$j);
  foreach([$root,$root.'/plugins'] as $dir){if(!is_dir($dir)){if(!mkdir($dir,0755)||!chmod($dir,0755))throw new RuntimeException('Language directory unavailable');}if(realpath($dir)!==$dir||!is_writable($dir))throw new RuntimeException('Unsafe language directory');}

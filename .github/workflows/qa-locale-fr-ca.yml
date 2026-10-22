@@ -40,6 +40,7 @@ jobs:
           python3 scripts/locale/prepare-packages.py --isolated
           php tests/locale-files.php
           php tests/locale-public.php
+          sudo php tests/locale-ownership.php
           php scripts/locale/test-state-isolated.php test
           php scripts/locale/test-state-isolated.php verify
           node scripts/review-french-storefront.cjs || status=1

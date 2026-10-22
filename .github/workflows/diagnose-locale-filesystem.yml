@@ -1,0 +1,104 @@
+name: Locale filesystem diagnosis — READ ONLY, new human review
+on:
+  push:
+    branches: [feat/wordpress-woocommerce-theme]
+    paths: ['.github/workflows/diagnose-locale-filesystem.yml']
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: godaddy-temp-site-diagnostic
+  cancel-in-progress: false
+jobs:
+  isolated-guards:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify standalone read-only diagnostic and guard tests
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = feat/wordpress-woocommerce-theme
+          php -l scripts/locale/audit-fs.php
+          php -l scripts/locale/files.php
+          sudo php tests/locale-ownership.php
+          php tests/locale-files.php
+          python3 tests/locale-workflow.py
+  read-only-review:
+    name: NEW APPROVAL — read existing filesystem booleans ONLY
+    needs: [isolated-guards]
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    environment: godaddy-temp
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      SSH_HOST: 1302636.us22.ssh.myftpupload.com
+      SSH_USERNAME: ${{ secrets.GODADDY_SSH_USERNAME }}
+      SSH_PASSWORD: ${{ secrets.GODADDY_SSH_PASSWORD }}
+      PINNED_FINGERPRINT: 'SHA256:oxYa4nr7BL5hXCIG5j/OOk54R6yNokpACBoa3tn+Kp4'
+    steps:
+      - name: Require NEW recorded human approval on this diagnostic run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/approvals" > "$RUNNER_TEMP/diagnostic-approvals.json"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          rows = json.loads(Path(os.environ['RUNNER_TEMP'], 'diagnostic-approvals.json').read_text())
+          assert any(r.get('state') == 'approved' and r.get('user', {}).get('login') == 'mycomane'
+                     and any(e.get('name') == 'godaddy-temp' for e in r.get('environments', [])) for r in rows), 'New human diagnostic approval missing'
+          print('PASS: human approval recorded for this read-only diagnostic run.')
+          PY
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify SSH identity before authentication
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = feat/wordpress-woocommerce-theme
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test -n "$SSH_USERNAME" && test -n "$SSH_PASSWORD"
+          mkdir -p "$HOME/.ssh"
+          chmod 700 "$HOME/.ssh"
+          timeout 18 ssh-keyscan -T 10 -t ed25519 -p 22 "$SSH_HOST" > "$HOME/.ssh/known_hosts" 2>/dev/null
+          test -s "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+          test "$(ssh-keygen -lf "$HOME/.ssh/known_hosts" -E sha256 | awk '{print $2}')" = "$PINNED_FINGERPRINT"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq sshpass
+      - name: Read existing recovery candidate metadata without remote file writes
+        run: |
+          set -euo pipefail
+          export SSHPASS="$SSH_PASSWORD"
+          # Existing lock is opened for reading only, never created or truncated.
+          # PHP is sent on stdin; no script, journal, backup or probe is uploaded.
+          remote='set -euo pipefail
+          exec 9< "$HOME/.ad-theme-update.lock"
+          flock -sn 9
+          root=""
+          for c in "$PWD" "$HOME" "$HOME/html" "$HOME/public_html" "$PWD/html" "$PWD/public_html"; do
+            if [ -f "$c/wp-load.php" ]; then root="$c"; break; fi
+          done
+          test -n "$root"
+          cd "$root"
+          test "$(wp --path="$PWD" --skip-plugins --skip-themes option get siteurl 2>/dev/null)" = "https://1302636.us22.myftpupload.com"
+          test "$(wp --path="$PWD" --skip-plugins --skip-themes option get home 2>/dev/null)" = "https://1302636.us22.myftpupload.com"
+          php -- --existing-review'
+          if ! sshpass -e ssh -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$HOME/.ssh/known_hosts" -o PreferredAuthentications=password -o PubkeyAuthentication=no -o NumberOfPasswordPrompts=1 -o ConnectTimeout=12 "$SSH_USERNAME@$SSH_HOST" "$remote" < scripts/locale/audit-fs.php > "$RUNNER_TEMP/diagnostic-output.txt" 2> "$RUNNER_TEMP/diagnostic-errors.txt"; then
+            echo 'READ_ONLY_DIAGNOSTIC_FAILED: no raw SSH or PHP error output published.'
+            exit 1
+          fi
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          output = Path(os.environ['RUNNER_TEMP'], 'diagnostic-output.txt').read_text()
+          assert output.startswith('LOCALE_FS_REVIEW '), 'Unexpected diagnostic output'
+          row = json.loads(output.removeprefix('LOCALE_FS_REVIEW '))
+          expected = {'source_canonical', 'target_canonical', 'candidate_hashes_match', 'candidate_single_link', 'candidate_owner_matches_directory', 'candidate_device_matches_directory', 'target_effectively_writable', 'target_write_bits_present', 'target_execute_bits_present', 'existing_targets_owner_matches_candidate', 'existing_targets_device_matches_candidate', 'existing_targets_single_link', 'inventory_matches_snapshot', 'inventory_has_no_links'}
+          assert set(row) == expected and all(type(v) is bool for v in row.values()), 'Non-allowlisted diagnostic fields'
+          print('LOCALE_FS_REVIEW ' + json.dumps(row, sort_keys=True))
+          PY
