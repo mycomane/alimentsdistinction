@@ -1,0 +1,36 @@
+name: P1 content proposals — static isolated preview only
+on:
+  push:
+    branches: [feat/wordpress-woocommerce-theme]
+    paths: ['.github/workflows/qa-p1-content-preview.yml', 'docs/p1/content-ux-proposals.html', 'scripts/p1/review-content-proposals.cjs']
+permissions:
+  contents: read
+jobs:
+  static-preview:
+    if: github.ref == 'refs/heads/feat/wordpress-woocommerce-theme'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Reuse pinned preview browser only; no WordPress or external site
+        run: |
+          set -euo pipefail
+          node --check scripts/p1/review-content-proposals.cjs
+          git diff --exit-code HEAD -- wordpress/aliments-distinction index.html
+          npm install --prefix "$RUNNER_TEMP/ad-p1-preview-tools" playwright@1.56.1 --no-audit --no-fund
+          "$RUNNER_TEMP/ad-p1-preview-tools/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Check documentary preview at five widths and capture proposals
+        env:
+          NODE_PATH: ${{ runner.temp }}/ad-p1-preview-tools/node_modules
+        run: node scripts/p1/review-content-proposals.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p1-content-proposal-evidence
+          path: ${{ runner.temp }}/p1-content-review/
+          retention-days: 14
+          if-no-files-found: error
