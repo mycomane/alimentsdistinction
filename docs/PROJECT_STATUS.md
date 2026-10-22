@@ -1,5 +1,10 @@
 # Aliments Distinction — suivi Work / Coordination
 
+## Validation de Julien — 22 octobre 2026
+
+Julien a répondu **« accepté »** au résultat final de P1 : intégration et recette isolées, 58 assertions réussies, captures avant/après, contraste 13,3903:1 et hero sans décalage. **Résultat isolé accepté.** Les décisions Recettes/promesses commerciales différées et confidentialité persistante séparée restent inchangées. Cette acceptation **n'autorise aucun déploiement ni nouvelle opération GoDaddy**; autorisation distincte et revue GitHub du futur run exact toujours nécessaires. La Coordination peut définir la prochaine phase.
+
+
 ## Résultat courant — P1, 22 octobre 2026 : intégration isolée validée, aucun déploiement
 
 - **[CI ciblée 39867328004](https://github.com/mycomane/alimentsdistinction/actions/runs/39867328004) completed/success**, SHA exact `b40a3740889ad212f06a1ab99bfba10018ae0a35`, job `120132702299`. Correctif du thème introduit par `4fc4e05e`; les octets du thème sont inchangés dans le second commit, qui corrige uniquement la simulation UTF-8 du test et sa documentation. [Rapport final et diff](p1/INTEGRATION_ISOLEE_2026-10-22.md).

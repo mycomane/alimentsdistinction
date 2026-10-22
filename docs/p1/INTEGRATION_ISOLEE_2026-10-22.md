@@ -1,5 +1,8 @@
 # P1 — intégration isolée du correctif approuvé
 
+> **Acceptation de Julien, 22 octobre 2026 :** résultat final de l'intégration et de la recette isolées accepté dans Work (« accepté »). Aucune autorisation de déploiement ou d'accès GoDaddy déduite; les étapes de versionnement/cache et la nouvelle revue humaine restent nécessaires avant toute mise en ligne.
+
+
 Directive [Coordination #6351044184](https://github.com/mycomane/alimentsdistinction/issues/2#issuecomment-6351044184), décisions de Julien conservées dans [le registre](DECISIONS_JULIEN_2026-10-22.md). Base exacte : `0771856d2251620fcf578143f353877e9cd2ca36`. Aucun déploiement ni accès GoDaddy autorisé ou exécuté.
 
 ## Résultat final : prêt pour revue, non déployé
