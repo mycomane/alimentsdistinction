@@ -1,4 +1,6 @@
-# P1 — prêt pour revue visuelle, aucun déploiement
+# P1 — propositions, choix retenu et livraison 0.1.2
+
+> **État au 21 octobre, 19 h 57 HAE : styles 0.1.2 déployés avec succès après revue humaine GitHub.** [Preuve](evidence/release-0.1.2-deployment.json). Palette « Actuel » conservée, seuls les contrôles validés de A ont été livrés. **GoDaddy est encore en `en_US`, sans paquets français : localisation à compléter.** Les sections de propositions et tests isolés ci-dessous conservent l’historique; voir [PROJECT_STATUS.md](../PROJECT_STATUS.md) pour l’état courant.
 
 > **Décision de Julien : conserver « Actuel », palette choisie par Jean-François et Meggy.** Seuls le bouton d’ajout au panier et le sélecteur de variation reprennent A. Les variantes complètes ci-dessous sont archivées pour référence, sans intégration. Site en français; vérification dédiée avec les traductions officielles WordPress/WooCommerce. Aucun déploiement autorisé par ce choix.
 

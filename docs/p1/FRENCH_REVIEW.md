@@ -35,3 +35,7 @@ Le contrôle de l’écran de commande est une inspection avec panier fictif et 
 ## Suite proposée
 
 [Périmètre du futur lot temporaire 0.1.2](DEPLOYMENT_SCOPE.md) : les deux seuls fichiers de thème concernés seraient `commerce.css` (bloc approuvé) et `style.css` (version/cache). Aucun déploiement ni modification de workflow protégé préparé implicitement. L’autorisation de cette livraison sera distincte, suivie d’une nouvelle approbation GitHub pour le run exact.
+
+## Diagnostic hébergé après livraison des styles
+
+Le [déploiement 39696116068](https://github.com/mycomane/alimentsdistinction/actions/runs/39696116068) a relevé la langue en lecture seule : **en_US**, paquets français core/WooCommerce absents, libellés « Add to cart » et « Choose an option », marqueur anglais dans le texte de confidentialité enregistré. Le risque n’est donc plus seulement théorique pour le WordPress temporaire. **Les styles 0.1.2 sont déployés; la localisation française hébergée reste à réaliser dans un lot distinct.** Aucun texte privé extrait, aucune option/locale/traduction modifiée. Les tests `fr_FR` isolés attestent du fonctionnement des traductions lorsqu’elles sont installées, pas de leur présence sur GoDaddy.

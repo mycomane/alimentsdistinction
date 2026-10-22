@@ -1,0 +1,69 @@
+{
+  "scope": "temporary WordPress only",
+  "site": "https://1302636.us22.myftpupload.com",
+  "run_id": 39696116068,
+  "deployment_job_id": 119554780896,
+  "conclusion": "success",
+  "source_commit": "ad3006ca7c618b9d71617232bec67fe7c9cd322a",
+  "human_approval": {
+    "login": "mycomane",
+    "environment": "godaddy-temp",
+    "state": "approved",
+    "exact_run_checked": true
+  },
+  "success_marker_time_utc": "2026-10-21T23:57:47.5302386Z",
+  "success_marker_time_toronto": "2026-10-21 19:57:47 HAE",
+  "versions": {
+    "wordpress": "7.1.3",
+    "php_cli": "8.2.35",
+    "woocommerce": "11.2.1",
+    "theme_before": "0.1.1",
+    "theme_after": "0.1.2"
+  },
+  "changed_files": [
+    "assets/css/commerce.css",
+    "style.css"
+  ],
+  "backup": {
+    "private_path": "~/.ad-private-backups/p1-012-39696116068/",
+    "fresh_theme_archive": true,
+    "fresh_sql_gzip": true,
+    "sha256_verified": true,
+    "extracted_full_theme_verified": true,
+    "pair_update_rollback_rehearsal_verified": true,
+    "pristine_full_theme_preserved": true,
+    "offsite_or_full_sql_restore_tested": false
+  },
+  "checks": {
+    "temporary_identity_before_upload": true,
+    "full_old_inventory_23_files": true,
+    "strict_sql_size_and_space": true,
+    "full_new_inventory_23_files": true,
+    "protected_settings_pages_counts_tax_shipping_unchanged": true,
+    "both_css_http_exact_before_after": true,
+    "home_and_four_pages_http_200_coming_soon_before_after": true,
+    "scoped_theme_header_cache_only": true,
+    "rollback_needed_after_public_update": false
+  },
+  "new_css_sha256": {
+    "assets/css/commerce.css": "37f4c3b0bcbbad46aee2c61315544bc3db299f0b7bcb449b37e07c1226a0b6d9",
+    "style.css": "90f6fe38567e59a0838dd97bae223fca04f807bd6e0b9427e80b5361136f2e53"
+  },
+  "zip_sha256": "45aae70781a815e4248ea04561f5e14a28917fc0ebc0851aebd883db533f106f",
+  "locale_read_only": {
+    "locale": "en_US",
+    "core_fr_pack": false,
+    "woo_fr_pack": false,
+    "add_to_cart": "Add to cart",
+    "choose_option": "Choose an option",
+    "stored_checkout_privacy_has_english_marker": true
+  },
+  "limitations": [
+    "No authenticated hosted responsive review or screenshot",
+    "No review account created",
+    "French labels verified in isolated fr_FR tests, not installed on GoDaddy",
+    "No locale, translations or stored privacy text changed",
+    "No real payment or order",
+    "Backup is private on-host; no full SQL restore/offsite recovery certification"
+  ]
+}

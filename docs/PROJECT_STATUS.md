@@ -4,30 +4,29 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 
 ## Phase et derniers commits
 
-**P0 clôturé. P1 : aperçu validé et déploiement temporaire autorisé par Julien. Release 0.1.2 construite et testée; [run 39696116068](https://github.com/mycomane/alimentsdistinction/actions/runs/39696116068) en attente de la nouvelle approbation GitHub `godaddy-temp`. Aucune opération GoDaddy commencée. Palette « Actuel » conservée; seuls les deux contrôles WooCommerce validés changent.**
+**P0 clôturé. P1 : thème 0.1.2 déployé avec succès sur GoDaddy temporaire après autorisation de Julien et nouvelle revue GitHub. Palette « Actuel » conservée; seuls les deux contrôles approuvés et la version/cache ont changé. Coming Soon maintenu, sauvegarde et état protégé vérifiés. Point restant : WordPress hébergé est en `en_US`, sans paquets français; le français n’est pas encore installé sur GoDaddy.**
 
 - Branche exclusive : `feat/wordpress-woocommerce-theme`.
-- Dernier commit P1 testé : [`61d940e2e0847b6f3358f4c98aa16c572f593148`](https://github.com/mycomane/alimentsdistinction/commit/61d940e2e0847b6f3358f4c98aa16c572f593148); captures seules : [`80bd8201a9a61b3c7e9225f31dca81c3296dc9b7`](https://github.com/mycomane/alimentsdistinction/commit/80bd8201a9a61b3c7e9225f31dca81c3296dc9b7). Code GoDaddy toujours `be5703eeaa434ada55cb33a961a0b08e11f6a862`, thème 0.1.1.
+- Code P1 déployé/testé : [`ad3006ca7c618b9d71617232bec67fe7c9cd322a`](https://github.com/mycomane/alimentsdistinction/commit/ad3006ca7c618b9d71617232bec67fe7c9cd322a), thème **0.1.2**. Précédent code P0 : `be5703eeaa434ada55cb33a961a0b08e11f6a862`, thème 0.1.1. Les propositions A/B complètes n’ont pas été intégrées.
 - Commit du correctif CSS : [`9618095516d982e10eebfe5c7aa0cdcc4bf85be3`](https://github.com/mycomane/alimentsdistinction/commit/9618095516d982e10eebfe5c7aa0cdcc4bf85be3).
 - Les commits de compte rendu et de captures suivent ces commits; leur SHA exact est visible dans l’historique de ce fichier, sans référence auto-inventée.
 - `master` observé à `c9d6d888a2aa07e375c86a4cd271cae7b53987da`, inchangé par ce travail.
 
-## P1 — prêt pour déploiement, approbation GitHub en attente
+## P1 — déploiement 0.1.2 réussi; français hébergé à compléter
 
-- **Julien autorise explicitement le déploiement des deux contrôles validés**, avec sauvegarde/retour arrière et nouvelle approbation GitHub obligatoire. Accord reçu dans Work après présentation de `p1/DEPLOYMENT_SCOPE.md`; aucune nouvelle autorisation commerciale, de langue ou de compte de recette.
-- Release **0.1.2 préparée**, pas encore installée : uniquement le bloc approuvé de `assets/css/commerce.css` et la ligne Version dans `style.css`. Les 21 autres fichiers restent identiques à la base GoDaddy P0. Palette « Actuel » conservée.
-- Nouveau workflow distinct `update-godaddy-temp-p1.yml`; ancien workflow P0 inchangé. Même environnement `godaddy-temp`, reviewer humain `mycomane`, contrôle d’approbation du run exact, hôte SSH épinglé, identité temporaire stricte, concurrence conservée. La QA existante du commit exact est attendue par API en lecture seule, sans double exécution de la suite.
-- Contrôles locaux : source/7 images/syntaxe/structure conformes, ZIP intègre avec inventaire strict 23 fichiers, **23 assertions paire/interruption/retour arrière**, **4 scénarios du vrai script shell avec transports WP/HTTP simulés** (succès, HTTP défaillant, invalidation cache défaillante, Coming Soon manquant) et **46 assertions parseur SQL/marge disque** réussies. Ces simulations ne sont pas des tests GoDaddy ni de restauration SQL intégrale.
-- Nouveau mécanisme : sauvegarde fraîche SQL + thème + SHA hors webroot, extraction et répétition privée de la paire, journal des remplacements, vérification des deux CSS par HTTP. En cas d’échec, retour des deux fichiers à 0.1.1, refus d’écraser une modification inconnue, contrôle du manifeste complet/état protégé/Coming Soon. Aucune restauration SQL automatique.
-- Lecture seule de la langue et des traductions prévue dans le job protégé; aucune installation de paquet ou modification de texte/option française. Aucun nouveau compte ou produit sur GoDaddy.
-- ZIP 0.1.2 SHA256 : `45aae70781a815e4248ea04561f5e14a28917fc0ebc0851aebd883db533f106f`. [Run protégé 39696116068](https://github.com/mycomane/alimentsdistinction/actions/runs/39696116068), commit exact [`ad3006ca7c618b9d71617232bec67fe7c9cd322a`](https://github.com/mycomane/alimentsdistinction/commit/ad3006ca7c618b9d71617232bec67fe7c9cd322a).
-- **Préparation job 119553783218 : succès** (17 gardes fichiers P0, 23 assertions P1, 4 scénarios shell simulés, 46 assertions SQL et 6 scénarios MySQL réels). ZIP/manifeste publiés dans l’artefact `p1-012-review-package`.
-- **[QA isolée 39696116033](https://github.com/mycomane/alimentsdistinction/actions/runs/39696116033), job 119553783106 : succès**, suite responsive/WooCommerce complète + 45 contrôles français aux cinq largeurs, zéro échec et aucune erreur JS/PHP détectée. Aucun paiement actif ni commande créée. Le job barrière 119553783373 a confirmé la réussite du workflow QA sur ce commit exact.
-- **[Build 39696115899](https://github.com/mycomane/alimentsdistinction/actions/runs/39696115899) : succès.** Le ZIP déterministe correspond au SHA ci-dessus.
-- **Job 119554780896 : waiting**, nouvelle revue humaine de `godaddy-temp` requise. Le job de déploiement n’a pas commencé; aucun accès SSH ou changement GoDaddy. Aucune auto-approbation. Julien doit ouvrir le run, choisir Review deployments → godaddy-temp → Approve and deploy.
-- [Preuve compacte de préparation](p1/evidence/release-0.1.2-review.json). Après la revue humaine, vérifier le résultat et compléter ce suivi avec la sauvegarde réelle, les diagnostics de langue et les contrôles avant/après. **Ne pas déclarer le lot déployé sur la seule réussite des tests isolés.**
+- **[Run 39696116068](https://github.com/mycomane/alimentsdistinction/actions/runs/39696116068) : succès**, job de déploiement `119554780896`. Approbation humaine `mycomane` de `godaddy-temp` enregistrée et vérifiée pour cette exécution précise. Marqueur de réussite : **21 octobre 2026, 19 h 57 HAE**. Aucune auto-approbation.
+- Identité temporaire contrôlée avant téléversement : home/siteurl strictement `https://1302636.us22.myftpupload.com`. WordPress **7.1.3**, PHP **CLI 8.2.35**, WooCommerce **11.2.1** actif; thème actif de **0.1.1 à 0.1.2**. Version PHP web non remesurée.
+- Deux fichiers seulement : `assets/css/commerce.css` (contrôles approuvés) et `style.css` (ligne Version/cache). **Les 23 empreintes initiales puis finales sont vérifiées.** Source officielle, images et palette globale préservées; ancien workflow P0 intact.
+- **Sauvegarde fraîche privée** : `~/.ad-private-backups/p1-012-39696116068/`, thème complet et SQL compressé avec SHA256 vérifiés. Archive du thème extraite et vérifiée; mise à jour puis retour arrière de la paire répétés sur cette copie privée, sauvegarde originale préservée. Sauvegarde sur l’hôte seulement, pas de restauration SQL intégrale/hors site certifiée.
+- Remplacement réel journalisé de la paire; invalidation de la seule clé de cache d’en-tête du thème. Les **deux CSS sont servis en HTTP avec leurs empreintes exactes avant/après**. Aucune restauration de la paire réelle nécessaire : tous les contrôles finaux passent.
+- Options protégées, pages techniques, comptes/produits/commandes et règles de taxes/livraison vérifiés inchangés par le script. **Accueil et quatre pages techniques anonymes : HTTP 200 et Coming Soon avant/après**. Aucun nouveau compte, produit, commande, paiement ou réglage commercial.
+- **Diagnostic de langue en lecture seule : `en_US`, paquet core français absent, paquet WooCommerce français absent**, libellés renvoyés « Add to cart » / « Choose an option ». Texte de confidentialité enregistré avec marqueur anglais. **La version 0.1.2 déploie les styles; elle ne rend pas encore le WordPress hébergé français.** Aucun réglage de langue, paquet ou texte légal modifié par ce lot. Préparer une phase française distincte avec protection des réglages commerciaux et validation du contenu.
+- **Limite : aucun nouveau contrôle visuel authentifié sur GoDaddy**, aucune capture hébergée ni compte de recette créé. Recette visuelle/transactionnelle isolée réussie; ne pas en déduire un parcours transactionnel complet hébergé ou une certification globale.
+- [Preuve de déploiement](p1/evidence/release-0.1.2-deployment.json). La [preuve de préparation/revue](p1/evidence/release-0.1.2-review.json) conserve le statut historique avant approbation.
+- QA du commit exact : [39696116033](https://github.com/mycomane/alimentsdistinction/actions/runs/39696116033), job `119553783106`, **succès**; suite complète + 45 contrôles français aux cinq largeurs, aucune erreur JS/PHP détectée et aucune commande/passerelle active. Job barrière `119553783373` réussi, aucune seconde suite complète inutile.
+- Préparation `119553783218` : **succès**, 17 gardes fichiers existants, 23 assertions paire/interruption/retour arrière, 4 simulations shell, 46 assertions SQL/marge et 6 scénarios MySQL. [Build 39696115899](https://github.com/mycomane/alimentsdistinction/actions/runs/39696115899) réussi. ZIP SHA256 `45aae70781a815e4248ea04561f5e14a28917fc0ebc0851aebd883db533f106f`.
 
-## Validation de Julien et complément de recette française
+## Historique — validation de l’aperçu et recette française isolée avant déploiement
 
 - Julien a validé l’aperçu et demandé de continuer. L’issue #2 exige toujours un accord de déploiement distinct; aucun workflow protégé modifié ou déclenché.
 - Code de recette complémentaire : [`0563c3a5a793e169959b6835b6316c0c3275ca25`](https://github.com/mycomane/alimentsdistinction/commit/0563c3a5a793e169959b6835b6316c0c3275ca25). [Run 39694834148](https://github.com/mycomane/alimentsdistinction/actions/runs/39694834148), job `119549577969` : **23 contrôles réussis**, zéro échec, zéro erreur JS/PHP comptée. Catalogue/tri, stock, variations, panier vide, ajout synthétique, quantité 2 → 1, champs de facturation et écran de commande. Aucun checkout soumis, paiement ou commande créée.
@@ -36,7 +35,7 @@ Mise à jour : **21 octobre 2026**, fuseau America/Toronto.
 - [Rapport français et preuves](p1/FRENCH_REVIEW.md). [Périmètre proposé 0.1.2](p1/DEPLOYMENT_SCOPE.md) : bloc `commerce.css` validé et seule ligne de version dans `style.css` pour les caches. Release non encore créée; mécanisme P0 non réutilisable pour ce nouveau périmètre. Autorisation distincte requise avant nouvelle livraison et approbation GitHub du nouveau run.
 - Budget : recette existante réutilisée; deux passages ciblés seulement, aucun nouveau changement de thème ou relancement des 300 assertions. Coming Soon, protections GitHub, master et site commercial intacts.
 
-## Décision P1 — intégration ciblée testée, non déployée
+## Historique — intégration ciblée avant livraison
 
 - Base de cette phase : `6fe6febb220889059db21af463ff0968401e2aa1`. Palette globale, accueil, navigation et infolettre conservés.
 - CSS limité au bouton d’achat de la fiche produit (actif, survol, désactivé) et à la bordure du sélecteur de variations. Aucun filtre de traduction global ni changement des règles WooCommerce.
@@ -189,10 +188,10 @@ La sauvegarde privée préactivation `wc-preactivate-39515208953` et les protect
 
 ## Prochaines étapes recommandées
 
-1. Accord graphique et autorisation de déploiement reçus. Julien approuve le run 39696116068 dans GitHub; le job est actuellement waiting. Aucune auto-approbation ni nouvelle demande d’autorisation de principe.
-2. Lors d’une prochaine intervention autorisée, relever langue, paquets français et textes enregistrés sur GoDaddy; proposer les corrections de contenu nécessaires sans modifier les réglages commerciaux.
-3. Tout futur déploiement GoDaddy sera préparé avec autorisation distincte, sauvegarde/rollback et nouvelle revue `godaddy-temp`.
-4. Valider contenus commerciaux, coordonnées, contrats/garanties, recettes et service d'infolettre. La recette transactionnelle et les réglages métier restent distincts.
-5. Conserver Coming Soon et restrictions site commercial/master/DNS/paiements/Zoho. Avant production, sauvegarde hors site/restauration intégrale, sécurité SSH et performance restent à traiter.
+1. Coordination examine les preuves du déploiement réussi et conserve les limites de recette hébergée; aucune nouvelle livraison de ce lot requise.
+2. Préparer la localisation française du WordPress temporaire : langue, paquets officiels core/WooCommerce et contenus enregistrés. État observé `en_US`; ne pas confondre le succès CSS avec l’installation du français. Le choix de locale et les textes de confidentialité doivent être présentés avant modification hors du lot approuvé.
+3. Si nécessaire, autoriser séparément une recette visuelle privée hébergée; ne pas créer implicitement de compte ou de produit sur GoDaddy. Coming Soon reste actif.
+4. Valider les contenus commerciaux, coordonnées, contrats/garanties, recettes et service d’infolettre. Taxes, livraison, devises et paiements restent hors périmètre.
+5. Conserver sauvegardes, revue GitHub, restrictions production/master/DNS/Zoho. Avant production, sauvegarde hors site/restauration intégrale, sécurité SSH et performance restent à traiter.
 
 Ce fichier est le point de synchronisation avec ChatGPT Coordination; aucun message de cette conversation Work n’y est supposé reçu automatiquement.
