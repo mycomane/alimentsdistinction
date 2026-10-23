@@ -1,5 +1,16 @@
 # Aliments Distinction — suivi Work / Coordination
 
+## P1 — accès cloud fonctionnel, connexion humaine requise (22 octobre 2026, Toronto)
+
+Directive corrigée [#6354796024](https://github.com/mycomane/alimentsdistinction/issues/2#issuecomment-6354796024) lue intégralement. Elle remplace la restriction aux seuls onglets déjà ouverts.
+
+**Tentative réelle :** nouvel onglet ouvert normalement dans Chrome cloud, navigation vers l'administration du WordPress temporaire. Page de connexion WordPress effectivement rendue en français canadien, proposant **Log in with GoDaddy** et une alternative WordPress. Aucun ERR_SOCKS, refus automatisé ou autre erreur technique constaté sur cette navigation. Le précédent arrêt était procédural et n'établissait pas une panne du navigateur.
+
+**Statut : accès cloud OK / requiert connexion.** Prise en main utilisateur demandée via le mécanisme officiel du navigateur, motif authentication, pour que Julien se connecte directement. Aucune valeur d'identification saisie, demandée dans le chat ou inspectée par Work. Authentification non encore confirmée; aucune capture du thème ni recette visuelle hébergée revendiquée. Aucune observation intermédiaire de la saisie humaine.
+
+Après confirmation de Julien, vérifier le résultat de la connexion sur le site temporaire puis reprendre la revue frontend en lecture seule, sans données privées/barre admin dans les captures. Si un vrai blocage apparaît, arrêter et utiliser les captures fournies. Aucun compte, réglage, Coming Soon, fichier hébergé ou workflow modifié; aucune nouvelle connexion SSH.
+
+
 ## P1 0.1.3 — revue visuelle hébergée bloquée (23 octobre 2026)
 
 Directive [#6354023475](https://github.com/mycomane/alimentsdistinction/issues/2#issuecomment-6354023475) lue; dernier commit constaté avant ce rapport : `5fd06c708c8a73e727e4b995dcfc23a0565f3037`. [Run livré 39873774537](https://github.com/mycomane/alimentsdistinction/actions/runs/39873774537) revérifié completed/success au SHA `6163fa04069b3390a03156ae97cc44df5b0c8f20`.
