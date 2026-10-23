@@ -1,5 +1,16 @@
 # Aliments Distinction — suivi Work / Coordination
 
+## P1 0.1.3 — revue visuelle hébergée bloquée (23 octobre 2026)
+
+Directive [#6354023475](https://github.com/mycomane/alimentsdistinction/issues/2#issuecomment-6354023475) lue; dernier commit constaté avant ce rapport : `5fd06c708c8a73e727e4b995dcfc23a0565f3037`. [Run livré 39873774537](https://github.com/mycomane/alimentsdistinction/actions/runs/39873774537) revérifié completed/success au SHA `6163fa04069b3390a03156ae97cc44df5b0c8f20`.
+
+**Constat réel :** navigateur Chrome cloud accessible, **zéro onglet**, aucune session WordPress autorisée réutilisable identifiée. Aucun accès au navigateur local de Julien établi; aucun cookie inspecté. Arrêt conforme au point 4 de la directive. Aucun nouvel essai réseau ou authentification, compte, SSH, workflow, purge ou changement de configuration.
+
+**Résultat : revue visuelle ordinateur/mobile non effectuée, zéro capture hébergée nouvelle et zéro comparaison avec la maquette.** Les 62 assertions isolées et le déploiement validé demeurent des preuves distinctes; aucune réussite visuelle hébergée n'est inférée.
+
+[Rapport et liste courte des captures requises](p1/HOSTED_VISUAL_REVIEW_2026-10-23.md) : 1440 px, 390/320 px, menu/focus, infolettre/Contact et pages WooCommerce en consultation; tablette si pertinent. Décision attendue : rendre accessible une session existante déjà autorisée, ou fournir des captures frontend non sensibles avec notes d'interaction. Aucun identifiant/token demandé, aucune création de compte proposée. P1 reste ouvert; aucun nouveau défaut de rendu démontré et aucune correction GoDaddy exécutée.
+
+
 ## P1 0.1.3 — déploiement temporaire réussi après approbation humaine
 
 **22 octobre 2026, fin du run à 23:57:15 UTC.** [Run 39873774537](https://github.com/mycomane/alimentsdistinction/actions/runs/39873774537) désormais **completed/success**, SHA livré `6163fa04069b3390a03156ae97cc44df5b0c8f20`, job protégé `120157351181`. Vérification effectuée depuis les métadonnées, l'historique d'approbation et les journaux GitHub, après réception de la capture de Julien.
